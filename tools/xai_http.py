@@ -63,7 +63,7 @@ def get_env_value(name: str, default=None):
     return os.environ.get(name, default)
 
 
-def KOVA_xai_user_agent() -> str:
+def kova_xai_user_agent() -> str:
     """Return a stable kova-specific User-Agent for xAI HTTP calls."""
     try:
         from kova_cli import __version__
