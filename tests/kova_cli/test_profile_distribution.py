@@ -14,7 +14,7 @@ from pathlib import Path
 
 import pytest
 
-from KOVA_cli.profile_distribution import (
+from kova_cli.profile_distribution import (
     DEFAULT_DIST_OWNED,
     DistributionError,
     DistributionManifest,
@@ -336,8 +336,8 @@ class TestInstall:
 
     def test_install_enforces_KOVA_requires(self, profile_env, monkeypatch):
         # Pin current kova version to something well below the requirement
-        import KOVA_cli
-        monkeypatch.setattr(KOVA_cli, "__version__", "0.1.0", raising=False)
+        import kova_cli
+        monkeypatch.setattr(kova_cli, "__version__", "0.1.0", raising=False)
 
         mf = DistributionManifest(
             name="future",
@@ -413,7 +413,7 @@ class TestUpdate:
 
     def test_update_missing_manifest_errors(self, profile_env):
         # Make a profile without a manifest; update must refuse
-        from KOVA_cli.profiles import create_profile
+        from kova_cli.profiles import create_profile
         create_profile(name="plain", no_alias=True)
         with pytest.raises(DistributionError, match="not a distribution"):
             update_distribution("plain")
@@ -441,7 +441,7 @@ class TestDescribe:
         assert data["env_requires"][0]["name"] == "API"
 
     def test_describe_non_distribution_returns_empty(self, profile_env):
-        from KOVA_cli.profiles import create_profile
+        from kova_cli.profiles import create_profile
         create_profile(name="plain", no_alias=True)
         assert describe_distribution("plain") == {}
 
@@ -492,7 +492,7 @@ class TestSecurity:
         with pytest.raises(DistributionError, match="symlink"):
             install_distribution(str(staged), name="clean")
 
-        from KOVA_cli.profiles import get_profile_dir
+        from kova_cli.profiles import get_profile_dir
         target = get_profile_dir("clean")
         assert not (target / "skills" / "demo" / "leak.txt").exists()
 
@@ -588,7 +588,7 @@ class TestInstalledAtStamp:
     def test_update_refreshes_installed_at(self, profile_env, monkeypatch):
         staged = _make_staging_dir(profile_env, "src")
         install_distribution(str(staged), name="demo")
-        from KOVA_cli.profiles import get_profile_dir
+        from kova_cli.profiles import get_profile_dir
         first = read_manifest(get_profile_dir("demo")).installed_at
 
         # Freeze `datetime.now()` to a fixed future time so we can observe that
@@ -600,10 +600,10 @@ class TestInstalledAtStamp:
             def now(cls, tz=None):
                 return _dt.datetime(2099, 1, 1, 0, 0, 0, tzinfo=tz or _dt.timezone.utc)
         monkeypatch.setattr(
-            "KOVA_cli.profile_distribution.datetime", _FakeDT, raising=True
+            "kova_cli.profile_distribution.datetime", _FakeDT, raising=True
         )
 
-        from KOVA_cli.profile_distribution import update_distribution
+        from kova_cli.profile_distribution import update_distribution
         update_distribution("demo")
         refreshed = read_manifest(get_profile_dir("demo")).installed_at
         assert refreshed != first, "installed_at should change on update"
@@ -624,7 +624,7 @@ class TestProfileInfoDistribution:
         )
         install_distribution(str(staged), name="telem")
 
-        from KOVA_cli.profiles import list_profiles
+        from kova_cli.profiles import list_profiles
         rows = {p.name: p for p in list_profiles()}
         assert "telem" in rows
         row = rows["telem"]
@@ -633,14 +633,14 @@ class TestProfileInfoDistribution:
         assert row.distribution_source  # path populated, exact value depends on fixture
 
     def test_plain_profile_has_no_distribution_fields(self, profile_env):
-        from KOVA_cli.profiles import create_profile, list_profiles
+        from kova_cli.profiles import create_profile, list_profiles
         create_profile(name="plain", no_alias=True)
         rows = {p.name: p for p in list_profiles()}
         assert rows["plain"].distribution_name is None
         assert rows["plain"].distribution_version is None
 
     def test_malformed_manifest_does_not_break_list(self, profile_env):
-        from KOVA_cli.profiles import create_profile, list_profiles, get_profile_dir
+        from kova_cli.profiles import create_profile, list_profiles, get_profile_dir
         create_profile(name="brokenmeta", no_alias=True)
         # Write a distribution.yaml that isn't a valid mapping
         (get_profile_dir("brokenmeta") / "distribution.yaml").write_text(

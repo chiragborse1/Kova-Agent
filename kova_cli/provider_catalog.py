@@ -115,16 +115,16 @@ def provider_catalog() -> list[ProviderDescriptor]:
     # entry of their own — notably the ``moa`` virtual provider (auth_type
     # "virtual"), which has no real credential and no network endpoint.
     try:
-        from kova_cli.providers import kova_OVERLAYS
+        from kova_cli.providers import KOVA_OVERLAYS
     except Exception:
-        kova_OVERLAYS = {}
+        KOVA_OVERLAYS = {}
 
     out: list[ProviderDescriptor] = []
     for order, entry in enumerate(CANONICAL_PROVIDERS):
         slug = entry.slug
         cfg = PROVIDER_REGISTRY.get(slug)
         prof = profiles.get(slug)
-        overlay = kova_OVERLAYS.get(slug)
+        overlay = KOVA_OVERLAYS.get(slug)
 
         # auth_type: registry is authoritative; fall back to profile, then the
         # kova overlay (e.g. moa → "virtual"), then api_key.

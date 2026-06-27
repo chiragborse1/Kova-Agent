@@ -1617,7 +1617,7 @@ def list_authenticated_providers(
         # minimax-cn → MINIMAX_API_KEY instead of MINIMAX_CN_API_KEY).
         pconfig = PROVIDER_REGISTRY.get(kova_id)
         # Skip non-API-key auth providers here — they are handled in
-        # section 2 (kova_OVERLAYS) with proper auth store checking.
+        # section 2 (KOVA_OVERLAYS) with proper auth store checking.
         if pconfig and pconfig.auth_type != "api_key":
             continue
         if pconfig and pconfig.api_key_env_vars:
@@ -1670,15 +1670,15 @@ def list_authenticated_providers(
         _record_builtin_endpoint(slug)
 
     # --- 2. Check kova-only providers (nous, openai-codex, copilot, opencode-go) ---
-    from kova_cli.providers import kova_OVERLAYS
+    from kova_cli.providers import KOVA_OVERLAYS
     from kova_cli.auth import PROVIDER_REGISTRY as _auth_registry
 
     # Build reverse mapping: models.dev ID → kova provider ID.
-    # kova_OVERLAYS keys may be models.dev IDs (e.g. "github-copilot")
+    # KOVA_OVERLAYS keys may be models.dev IDs (e.g. "github-copilot")
     # while _PROVIDER_MODELS and config.yaml use kova IDs ("copilot").
     _mdev_to_kova = {v: k for k, v in PROVIDER_TO_MODELS_DEV.items()}
 
-    for pid, overlay in kova_OVERLAYS.items():
+    for pid, overlay in KOVA_OVERLAYS.items():
         if pid.lower() in seen_slugs:
             continue
 
@@ -1830,7 +1830,7 @@ def list_authenticated_providers(
 
     # --- 2b. Cross-check canonical provider list ---
     # Catches providers that are in CANONICAL_PROVIDERS but weren't found
-    # in PROVIDER_TO_MODELS_DEV or kova_OVERLAYS (keeps /model in sync
+    # in PROVIDER_TO_MODELS_DEV or KOVA_OVERLAYS (keeps /model in sync
     # with `kova model`).
     try:
         from kova_cli.models import CANONICAL_PROVIDERS as _canon_provs

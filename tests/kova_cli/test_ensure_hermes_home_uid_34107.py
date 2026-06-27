@@ -1,8 +1,8 @@
-"""Regression tests for #34107 — Docker UID/GID handling in ensure_KOVA_HOME.
+"""Regression tests for #34107 — Docker UID/GID handling in ensure_kova_home.
 
 When kova runs in Docker with ``KOVA_UID=1000`` / ``KOVA_GID=911``,
 the entrypoint chowns the top-level ``KOVA_HOME`` once at startup. But
-subdirectories created at runtime by ``ensure_KOVA_HOME()`` — especially
+subdirectories created at runtime by ``ensure_kova_home()`` — especially
 for profile namespaces under ``profiles/<name>/`` spawned by kanban
 workers — were landing as ``root:root`` and blocking subsequent
 uid-mapped worker invocations with ``PermissionError [Errno 13]``.

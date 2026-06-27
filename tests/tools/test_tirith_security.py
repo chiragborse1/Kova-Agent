@@ -1182,7 +1182,7 @@ class TestkovaHomeIsolation:
         assert KOVA_HOME is not None, "KOVA_HOME should be set by conftest"
         assert "KOVA_test" in KOVA_HOME, "Should point to test temp dir"
 
-    def test_get_KOVA_HOME_fallback(self):
+    def test_get_kova_home_fallback(self):
         """Without KOVA_HOME set, falls back to the active OS home."""
         from tools.tirith_security import _get_kova_home
         with patch.dict(os.environ, {}, clear=True):

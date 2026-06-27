@@ -519,7 +519,7 @@ def _reports_root() -> Path:
     looking for operational telemetry, not mixed in with the user's
     authored skill data in ``~/.kova/skills/``.
 
-    ``ensure_KOVA_HOME()`` pre-creates this dir on every CLI launch and
+    ``ensure_kova_home()`` pre-creates this dir on every CLI launch and
     the v22→v23 migration backfills it for existing profiles, but we
     still mkdir here as a belt-and-suspenders so the curator works even
     from an odd entry path (e.g. gateway-only install, bare library use)

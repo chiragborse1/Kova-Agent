@@ -72,7 +72,7 @@ class TestNonInteractiveSetup:
         args = _make_setup_args(non_interactive=True)
 
         with (
-            patch("kova_cli.setup.ensure_KOVA_HOME"),
+            patch("kova_cli.setup.ensure_kova_home"),
             patch("kova_cli.setup.load_config", return_value={}),
             patch("kova_cli.setup.get_kova_home", return_value="/tmp/.kova"),
             patch("kova_cli.auth.get_active_provider", side_effect=AssertionError("wizard continued")),
@@ -90,7 +90,7 @@ class TestNonInteractiveSetup:
         args = _make_setup_args(non_interactive=False)
 
         with (
-            patch("kova_cli.setup.ensure_KOVA_HOME"),
+            patch("kova_cli.setup.ensure_kova_home"),
             patch("kova_cli.setup.load_config", return_value={}),
             patch("kova_cli.setup.get_kova_home", return_value="/tmp/.kova"),
             patch("kova_cli.auth.get_active_provider", side_effect=AssertionError("wizard continued")),

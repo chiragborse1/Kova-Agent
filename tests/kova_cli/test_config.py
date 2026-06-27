@@ -11,7 +11,7 @@ from kova_cli.config import (
     DEFAULT_CONFIG,
     check_config_version,
     get_kova_home,
-    ensure_KOVA_HOME,
+    ensure_kova_home,
     get_compatible_custom_providers,
     load_config,
     load_env,
@@ -42,7 +42,7 @@ class TestGetkovaHome:
 class TestEnsurekovaHome:
     def test_creates_subdirs(self, tmp_path):
         with patch.dict(os.environ, {"KOVA_HOME": str(tmp_path)}):
-            ensure_KOVA_HOME()
+            ensure_kova_home()
             assert (tmp_path / "cron").is_dir()
             assert (tmp_path / "sessions").is_dir()
             assert (tmp_path / "logs").is_dir()
@@ -50,7 +50,7 @@ class TestEnsurekovaHome:
 
     def test_creates_default_soul_md_if_missing(self, tmp_path):
         with patch.dict(os.environ, {"KOVA_HOME": str(tmp_path)}):
-            ensure_KOVA_HOME()
+            ensure_kova_home()
             soul_path = tmp_path / "SOUL.md"
             assert soul_path.exists()
             assert soul_path.read_text(encoding="utf-8").strip() != ""
@@ -59,7 +59,7 @@ class TestEnsurekovaHome:
         with patch.dict(os.environ, {"KOVA_HOME": str(tmp_path)}):
             soul_path = tmp_path / "SOUL.md"
             soul_path.write_text("custom soul", encoding="utf-8")
-            ensure_KOVA_HOME()
+            ensure_kova_home()
             assert soul_path.read_text(encoding="utf-8") == "custom soul"
 
     def test_upgrades_legacy_template_soul_md(self, tmp_path):
@@ -71,7 +71,7 @@ class TestEnsurekovaHome:
         with patch.dict(os.environ, {"KOVA_HOME": str(tmp_path)}):
             soul_path = tmp_path / "SOUL.md"
             soul_path.write_text(_LEGACY_TEMPLATE_SOULS[0] + "\n", encoding="utf-8")
-            ensure_KOVA_HOME()
+            ensure_kova_home()
             assert soul_path.read_text(encoding="utf-8") == DEFAULT_SOUL_MD
 
     def test_preserves_legacy_template_with_user_persona(self, tmp_path):
@@ -83,7 +83,7 @@ class TestEnsurekovaHome:
         with patch.dict(os.environ, {"KOVA_HOME": str(tmp_path)}):
             soul_path = tmp_path / "SOUL.md"
             soul_path.write_text(mixed, encoding="utf-8")
-            ensure_KOVA_HOME()
+            ensure_kova_home()
             assert soul_path.read_text(encoding="utf-8") == mixed
 
 
@@ -1149,7 +1149,7 @@ class TestEnvWriteDenylist:
     @pytest.fixture(autouse=True)
     def _KOVA_HOME(self, tmp_path, monkeypatch):
         monkeypatch.setenv("KOVA_HOME", str(tmp_path))
-        ensure_KOVA_HOME()
+        ensure_kova_home()
 
     @pytest.mark.parametrize(
         "denied_key",

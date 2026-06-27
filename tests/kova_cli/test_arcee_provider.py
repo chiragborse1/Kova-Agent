@@ -177,9 +177,9 @@ class TestArceeURLMapping:
 
 class TestArceeProvidersModule:
     def test_overlay_exists(self):
-        from kova_cli.providers import kova_OVERLAYS
-        assert "arcee" in kova_OVERLAYS
-        overlay = kova_OVERLAYS["arcee"]
+        from kova_cli.providers import KOVA_OVERLAYS
+        assert "arcee" in KOVA_OVERLAYS
+        overlay = KOVA_OVERLAYS["arcee"]
         assert overlay.transport == "openai_chat"
         assert overlay.base_url_env_var == "ARCEE_BASE_URL"
         assert not overlay.is_aggregator

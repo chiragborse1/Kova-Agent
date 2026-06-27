@@ -690,7 +690,7 @@ def _resolve_KOVA_uid_gid() -> tuple[Optional[int], Optional[int]]:
     Docker containers running kova commonly set these to map the in-container
     user to a host user so volume-mounted state files end up with the right
     ownership. The entrypoint chowns the top-level KOVA_HOME once, but
-    subdirectories created at runtime by ``ensure_KOVA_HOME()`` (especially
+    subdirectories created at runtime by ``ensure_kova_home()`` (especially
     for profile namespaces under ``profiles/<name>/``) need the same chown
     or they land as ``root:root`` and block subsequent uid-mapped workers
     with ``PermissionError [Errno 13]``. See #34107.
@@ -723,7 +723,7 @@ def _chown_to_KOVA_uid(path) -> None:
       - On Windows (chown semantics don't apply)
 
     Used by :func:`_secure_dir` to keep ownership consistent across all
-    directories created by :func:`ensure_KOVA_HOME` on Docker deployments.
+    directories created by :func:`ensure_kova_home` on Docker deployments.
     See #34107.
     """
     uid, gid = _resolve_KOVA_uid_gid()
@@ -839,7 +839,7 @@ def _ensure_default_soul_md(home: Path) -> None:
     _secure_file(soul_path)
 
 
-def ensure_KOVA_HOME():
+def ensure_kova_home():
     """Ensure ~/.kova directory structure exists with secure permissions.
 
     In managed mode (NixOS), dirs are created by the activation script with
@@ -850,7 +850,7 @@ def ensure_KOVA_HOME():
     if is_managed():
         old_umask = os.umask(0o007)
         try:
-            _ensure_KOVA_HOME_managed(home)
+            _ensure_kova_home_managed(home)
         finally:
             os.umask(old_umask)
     else:
@@ -866,7 +866,7 @@ def ensure_KOVA_HOME():
         _ensure_default_soul_md(home)
 
 
-def _ensure_KOVA_HOME_managed(home: Path):
+def _ensure_kova_home_managed(home: Path):
     """Managed-mode variant: verify dirs exist (activation creates them), seed SOUL.md."""
     if not home.is_dir():
         raise RuntimeError(
@@ -5170,7 +5170,7 @@ def migrate_config(interactive: bool = True, quiet: bool = False) -> Dict[str, A
     #      base_url, api_key, timeout, extra_body) — canonical slot for
     #      routing the curator fork to a cheaper aux model.
     #   3. Creates `~/.kova/logs/curator/` if missing (belt-and-suspenders
-    #      on top of ensure_KOVA_HOME() — old profiles that predate this
+    #      on top of ensure_kova_home() — old profiles that predate this
     #      migration still benefit).
     if current_ver < 23:
         try:
@@ -5990,7 +5990,7 @@ def apply_terminal_config_to_env(
 
 def _load_config_impl(*, want_deepcopy: bool) -> Dict[str, Any]:
     with _CONFIG_LOCK:
-        ensure_KOVA_HOME()
+        ensure_kova_home()
         config_path = get_config_path()
         path_key = str(config_path)
 
@@ -6183,7 +6183,7 @@ def save_config(config: Dict[str, Any]):
                 )
         from utils import atomic_yaml_write
 
-        ensure_KOVA_HOME()
+        ensure_kova_home()
         config_path = get_config_path()
         current_normalized = _normalize_root_model_keys(_normalize_max_turns_config(config))
         normalized = current_normalized
@@ -6505,7 +6505,7 @@ def save_env_value(key: str, value: str):
     value = value.replace("\n", "").replace("\r", "")
     # API keys / tokens must be ASCII — strip non-ASCII with a warning.
     value = _check_non_ascii_credential(key, value)
-    ensure_KOVA_HOME()
+    ensure_kova_home()
     env_path = get_env_path()
 
     # On Windows, open() defaults to the system locale (cp1252) which can
@@ -7099,7 +7099,7 @@ def set_config_value(key: str, value: str):
         key = "model.base_url"
         print("  (note: 'api_base' is an alias — saved as model.base_url)")
     # Write only user config back (not the full merged defaults)
-    ensure_KOVA_HOME()
+    ensure_kova_home()
     from utils import atomic_yaml_write
     atomic_yaml_write(config_path, user_config, sort_keys=False)
     

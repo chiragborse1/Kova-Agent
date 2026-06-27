@@ -124,10 +124,10 @@ class TestGmiModelCatalog:
 
 class TestGmiProvidersModule:
     def test_overlay_exists(self):
-        from kova_cli.providers import kova_OVERLAYS
+        from kova_cli.providers import KOVA_OVERLAYS
 
-        assert "gmi" in kova_OVERLAYS
-        overlay = kova_OVERLAYS["gmi"]
+        assert "gmi" in KOVA_OVERLAYS
+        overlay = KOVA_OVERLAYS["gmi"]
         assert overlay.transport == "openai_chat"
         assert overlay.extra_env_vars == ("GMI_API_KEY",)
         assert overlay.base_url_override == "https://api.gmi-serving.com/v1"

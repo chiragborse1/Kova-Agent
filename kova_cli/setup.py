@@ -140,7 +140,7 @@ from kova_cli.config import (
     save_env_value,
     remove_env_value,
     get_env_value,
-    ensure_KOVA_HOME,
+    ensure_kova_home,
 )
 # display_kova_home imported lazily at call sites (stale-module safety during kova update)
 
@@ -2722,7 +2722,7 @@ def run_setup_wizard(args):
     if is_managed():
         managed_error("run setup wizard")
         return
-    ensure_KOVA_HOME()
+    ensure_kova_home()
 
     reset_requested = bool(getattr(args, "reset", False))
     if reset_requested:

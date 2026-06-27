@@ -5,7 +5,7 @@ Covers the three paths changed by fix/bedrock-provider-model-ids-live-discovery:
   1. provider_model_ids("bedrock") — uses live discover_bedrock_models() instead
      of the static _PROVIDER_MODELS table, with curated fallback.
 
-  2. list_authenticated_providers() Section 2 (kova_OVERLAYS) — bedrock
+  2. list_authenticated_providers() Section 2 (KOVA_OVERLAYS) — bedrock
      appears when AWS credentials are present; model list comes from live
      discovery keyed by the resolved region, NOT the static us.* table.
 
@@ -129,7 +129,7 @@ class TestProviderModelIdsBedrock:
 
 
 # ---------------------------------------------------------------------------
-# 2. list_authenticated_providers() — bedrock via kova_OVERLAYS (Section 2)
+# 2. list_authenticated_providers() — bedrock via KOVA_OVERLAYS (Section 2)
 # ---------------------------------------------------------------------------
 
 class TestListAuthenticatedProvidersBedrock:
@@ -334,19 +334,19 @@ class TestBedrockRegionRouting:
 # ---------------------------------------------------------------------------
 
 class TestBedrockOverlayRegistration:
-    """bedrock entry in kova_OVERLAYS is correctly configured."""
+    """bedrock entry in KOVA_OVERLAYS is correctly configured."""
 
     def test_bedrock_overlay_exists(self):
-        from kova_cli.providers import kova_OVERLAYS
-        assert "bedrock" in kova_OVERLAYS
+        from kova_cli.providers import KOVA_OVERLAYS
+        assert "bedrock" in KOVA_OVERLAYS
 
     def test_bedrock_overlay_transport(self):
-        from kova_cli.providers import kova_OVERLAYS
-        assert kova_OVERLAYS["bedrock"].transport == "bedrock_converse"
+        from kova_cli.providers import KOVA_OVERLAYS
+        assert KOVA_OVERLAYS["bedrock"].transport == "bedrock_converse"
 
     def test_bedrock_overlay_auth_type(self):
-        from kova_cli.providers import kova_OVERLAYS
-        assert kova_OVERLAYS["bedrock"].auth_type == "aws_sdk"
+        from kova_cli.providers import KOVA_OVERLAYS
+        assert KOVA_OVERLAYS["bedrock"].auth_type == "aws_sdk"
 
     def test_bedrock_label(self):
         from kova_cli.providers import get_label

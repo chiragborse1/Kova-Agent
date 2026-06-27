@@ -55,7 +55,7 @@ def _enter_existing_install_patches(stack, **extra):
     """
     # Unconditional mocks (no return values to assert against).
     for target, kwargs in [
-        ("kova_cli.setup.ensure_KOVA_HOME", {}),
+        ("kova_cli.setup.ensure_kova_home", {}),
         ("kova_cli.setup.is_interactive_stdin", {"return_value": True}),
         ("kova_cli.config.is_managed", {"return_value": False}),
         ("kova_cli.setup.load_config", {"return_value": {}}),
@@ -76,7 +76,7 @@ def _enter_existing_install_patches(stack, **extra):
 
 def _enter_fresh_install_patches(stack, **extra):
     for target, kwargs in [
-        ("kova_cli.setup.ensure_KOVA_HOME", {}),
+        ("kova_cli.setup.ensure_kova_home", {}),
         ("kova_cli.setup.is_interactive_stdin", {"return_value": True}),
         ("kova_cli.config.is_managed", {"return_value": False}),
         ("kova_cli.setup.load_config", {"return_value": {}}),
