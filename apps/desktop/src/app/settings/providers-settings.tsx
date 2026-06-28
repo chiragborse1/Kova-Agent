@@ -69,7 +69,7 @@ function buildProviderKeyGroups(vars: Record<string, EnvVarInfo>): ProviderKeyGr
     // the same identity the CLI picker uses; fall back to the prefix guess.
     const name = info.provider_label?.trim() || info.provider?.trim() || providerGroup(key)
 
-    if (name === 'Other') {
+    if (name === 'Other' || name.toLowerCase().includes('nous')) {
       continue
     }
 
@@ -149,7 +149,7 @@ function OAuthPicker({
   // Both lists preserve `sortProviders` order (curated priority, then name).
   const connected = rest.filter(p => p.status?.logged_in)
   const others = rest.filter(p => !p.status?.logged_in)
-  const collapsible = others.length > 0
+  const collapsible = featured && others.length > 0
   const showOthers = !collapsible || showAll
 
   return (
@@ -391,7 +391,8 @@ export function ProvidersSettings({ onClose, onViewChange, view }: ProvidersSett
     return <LoadingState label={t.settings.providers.loading} />
   }
 
-  const hasOauth = oauthProviders.length > 0
+  const visibleOauthProviders = oauthProviders.filter(p => p.id !== 'nous')
+  const hasOauth = visibleOauthProviders.length > 0
   // The sidebar subnav owns the Accounts/API-keys split now; with no OAuth
   // providers there's nothing for the "Accounts" view to show, so fall to keys.
   const showApiKeys = view === 'keys' || !hasOauth
@@ -453,7 +454,7 @@ export function ProvidersSettings({ onClose, onViewChange, view }: ProvidersSett
         onDisconnect={provider => void handleDisconnect(provider)}
         onTerminalDisconnect={handleTerminalDisconnect}
         onWantApiKey={() => onViewChange('keys')}
-        providers={oauthProviders}
+        providers={visibleOauthProviders}
       />
     </SettingsContent>
   )

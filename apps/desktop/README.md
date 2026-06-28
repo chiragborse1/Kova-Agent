@@ -2,12 +2,11 @@
 
 <p align="center">
   <a href="https://github.com/chiragborse1/Kova-Agent/releases"><img src="https://img.shields.io/badge/Download-macOS%20%C2%B7%20Windows%20%C2%B7%20Linux-FFD700?style=for-the-badge" alt="Download"></a>
-  <a href="https://kova-agent.nousresearch.com/docs/"><img src="https://img.shields.io/badge/Docs-kova--agent.nousresearch.com-FFD700?style=for-the-badge" alt="Documentation"></a>
-  <a href="https://discord.gg/NousResearch"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"></a>
+  <a href="https://github.com/chiragborse1/Kova-Agent#readme"><img src="https://img.shields.io/badge/Docs-GitHub-FFD700?style=for-the-badge" alt="Documentation"></a>
   <a href="https://github.com/chiragborse1/Kova-Agent/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License: MIT"></a>
 </p>
 
-**The native desktop app for [Kova Agent](../../README.md) — the self-improving AI agent from [Nous Research](https://nousresearch.com).** Same agent, same skills, same memory as the CLI and gateway, in a polished native window — chat with streaming tool output, side-by-side previews, a file browser, voice, and settings, no terminal required. Available for **macOS, Windows, and Linux**.
+**The native desktop app for [Kova Agent](../../README.md) — the self-improving AI agent.** Same agent, same skills, same memory as the CLI and gateway, in a polished native window — chat with streaming tool output, side-by-side previews, a file browser, voice, and settings, no terminal required. Available for **macOS, Windows, and Linux**.
 
 <table>
 <tr><td><b>Chat with the full agent</b></td><td>Streaming responses, live tool activity, structured tool summaries, and the same conversation history as every other kova surface.</td></tr>
@@ -34,7 +33,7 @@ It builds and launches the GUI against your existing install — same config, ke
 
 ### Prebuilt installers
 
-Prebuilt installers are built and distributed via [the kova desktop website.](https://kova-agent.nousresearch.com/).
+Prebuilt installers are built and distributed via [GitHub Releases](https://github.com/chiragborse1/Kova-Agent/releases).
 
 ---
 
@@ -110,7 +109,7 @@ rm "$HOME/.kova/kova-agent/.kova-bootstrap-complete"
 # Rebuild a broken Python venv
 rm -rf "$HOME/.kova/kova-agent/venv"
 # Reset a stuck macOS microphone prompt (macOS only)
-tccutil reset Microphone com.nousresearch.kova
+tccutil reset Microphone com.kova.desktop
 ```
 
 **Windows (PowerShell):**
@@ -128,8 +127,7 @@ Remove-Item -Recurse -Force "$env:LOCALAPPDATA\kova\kova-agent\venv"
 
 ## Community
 
-- 💬 [Discord](https://discord.gg/NousResearch)
-- 📖 [Documentation](https://kova-agent.nousresearch.com/docs/)
+- 💬 [GitHub Discussions](https://github.com/chiragborse1/Kova-Agent/discussions)
 - 🐛 [Issues](https://github.com/chiragborse1/Kova-Agent/issues)
 
 ---
@@ -138,4 +136,4 @@ Remove-Item -Recurse -Force "$env:LOCALAPPDATA\kova\kova-agent\venv"
 
 MIT — see [LICENSE](../../LICENSE).
 
-Built by [Nous Research](https://nousresearch.com).
+Forked from [Kova Agent](https://github.com/chiragborse1/Kova-Agent).

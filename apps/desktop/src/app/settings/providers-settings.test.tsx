@@ -78,23 +78,11 @@ async function renderProvidersSettings() {
 }
 
 describe('ProvidersSettings', () => {
-  it('disconnects a connected provider account and refreshes the accounts list', async () => {
+  it('hides nous portal from the accounts list', async () => {
     await renderProvidersSettings()
 
-    const remove = await screen.findByRole('button', { name: 'Remove Nous Portal' })
-    fireEvent.click(remove)
-
-    await waitFor(() => expect(disconnectOAuthProvider).toHaveBeenCalledWith('nous'))
-    expect(listOAuthProviders).toHaveBeenCalledTimes(2)
-  })
-
-  it('keeps provider selection separate from account removal', async () => {
-    await renderProvidersSettings()
-
-    fireEvent.click(await screen.findByText('Nous Portal'))
-
-    expect(startManualProviderOAuth).toHaveBeenCalledWith('nous')
-    expect(disconnectOAuthProvider).not.toHaveBeenCalled()
+    expect(screen.queryByText('Nous Portal')).toBeNull()
+    expect(screen.queryByRole('button', { name: 'Remove Nous Portal' })).toBeNull()
   })
 
   it('does not offer removal for externally managed providers', async () => {

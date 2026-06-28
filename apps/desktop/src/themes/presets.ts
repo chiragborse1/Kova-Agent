@@ -20,12 +20,12 @@ const SYSTEM_MONO =
 
 export const DEFAULT_TYPOGRAPHY: DesktopThemeTypography = { fontSans: SYSTEM_SANS, fontMono: SYSTEM_MONO }
 
-const NOUS_BLUE = '#0053FD'
-const PSYCHE_BLUE = '#1540B1'
+const NOUS_ORANGE = '#f34102'
+const PSYCHE_ORANGE = '#e63c00'
 const PSYCHE_WARM = '#FFE6CB'
 
-const nousTint = (pct: number) => `color-mix(in srgb, ${NOUS_BLUE} ${pct}%, #FFFFFF)`
-const nousTintTransparent = (pct: number) => `color-mix(in srgb, ${NOUS_BLUE} ${pct}%, transparent)`
+const nousTint = (pct: number) => `color-mix(in srgb, ${NOUS_ORANGE} ${pct}%, #FFFFFF)`
+const nousTintTransparent = (pct: number) => `color-mix(in srgb, ${NOUS_ORANGE} ${pct}%, transparent)`
 
 /**
  * Nous — canonical kova desktop identity. The palette keeps the current
@@ -33,9 +33,9 @@ const nousTintTransparent = (pct: number) => `color-mix(in srgb, ${NOUS_BLUE} ${
  * return as accent seeds.
  */
 export const nousTheme: DesktopTheme = {
-  name: 'nous',
-  label: 'Nous',
-  description: 'Glass neutrals with Nous blue accents',
+  name: 'kova',
+  label: 'Kova',
+  description: 'Glass neutrals with orange accents',
   colors: {
     background: '#F8FAFF',
     foreground: '#17171A',
@@ -45,7 +45,7 @@ export const nousTheme: DesktopTheme = {
     mutedForeground: '#666678',
     popover: '#FFFFFF',
     popoverForeground: '#17171A',
-    primary: NOUS_BLUE,
+    primary: NOUS_ORANGE,
     primaryForeground: '#FCFCFC',
     secondary: nousTint(7),
     secondaryForeground: '#242432',
@@ -53,9 +53,9 @@ export const nousTheme: DesktopTheme = {
     accentForeground: '#202030',
     border: nousTintTransparent(22),
     input: nousTintTransparent(30),
-    ring: NOUS_BLUE,
-    midground: NOUS_BLUE,
-    composerRing: NOUS_BLUE,
+    ring: NOUS_ORANGE,
+    midground: NOUS_ORANGE,
+    composerRing: NOUS_ORANGE,
     destructive: '#C72E4D',
     destructiveForeground: '#FFFFFF',
     sidebarBackground: '#F3F7FF',
@@ -64,31 +64,31 @@ export const nousTheme: DesktopTheme = {
     userBubbleBorder: nousTintTransparent(24)
   },
   darkColors: {
-    background: '#0D2F86',
+    background: '#3A1204',
     foreground: PSYCHE_WARM,
-    card: '#12378F',
+    card: '#4A1806',
     cardForeground: PSYCHE_WARM,
-    muted: '#183F9A',
-    mutedForeground: '#B5C7F3',
-    popover: '#123A96',
+    muted: '#5A1E08',
+    mutedForeground: '#E8B890',
+    popover: '#4A1A06',
     popoverForeground: PSYCHE_WARM,
     primary: PSYCHE_WARM,
-    primaryForeground: '#0D2F86',
-    secondary: '#1B45A4',
-    secondaryForeground: '#E0E8FF',
-    accent: PSYCHE_BLUE,
-    accentForeground: '#F0F4FF',
-    border: '#3158AD',
-    input: '#0B2566',
+    primaryForeground: '#3A1204',
+    secondary: '#5A1E08',
+    secondaryForeground: '#FFE0C0',
+    accent: PSYCHE_ORANGE,
+    accentForeground: '#FFF0E0',
+    border: '#8A3808',
+    input: '#2A0E02',
     ring: PSYCHE_WARM,
-    midground: NOUS_BLUE,
+    midground: NOUS_ORANGE,
     composerRing: PSYCHE_WARM,
     destructive: '#C0473A',
     destructiveForeground: '#FEF2F2',
-    sidebarBackground: '#09286F',
-    sidebarBorder: '#234A9C',
-    userBubble: '#143B91',
-    userBubbleBorder: '#3A63BD'
+    sidebarBackground: '#2A0A00',
+    sidebarBorder: '#5A1804',
+    userBubble: '#4A1200',
+    userBubbleBorder: '#8A2808'
   },
   typography: {
     fontSans: SYSTEM_SANS,
@@ -278,7 +278,7 @@ export const slateTheme: DesktopTheme = {
 }
 
 export const BUILTIN_THEMES: Record<string, DesktopTheme> = {
-  nous: nousTheme,
+  kova: nousTheme,
   midnight: midnightTheme,
   ember: emberTheme,
   mono: monoTheme,
@@ -289,4 +289,4 @@ export const BUILTIN_THEMES: Record<string, DesktopTheme> = {
 export const BUILTIN_THEME_LIST = Object.values(BUILTIN_THEMES)
 
 /** Skin used when nothing is persisted or the persisted name is retired. */
-export const DEFAULT_SKIN_NAME = 'nous'
+export const DEFAULT_SKIN_NAME = 'kova'
