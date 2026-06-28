@@ -28,7 +28,7 @@ def _make_web_dir(tmp_path: Path) -> tuple[Path, Path]:
     web_dir = tmp_path / "web"
     web_dir.mkdir(parents=True)
     (web_dir / "package.json").touch()
-    dist_dir = tmp_path / "KOVA_cli" / "web_dist"
+    dist_dir = tmp_path / "kova_cli" / "web_dist"
     return web_dir, dist_dir
 
 
