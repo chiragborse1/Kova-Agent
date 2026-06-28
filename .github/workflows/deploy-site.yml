@@ -4,7 +4,7 @@ on:
   release:
     types: [published]
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - 'website/**'
       - 'skills/**'
@@ -133,7 +133,7 @@ jobs:
 
           echo "Downloading currently live skills index"
           if curl -fsSL --retry 3 --retry-delay 5 \
-            "https://kova-agent.nousresearch.com/docs/api/skills-index.json" \
+            "https://github.com/chiragborse1/Kova-Agent/releases/download/skills-index/skills-index.json" \
             -o "$INDEX_PATH" && validate_index; then
             exit 0
           fi

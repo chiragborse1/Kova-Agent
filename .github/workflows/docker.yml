@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
-  IMAGE_NAME: nousresearch/kova-agent
+  IMAGE_NAME: chiragborse1/kova-agent
 
 jobs:
   # Build, test, and optionally push the amd64 image.
@@ -37,8 +37,8 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       # The image build + integration tests run on every event
-      # (PRs, push-to-main, release). Publish steps below are gated to
-      # push-to-main / release only.
+      # (PRs, push-to-master, release). Publish steps below are gated to
+      # push-to-master / release only.
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
 
@@ -83,7 +83,7 @@ jobs:
           # ``dev`` extra pulls in pytest, pytest-asyncio —
           # everything tests/docker/ needs.  We deliberately avoid ``all``
           # here because the docker tests only drive the container via
-          # subprocess and don't import KOVA_agent's optional deps.
+          # subprocess and don't import kova_agent's optional deps.
           uv sync --locked --python 3.11 --extra dev
 
       - name: Run docker integration tests
@@ -99,7 +99,7 @@ jobs:
           scripts/run_tests.sh tests/docker/ --file-timeout 600
 
       - name: Log in to Docker Hub
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master' || github.event_name == 'release'
         uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -110,7 +110,7 @@ jobs:
       # pattern for multi-runner multi-platform builds.
       - name: Push amd64 by digest
         id: push
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master' || github.event_name == 'release'
         uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
         with:
           context: .
@@ -127,14 +127,14 @@ jobs:
       # Write the digest to a file and upload it as an artifact so the
       # merge job can stitch both per-arch digests into a manifest list.
       - name: Export digest
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master' || github.event_name == 'release'
         run: |
           mkdir -p /tmp/digests
           digest="${{ steps.push.outputs.digest }}"
           touch "/tmp/digests/${digest#sha256:}"
 
       - name: Upload digest artifact
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master' || github.event_name == 'release'
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: digest-amd64
@@ -190,8 +190,8 @@ jobs:
           tags: ${{ env.IMAGE_NAME }}:test
           build-args: |
             KOVA_GIT_SHA=${{ github.sha }}
-          cache-from: type=registry,ref=ghcr.io/nousresearch/kova-agent:buildcache-arm64
-          cache-to: type=registry,ref=ghcr.io/nousresearch/kova-agent:buildcache-arm64,mode=max
+          cache-from: type=registry,ref=ghcr.io/chiragborse1/kova-agent:buildcache-arm64
+          cache-to: type=registry,ref=ghcr.io/chiragborse1/kova-agent:buildcache-arm64,mode=max
 
       - name: Install uv for docker tests
         uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # 8.2.0
@@ -214,7 +214,7 @@ jobs:
           scripts/run_tests.sh tests/docker/ --file-timeout 600
 
       - name: Log in to Docker Hub
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master' || github.event_name == 'release'
         uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -222,7 +222,7 @@ jobs:
 
       - name: Push arm64 by digest
         id: push
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master' || github.event_name == 'release'
         uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
         with:
           context: .
@@ -233,18 +233,18 @@ jobs:
           build-args: |
             KOVA_GIT_SHA=${{ github.sha }}
           outputs: type=image,name=${{ env.IMAGE_NAME }},push-by-digest=true,name-canonical=true,push=true
-          cache-from: type=registry,ref=ghcr.io/nousresearch/kova-agent:buildcache-arm64
-          cache-to: type=registry,ref=ghcr.io/nousresearch/kova-agent:buildcache-arm64,mode=max
+          cache-from: type=registry,ref=ghcr.io/chiragborse1/kova-agent:buildcache-arm64
+          cache-to: type=registry,ref=ghcr.io/chiragborse1/kova-agent:buildcache-arm64,mode=max
 
       - name: Export digest
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master' || github.event_name == 'release'
         run: |
           mkdir -p /tmp/digests
           digest="${{ steps.push.outputs.digest }}"
           touch "/tmp/digests/${digest#sha256:}"
 
       - name: Upload digest artifact
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master' || github.event_name == 'release'
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: digest-arm64
@@ -257,11 +257,11 @@ jobs:
   # This is a registry-side operation — no building, no layer re-push —
   # so it runs in ~30 seconds.
   #
-  # On main pushes: tags both :main and :latest.
+  # On master pushes: tags both :master and :latest.
   # On releases: tags :<release_tag_name>.
   # ---------------------------------------------------------------------------
   merge:
-    if: github.repository == 'chiragborse1/Kova-Agent' && (github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release')
+    if: github.repository == 'chiragborse1/Kova-Agent' && (github.event_name == 'push' && github.ref == 'refs/heads/master' || github.event_name == 'release')
     runs-on: ubuntu-latest
     needs: [build-amd64, build-arm64]
     timeout-minutes: 10
@@ -297,7 +297,7 @@ jobs:
               "${args[@]}"
           else
             docker buildx imagetools create \
-              -t "${IMAGE_NAME}:main" \
+              -t "${IMAGE_NAME}:master" \
               -t "${IMAGE_NAME}:latest" \
               "${args[@]}"
           fi
@@ -309,7 +309,7 @@ jobs:
           if [ "${{ github.event_name }}" = "release" ]; then
             docker buildx imagetools inspect "${IMAGE_NAME}:${{ github.event.release.tag_name }}"
           else
-            docker buildx imagetools inspect "${IMAGE_NAME}:main"
+            docker buildx imagetools inspect "${IMAGE_NAME}:master"
           fi
         env:
           IMAGE_NAME: ${{ env.IMAGE_NAME }}

@@ -61,21 +61,21 @@ jobs:
       - name: Build TUI bundle
         run: cd ui-tui && npm ci && npm run build
 
-      - name: Bundle TUI into KOVA_cli
+      - name: Bundle TUI into kova_cli
         run: |
-          mkdir -p KOVA_cli/tui_dist
-          cp ui-tui/dist/entry.js KOVA_cli/tui_dist/entry.js
+          mkdir -p kova_cli/tui_dist
+          cp ui-tui/dist/entry.js kova_cli/tui_dist/entry.js
 
       - name: Verify frontend assets exist
         run: |
-          test -f KOVA_cli/web_dist/index.html || { echo "ERROR: web_dist not built"; exit 1; }
-          test -f KOVA_cli/tui_dist/entry.js || { echo "ERROR: tui_dist not built"; exit 1; }
+          test -f kova_cli/web_dist/index.html || { echo "ERROR: web_dist not built"; exit 1; }
+          test -f kova_cli/tui_dist/entry.js || { echo "ERROR: tui_dist not built"; exit 1; }
 
       - name: Bundle install scripts into wheel
         run: |
-          mkdir -p KOVA_cli/scripts
-          cp scripts/install.sh KOVA_cli/scripts/install.sh
-          cp scripts/install.ps1 KOVA_cli/scripts/install.ps1
+          mkdir -p kova_cli/scripts
+          cp scripts/install.sh kova_cli/scripts/install.sh
+          cp scripts/install.ps1 kova_cli/scripts/install.ps1
 
       - name: Build wheel and sdist
         run: uv build --sdist --wheel
