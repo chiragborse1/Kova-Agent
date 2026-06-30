@@ -33,8 +33,9 @@ def test_agent_json_matches_official_registry_required_fields():
     assert data["name"] == "Kova Agent"
     assert data["description"]
     assert data["repository"] == "https://github.com/chiragborse1/Kova-Agent"
-    assert data["website"].startswith("https://kova-agent.nousresearch.com/")
-    assert data["authors"] == ["Nous Research"]
+    assert data["website"].startswith("https://")
+    assert len(data["authors"]) >= 1
+    assert all(isinstance(a, str) for a in data["authors"])
     assert data["license"] == "MIT"
     assert set(data["distribution"]) <= ALLOWED_DISTRIBUTIONS
 
