@@ -701,8 +701,8 @@ def _resolve_KOVA_uid_gid() -> tuple[Optional[int], Optional[int]]:
     """
     if sys.platform == "win32":
         return None, None
-    uid_str = os.environ.get("kova_UID", "").strip()
-    gid_str = os.environ.get("kova_GID", "").strip()
+    uid_str = os.environ.get("KOVA_UID", "").strip()
+    gid_str = os.environ.get("KOVA_GID", "").strip()
     try:
         uid = int(uid_str) if uid_str else None
     except ValueError:

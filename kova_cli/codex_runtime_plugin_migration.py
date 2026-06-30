@@ -554,7 +554,7 @@ def _looks_like_test_tempdir(path: str) -> bool:
     return any(needle in normalized for needle in needles)
 
 
-def _build_KOVA_tools_mcp_entry() -> dict:
+def _build_kova_tools_mcp_entry() -> dict:
     """Build the codex stdio-transport entry that launches kova' own
     tool surface as an MCP server. Codex's subprocess will call back into
     this for browser/web/delegate_task/vision/memory/skills tools.
@@ -595,7 +595,7 @@ def _build_KOVA_tools_mcp_entry() -> dict:
 
     out: dict[str, Any] = {
         "command": sys.executable,
-        "args": ["-m", "agent.transports.KOVA_tools_mcp_server"],
+        "args": ["-m", "agent.transports.kova_tools_mcp_server"],
     }
     if env:
         out["env"] = env
@@ -613,7 +613,7 @@ def migrate(
     dry_run: bool = False,
     discover_plugins: bool = True,
     default_permission_profile: Optional[str] = ":workspace",
-    expose_KOVA_tools: bool = True,
+    expose_kova_tools: bool = True,
 ) -> MigrationReport:
     """Translate kova mcp_servers config + Codex curated plugins into
     ~/.codex/config.toml.
@@ -635,7 +635,7 @@ def migrate(
             configured in their own [permissions.<name>] table. Set None
             to leave permissions unset and let codex use its compiled-in
             default (which is read-only).
-        expose_KOVA_tools: when True (default), register kova' own
+        expose_kova_tools: when True (default), register kova' own
             tool surface (web_search, browser_*, delegate_task, vision,
             memory, skills, etc.) as an MCP server in ~/.codex/config.toml
             so the codex subprocess can call back into kova for tools
@@ -691,10 +691,10 @@ def migrate(
     # codex subprocess can call back into kova for the tools codex
     # doesn't ship with — web_search, browser_*, delegate_task, vision,
     # memory, skills, session_search, image_generate, text_to_speech.
-    # The server itself is agent/transports/KOVA_tools_mcp_server.py
+    # The server itself is agent/transports/kova_tools_mcp_server.py
     # and is launched on demand by codex (stdio MCP).
-    if expose_KOVA_tools:
-        translated["kova-tools"] = _build_KOVA_tools_mcp_entry()
+    if expose_kova_tools:
+        translated["kova-tools"] = _build_kova_tools_mcp_entry()
         if "kova-tools" not in report.migrated:
             report.migrated.append("kova-tools")
 
