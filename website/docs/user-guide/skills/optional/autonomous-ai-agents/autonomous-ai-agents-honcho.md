@@ -1,7 +1,7 @@
 ---
 title: "Honcho"
 sidebar_label: "Honcho"
-description: "Configure and use Honcho memory with kova -- cross-session user modeling, multi-profile peer isolation, observation config, dialectic reasoning, session su..."
+description: "Configure and use Honcho memory with kova -- cross-session user modeling, multi-profile peer isolation, observation config, dialectic reasoning, session summ..."
 ---
 
 {/* This page is auto-generated from the skill's SKILL.md by website/scripts/generate-skill-docs.py. Edit the source SKILL.md, not this page. */}
@@ -15,7 +15,7 @@ Configure and use Honcho memory with kova -- cross-session user modeling, multi-
 | | |
 |---|---|
 | Source | Optional — install with `kova skills install official/autonomous-ai-agents/honcho` |
-| Path | `optional-skills/autonomous-ai-agents/honcho` |
+| Path | `optional-skills/autonomous-ai-agents\honcho` |
 | Version | `2.0.0` |
 | Author | Kova Agent |
 | License | MIT |

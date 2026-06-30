@@ -15,7 +15,7 @@ Index a codebase with GitNexus and serve an interactive knowledge graph via web 
 | | |
 |---|---|
 | Source | Optional — install with `kova skills install official/research/gitnexus-explorer` |
-| Path | `optional-skills/research/gitnexus-explorer` |
+| Path | `optional-skills/research\gitnexus-explorer` |
 | Version | `1.0.0` |
 | Author | Kova Agent + Teknium |
 | License | MIT |

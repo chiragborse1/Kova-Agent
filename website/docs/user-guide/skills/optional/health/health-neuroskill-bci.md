@@ -15,7 +15,7 @@ Connect to a running NeuroSkill instance and incorporate the user's real-time co
 | | |
 |---|---|
 | Source | Optional — install with `kova skills install official/health/neuroskill-bci` |
-| Path | `optional-skills/health/neuroskill-bci` |
+| Path | `optional-skills/health\neuroskill-bci` |
 | Version | `1.0.0` |
 | Author | Kova Agent + Nous Research |
 | License | MIT |

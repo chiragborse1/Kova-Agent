@@ -51,11 +51,11 @@ export const ga: Translations = {
 
   app: {
     brand: "Kova Agent",
-    brandShort: "HA",
+    brandShort: "KA",
     closeNavigation: "Dún an nascleanúint",
     closeModelTools: "Dún an samhail agus na huirlisí",
     footer: {
-      org: "Nous Research",
+      org: "Kova",
     },
     activeSessionsLabel: "Seisiúin gníomhacha:",
     gatewayStatusLabel: "Stádas an gateway:",

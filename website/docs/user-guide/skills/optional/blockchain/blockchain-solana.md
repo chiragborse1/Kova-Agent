@@ -15,7 +15,7 @@ Query Solana blockchain data with USD pricing — wallet balances, token portfol
 | | |
 |---|---|
 | Source | Optional — install with `kova skills install official/blockchain/solana` |
-| Path | `optional-skills/blockchain/solana` |
+| Path | `optional-skills/blockchain\solana` |
 | Version | `0.2.0` |
 | Author | Deniz Alagoz (gizdusum), enhanced by Kova Agent |
 | License | MIT |

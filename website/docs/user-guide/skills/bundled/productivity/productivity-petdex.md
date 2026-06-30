@@ -15,7 +15,7 @@ Install and select animated petdex mascots for kova.
 | | |
 |---|---|
 | Source | Bundled (installed by default) |
-| Path | `skills/productivity/petdex` |
+| Path | `skills/productivity\petdex` |
 | Version | `1.0.0` |
 | Author | Kova Agent |
 | License | MIT |

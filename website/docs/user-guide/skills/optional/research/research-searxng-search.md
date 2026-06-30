@@ -15,7 +15,7 @@ Free meta-search via SearXNG — aggregates results from 70+ search engines. Sel
 | | |
 |---|---|
 | Source | Optional — install with `kova skills install official/research/searxng-search` |
-| Path | `optional-skills/research/searxng-search` |
+| Path | `optional-skills/research\searxng-search` |
 | Version | `1.0.0` |
 | Author | kova-agent |
 | License | MIT |

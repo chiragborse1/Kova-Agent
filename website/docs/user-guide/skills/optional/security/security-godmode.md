@@ -15,7 +15,7 @@ Jailbreak LLMs: Parseltongue, GODMODE, ULTRAPLINIAN.
 | | |
 |---|---|
 | Source | Optional — install with `kova skills install official/security/godmode` |
-| Path | `optional-skills/security/godmode` |
+| Path | `optional-skills/security\godmode` |
 | Version | `1.0.0` |
 | Author | Kova Agent + Teknium |
 | License | MIT |

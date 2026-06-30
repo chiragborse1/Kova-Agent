@@ -15,7 +15,7 @@ Optional vendor skill for Parallel CLI — agent-native web search, extraction, 
 | | |
 |---|---|
 | Source | Optional — install with `kova skills install official/research/parallel-cli` |
-| Path | `optional-skills/research/parallel-cli` |
+| Path | `optional-skills/research\parallel-cli` |
 | Version | `1.1.0` |
 | Author | Kova Agent |
 | License | MIT |

@@ -15,7 +15,7 @@ Poll RSS, JSON APIs, and GitHub with watermark dedup.
 | | |
 |---|---|
 | Source | Optional — install with `kova skills install official/devops/watchers` |
-| Path | `optional-skills/devops/watchers` |
+| Path | `optional-skills/devops\watchers` |
 | Version | `1.0.0` |
 | Author | Kova Agent |
 | License | MIT |
@@ -81,7 +81,7 @@ Watch a GitHub repo (set `GITHUB_TOKEN` in `${KOVA_HOME:-~/.kova}/.env` to avoid
 
 ```bash
 python $KOVA_HOME/skills/devops/watchers/scripts/watch_github.py \
-  --name kova-issues --repo NousResearch/Kova-agent --scope issues
+  --name kova-issues --repo chiragborse1/Kova-Agent --scope issues
 ```
 
 Poll an arbitrary JSON API:

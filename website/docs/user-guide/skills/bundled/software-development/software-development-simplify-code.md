@@ -15,7 +15,7 @@ Parallel 3-agent cleanup of recent code changes.
 | | |
 |---|---|
 | Source | Bundled (installed by default) |
-| Path | `skills/software-development/simplify-code` |
+| Path | `skills/software-development\simplify-code` |
 | Version | `1.0.0` |
 | Author | Kova Agent (inspired by Claude Code /simplify) |
 | License | MIT |

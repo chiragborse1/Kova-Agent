@@ -15,7 +15,7 @@ Build accretion/dilution (merger) models in Excel — pro-forma P&L, synergies, 
 | | |
 |---|---|
 | Source | Optional — install with `kova skills install official/finance/merger-model` |
-| Path | `optional-skills/finance/merger-model` |
+| Path | `optional-skills/finance\merger-model` |
 | Version | `1.0.0` |
 | Author | Anthropic (adapted by Nous Research) |
 | License | Apache-2.0 |

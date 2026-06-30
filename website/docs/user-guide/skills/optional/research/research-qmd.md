@@ -15,7 +15,7 @@ Search personal knowledge bases, notes, docs, and meeting transcripts locally us
 | | |
 |---|---|
 | Source | Optional — install with `kova skills install official/research/qmd` |
-| Path | `optional-skills/research/qmd` |
+| Path | `optional-skills/research\qmd` |
 | Version | `1.0.0` |
 | Author | Kova Agent + Teknium |
 | License | MIT |

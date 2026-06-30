@@ -15,7 +15,7 @@ Build PowerPoint decks headless with python-pptx. Pairs with excel-author for mo
 | | |
 |---|---|
 | Source | Optional — install with `kova skills install official/finance/pptx-author` |
-| Path | `optional-skills/finance/pptx-author` |
+| Path | `optional-skills/finance\pptx-author` |
 | Version | `1.0.0` |
 | Author | Anthropic (adapted by Nous Research) |
 | License | Apache-2.0 |

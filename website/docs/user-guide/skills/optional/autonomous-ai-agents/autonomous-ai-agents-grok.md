@@ -15,7 +15,7 @@ Delegate coding to xAI Grok Build CLI (features, PRs).
 | | |
 |---|---|
 | Source | Optional — install with `kova skills install official/autonomous-ai-agents/grok` |
-| Path | `optional-skills/autonomous-ai-agents/grok` |
+| Path | `optional-skills/autonomous-ai-agents\grok` |
 | Version | `0.1.0` |
 | Author | Matt Maximo (MattMaximo), Kova Agent |
 | License | MIT |

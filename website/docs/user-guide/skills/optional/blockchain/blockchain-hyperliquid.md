@@ -15,7 +15,7 @@ Hyperliquid market data, account history, trade review.
 | | |
 |---|---|
 | Source | Optional — install with `kova skills install official/blockchain/hyperliquid` |
-| Path | `optional-skills/blockchain/hyperliquid` |
+| Path | `optional-skills/blockchain\hyperliquid` |
 | Version | `0.1.0` |
 | Author | Hugo Sequier (Hugo-SEQUIER), Kova Agent |
 | License | MIT |

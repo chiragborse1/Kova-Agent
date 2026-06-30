@@ -53,6 +53,7 @@ def run_git(cwd: str, *args: str) -> str:
             timeout=_GIT_TIMEOUT,
             check=False,
             stdin=subprocess.DEVNULL,
+            creationflags=subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0,
         )
         return result.stdout.strip() if result.returncode == 0 else ""
     except Exception:

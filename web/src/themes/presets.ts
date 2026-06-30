@@ -185,8 +185,8 @@ export const roseTheme: DashboardTheme = {
 };
 
 /**
- * Nous Blue — the inverted "light mode" kova look, ported from the
- * LENS_5I overlay preset in `@nous-research/ui`.
+ * Kova Blue — the inverted "light mode" kova look, ported from the
+ * LENS_5I overlay preset.
  *
  * Unlike the other built-ins (which paint dark color directly on the
  * canvas), this theme relies on `<Backdrop />`'s foreground inversion
@@ -194,11 +194,11 @@ export const roseTheme: DashboardTheme = {
  * that flips the entire stack below it. Authoring colors stay dark
  * (`#170d02` brown background, `#FFAC02` orange midground), and the
  * inversion converts them to their visual complements at paint time —
- * the orange midground reads as #0053FD Nous-blue on screen, against a
+ * the orange midground reads as #0053FD Kova-blue on screen, against a
  * cream `#E8F2FD` canvas.
  *
  * Note on bg blend mode: the DS Lens uses `multiply` for LENS_5I because
- * nousnet-web's <body> is white; kova-agent's App root is `bg-black`,
+ * the web root's <body> is white; kova-agent's App root is `bg-black`,
  * so we leave the bg layer's blend mode at the `difference` default —
  * `difference(#170d02, #000)` passes the bg through unchanged, and the
  * subsequent FG-difference layer then inverts it to cream. Using
@@ -209,10 +209,10 @@ export const roseTheme: DashboardTheme = {
  * Source of truth for the palette: `design-language/src/ui/components/
  * overlays/lens.ts` (LENS_5I export).
  */
-export const nousBlueTheme: DashboardTheme = {
-  name: "nous-blue",
-  label: "Nous Blue",
-  description: "Light mode — vivid Nous-blue accents on cream canvas",
+export const kovaBlueTheme: DashboardTheme = {
+  name: "kova-blue",
+  label: "Kova Blue",
+  description: "Light mode — vivid Kova-blue accents on cream canvas",
   palette: {
     background: { hex: "#170d02", alpha: 1 },
     midground: { hex: "#FFAC02", alpha: 1 },
@@ -302,7 +302,7 @@ export const defaultLargeTheme: DashboardTheme = {
 export const BUILTIN_THEMES: Record<string, DashboardTheme> = {
   default: defaultTheme,
   "default-large": defaultLargeTheme,
-  "nous-blue": nousBlueTheme,
+  "kova-blue": kovaBlueTheme,
   midnight: midnightTheme,
   ember: emberTheme,
   mono: monoTheme,

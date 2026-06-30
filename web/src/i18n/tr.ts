@@ -51,11 +51,11 @@ export const tr: Translations = {
 
   app: {
     brand: "Kova Agent",
-    brandShort: "HA",
+    brandShort: "KA",
     closeNavigation: "Gezintiyi kapat",
     closeModelTools: "Modeli ve araçları kapat",
     footer: {
-      org: "Nous Research",
+      org: "Kova",
     },
     activeSessionsLabel: "Aktif Oturumlar:",
     gatewayStatusLabel: "Ağ Geçidi Durumu:",

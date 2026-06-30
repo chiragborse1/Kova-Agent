@@ -15,7 +15,7 @@ Evolve prompts/regex/SQL/code with Imbue's evolution loop.
 | | |
 |---|---|
 | Source | Optional — install with `kova skills install official/research/darwinian-evolver` |
-| Path | `optional-skills/research/darwinian-evolver` |
+| Path | `optional-skills/research\darwinian-evolver` |
 | Version | `0.1.0` |
 | Author | Bihruze (Asahi0x), Kova Agent |
 | License | MIT |

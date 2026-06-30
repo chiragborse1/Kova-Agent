@@ -137,3 +137,9 @@ RELEASE_v*.md
 # Desktop demo-run scratch output (hermes writes demo/*.txt during recorded
 # walkthroughs). Throwaway artifacts, never part of the app.
 apps/desktop/demo/
+
+# Cron runtime state files (locks, heartbeats)
+cron/.jobs.lock
+cron/.tick.lock
+cron/ticker_heartbeat
+cron/ticker_last_success

@@ -15,7 +15,7 @@ Plan mode: write an actionable markdown plan to .kova/plans/, no execution. Bite
 | | |
 |---|---|
 | Source | Bundled (installed by default) |
-| Path | `skills/software-development/plan` |
+| Path | `skills/software-development\plan` |
 | Version | `2.0.0` |
 | Author | Kova Agent (writing-craft adapted from obra/superpowers) |
 | License | MIT |

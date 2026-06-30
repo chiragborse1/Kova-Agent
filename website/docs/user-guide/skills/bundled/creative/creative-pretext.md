@@ -15,7 +15,7 @@ Use when building creative browser demos with @chenglou/pretext — DOM-free tex
 | | |
 |---|---|
 | Source | Bundled (installed by default) |
-| Path | `skills/creative/pretext` |
+| Path | `skills/creative\pretext` |
 | Version | `1.0.0` |
 | Author | Kova Agent |
 | License | MIT |

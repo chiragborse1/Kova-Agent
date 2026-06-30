@@ -15,7 +15,7 @@ Control Blender directly from kova via socket connection to the blender-mcp addo
 | | |
 |---|---|
 | Source | Optional — install with `kova skills install official/creative/blender-mcp` |
-| Path | `optional-skills/creative/blender-mcp` |
+| Path | `optional-skills/creative\blender-mcp` |
 | Version | `1.0.0` |
 | Author | alireza78a |
 | Platforms | linux, macos, windows |

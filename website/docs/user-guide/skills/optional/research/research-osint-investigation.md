@@ -15,7 +15,7 @@ Public-records OSINT investigation framework — SEC EDGAR filings, USAspending 
 | | |
 |---|---|
 | Source | Optional — install with `kova skills install official/research/osint-investigation` |
-| Path | `optional-skills/research/osint-investigation` |
+| Path | `optional-skills/research\osint-investigation` |
 | Version | `0.1.0` |
 | Author | Kova Agent (adapted from ShinMegamiBoson/OpenPlanter, MIT) |
 | Platforms | linux, macos, windows |

@@ -369,7 +369,7 @@ const PROFILE_NAME_RE = /^[a-z0-9][a-z0-9_-]{0,63}$/
 // Branch we track for self-update. The GUI work has merged to main, so this
 // tracks main. User can also override at runtime via
 // KovaDesktop.updates.setBranch().
-const DEFAULT_UPDATE_BRANCH = 'main'
+const DEFAULT_UPDATE_BRANCH = 'master'
 // desktop.log lives under KOVA_HOME/logs/ so it sits next to agent.log,
 // errors.log, gateway.log produced by kova_logging.setup_logging — one log
 // directory per user, regardless of which UI surface produced the line.
@@ -1819,8 +1819,8 @@ function emitUpdateProgress(payload) {
 // "ref absent" (exit 2), never on a transient network error, so a flaky
 // connection can't strand a user on the wrong branch.
 async function resolveHealedBranch(updateRoot, branch) {
-  if (!branch || branch === 'main') {
-    return branch || 'main'
+  if (!branch) {
+    return DEFAULT_UPDATE_BRANCH
   }
 
   const originUrl = await getOriginUrl(updateRoot)
@@ -1830,12 +1830,23 @@ async function resolveHealedBranch(updateRoot, branch) {
     return branch
   }
 
-  rememberLog(`[updates] origin/${branch} is gone (merged?); falling back to main`)
+  // Branch doesn't exist on remote. Try to detect the actual HEAD branch.
+  const headBranch = await detectRemoteHeadBranch(updateRoot, remote)
+  const fallback = headBranch || DEFAULT_UPDATE_BRANCH
+  rememberLog(`[updates] origin/${branch} is gone; falling back to ${fallback}`)
   const config = readDesktopUpdateConfig()
-  if (config.branch !== 'main') {
-    writeDesktopUpdateConfig({ ...config, branch: 'main' })
+  if (config.branch !== fallback) {
+    writeDesktopUpdateConfig({ ...config, branch: fallback })
   }
-  return 'main'
+  return fallback
+}
+
+async function detectRemoteHeadBranch(updateRoot, remote) {
+  const res = await runGit(['remote', 'set-head', remote, '--auto'], { cwd: updateRoot })
+  if (res.code !== 0) return null
+  // Parse "origin/HEAD set to master" or similar
+  const match = res.stdout.match(/HEAD set to (\S+)$/m)
+  return match ? match[1] : null
 }
 
 async function checkUpdates() {

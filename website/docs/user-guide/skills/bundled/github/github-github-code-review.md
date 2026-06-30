@@ -15,7 +15,7 @@ Review PRs: diffs, inline comments via gh or REST.
 | | |
 |---|---|
 | Source | Bundled (installed by default) |
-| Path | `skills/github/github-code-review` |
+| Path | `skills/github\github-code-review` |
 | Version | `1.1.0` |
 | Author | Kova Agent |
 | License | MIT |

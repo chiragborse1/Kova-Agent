@@ -15,7 +15,7 @@ Migrate a user's OpenClaw customization footprint into Kova Agent. Imports kova-
 | | |
 |---|---|
 | Source | Optional — install with `kova skills install official/migration/openclaw-migration` |
-| Path | `optional-skills/migration/openclaw-migration` |
+| Path | `optional-skills/migration\openclaw-migration` |
 | Version | `1.0.0` |
 | Author | Kova Agent (Nous Research) |
 | License | MIT |
