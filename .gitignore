@@ -50,7 +50,7 @@ agent-browser/
 privvy*
 images/
 __pycache__/
-hermes_agent.egg-info/
+kova_agent.egg-info/
 wandb/
 testlogs
 
@@ -64,7 +64,7 @@ ignored/
 environments/benchmarks/evals/
 
 # Web UI build output
-hermes_cli/web_dist/
+kova_cli/web_dist/
 apps/desktop/build/
 apps/desktop/dist/
 apps/desktop/release/
@@ -104,8 +104,8 @@ models-dev-upstream/
 opencode.json
 config/mcporter.json
 
-hermes_cli/tui_dist/*
-hermes_cli/scripts/
+kova_cli/tui_dist/*
+kova_cli/scripts/
 docs/superpowers/*
 # Working directory for the Hermes Agent's session state (~/.hermes/ at runtime;
 # also created in-repo when an agent operates in this checkout). Plans, audit
