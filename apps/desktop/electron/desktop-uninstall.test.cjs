@@ -26,9 +26,9 @@ const {
 // --- uninstallArgsForMode ---
 
 test('uninstallArgsForMode maps each mode to the module-runner argv', () => {
-  assert.deepEqual(uninstallArgsForMode('gui'), ['-m', 'hermes_cli.uninstall', '--mode', 'gui'])
-  assert.deepEqual(uninstallArgsForMode('lite'), ['-m', 'hermes_cli.uninstall', '--mode', 'lite'])
-  assert.deepEqual(uninstallArgsForMode('full'), ['-m', 'hermes_cli.uninstall', '--mode', 'full'])
+  assert.deepEqual(uninstallArgsForMode('gui'), ['-m', 'kova_cli.uninstall', '--mode', 'gui'])
+  assert.deepEqual(uninstallArgsForMode('lite'), ['-m', 'kova_cli.uninstall', '--mode', 'lite'])
+  assert.deepEqual(uninstallArgsForMode('full'), ['-m', 'kova_cli.uninstall', '--mode', 'full'])
 })
 
 test('uninstallArgsForMode throws on an unknown mode (no silent full wipe)', () => {
@@ -128,7 +128,7 @@ test('buildPosixCleanupScript waits for the PID, runs the uninstall module, remo
     pythonExe: '/home/x/.hermes/hermes-agent/venv/bin/python',
     pythonPath: null,
     agentRoot: '/home/x/.hermes/hermes-agent',
-    uninstallArgs: ['-m', 'hermes_cli.uninstall', '--mode', 'gui'],
+    uninstallArgs: ['-m', 'kova_cli.uninstall', '--mode', 'gui'],
     appPath: '/opt/hermes/linux-unpacked',
     hermesHome: '/home/x/.hermes'
   })
@@ -148,7 +148,7 @@ test('buildPosixCleanupScript exports PYTHONPATH when pythonPath is set (lite/fu
     pythonExe: '/usr/bin/python3',
     pythonPath: '/home/x/.hermes/hermes-agent',
     agentRoot: '/home/x/.hermes/hermes-agent',
-    uninstallArgs: ['-m', 'hermes_cli.uninstall', '--mode', 'full'],
+    uninstallArgs: ['-m', 'kova_cli.uninstall', '--mode', 'full'],
     appPath: null,
     hermesHome: '/home/x/.hermes'
   })
@@ -164,7 +164,7 @@ test('buildPosixCleanupScript omits PYTHONPATH when pythonPath is null (gui)', (
     pythonExe: '/p/python',
     pythonPath: null,
     agentRoot: '/a',
-    uninstallArgs: ['-m', 'hermes_cli.uninstall', '--mode', 'gui'],
+    uninstallArgs: ['-m', 'kova_cli.uninstall', '--mode', 'gui'],
     appPath: null,
     hermesHome: '/h'
   })
@@ -177,7 +177,7 @@ test('buildPosixCleanupScript omits the bundle rm when appPath is null', () => {
     pythonExe: '/p/python',
     pythonPath: null,
     agentRoot: '/a',
-    uninstallArgs: ['-m', 'hermes_cli.uninstall', '--mode', 'lite'],
+    uninstallArgs: ['-m', 'kova_cli.uninstall', '--mode', 'lite'],
     appPath: null,
     hermesHome: '/h'
   })
@@ -192,7 +192,7 @@ test('buildPosixCleanupScript single-quote-escapes paths with apostrophes', () =
     pythonExe: "/home/o'brien/python",
     pythonPath: null,
     agentRoot: '/a',
-    uninstallArgs: ['-m', 'hermes_cli.uninstall', '--mode', 'gui'],
+    uninstallArgs: ['-m', 'kova_cli.uninstall', '--mode', 'gui'],
     appPath: null,
     hermesHome: '/h'
   })
@@ -208,7 +208,7 @@ test('buildWindowsCleanupScript waits (bounded) for PID, runs uninstall, rmdir b
     pythonExe: 'C:\\Python313\\python.exe',
     pythonPath: 'C:\\hermes',
     agentRoot: 'C:\\hermes',
-    uninstallArgs: ['-m', 'hermes_cli.uninstall', '--mode', 'full'],
+    uninstallArgs: ['-m', 'kova_cli.uninstall', '--mode', 'full'],
     appPath: 'C:\\Users\\x\\AppData\\Local\\Programs\\Hermes',
     hermesHome: 'C:\\Users\\x\\AppData\\Local\\hermes'
   })
@@ -234,7 +234,7 @@ test('buildWindowsCleanupScript omits PYTHONPATH + rmdir when not needed (gui, n
     pythonExe: 'C:\\h\\venv\\Scripts\\python.exe',
     pythonPath: null,
     agentRoot: 'C:\\h',
-    uninstallArgs: ['-m', 'hermes_cli.uninstall', '--mode', 'gui'],
+    uninstallArgs: ['-m', 'kova_cli.uninstall', '--mode', 'gui'],
     appPath: null,
     hermesHome: 'C:\\h'
   })
