@@ -114,7 +114,7 @@ function downloadInstallScript(commit, destPath) {
     fs.mkdirSync(path.dirname(destPath), { recursive: true })
     const tmpPath = destPath + '.tmp'
     const out = fs.createWriteStream(tmpPath)
-    https
+    const req = https
       .get(url, res => {
         if (res.statusCode === 301 || res.statusCode === 302) {
           // GitHub raw shouldn't redirect for a SHA URL, but follow once
@@ -176,6 +176,14 @@ function downloadInstallScript(commit, destPath) {
         }
         reject(err)
       })
+    req.setTimeout(30000, () => {
+      try {
+        fs.unlinkSync(tmpPath)
+      } catch {
+        void 0
+      }
+      req.destroy(new Error(`Timeout downloading ${installScriptName()} after 30s`))
+    })
   })
 }
 
