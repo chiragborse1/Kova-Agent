@@ -2667,7 +2667,7 @@ class TestLegacyKovaUnitDetection:
         variants = [
             "ExecStart=/venv/bin/python -m kova_cli.main gateway run --replace",
             "ExecStart=/venv/bin/python /opt/kova/kova_cli/main.py gateway run",
-            "ExecStart=/usr/local/bin/Kova Gateway run --replace",
+            "ExecStart=/usr/local/bin/kova gateway run --replace",
             "ExecStart=/venv/bin/python /opt/kova/gateway/run.py",
         ]
         for i, execstart in enumerate(variants):

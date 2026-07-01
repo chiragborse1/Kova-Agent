@@ -1157,14 +1157,14 @@ def _exec_in_container(container_info: dict, cli_args: list):
     On failure, OSError propagates naturally.
 
     Args:
-        container_info: dict with backend, container_name, exec_user, KOVA_bin
+        container_info: dict with backend, container_name, exec_user, kova_bin
         cli_args: the original CLI arguments (everything after 'kova')
     """
 
     backend = container_info["backend"]
     container_name = container_info["container_name"]
     exec_user = container_info["exec_user"]
-    KOVA_bin = container_info["KOVA_bin"]
+    KOVA_bin = container_info["kova_bin"]
 
     runtime = shutil.which(backend)
     if not runtime:

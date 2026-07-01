@@ -286,7 +286,7 @@ def test_env_scrub_KOVA_allowlist_and_secret_blocks():
     env = {
         # operational allowlist → kept
         "KOVA_HOME": "/h", "kova_PROFILE": "p",
-        "KOVA_CONFIG": "/c.yaml", "KOVA_ENV": "/e",
+        "kova_CONFIG": "/c.yaml", "kova_ENV": "/e",
         # other KOVA_* → dropped (broad prefix removed)
         "KOVA_BASE_URL": "https://x", "KOVA_INTERACTIVE": "1",
         "KOVA_KANBAN_DB": "postgres://u:p@h/db",
@@ -298,7 +298,7 @@ def test_env_scrub_KOVA_allowlist_and_secret_blocks():
     }
     out = _scrub_child_env(env, is_passthrough=lambda _: False, is_windows=False)
 
-    for kept in ("KOVA_HOME", "kova_PROFILE", "KOVA_CONFIG", "KOVA_ENV", "PATH"):
+    for kept in ("KOVA_HOME", "kova_PROFILE", "kova_CONFIG", "kova_ENV", "PATH"):
         assert kept in out, f"{kept} should be kept"
     for dropped in (
         "KOVA_BASE_URL", "KOVA_INTERACTIVE", "KOVA_KANBAN_DB",

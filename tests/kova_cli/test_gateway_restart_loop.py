@@ -30,7 +30,7 @@ class TestGatewayLifecyclePattern:
         "Kova Gateway stop",
         "Kova Gateway start",
         "kova  gateway  restart",         # double spaces
-        "Hermez Gateway Restart".lower().replace("z", "s"),  # case handled
+        "KOVA GATEWAY restart",                              # uppercase binary
         "Kova Gateway RESTART",           # uppercase
     ])
     def test_KOVA_gateway_commands(self, text):
