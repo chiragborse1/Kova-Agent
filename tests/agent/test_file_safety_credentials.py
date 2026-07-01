@@ -222,7 +222,7 @@ def test_mcp_tokens_file_blocked(fake_home):
     tok = _create(fake_home, Path("mcp-tokens") / "github.json")
     err = get_read_block_error(str(tok))
     assert err is not None
-    assert "MCP token" in err
+    assert "mcp token" in err
 
 
 def test_mcp_tokens_nested_blocked(fake_home):
@@ -232,7 +232,7 @@ def test_mcp_tokens_nested_blocked(fake_home):
     tok = _create(fake_home, Path("mcp-tokens") / "providers" / "azure.json")
     err = get_read_block_error(str(tok))
     assert err is not None
-    assert "MCP token" in err
+    assert "mcp token" in err
 
 
 def test_mcp_tokens_dir_itself_blocked(fake_home):
@@ -243,7 +243,7 @@ def test_mcp_tokens_dir_itself_blocked(fake_home):
     tokens_dir.mkdir(parents=True, exist_ok=True)
     err = get_read_block_error(str(tokens_dir))
     assert err is not None
-    assert "MCP token" in err
+    assert "mcp token" in err
 
 
 def test_identically_named_KOVA_files_outside_home_not_blocked(
@@ -336,4 +336,4 @@ def test_profile_mode_blocks_root_credentials(tmp_path, monkeypatch):
     root_tok = root / "mcp-tokens" / "gh.json"
     root_tok.parent.mkdir(parents=True, exist_ok=True)
     root_tok.write_text("x")
-    assert "MCP token" in (get_read_block_error(str(root_tok)) or "")
+    assert "mcp token" in (get_read_block_error(str(root_tok)) or "")

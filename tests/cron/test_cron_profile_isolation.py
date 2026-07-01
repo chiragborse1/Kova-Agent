@@ -26,7 +26,7 @@ def _set_profile_env(monkeypatch, root: Path, profile_home: Path) -> None:
     import kova_constants
 
     monkeypatch.setattr(
-        kova_constants, "_get_platform_default_KOVA_HOME", lambda: root
+        kova_constants, "_get_platform_default_kova_home", lambda: root
     )
     monkeypatch.setenv("KOVA_HOME", str(profile_home))
 
@@ -111,7 +111,7 @@ def test_cron_storage_unaffected_when_no_profile(tmp_path, monkeypatch):
     import kova_constants
 
     monkeypatch.setattr(
-        kova_constants, "_get_platform_default_KOVA_HOME", lambda: root
+        kova_constants, "_get_platform_default_kova_home", lambda: root
     )
     monkeypatch.setenv("KOVA_HOME", str(root))
 
