@@ -1123,7 +1123,6 @@ def run_doctor(args):
         pass
 
     _section("Directory Structure")
-    KOVA_HOME = KOVA_HOME
     if KOVA_HOME.exists():
         check_ok(f"{_DHH} directory exists")
     elif should_fix:

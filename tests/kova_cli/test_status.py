@@ -41,7 +41,7 @@ def test_show_status_termux_gateway_section_skips_systemctl(monkeypatch, capsys,
 
     output = capsys.readouterr().out
     assert "Manager:      Termux / manual process" in output
-    assert "Start with:   Kova Gateway" in output
+    assert "Start with:   kova gateway" in output
     assert "systemd (user)" not in output
 
 

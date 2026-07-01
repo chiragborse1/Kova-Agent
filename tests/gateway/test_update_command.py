@@ -49,7 +49,7 @@ class TestHandleUpdateCommand:
     async def test_managed_install_returns_package_manager_guidance(self, monkeypatch):
         runner = _make_runner()
         event = _make_event()
-        monkeypatch.setenv("KOVA_MANAGED", "homebrew")
+        monkeypatch.setenv("kova_MANAGED", "homebrew")
 
         # Guard: prevent any accidental fall-through from spawning a real
         # `kova update --gateway` against the CI checkout. The managed-install

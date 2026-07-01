@@ -1490,7 +1490,7 @@ class TestEdgeCases:
         # runs the gateway with no profile flag).
         with patch("gateway.status.get_running_pid", return_value=None), patch(
             "gateway.status._read_process_cmdline",
-            return_value="Kova Gateway run --replace",
+            return_value="kova gateway run --replace",
         ):
             assert _check_gateway_running(default_home) is True
 
@@ -1555,7 +1555,7 @@ class TestEdgeCases:
             "gateway.status._pid_exists", return_value=True
         ), patch("gateway.status._get_process_start_time", return_value=None), patch(
             "gateway.status._read_process_cmdline",
-            return_value="Kova Gateway run --replace",
+            return_value="kova gateway run --replace",
         ):
             assert _check_gateway_running(coder_home) is False
 

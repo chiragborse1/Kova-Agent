@@ -217,9 +217,9 @@ class TestIRCAdapterMessageParsing:
         adapter._writer = writer
 
         await adapter._handle_line(":server 433 * kova :Nickname in use")
-        assert adapter._current_nick == "KOVA_"
+        assert adapter._current_nick == "kova_"
         sent = writer.write.call_args[0][0]
-        assert b"NICK KOVA_" in sent
+        assert b"NICK kova_" in sent
 
     @pytest.mark.asyncio
     async def test_handle_addressed_channel_message(self, adapter):
@@ -373,11 +373,11 @@ class TestIRCAdapterMessageParsing:
         adapter._writer = writer
 
         await adapter._handle_line(":server 433 * kova :Nickname in use")
-        assert adapter._current_nick == "KOVA_"
-        await adapter._handle_line(":server 433 * KOVA_ :Nickname in use")
-        assert adapter._current_nick == "KOVA_1"
-        await adapter._handle_line(":server 433 * KOVA_1 :Nickname in use")
-        assert adapter._current_nick == "KOVA_2"
+        assert adapter._current_nick == "kova_"
+        await adapter._handle_line(":server 433 * kova_ :Nickname in use")
+        assert adapter._current_nick == "kova_1"
+        await adapter._handle_line(":server 433 * kova_1 :Nickname in use")
+        assert adapter._current_nick == "kova_2"
 
 
 class TestIRCAdapterSplitting:

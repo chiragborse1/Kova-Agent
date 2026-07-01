@@ -55,7 +55,7 @@ def test_edge_telegram_converts_to_opus_voice(tmp_path, monkeypatch):
 
     convert = Mock(side_effect=fake_convert)
 
-    monkeypatch.setenv("KOVA_SESSION_PLATFORM", "telegram")
+    monkeypatch.setenv("kova_SESSION_PLATFORM", "telegram")
     monkeypatch.setattr(tts_tool, "_load_tts_config", lambda: {"provider": "edge"})
     monkeypatch.setattr(tts_tool, "_import_edge_tts", lambda: object())
     monkeypatch.setattr(tts_tool, "_generate_edge_tts", _write_edge_output)

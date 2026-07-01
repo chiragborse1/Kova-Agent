@@ -420,7 +420,7 @@ class TestGatewayRuntimeStatus:
         monkeypatch.setattr(status, "_get_process_start_time", lambda pid: None)
         # PID 139 is now the live DEFAULT gateway (bare, no -p coder).
         monkeypatch.setattr(
-            status, "_read_process_cmdline", lambda pid: "Kova Gateway run --replace"
+            status, "_read_process_cmdline", lambda pid: "kova gateway run --replace"
         )
 
         assert (
@@ -445,7 +445,7 @@ class TestGatewayRuntimeStatus:
         for cmdline in (
             "kova -p coder gateway run --replace",
             "/opt/kova/.venv/bin/kova --profile coder gateway run --replace",
-            "KOVA_HOME=/opt/data/profiles/coder Kova Gateway run --replace",
+            "KOVA_HOME=/opt/data/profiles/coder kova gateway run --replace",
         ):
             monkeypatch.setattr(status, "_read_process_cmdline", lambda pid, c=cmdline: c)
             assert (
@@ -491,7 +491,7 @@ class TestGatewayRuntimeStatus:
         monkeypatch.setattr(status, "_pid_exists", lambda pid: True)
         monkeypatch.setattr(status, "_get_process_start_time", lambda pid: 1000)
         monkeypatch.setattr(
-            status, "_read_process_cmdline", lambda pid: "Kova Gateway run --replace"
+            status, "_read_process_cmdline", lambda pid: "kova gateway run --replace"
         )
 
         assert (

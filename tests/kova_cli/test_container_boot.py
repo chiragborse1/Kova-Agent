@@ -548,7 +548,7 @@ def test_default_slot_run_script_omits_profile_flag(tmp_path: Path) -> None:
     )
 
     run = (scandir / "gateway-default" / "run").read_text()
-    assert "Kova Gateway run" in run
+    assert "kova gateway run" in run
     assert "-p default" not in run
     assert "-p 'default'" not in run
 

@@ -27,8 +27,8 @@ def test_dockerfile_makes_opt_KOVA_readonly_for_KOVA_user() -> None:
 def test_dockerfile_keeps_mutable_state_under_opt_data() -> None:
     text = _dockerfile_text()
 
-    assert "ENV KOVA_HOME=/opt/data" in text
-    assert "ENV KOVA_WRITE_SAFE_ROOT=/opt/data" in text
+    assert "ENV HERMES_HOME=/opt/data" in text
+    assert "ENV HERMES_WRITE_SAFE_ROOT=/opt/data" in text
     assert 'VOLUME [ "/opt/data" ]' in text
 
 
@@ -36,8 +36,8 @@ def test_dockerfile_disables_runtime_install_mutations() -> None:
     text = _dockerfile_text()
 
     assert "ENV PYTHONDONTWRITEBYTECODE=1" in text
-    assert "ENV KOVA_DISABLE_LAZY_INSTALLS=1" in text
-    assert "KOVA_TUI_DIR=/opt/kova/ui-tui" in text
+    assert "ENV HERMES_DISABLE_LAZY_INSTALLS=1" in text
+    assert "HERMES_TUI_DIR=/opt/kova/ui-tui" in text
 
 
 def test_dockerfile_does_not_chown_install_trees_to_kova() -> None:
@@ -91,13 +91,13 @@ def test_dockerfile_redirects_lazy_installs_to_durable_target() -> None:
 
     # The redirect target must be set AND must live under the data volume,
     # never under the immutable /opt/kova tree.
-    assert f"ENV KOVA_LAZY_INSTALL_TARGET={target}" in text
+    assert f"ENV HERMES_LAZY_INSTALL_TARGET={target}" in text
     assert target.startswith("/opt/data/"), "target must be on the durable volume"
     assert "ENV KOVA_LAZY_INSTALL_TARGET=/opt/kova" not in text
 
     # The seal flag must still be present — the redirect rides on top of it,
     # it does not replace it.
-    assert "ENV KOVA_DISABLE_LAZY_INSTALLS=1" in text
+    assert "ENV HERMES_DISABLE_LAZY_INSTALLS=1" in text
 
     # stage2-hook must seed + chown the target dir so first-use installs
     # succeed as the unprivileged kova runtime user.

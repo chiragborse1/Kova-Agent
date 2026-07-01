@@ -11,14 +11,14 @@ from tools.skills_hub import OptionalSkillSource
 
 
 def test_get_managed_system_homebrew(monkeypatch):
-    monkeypatch.setenv("KOVA_MANAGED", "homebrew")
+    monkeypatch.setenv("kova_MANAGED", "homebrew")
 
     assert get_managed_system() == "Homebrew"
     assert recommended_update_command() == "brew upgrade kova-agent"
 
 
 def test_format_managed_message_homebrew(monkeypatch):
-    monkeypatch.setenv("KOVA_MANAGED", "homebrew")
+    monkeypatch.setenv("kova_MANAGED", "homebrew")
 
     message = format_managed_message("update Kova Agent")
 
@@ -27,7 +27,7 @@ def test_format_managed_message_homebrew(monkeypatch):
 
 
 def test_recommended_update_command_defaults_to_KOVA_update(monkeypatch):
-    monkeypatch.delenv("KOVA_MANAGED", raising=False)
+    monkeypatch.delenv("kova_MANAGED", raising=False)
 
     # Also short-circuit the .managed marker path — CI runners may have an
     # ambient ~/.kova/.managed if a prior test left KOVA_HOME pointing
@@ -40,7 +40,7 @@ def test_recommended_update_command_defaults_to_KOVA_update(monkeypatch):
 
 
 def test_cmd_update_blocks_managed_homebrew(monkeypatch, capsys):
-    monkeypatch.setenv("KOVA_MANAGED", "homebrew")
+    monkeypatch.setenv("kova_MANAGED", "homebrew")
 
     with patch("kova_cli.main.subprocess.run") as mock_run:
         cmd_update(SimpleNamespace())

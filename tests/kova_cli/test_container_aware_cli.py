@@ -35,7 +35,7 @@ def container_env(tmp_path, monkeypatch):
         "backend=podman\n"
         "container_name=kova-agent\n"
         "exec_user=kova\n"
-        "KOVA_bin=/data/current-package/bin/kova\n"
+        "kova_bin=/data/current-package/bin/kova\n"
     )
     return KOVA_HOME
 
@@ -49,7 +49,7 @@ def test_get_container_exec_info_returns_metadata(container_env):
     assert info["backend"] == "podman"
     assert info["container_name"] == "kova-agent"
     assert info["exec_user"] == "kova"
-    assert info["KOVA_bin"] == "/data/current-package/bin/kova"
+    assert info["kova_bin"] == "/data/current-package/bin/kova"
 
 
 def test_get_container_exec_info_none_inside_container(container_env):
@@ -114,7 +114,7 @@ def test_get_container_exec_info_defaults():
         assert info["backend"] == "docker"
         assert info["container_name"] == "kova-agent"
         assert info["exec_user"] == "kova"
-        assert info["KOVA_bin"] == "/data/current-package/bin/kova"
+    assert info["kova_bin"] == "/data/current-package/bin/kova"
 
 
 def test_get_container_exec_info_docker_backend(container_env):
@@ -123,7 +123,7 @@ def test_get_container_exec_info_docker_backend(container_env):
         "backend=docker\n"
         "container_name=kova-custom\n"
         "exec_user=myuser\n"
-        "KOVA_bin=/opt/kova/bin/kova\n"
+        "kova_bin=/opt/kova/bin/kova\n"
     )
 
     with patch("kova_constants.is_container", return_value=False):
@@ -132,7 +132,7 @@ def test_get_container_exec_info_docker_backend(container_env):
     assert info["backend"] == "docker"
     assert info["container_name"] == "kova-custom"
     assert info["exec_user"] == "myuser"
-    assert info["KOVA_bin"] == "/opt/kova/bin/kova"
+    assert info["kova_bin"] == "/opt/kova/bin/kova"
 
 
 def test_get_container_exec_info_crashes_on_permission_error(container_env):
@@ -154,7 +154,7 @@ def docker_container_info():
         "backend": "docker",
         "container_name": "kova-agent",
         "exec_user": "kova",
-        "KOVA_bin": "/data/current-package/bin/kova",
+        "kova_bin": "/data/current-package/bin/kova",
     }
 
 
@@ -164,7 +164,7 @@ def podman_container_info():
         "backend": "podman",
         "container_name": "kova-agent",
         "exec_user": "kova",
-        "KOVA_bin": "/data/current-package/bin/kova",
+        "kova_bin": "/data/current-package/bin/kova",
     }
 
 

@@ -195,7 +195,7 @@ _ENV_VAR_NAME_DENYLIST: frozenset[str] = frozenset({
     # kova runtime location — never via dashboard env writer.
     # NOT a KOVA_* blanket: integration credentials (kova_GEMINI_*,
     # kova_LANGFUSE_*, kova_SPOTIFY_*, ...) ARE allowed.
-    "KOVA_HOME", "kova_PROFILE", "kova_CONFIG", "kova_ENV",
+    "KOVA_HOME", "KOVA_PROFILE", "KOVA_CONFIG", "KOVA_ENV",
 })
 
 

@@ -313,7 +313,7 @@ def test_identity_template_resolved_in_container_tag(monkeypatch, tmp_path):
     _save_supermemory_config({"container_tag": "kova-{identity}"}, str(tmp_path))
     p = SupermemoryMemoryProvider()
     p.initialize("s1", KOVA_HOME=str(tmp_path), platform="cli", agent_identity="coder")
-    assert p._container_tag == "KOVA_coder"
+    assert p._container_tag == "kova_coder"
 
 
 def test_identity_template_default_profile(monkeypatch, tmp_path):
@@ -323,7 +323,7 @@ def test_identity_template_default_profile(monkeypatch, tmp_path):
     _save_supermemory_config({"container_tag": "kova-{identity}"}, str(tmp_path))
     p = SupermemoryMemoryProvider()
     p.initialize("s1", KOVA_HOME=str(tmp_path), platform="cli")
-    assert p._container_tag == "KOVA_default"
+    assert p._container_tag == "kova_default"
 
 
 def test_container_tag_env_var_override(monkeypatch, tmp_path):
@@ -454,13 +454,13 @@ def test_get_config_schema_minimal():
 def test_format_connection_summary_ok():
     summary = _format_connection_summary({
         "ok": True,
-        "container_tag": "KOVA_coder",
+        "container_tag": "kova_coder",
         "profile_facts": 12,
         "auto_recall": True,
         "auto_capture": False,
     })
     assert "✓ Connected" in summary
-    assert "container: KOVA_coder" in summary
+    assert "container: kova_coder" in summary
     assert "12 profile facts" in summary
     assert "auto_recall on" in summary
     assert "auto_capture off" in summary
