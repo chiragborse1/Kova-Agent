@@ -1,0 +1,402 @@
+﻿# Kova ì •ì  ë©”ì‹œì§€ ì¹´íƒˆë¡œê·¸ -- í•œêµ­ì–´
+# See locales/en.yaml for the source of truth; keep keys in sync.
+
+approval:
+  dangerous_header: "âš ï¸  ìœ„í—˜í•œ ëª…ë ¹: {description}"
+  choose_long:     "      [o]í•œ ë²ˆ  |  [s]ì„¸ì…˜  |  [a]í•­ìƒ  |  [d]ê±°ë¶€"
+  choose_short:    "      [o]í•œ ë²ˆ  |  [s]ì„¸ì…˜  |  [d]ê±°ë¶€"
+  prompt_long:     "      ì„ íƒ [o/s/a/D]: "
+  prompt_short:    "      ì„ íƒ [o/s/D]: "
+  timeout:         "      â± ì‹œê°„ ì´ˆê³¼ - ëª…ë ¹ì„ ê±°ë¶€í•©ë‹ˆë‹¤"
+  allowed_once:    "      âœ“ í•œ ë²ˆ í—ˆìš©ë¨"
+  allowed_session: "      âœ“ ì´ ì„¸ì…˜ì—ì„œ í—ˆìš©ë¨"
+  allowed_always:  "      âœ“ ì˜êµ¬ í—ˆìš© ëª©ë¡ì— ì¶”ê°€ë¨"
+  denied:          "      âœ— ê±°ë¶€ë¨"
+  cancelled:       "      âœ— ì·¨ì†Œë¨"
+  blocklist_message: "ì´ ëª…ë ¹ì€ ë¬´ì¡°ê±´ ì°¨ë‹¨ ëª©ë¡ì— ìžˆìœ¼ë©° ìŠ¹ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
+
+gateway:
+  approval_expired: "âš ï¸ ìŠ¹ì¸ì´ ë§Œë£Œë˜ì—ˆìŠµë‹ˆë‹¤ (ì—ì´ì „íŠ¸ê°€ ë” ì´ìƒ ëŒ€ê¸°í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤). ì—ì´ì „íŠ¸ì—ê²Œ ë‹¤ì‹œ ì‹œë„í•˜ë„ë¡ ìš”ì²­í•˜ì„¸ìš”."
+  draining:         "â³ ìž¬ì‹œìž‘ ì „ì— í™œì„± ì—ì´ì „íŠ¸ {count}ëª…ì„ ì •ë¦¬í•˜ëŠ” ì¤‘..."
+  goal_cleared:     "âœ“ ëª©í‘œê°€ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤."
+  no_active_goal:   "í™œì„± ëª©í‘œê°€ ì—†ìŠµë‹ˆë‹¤."
+  config_read_failed: "âš ï¸ config.yamlì„ ì½ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤: {error}"
+  config_save_failed: "âš ï¸ ì„¤ì •ì„ ì €ìž¥í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤: {error}"
+
+  model:
+    error_prefix:           "ì˜¤ë¥˜: {error}"
+    switched:               "ëª¨ë¸ì´ `{model}`(ìœ¼)ë¡œ ì „í™˜ë˜ì—ˆìŠµë‹ˆë‹¤"
+    provider_label:         "ì œê³µìž: {provider}"
+    context_label:          "ì»¨í…ìŠ¤íŠ¸: {tokens} í† í°"
+    max_output_label:       "ìµœëŒ€ ì¶œë ¥: {tokens} í† í°"
+    cost_label:             "ë¹„ìš©: {cost}"
+    capabilities_label:     "ê¸°ëŠ¥: {capabilities}"
+    prompt_caching_enabled: "í”„ë¡¬í”„íŠ¸ ìºì‹±: í™œì„±í™”ë¨"
+    warning_prefix:         "ê²½ê³ : {warning}"
+    saved_global:           "config.yamlì— ì €ìž¥ë¨ (`--global`)"
+    session_only_hint:      "_(ì„¸ì…˜ í•œì • â€” ì˜êµ¬ ì €ìž¥í•˜ë ¤ë©´ `--global`ì„ ì¶”ê°€í•˜ì„¸ìš”)_"
+    current_label:          "í˜„ìž¬: `{model}` ({provider})"
+    current_tag:            " (í˜„ìž¬)"
+    more_models_suffix:     " (+{count}ê°œ ë” ìžˆìŒ)"
+    usage_switch_model:     "`/model <name>` â€” ëª¨ë¸ ì „í™˜"
+    usage_switch_provider:  "`/model <name> --provider <slug>` â€” ì œê³µìž ì „í™˜"
+    usage_persist:          "`/model <name> --global` â€” ì˜êµ¬ ì €ìž¥"
+
+  agents:
+    header:                "ðŸ¤– **í™œì„± ì—ì´ì „íŠ¸ ë° ìž‘ì—…**"
+    active_agents:         "**í™œì„± ì—ì´ì „íŠ¸:** {count}"
+    this_chat:             " Â· ì´ ì±„íŒ…"
+    more:                  "... ì™¸ {count}ê°œ ë”"
+    running_processes:     "**ì‹¤í–‰ ì¤‘ì¸ ë°±ê·¸ë¼ìš´ë“œ í”„ë¡œì„¸ìŠ¤:** {count}"
+    async_jobs:            "**ê²Œì´íŠ¸ì›¨ì´ ë¹„ë™ê¸° ìž‘ì—…:** {count}"
+    none:                  "í™œì„± ì—ì´ì „íŠ¸ë‚˜ ì‹¤í–‰ ì¤‘ì¸ ìž‘ì—…ì´ ì—†ìŠµë‹ˆë‹¤."
+    state_starting:        "ì‹œìž‘ ì¤‘"
+    state_running:         "ì‹¤í–‰ ì¤‘"
+
+  approve:
+    no_pending:            "ìŠ¹ì¸ ëŒ€ê¸° ì¤‘ì¸ ëª…ë ¹ì´ ì—†ìŠµë‹ˆë‹¤."
+    once_singular:         "âœ… ëª…ë ¹ì´ ìŠ¹ì¸ë˜ì—ˆìŠµë‹ˆë‹¤. ì—ì´ì „íŠ¸ê°€ ìž¬ê°œë©ë‹ˆë‹¤..."
+    once_plural:           "âœ… ëª…ë ¹ì´ ìŠ¹ì¸ë˜ì—ˆìŠµë‹ˆë‹¤ ({count}ê°œ). ì—ì´ì „íŠ¸ê°€ ìž¬ê°œë©ë‹ˆë‹¤..."
+    session_singular:      "âœ… ëª…ë ¹ì´ ìŠ¹ì¸ë˜ì—ˆìŠµë‹ˆë‹¤ (ì´ ì„¸ì…˜ ë™ì•ˆ íŒ¨í„´ ìŠ¹ì¸ë¨). ì—ì´ì „íŠ¸ê°€ ìž¬ê°œë©ë‹ˆë‹¤..."
+    session_plural:        "âœ… ëª…ë ¹ì´ ìŠ¹ì¸ë˜ì—ˆìŠµë‹ˆë‹¤ (ì´ ì„¸ì…˜ ë™ì•ˆ íŒ¨í„´ ìŠ¹ì¸ë¨) ({count}ê°œ). ì—ì´ì „íŠ¸ê°€ ìž¬ê°œë©ë‹ˆë‹¤..."
+    always_singular:       "âœ… ëª…ë ¹ì´ ìŠ¹ì¸ë˜ì—ˆìŠµë‹ˆë‹¤ (íŒ¨í„´ ì˜êµ¬ ìŠ¹ì¸ë¨). ì—ì´ì „íŠ¸ê°€ ìž¬ê°œë©ë‹ˆë‹¤..."
+    always_plural:         "âœ… ëª…ë ¹ì´ ìŠ¹ì¸ë˜ì—ˆìŠµë‹ˆë‹¤ (íŒ¨í„´ ì˜êµ¬ ìŠ¹ì¸ë¨) ({count}ê°œ). ì—ì´ì „íŠ¸ê°€ ìž¬ê°œë©ë‹ˆë‹¤..."
+
+  background:
+    usage:                 "ì‚¬ìš©ë²•: /background <prompt>\nì˜ˆì‹œ: /background ì˜¤ëŠ˜ HN ì¸ê¸° ê¸€ì„ ìš”ì•½í•´ì¤˜\n\ní”„ë¡¬í”„íŠ¸ë¥¼ ë³„ë„ ì„¸ì…˜ì—ì„œ ì‹¤í–‰í•©ë‹ˆë‹¤. ê³„ì† ëŒ€í™”í•  ìˆ˜ ìžˆìœ¼ë©°, ì™„ë£Œë˜ë©´ ê²°ê³¼ê°€ ì—¬ê¸°ì— í‘œì‹œë©ë‹ˆë‹¤."
+    started:               "ðŸ”„ ë°±ê·¸ë¼ìš´ë“œ ìž‘ì—…ì´ ì‹œìž‘ë˜ì—ˆìŠµë‹ˆë‹¤: \"{preview}\"\nìž‘ì—… ID: {task_id}\nê³„ì† ëŒ€í™”í•˜ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤ â€” ì™„ë£Œë˜ë©´ ê²°ê³¼ê°€ ì—¬ê¸°ì— í‘œì‹œë©ë‹ˆë‹¤."
+
+  branch:
+    db_unavailable:        "ì„¸ì…˜ ë°ì´í„°ë² ì´ìŠ¤ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
+    no_conversation:       "ë¶„ê¸°í•  ëŒ€í™”ê°€ ì—†ìŠµë‹ˆë‹¤ â€” ë¨¼ì € ë©”ì‹œì§€ë¥¼ ë³´ë‚´ì£¼ì„¸ìš”."
+    create_failed:         "ë¶„ê¸° ìƒì„±ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤: {error}"
+    switch_failed:         "ë¶„ê¸°ëŠ” ìƒì„±ë˜ì—ˆìœ¼ë‚˜ ì „í™˜ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤."
+    branched_one:          "â‘‚ **{title}**(ìœ¼)ë¡œ ë¶„ê¸°í–ˆìŠµë‹ˆë‹¤ (ë©”ì‹œì§€ {count}ê°œ ë³µì‚¬ë¨)\nì›ë³¸: `{parent}`\në¶„ê¸°: `{new}`\nì›ë³¸ìœ¼ë¡œ ëŒì•„ê°€ë ¤ë©´ `/resume`ì„ ì‚¬ìš©í•˜ì„¸ìš”."
+    branched_many:         "â‘‚ **{title}**(ìœ¼)ë¡œ ë¶„ê¸°í–ˆìŠµë‹ˆë‹¤ (ë©”ì‹œì§€ {count}ê°œ ë³µì‚¬ë¨)\nì›ë³¸: `{parent}`\në¶„ê¸°: `{new}`\nì›ë³¸ìœ¼ë¡œ ëŒì•„ê°€ë ¤ë©´ `/resume`ì„ ì‚¬ìš©í•˜ì„¸ìš”."
+
+  commands:
+    usage:                 "ì‚¬ìš©ë²•: `/commands [page]`"
+    skill_header:          "âš¡ **ìŠ¤í‚¬ ëª…ë ¹**:"
+    default_desc:          "ìŠ¤í‚¬ ëª…ë ¹"
+    none:                  "ì‚¬ìš© ê°€ëŠ¥í•œ ëª…ë ¹ì´ ì—†ìŠµë‹ˆë‹¤."
+    header:                "ðŸ“š **ëª…ë ¹ ëª©ë¡** (ì´ {total}ê°œ, {page}/{total_pages} íŽ˜ì´ì§€)"
+    nav_prev:              "`/commands {page}` â† ì´ì „"
+    nav_next:              "ë‹¤ìŒ â†’ `/commands {page}`"
+    out_of_range:          "_(ìš”ì²­í•œ íŽ˜ì´ì§€ {requested}ì´(ê°€) ë²”ìœ„ë¥¼ ë²—ì–´ë‚¬ìŠµë‹ˆë‹¤. {page} íŽ˜ì´ì§€ë¥¼ í‘œì‹œí•©ë‹ˆë‹¤.)_"
+
+  compress:
+    not_enough:            "ì••ì¶•í•  ëŒ€í™”ê°€ ì¶©ë¶„í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤ (ìµœì†Œ 4ê°œì˜ ë©”ì‹œì§€ê°€ í•„ìš”í•©ë‹ˆë‹¤)."
+    no_provider:           "êµ¬ì„±ëœ ì œê³µìžê°€ ì—†ìŠµë‹ˆë‹¤ -- ì••ì¶•í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
+    nothing_to_do:         "ì•„ì§ ì••ì¶•í•  ë‚´ìš©ì´ ì—†ìŠµë‹ˆë‹¤ (ëŒ€í™” ë‚´ìš©ì´ ëª¨ë‘ ë³´í˜¸ëœ ì»¨í…ìŠ¤íŠ¸ìž…ë‹ˆë‹¤)."
+    aggressive_unsupported: "--aggressiveëŠ” ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤. '/compress here [N]'ìœ¼ë¡œ ìµœê·¼ ëŒ€í™”ë§Œ ìœ ì§€í•˜ê±°ë‚˜ /undoë¡œ í„´ì„ ì‚­ì œí•˜ì„¸ìš”."
+    focus_line:            "ì´ˆì : \"{topic}\""
+    summary_failed:        "âš ï¸ ìš”ì•½ ìƒì„±ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤ ({error}). ê³¼ê±° ë©”ì‹œì§€ {count}ê°œê°€ ì œê±°ë˜ì–´ ìžë¦¬í‘œì‹œìžë¡œ ëŒ€ì²´ë˜ì—ˆìœ¼ë©°, ì´ì „ ì»¨í…ìŠ¤íŠ¸ëŠ” ë” ì´ìƒ ë³µêµ¬í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. auxiliary.compression ëª¨ë¸ ì„¤ì •ì„ í™•ì¸í•´ ë³´ì„¸ìš”."
+    aborted:               "âš ï¸ ì••ì¶•ì´ ì¤‘ë‹¨ë˜ì—ˆìŠµë‹ˆë‹¤ ({error}). ë©”ì‹œì§€ê°€ ì‚­ì œë˜ì§€ ì•Šì•˜ìœ¼ë©° ëŒ€í™”ëŠ” ê·¸ëŒ€ë¡œ ìœ ì§€ë©ë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•˜ë ¤ë©´ /compressë¥¼ ì‹¤í–‰í•˜ê±°ë‚˜, ìƒˆ ì„¸ì…˜ì„ ì‹œìž‘í•˜ë ¤ë©´ /resetì„ ì‚¬ìš©í•˜ê±°ë‚˜, auxiliary.compression ëª¨ë¸ ì„¤ì •ì„ í™•ì¸í•˜ì„¸ìš”."
+    aux_failed:            "â„¹ï¸ êµ¬ì„±ëœ ì••ì¶• ëª¨ë¸ `{model}`ì´(ê°€) ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤ ({error}). ë©”ì¸ ëª¨ë¸ë¡œ ë³µêµ¬ë˜ì–´ ì»¨í…ìŠ¤íŠ¸ëŠ” ë³´ì¡´ë˜ì—ˆì§€ë§Œ, config.yamlì˜ `auxiliary.compression.model` ì„¤ì •ì„ í™•ì¸í•˜ëŠ” ê²ƒì´ ì¢‹ìŠµë‹ˆë‹¤."
+    failed:                "ì••ì¶• ì‹¤íŒ¨: {error}"
+
+  debug:
+    upload_failed:         "âœ— ë””ë²„ê·¸ ë³´ê³ ì„œ ì—…ë¡œë“œ ì‹¤íŒ¨: {error}"
+    header:                "**ë””ë²„ê·¸ ë³´ê³ ì„œê°€ ì—…ë¡œë“œë˜ì—ˆìŠµë‹ˆë‹¤:**"
+    auto_delete:           "â± íŽ˜ì´ìŠ¤íŠ¸ëŠ” 6ì‹œê°„ í›„ ìžë™ ì‚­ì œë©ë‹ˆë‹¤."
+    full_logs_hint:        "ì „ì²´ ë¡œê·¸ ì—…ë¡œë“œëŠ” CLIì—ì„œ `hermes debug share`ë¥¼ ì‚¬ìš©í•˜ì„¸ìš”."
+    share_hint:            "ì§€ì›ì„ ë°›ìœ¼ë ¤ë©´ ì´ ë§í¬ë¥¼ Kova íŒ€ê³¼ ê³µìœ í•˜ì„¸ìš”."
+
+  deny:
+    stale:                 "âŒ ëª…ë ¹ì´ ê±°ë¶€ë˜ì—ˆìŠµë‹ˆë‹¤ (ìŠ¹ì¸ì´ ë§Œë£Œë¨)."
+    no_pending:            "ê±°ë¶€ ëŒ€ê¸° ì¤‘ì¸ ëª…ë ¹ì´ ì—†ìŠµë‹ˆë‹¤."
+    denied_singular:       "âŒ ëª…ë ¹ì´ ê±°ë¶€ë˜ì—ˆìŠµë‹ˆë‹¤."
+    denied_plural:         "âŒ ëª…ë ¹ì´ ê±°ë¶€ë˜ì—ˆìŠµë‹ˆë‹¤ ({count}ê°œ)."
+    denied_reason_singular: "âŒ ëª…ë ¹ì´ ê±°ë¶€ë˜ì—ˆìŠµë‹ˆë‹¤. ì‚¬ìœ ë¥¼ ì—ì´ì „íŠ¸ì— ì „ë‹¬í•¨: \"{reason}\""
+    denied_reason_plural:  "âŒ ëª…ë ¹ì´ ê±°ë¶€ë˜ì—ˆìŠµë‹ˆë‹¤ ({count}ê°œ). ì‚¬ìœ ë¥¼ ì—ì´ì „íŠ¸ì— ì „ë‹¬í•¨: \"{reason}\""
+
+  fast:
+    not_supported:         "âš¡ /fastëŠ” Priority Processingì„ ì§€ì›í•˜ëŠ” OpenAI ëª¨ë¸ì—ì„œë§Œ ì‚¬ìš©í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤."
+    status:                "âš¡ Priority Processing\n\ní˜„ìž¬ ëª¨ë“œ: `{mode}`\n\n_ì‚¬ìš©ë²•:_ `/fast <normal|fast|status>`"
+    unknown_arg:           "âš ï¸ ì•Œ ìˆ˜ ì—†ëŠ” ì¸ìˆ˜: `{arg}`\n\n**ìœ íš¨í•œ ì˜µì…˜:** normal, fast, status"
+    saved:                 "âš¡ âœ“ Priority Processing: **{label}** (ì„¤ì •ì— ì €ìž¥ë¨)\n_(ë‹¤ìŒ ë©”ì‹œì§€ë¶€í„° ì ìš©ë©ë‹ˆë‹¤)_"
+    session_only:          "âš¡ âœ“ Priority Processing: **{label}** (ì´ ì„¸ì…˜ì—ë§Œ ì ìš©)"
+    label_fast:            "FAST"
+    label_normal:          "NORMAL"
+    status_fast:           "fast"
+    status_normal:         "normal"
+
+  footer:
+    status:                "ðŸ“Ž ëŸ°íƒ€ìž„ í‘¸í„°: **{state}**\ní•„ë“œ: `{fields}`\ní”Œëž«í¼: `{platform}`"
+    usage:                 "ì‚¬ìš©ë²•: `/footer [on|off|status]`"
+    saved:                 "ðŸ“Ž ëŸ°íƒ€ìž„ í‘¸í„°: **{state}**{example}\n_(ì „ì—­ ì €ìž¥ë¨ â€” ë‹¤ìŒ ë©”ì‹œì§€ë¶€í„° ì ìš©ë©ë‹ˆë‹¤)_"
+    example_line:          "\nì˜ˆì‹œ: `{preview}`"
+    state_on:              "ON"
+    state_off:             "OFF"
+
+  goal:
+    unavailable:           "ì´ ì„¸ì…˜ì—ì„œëŠ” ëª©í‘œ ê¸°ëŠ¥ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
+    no_goal_set:           "ì„¤ì •ëœ ëª©í‘œê°€ ì—†ìŠµë‹ˆë‹¤."
+    paused:                "â¸ ëª©í‘œ ì¼ì‹œì •ì§€: {goal}"
+    no_resume:             "ìž¬ê°œí•  ëª©í‘œê°€ ì—†ìŠµë‹ˆë‹¤."
+    resumed:               "â–¶ ëª©í‘œ ìž¬ê°œ: {goal}\në©”ì‹œì§€ë¥¼ ë³´ë‚´ ê³„ì†í•˜ê±°ë‚˜ ê¸°ë‹¤ë ¤ ì£¼ì„¸ìš” â€” ë‹¤ìŒ ì°¨ë¡€ì— ë‹¤ìŒ ë‹¨ê³„ë¥¼ ì§„í–‰í•˜ê² ìŠµë‹ˆë‹¤."
+    invalid:               "ìž˜ëª»ëœ ëª©í‘œ: {error}"
+    set:                   "âŠ™ ëª©í‘œ ì„¤ì •ë¨ ({budget}íšŒ ì˜ˆì‚°): {goal}\nëª©í‘œê°€ ì™„ë£Œë˜ê±°ë‚˜, ì¼ì‹œì •ì§€/ì‚­ì œí•˜ê±°ë‚˜, ì˜ˆì‚°ì´ ì†Œì§„ë  ë•Œê¹Œì§€ ê³„ì† ìž‘ì—…í•˜ê² ìŠµë‹ˆë‹¤.\nì œì–´: /goal status Â· /goal pause Â· /goal resume Â· /goal clear"
+
+  help:
+    header:                "ðŸ“– **Kova ëª…ë ¹**\n"
+    skill_header:          "\nâš¡ **ìŠ¤í‚¬ ëª…ë ¹** ({count}ê°œ í™œì„±):"
+    more_use_commands:     "\n... ì™¸ {count}ê°œ ë”. ì „ì²´ ëª©ë¡ì€ `/commands`ë¡œ í™•ì¸í•˜ì„¸ìš”."
+
+  insights:
+    invalid_days:          "ìž˜ëª»ëœ --days ê°’: {value}"
+    error:                 "ì¸ì‚¬ì´íŠ¸ ìƒì„± ì¤‘ ì˜¤ë¥˜: {error}"
+
+  kanban:
+    error_prefix:          "âš  kanban ì˜¤ë¥˜: {error}"
+    subscribed_suffix:     "(êµ¬ë… ì¤‘ â€” {task_id}ì´(ê°€) ì™„ë£Œë˜ê±°ë‚˜ ì°¨ë‹¨ë˜ë©´ ì•Œë¦¼ì„ ë°›ìŠµë‹ˆë‹¤)"
+    truncated_suffix:      "â€¦ (ìž˜ë¦¼; ì „ì²´ ì¶œë ¥ì„ ë³´ë ¤ë©´ í„°ë¯¸ë„ì—ì„œ `hermes kanban â€¦`ì„ ì‚¬ìš©í•˜ì„¸ìš”)"
+    no_output:             "(ì¶œë ¥ ì—†ìŒ)"
+    wake:
+      completed:           "completed"
+      gave_up:             "gave up (retries exhausted)"
+      crashed:             "crashed (worker exited); dispatcher will retry"
+      timed_out:           "timed out; dispatcher will retry"
+      blocked:             "blocked; needs attention"
+      status_default:      "status changed"
+      status_joiner:       ", "
+      message:             "[kanban] Task {task_id} {status}.\nTitle: {title}\nAssignee: @{assignee}\nBoard: {board}\n\nCheck the result or decide the next step."
+
+  personality:
+    none_configured:       "`{path}/config.yaml`ì— êµ¬ì„±ëœ ì„±ê²©ì´ ì—†ìŠµë‹ˆë‹¤"
+    header:                "ðŸŽ­ **ì‚¬ìš© ê°€ëŠ¥í•œ ì„±ê²©**\n"
+    none_option:           "â€¢ `none` â€” (ì„±ê²© ì˜¤ë²„ë ˆì´ ì—†ìŒ)"
+    item:                  "â€¢ `{name}` â€” {preview}"
+    usage:                 "\nì‚¬ìš©ë²•: `/personality <name>`"
+    save_failed:           "âš ï¸ ì„±ê²© ë³€ê²½ ì €ìž¥ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤: {error}"
+    cleared:               "ðŸŽ­ ì„±ê²©ì´ í•´ì œë˜ì—ˆìŠµë‹ˆë‹¤ â€” ê¸°ë³¸ ì—ì´ì „íŠ¸ ë™ìž‘ì„ ì‚¬ìš©í•©ë‹ˆë‹¤.\n_(ë‹¤ìŒ ë©”ì‹œì§€ë¶€í„° ì ìš©ë©ë‹ˆë‹¤)_"
+    set_to:                "ðŸŽ­ ì„±ê²©ì´ **{name}**(ìœ¼)ë¡œ ì„¤ì •ë˜ì—ˆìŠµë‹ˆë‹¤\n_(ë‹¤ìŒ ë©”ì‹œì§€ë¶€í„° ì ìš©ë©ë‹ˆë‹¤)_"
+    unknown:               "ì•Œ ìˆ˜ ì—†ëŠ” ì„±ê²©: `{name}`\n\nì‚¬ìš© ê°€ëŠ¥: {available}"
+
+  profile:
+    header:                "ðŸ‘¤ **í”„ë¡œí•„:** `{profile}`"
+    home:                  "ðŸ“‚ **í™ˆ:** `{home}`"
+
+  reasoning:
+    level_default:             "medium (ê¸°ë³¸ê°’)"
+    level_disabled:            "none (ë¹„í™œì„±í™”ë¨)"
+    scope_session:             "ì„¸ì…˜ ìž¬ì •ì˜"
+    scope_global:              "ì „ì—­ ì„¤ì •"
+    status:                    "ðŸ§  **ì¶”ë¡  ì„¤ì •**\n\n**ë…¸ë ¥:** `{level}`\n**ë²”ìœ„:** {scope}\n**í‘œì‹œ:** {display}\n\n_ì‚¬ìš©ë²•:_ `/reasoning <none|minimal|low|medium|high|xhigh|reset|show|hide> [--global]`"
+    display_on:                "ì¼œì§ âœ“"
+    display_off:               "êº¼ì§"
+    display_set_on:            "ðŸ§  âœ“ ì¶”ë¡  í‘œì‹œ: **ì¼œì§**\n**{platform}**ì—ì„œ ì‘ë‹µ ì „ì— ëª¨ë¸ì˜ ì‚¬ê³  ê³¼ì •ì´ í‘œì‹œë©ë‹ˆë‹¤."
+    display_set_off:           "ðŸ§  âœ“ ì¶”ë¡  í‘œì‹œ: **êº¼ì§** (**{platform}**ì—ì„œ)"
+    reset_global_unsupported:  "âš ï¸ `/reasoning reset --global`ì€ ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤. ì „ì—­ ê¸°ë³¸ê°’ì„ ë³€ê²½í•˜ë ¤ë©´ `/reasoning <level> --global`ì„ ì‚¬ìš©í•˜ì„¸ìš”."
+    reset_done:                "ðŸ§  âœ“ ì„¸ì…˜ ì¶”ë¡  ìž¬ì •ì˜ê°€ í•´ì œë˜ì—ˆìŠµë‹ˆë‹¤. ì „ì—­ ì„¤ì •ìœ¼ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤."
+    unknown_arg:               "âš ï¸ ì•Œ ìˆ˜ ì—†ëŠ” ì¸ìˆ˜: `{arg}`\n\n**ìœ íš¨í•œ ìˆ˜ì¤€:** none, minimal, low, medium, high, xhigh\n**í‘œì‹œ:** show, hide\n**ì˜êµ¬í™”:** ì´ ì„¸ì…˜ì„ ë„˜ì–´ ì €ìž¥í•˜ë ¤ë©´ `--global`ì„ ì¶”ê°€í•˜ì„¸ìš”"
+    set_global:                "ðŸ§  âœ“ ì¶”ë¡  ë…¸ë ¥ì´ `{effort}`(ìœ¼)ë¡œ ì„¤ì •ë˜ì—ˆìŠµë‹ˆë‹¤ (ì„¤ì •ì— ì €ìž¥ë¨)\n_(ë‹¤ìŒ ë©”ì‹œì§€ë¶€í„° ì ìš©ë©ë‹ˆë‹¤)_"
+    set_global_save_failed:    "ðŸ§  âœ“ ì¶”ë¡  ë…¸ë ¥ì´ `{effort}`(ìœ¼)ë¡œ ì„¤ì •ë˜ì—ˆìŠµë‹ˆë‹¤ (ì„¸ì…˜ í•œì • â€” ì„¤ì • ì €ìž¥ ì‹¤íŒ¨)\n_(ë‹¤ìŒ ë©”ì‹œì§€ë¶€í„° ì ìš©ë©ë‹ˆë‹¤)_"
+    set_session:               "ðŸ§  âœ“ ì¶”ë¡  ë…¸ë ¥ì´ `{effort}`(ìœ¼)ë¡œ ì„¤ì •ë˜ì—ˆìŠµë‹ˆë‹¤ (ì„¸ì…˜ í•œì • â€” ì˜êµ¬ ì €ìž¥í•˜ë ¤ë©´ `--global` ì¶”ê°€)\n_(ë‹¤ìŒ ë©”ì‹œì§€ë¶€í„° ì ìš©ë©ë‹ˆë‹¤)_"
+
+  reload_mcp:
+    cancelled:             "ðŸŸ¡ /reload-mcpê°€ ì·¨ì†Œë˜ì—ˆìŠµë‹ˆë‹¤. MCP ë„êµ¬ëŠ” ë³€ê²½ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤."
+    always_followup:       "â„¹ï¸ ì´í›„ `/reload-mcp` í˜¸ì¶œì€ í™•ì¸ ì—†ì´ ì‹¤í–‰ë©ë‹ˆë‹¤. config.yamlì˜ `approvals.mcp_reload_confirm: true`ë¡œ ë‹¤ì‹œ í™œì„±í™”í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤."
+    confirm_prompt:        "âš ï¸ **/reload-mcp í™•ì¸**\n\nMCP ì„œë²„ë¥¼ ìž¬ë¡œë“œí•˜ë©´ ì´ ì„¸ì…˜ì˜ ë„êµ¬ ì„¸íŠ¸ê°€ ìž¬êµ¬ì„±ë˜ë©° **ì œê³µìž í”„ë¡¬í”„íŠ¸ ìºì‹œê°€ ë¬´íš¨í™”ë©ë‹ˆë‹¤** â€” ë‹¤ìŒ ë©”ì‹œì§€ì—ì„œ ì „ì²´ ìž…ë ¥ í† í°ì´ ë‹¤ì‹œ ì „ì†¡ë©ë‹ˆë‹¤. ê¸´ ì»¨í…ìŠ¤íŠ¸ ë˜ëŠ” ê³ ë„ ì¶”ë¡  ëª¨ë¸ì—ì„œëŠ” ë¹„ìš©ì´ í´ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.\n\nì„ íƒí•˜ì„¸ìš”:\nâ€¢ **í•œ ë²ˆ ìŠ¹ì¸** â€” ì§€ê¸ˆ ìž¬ë¡œë“œ\nâ€¢ **í•­ìƒ ìŠ¹ì¸** â€” ì§€ê¸ˆ ìž¬ë¡œë“œí•˜ê³  ì´ í”„ë¡¬í”„íŠ¸ë¥¼ ì˜êµ¬ ë¹„í™œì„±í™”\nâ€¢ **ì·¨ì†Œ** â€” MCP ë„êµ¬ë¥¼ ë³€ê²½í•˜ì§€ ì•ŠìŒ\n\n_í…ìŠ¤íŠ¸ ëŒ€ì²´: `/approve`, `/always`, `/cancel`ë¡œ ì‘ë‹µí•˜ì„¸ìš”._"
+    header:                "ðŸ”„ **MCP ì„œë²„ê°€ ìž¬ë¡œë“œë˜ì—ˆìŠµë‹ˆë‹¤**\n"
+    reconnected:           "â™»ï¸ ìž¬ì—°ê²°ë¨: {names}"
+    added:                 "âž• ì¶”ê°€ë¨: {names}"
+    removed:               "âž– ì œê±°ë¨: {names}"
+    none_connected:        "ì—°ê²°ëœ MCP ì„œë²„ê°€ ì—†ìŠµë‹ˆë‹¤."
+    tools_available:       "\nðŸ”§ {servers}ê°œ ì„œë²„ì—ì„œ {tools}ê°œ ë„êµ¬ ì‚¬ìš© ê°€ëŠ¥"
+    failed:                "âŒ MCP ìž¬ë¡œë“œ ì‹¤íŒ¨: {error}"
+
+  reload_skills:
+    header:                "ðŸ”„ **ìŠ¤í‚¬ì´ ìž¬ë¡œë“œë˜ì—ˆìŠµë‹ˆë‹¤**\n"
+    no_new:                "ìƒˆë¡œìš´ ìŠ¤í‚¬ì´ ê°ì§€ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤."
+    total:                 "\nðŸ“š {count}ê°œ ìŠ¤í‚¬ ì‚¬ìš© ê°€ëŠ¥"
+    added_header:          "âž• **ì¶”ê°€ëœ ìŠ¤í‚¬:**"
+    removed_header:        "âž– **ì œê±°ëœ ìŠ¤í‚¬:**"
+    item_with_desc:        "    - {name}: {desc}"
+    item_no_desc:          "    - {name}"
+    failed:                "âŒ ìŠ¤í‚¬ ìž¬ë¡œë“œ ì‹¤íŒ¨: {error}"
+
+  reset:
+    header_default:        "âœ¨ ì„¸ì…˜ì´ ì´ˆê¸°í™”ë˜ì—ˆìŠµë‹ˆë‹¤! ìƒˆë¡œ ì‹œìž‘í•©ë‹ˆë‹¤."
+    header_new:            "âœ¨ ìƒˆ ì„¸ì…˜ì´ ì‹œìž‘ë˜ì—ˆìŠµë‹ˆë‹¤!"
+    header_titled:         "âœ¨ ìƒˆ ì„¸ì…˜ì´ ì‹œìž‘ë˜ì—ˆìŠµë‹ˆë‹¤: {title}"
+    title_rejected:        "\nâš ï¸ ì œëª©ì´ ê±°ë¶€ë˜ì—ˆìŠµë‹ˆë‹¤: {error}"
+    title_error_untitled:  "\nâš ï¸ {error} â€” ì œëª© ì—†ì´ ì„¸ì…˜ì„ ì‹œìž‘í–ˆìŠµë‹ˆë‹¤."
+    title_empty_untitled:  "\nâš ï¸ ì •ë¦¬ í›„ ì œëª©ì´ ë¹„ì–´ ìžˆìŠµë‹ˆë‹¤ â€” ì œëª© ì—†ì´ ì„¸ì…˜ì„ ì‹œìž‘í–ˆìŠµë‹ˆë‹¤."
+    tip:                   "\nâœ¦ íŒ: {tip}"
+
+  restart:
+    in_progress:           "â³ ê²Œì´íŠ¸ì›¨ì´ ìž¬ì‹œìž‘ì´ ì´ë¯¸ ì§„í–‰ ì¤‘ìž…ë‹ˆë‹¤..."
+    restarting:            "â™» ê²Œì´íŠ¸ì›¨ì´ë¥¼ ìž¬ì‹œìž‘ ì¤‘ìž…ë‹ˆë‹¤. 60ì´ˆ ì´ë‚´ì— ì•Œë¦¼ì´ ì˜¤ì§€ ì•Šìœ¼ë©´ ì½˜ì†”ì—ì„œ `hermes gateway restart`ë¡œ ìž¬ì‹œìž‘í•˜ì„¸ìš”."
+
+  resume:
+    db_unavailable:        "ì„¸ì…˜ ë°ì´í„°ë² ì´ìŠ¤ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
+    parse_error:           "âš ï¸ Could not parse `/resume` arguments: {error}.
+Use quotes around titles with spaces, for example: `/resume \"Project A Plan\"`."
+    matrix_no_named_sessions: "No named sessions found for this Matrix room.
+Use `/title My Session` to name the current room session, `/resume --all` to list all Matrix sessions, or `/resume --cross-room <session name>` to explicitly cross room boundaries."
+    matrix_blocked_no_origin: "âš ï¸ Matrix /resume blocked: this named session has no recorded room origin, so Kova will not resume it inside the current room by default. Use `/resume --cross-room {name}` if you intentionally want to cross room boundaries."
+    matrix_blocked_other_room: "âš ï¸ Matrix /resume blocked: that session belongs to a different Matrix room ({room}). Use `/resume --cross-room {name}` if you intentionally want to resume it here."
+    matrix_cross_room_success: "âš ï¸ Cross-room resume: resumed **{title}** inside Matrix room **{room}**.
+Future messages in this room will use that transcript until `/reset` or another `/resume`.{msg_part}"
+    blocked_not_owner:     "âš ï¸ /resume blocked: '**{name}**' belongs to a different user or chat. You can only resume sessions from this chat."
+    no_named_sessions:     "ì´ë¦„ì´ ì§€ì •ëœ ì„¸ì…˜ì´ ì—†ìŠµë‹ˆë‹¤.\ní˜„ìž¬ ì„¸ì…˜ì— ì´ë¦„ì„ ì§€ì •í•˜ë ¤ë©´ `/title ë‚´ ì„¸ì…˜`ì„ ì‚¬ìš©í•˜ê³ , ë‚˜ì¤‘ì— `/resume ë‚´ ì„¸ì…˜`ìœ¼ë¡œ ëŒì•„ì˜¤ì„¸ìš”."
+    list_header:           "ðŸ“‹ **ì´ë¦„ì´ ì§€ì •ëœ ì„¸ì…˜**\n"
+    list_item:             "â€¢ **{title}**{preview_part}"
+    list_item_numbered:    "{index}. **{title}**{preview_part}"
+    list_preview_suffix:   " â€” _{preview}_"
+    list_footer:           "\nì‚¬ìš©ë²•: `/resume <session name>`"
+    list_footer_numbered:  "\nì‚¬ìš©ë²•: `/resume <ì„¸ì…˜ ì´ë¦„>` ë˜ëŠ” `/resume <ë²ˆí˜¸>` (ì˜ˆ: ê°€ìž¥ ìµœê·¼ ì„¸ì…˜ì€ `/resume 1`)"
+    list_failed:           "ì„¸ì…˜ ëª©ë¡ì„ ê°€ì ¸ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤: {error}"
+    out_of_range:          "ìž¬ê°œ ì¸ë±ìŠ¤ {index}ì´(ê°€) ë²”ìœ„ë¥¼ ë²—ì–´ë‚¬ìŠµë‹ˆë‹¤.\nì¸ìž ì—†ì´ `/resume`ì„ ì‹¤í–‰í•˜ë©´ ì‚¬ìš© ê°€ëŠ¥í•œ ì„¸ì…˜ì´ í‘œì‹œë©ë‹ˆë‹¤."
+    not_found:             "'**{name}**'ì™€ ì¼ì¹˜í•˜ëŠ” ì„¸ì…˜ì´ ì—†ìŠµë‹ˆë‹¤.\nì‚¬ìš© ê°€ëŠ¥í•œ ì„¸ì…˜ì„ ë³´ë ¤ë©´ ì¸ìˆ˜ ì—†ì´ `/resume`ì„ ì‚¬ìš©í•˜ì„¸ìš”."
+    already_on:            "ðŸ“Œ ì´ë¯¸ **{name}** ì„¸ì…˜ì— ìžˆìŠµë‹ˆë‹¤."
+    switch_failed:         "ì„¸ì…˜ ì „í™˜ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤."
+    resumed_one:           "â†» **{title}** ì„¸ì…˜ ìž¬ê°œë¨ (ë©”ì‹œì§€ {count}ê°œ). ëŒ€í™”ê°€ ë³µì›ë˜ì—ˆìŠµë‹ˆë‹¤."
+    resumed_many:          "â†» **{title}** ì„¸ì…˜ ìž¬ê°œë¨ (ë©”ì‹œì§€ {count}ê°œ). ëŒ€í™”ê°€ ë³µì›ë˜ì—ˆìŠµë‹ˆë‹¤."
+    resumed_no_count:      "â†» **{title}** ì„¸ì…˜ ìž¬ê°œë¨. ëŒ€í™”ê°€ ë³µì›ë˜ì—ˆìŠµë‹ˆë‹¤."
+
+  retry:
+    no_previous:           "ìž¬ì‹œë„í•  ì´ì „ ë©”ì‹œì§€ê°€ ì—†ìŠµë‹ˆë‹¤."
+
+  rollback:
+    not_enabled:           "ì²´í¬í¬ì¸íŠ¸ê°€ í™œì„±í™”ë˜ì–´ ìžˆì§€ ì•ŠìŠµë‹ˆë‹¤.\nconfig.yamlì—ì„œ í™œì„±í™”í•˜ì„¸ìš”:\n```\ncheckpoints:\n  enabled: true\n```"
+    none_found:            "{cwd}ì— ì²´í¬í¬ì¸íŠ¸ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤"
+    invalid_number:        "ìž˜ëª»ëœ ì²´í¬í¬ì¸íŠ¸ ë²ˆí˜¸ìž…ë‹ˆë‹¤. 1-{max}ì„ ì‚¬ìš©í•˜ì„¸ìš”."
+    restored:              "âœ… ì²´í¬í¬ì¸íŠ¸ {hash}(ìœ¼)ë¡œ ë³µì›ë¨: {reason}\në¡¤ë°± ì „ ìŠ¤ëƒ…ìƒ·ì´ ìžë™ìœ¼ë¡œ ì €ìž¥ë˜ì—ˆìŠµë‹ˆë‹¤."
+    restore_failed:        "âŒ {error}"
+
+  set_home:
+    save_failed:           "í™ˆ ì±„ë„ ì €ìž¥ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤: {error}"
+    success:               "âœ… í™ˆ ì±„ë„ì´ **{name}**(ID: {chat_id})(ìœ¼)ë¡œ ì„¤ì •ë˜ì—ˆìŠµë‹ˆë‹¤.\ní¬ë¡  ìž‘ì—…ê³¼ í”Œëž«í¼ ê°„ ë©”ì‹œì§€ê°€ ì—¬ê¸°ë¡œ ì „ë‹¬ë©ë‹ˆë‹¤."
+
+  status:
+    header:                "ðŸ“Š **Kova ê²Œì´íŠ¸ì›¨ì´ ìƒíƒœ**"
+    matrix_scope_header:   "**Matrix scope:**"
+    matrix_scope_room:     "  room: {room}"
+    matrix_scope_room_id:  "  room_id: {room_id}"
+    matrix_scope_thread:   "  thread_id: {thread_id}"
+    matrix_scope_mode:     "  session_scope: {scope}"
+    matrix_scope_key:      "  session_key: {session_key}"
+    session_id:            "**ì„¸ì…˜ ID:** `{session_id}`"
+    title:                 "**ì œëª©:** {title}"
+    created:               "**ìƒì„±ë¨:** {timestamp}"
+    last_activity:         "**ìµœì¢… í™œë™:** {timestamp}"
+    model:                 "**Model:** `{model}`"
+    model_provider:        "**Model:** `{model}` ({provider})"
+    context:               "**Context:** {used} / {total} ({pct}%)"
+    context_used:          "**Context:** ~{used} tokens"
+    tokens:                "**í† í°:** {tokens}"
+    agent_running:         "**ì—ì´ì „íŠ¸ ì‹¤í–‰ ì¤‘:** {state}"
+    state_yes:             "ì˜ˆ âš¡"
+    state_no:              "ì•„ë‹ˆì˜¤"
+    queued:                "**ëŒ€ê¸° ì¤‘ì¸ í›„ì† ìž‘ì—…:** {count}"
+    platforms:             "**ì—°ê²°ëœ í”Œëž«í¼:** {platforms}"
+
+  stop:
+    stopped_pending:       "âš¡ ì¤‘ì§€ë˜ì—ˆìŠµë‹ˆë‹¤. ì—ì´ì „íŠ¸ê°€ ì•„ì§ ì‹œìž‘ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤ â€” ì´ ì„¸ì…˜ì„ ê³„ì†í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤."
+    stopped:               "âš¡ ì¤‘ì§€ë˜ì—ˆìŠµë‹ˆë‹¤. ì´ ì„¸ì…˜ì„ ê³„ì†í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤."
+    no_active:             "ì¤‘ì§€í•  í™œì„± ìž‘ì—…ì´ ì—†ìŠµë‹ˆë‹¤."
+
+  title:
+    db_unavailable:        "ì„¸ì…˜ ë°ì´í„°ë² ì´ìŠ¤ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
+    warn_prefix:           "âš ï¸ {error}"
+    empty_after_clean:     "âš ï¸ ì •ë¦¬ í›„ ì œëª©ì´ ë¹„ì–´ ìžˆìŠµë‹ˆë‹¤. ì¸ì‡„ ê°€ëŠ¥í•œ ë¬¸ìžë¥¼ ì‚¬ìš©í•´ ì£¼ì„¸ìš”."
+    set_to:                "âœï¸ ì„¸ì…˜ ì œëª© ì„¤ì •ë¨: **{title}**"
+    not_found:             "ë°ì´í„°ë² ì´ìŠ¤ì—ì„œ ì„¸ì…˜ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
+    current_with_title:    "ðŸ“Œ ì„¸ì…˜: `{session_id}`\nì œëª©: **{title}**"
+    current_no_title:      "ðŸ“Œ ì„¸ì…˜: `{session_id}`\nì œëª©ì´ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. ì‚¬ìš©ë²•: `/title ë‚´ ì„¸ì…˜ ì´ë¦„`"
+
+  topic:
+    not_telegram_dm:         "/topic ëª…ë ¹ì€ Telegram ë¹„ê³µê°œ ì±„íŒ…ì—ì„œë§Œ ì‚¬ìš©í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤."
+    no_session_db:           "ì„¸ì…˜ ë°ì´í„°ë² ì´ìŠ¤ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
+    unauthorized:            "ì´ ë´‡ì—ì„œ /topicì„ ì‚¬ìš©í•  ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤."
+    restore_needs_topic:     "ì„¸ì…˜ì„ ë³µì›í•˜ë ¤ë©´ ë¨¼ì € Telegram í† í”½ì„ ë§Œë“¤ê±°ë‚˜ ì—´ê³ , í•´ë‹¹ í† í”½ ì•ˆì—ì„œ /topic <session-id>ë¥¼ ë³´ë‚´ì„¸ìš”. ìƒˆ í† í”½ì„ ë§Œë“¤ë ¤ë©´ All Messagesë¥¼ ì—´ê³  ê·¸ê³³ìœ¼ë¡œ ë©”ì‹œì§€ë¥¼ ë³´ë‚´ì„¸ìš”."
+    topics_disabled:         "ì´ ë´‡ì—ëŠ” ì•„ì§ Telegram í† í”½ì´ í™œì„±í™”ë˜ì–´ ìžˆì§€ ì•ŠìŠµë‹ˆë‹¤.\n\ní™œì„±í™” ë°©ë²•:\n1. @BotFatherë¥¼ ì—½ë‹ˆë‹¤.\n2. ë´‡ì„ ì„ íƒí•©ë‹ˆë‹¤.\n3. Bot Settings â†’ Threads Settingsë¥¼ ì—½ë‹ˆë‹¤.\n4. Threaded Modeë¥¼ ì¼œê³  ì‚¬ìš©ìžê°€ ìƒˆ ìŠ¤ë ˆë“œë¥¼ ë§Œë“¤ ìˆ˜ ìžˆë„ë¡ í—ˆìš©í•©ë‹ˆë‹¤.\n\nê·¸ëŸ° ë‹¤ìŒ ë‹¤ì‹œ /topicì„ ë³´ë‚´ì„¸ìš”."
+    topics_user_disallowed:  "Telegram í† í”½ì´ í™œì„±í™”ë˜ì–´ ìžˆì§€ë§Œ, ì‚¬ìš©ìžê°€ í† í”½ì„ ë§Œë“¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n\n@BotFather â†’ ë´‡ ì„ íƒ â†’ Bot Settings â†’ Threads Settingsë¥¼ ì—´ê³  'Disallow users to create new threads'ë¥¼ ë„ì„¸ìš”.\n\nê·¸ëŸ° ë‹¤ìŒ ë‹¤ì‹œ /topicì„ ë³´ë‚´ì„¸ìš”."
+    enable_failed:           "Telegram í† í”½ ëª¨ë“œ í™œì„±í™”ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤: {error}"
+    bound_status:            "ì´ í† í”½ì€ ë‹¤ìŒì— ì—°ê²°ë˜ì–´ ìžˆìŠµë‹ˆë‹¤:\nì„¸ì…˜: {label}\nID: {session_id}\n\nì´ í† í”½ì„ ìƒˆ ì„¸ì…˜ìœ¼ë¡œ êµì²´í•˜ë ¤ë©´ /newë¥¼ ì‚¬ìš©í•˜ì„¸ìš”.\në³‘ë ¬ ìž‘ì—…ì„ ìœ„í•´ì„œëŠ” All Messagesë¥¼ ì—´ê³  ë©”ì‹œì§€ë¥¼ ë³´ë‚´ ë‹¤ë¥¸ í† í”½ì„ ë§Œë“œì„¸ìš”."
+    thread_ready:            "Telegram ë‹¤ì¤‘ ì„¸ì…˜ í† í”½ì´ í™œì„±í™”ë˜ì—ˆìŠµë‹ˆë‹¤.\n\nì´ í† í”½ì€ ë…ë¦½ëœ Kova ì„¸ì…˜ìœ¼ë¡œ ì‚¬ìš©ë©ë‹ˆë‹¤. ì´ í† í”½ì˜ í˜„ìž¬ ì„¸ì…˜ì„ êµì²´í•˜ë ¤ë©´ /newë¥¼ ì‚¬ìš©í•˜ì„¸ìš”. ë³‘ë ¬ ìž‘ì—…ì„ ìœ„í•´ì„œëŠ” All Messagesë¥¼ ì—´ê³  ë©”ì‹œì§€ë¥¼ ë³´ë‚´ ë‹¤ë¥¸ í† í”½ì„ ë§Œë“œì„¸ìš”."
+    untitled_session:        "ì œëª© ì—†ëŠ” ì„¸ì…˜"
+
+  undo:
+    nothing:               "ë˜ëŒë¦´ ë‚´ìš©ì´ ì—†ìŠµë‹ˆë‹¤."
+    removed:               "â†©ï¸ {turns}ê°œ í„´ì„ ë˜ëŒë ¸ìŠµë‹ˆë‹¤ (ë©”ì‹œì§€ {count}ê°œ).\në°±ì—… ìœ„ì¹˜: \"{preview}\"\nìœ„ í…ìŠ¤íŠ¸ë¥¼ ë³µì‚¬/íŽ¸ì§‘í•œ í›„ ë³´ë‚´ë©´ ì—¬ê¸°ì„œ ë‹¤ì‹œ í”„ë¡¬í”„íŠ¸í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤."
+    invalid_count:         "ìž˜ëª»ëœ ê°œìˆ˜ \"{arg}\" â€” /undo ë˜ëŠ” /undo Nì„ ì‚¬ìš©í•˜ì„¸ìš”."
+
+  update:
+    platform_not_messaging:  "âœ— /updateëŠ” ë©”ì‹œì§• í”Œëž«í¼ì—ì„œë§Œ ì‚¬ìš©í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. í„°ë¯¸ë„ì—ì„œ `hermes update`ë¥¼ ì‹¤í–‰í•˜ì„¸ìš”."
+    not_git_repo:            "âœ— git ì €ìž¥ì†Œê°€ ì•„ë‹™ë‹ˆë‹¤ â€” ì—…ë°ì´íŠ¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
+    hermes_cmd_not_found:    "âœ— `hermes` ëª…ë ¹ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. HermesëŠ” ì‹¤í–‰ ì¤‘ì´ì§€ë§Œ PATHë‚˜ í˜„ìž¬ Python ì¸í„°í”„ë¦¬í„°ë¥¼ í†µí•´ ì‹¤í–‰ íŒŒì¼ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. í„°ë¯¸ë„ì—ì„œ `hermes update`ë¥¼ ì§ì ‘ ì‹¤í–‰í•´ ë³´ì„¸ìš”."
+    start_failed:            "âœ— ì—…ë°ì´íŠ¸ ì‹œìž‘ ì‹¤íŒ¨: {error}"
+    starting:                "âš• Kova ì—…ë°ì´íŠ¸ë¥¼ ì‹œìž‘í•©ë‹ˆë‹¤â€¦ ì§„í–‰ ìƒí™©ì„ ì—¬ê¸°ì— ìŠ¤íŠ¸ë¦¬ë°í•˜ê² ìŠµë‹ˆë‹¤."
+
+  usage:
+    rate_limits:              "â±ï¸ **ìš”ì²­ ì œí•œ:** {state}"
+    header_session:           "ðŸ“Š **ì„¸ì…˜ í† í° ì‚¬ìš©ëŸ‰**"
+    label_model:              "ëª¨ë¸: `{model}`"
+    label_input_tokens:       "ìž…ë ¥ í† í°: {count}"
+    label_cache_read:         "ìºì‹œ ì½ê¸° í† í°: {count}"
+    label_cache_write:        "ìºì‹œ ì“°ê¸° í† í°: {count}"
+    label_output_tokens:      "ì¶œë ¥ í† í°: {count}"
+    label_total:              "í•©ê³„: {count}"
+    label_api_calls:          "API í˜¸ì¶œ: {count}"
+    label_cost:               "ë¹„ìš©: {prefix}${amount}"
+    label_cost_included:      "ë¹„ìš©: í¬í•¨ë¨"
+    label_context:            "ì»¨í…ìŠ¤íŠ¸: {used} / {total} ({pct}%)"
+    label_compressions:       "ì••ì¶•: {count}"
+    breakdown_header: "ðŸ§© **ì»¨í…ìŠ¤íŠ¸ ë¶„ì„** _(ì¶”ì •ì¹˜)_"
+    breakdown_line: "â€¢ {label}: ì•½ {count} ({pct}%)"
+    breakdown_cat_system_prompt: "ì‹œìŠ¤í…œ í”„ë¡¬í”„íŠ¸"
+    breakdown_cat_tool_definitions: "ë„êµ¬ ì •ì˜"
+    breakdown_cat_rules: "ê·œì¹™"
+    breakdown_cat_skills: "ìŠ¤í‚¬"
+    breakdown_cat_mcp: "MCP"
+    breakdown_cat_subagent_definitions: "ì„œë¸Œì—ì´ì „íŠ¸ ì •ì˜"
+    breakdown_cat_memory: "ë©”ëª¨ë¦¬"
+    breakdown_cat_conversation: "ëŒ€í™”"
+    header_session_info:      "ðŸ“Š **ì„¸ì…˜ ì •ë³´**"
+    label_messages:           "ë©”ì‹œì§€: {count}"
+    label_estimated_context:  "ì˜ˆìƒ ì»¨í…ìŠ¤íŠ¸: ì•½ {count} í† í°"
+    detailed_after_first:     "_(ìžì„¸í•œ ì‚¬ìš©ëŸ‰ì€ ì²« ì—ì´ì „íŠ¸ ì‘ë‹µ ì´í›„ í™•ì¸í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤)_"
+    no_data:                  "ì´ ì„¸ì…˜ì— ì‚¬ìš© ê°€ëŠ¥í•œ ì‚¬ìš©ëŸ‰ ë°ì´í„°ê°€ ì—†ìŠµë‹ˆë‹¤."
+
+  credits:
+    not_logged_in:            "Nous Portalì— ë¡œê·¸ì¸ë˜ì–´ ìžˆì§€ ì•ŠìŠµë‹ˆë‹¤. ë¡œê·¸ì¸í•˜ë©´ í¬ë ˆë”§ ìž”ì•¡ í™•ì¸ ë° ì¶©ì „ì„ í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤."
+
+  verbose:
+    not_enabled:           "`/verbose` ëª…ë ¹ì€ ë©”ì‹œì§• í”Œëž«í¼ì—ì„œ í™œì„±í™”ë˜ì–´ ìžˆì§€ ì•ŠìŠµë‹ˆë‹¤.\n\n`config.yaml`ì—ì„œ í™œì„±í™”í•˜ì„¸ìš”:\n```yaml\ndisplay:\n  tool_progress_command: true\n```"
+    mode_off:              "âš™ï¸ ë„êµ¬ ì§„í–‰ ìƒí™©: **OFF** â€” ë„êµ¬ í™œë™ì´ í‘œì‹œë˜ì§€ ì•ŠìŠµë‹ˆë‹¤."
+    mode_new:              "âš™ï¸ ë„êµ¬ ì§„í–‰ ìƒí™©: **NEW** â€” ë„êµ¬ê°€ ë³€ê²½ë  ë•Œ í‘œì‹œë©ë‹ˆë‹¤ (ë¯¸ë¦¬ë³´ê¸° ê¸¸ì´: `display.tool_preview_length`, ê¸°ë³¸ 40)."
+    mode_all:              "âš™ï¸ ë„êµ¬ ì§„í–‰ ìƒí™©: **ALL** â€” ëª¨ë“  ë„êµ¬ í˜¸ì¶œì´ í‘œì‹œë©ë‹ˆë‹¤ (ë¯¸ë¦¬ë³´ê¸° ê¸¸ì´: `display.tool_preview_length`, ê¸°ë³¸ 40)."
+    mode_verbose:          "âš™ï¸ ë„êµ¬ ì§„í–‰ ìƒí™©: **VERBOSE** â€” ëª¨ë“  ë„êµ¬ í˜¸ì¶œì´ ì „ì²´ ì¸ìˆ˜ì™€ í•¨ê»˜ í‘œì‹œë©ë‹ˆë‹¤."
+    mode_log:              "âš™ï¸ ë„êµ¬ ì§„í–‰ ìƒí™©: **LOG** â€” ì±„íŒ…ì—ëŠ” í‘œì‹œë˜ì§€ ì•Šìœ¼ë©° ë„êµ¬ í˜¸ì¶œì´ ~/.hermes/logs/tool_calls.logì— ê¸°ë¡ë©ë‹ˆë‹¤."
+    saved_suffix:          "_(**{platform}**ì— ì €ìž¥ë¨ â€” ë‹¤ìŒ ë©”ì‹œì§€ë¶€í„° ì ìš©ë©ë‹ˆë‹¤)_"
+    save_failed:           "_(ì„¤ì •ì— ì €ìž¥í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤: {error})_"
+
+  voice:
+    enabled_voice_only:    "ìŒì„± ëª¨ë“œê°€ í™œì„±í™”ë˜ì—ˆìŠµë‹ˆë‹¤.\nìŒì„± ë©”ì‹œì§€ë¥¼ ë³´ë‚´ì‹œë©´ ìŒì„±ìœ¼ë¡œ ë‹µë³€í•˜ê² ìŠµë‹ˆë‹¤.\nëª¨ë“  ë©”ì‹œì§€ì— ëŒ€í•´ ìŒì„±ìœ¼ë¡œ ì‘ë‹µë°›ìœ¼ë ¤ë©´ /voice ttsë¥¼ ì‚¬ìš©í•˜ì„¸ìš”."
+    disabled_text:         "ìŒì„± ëª¨ë“œê°€ ë¹„í™œì„±í™”ë˜ì—ˆìŠµë‹ˆë‹¤. í…ìŠ¤íŠ¸ë¡œë§Œ ì‘ë‹µí•©ë‹ˆë‹¤."
+    tts_enabled:           "ìžë™ TTSê°€ í™œì„±í™”ë˜ì—ˆìŠµë‹ˆë‹¤.\nëª¨ë“  ì‘ë‹µì— ìŒì„± ë©”ì‹œì§€ê°€ í¬í•¨ë©ë‹ˆë‹¤."
+    status_mode:           "ìŒì„± ëª¨ë“œ: {label}"
+    status_channel:        "ìŒì„± ì±„ë„: #{channel}"
+    status_participants:   "ì°¸ê°€ìž: {count}"
+    status_member:         "  - {name}{status}"
+    speaking:              " (ë§í•˜ëŠ” ì¤‘)"
+    enabled_short:         "ìŒì„± ëª¨ë“œê°€ í™œì„±í™”ë˜ì—ˆìŠµë‹ˆë‹¤."
+    disabled_short:        "ìŒì„± ëª¨ë“œê°€ ë¹„í™œì„±í™”ë˜ì—ˆìŠµë‹ˆë‹¤."
+    label_off:             "êº¼ì§ (í…ìŠ¤íŠ¸ ì „ìš©)"
+    label_voice_only:      "ì¼œì§ (ìŒì„± ë©”ì‹œì§€ì— ìŒì„±ìœ¼ë¡œ ì‘ë‹µ)"
+    label_all:             "TTS (ëª¨ë“  ë©”ì‹œì§€ì— ìŒì„±ìœ¼ë¡œ ì‘ë‹µ)"
+    help:                  "{toggle}\n\n**/voice ì‚¬ìš©ë²•**\nâ€¢ `/voice on` â€” ìŒì„± ë©”ì‹œì§€ë¥¼ ë³´ë‚´ë©´ ìŒì„±ìœ¼ë¡œ ë‹µë³€\nâ€¢ `/voice tts` â€” *ëª¨ë“ * ë©”ì‹œì§€ì— ìŒì„±ìœ¼ë¡œ ë‹µë³€\nâ€¢ `/voice off` â€” í…ìŠ¤íŠ¸ ì „ìš© ë‹µë³€ìœ¼ë¡œ ë³µê·€\nâ€¢ `/voice status` â€” í˜„ìž¬ ëª¨ë“œ í‘œì‹œ\nâ€¢ `/voice` (ì¸ìž ì—†ìŒ) â€” ì¼œê¸°ì™€ ë„ê¸°ë¥¼ ë¹ ë¥´ê²Œ ì „í™˜{channels}"
+    help_channels:         "\n\n**ë¼ì´ë¸Œ ìŒì„± ì±„ë„ (Discord)**\nâ€¢ ë¨¼ì € ìŒì„± ì±„ë„ì— ë“¤ì–´ê°„ ë‹¤ìŒ `/voice channel` â€” ì œê°€ ì°¸ì—¬í•´ ë“£ê³  ìŒì„±ìœ¼ë¡œ ë‹µë³€í•©ë‹ˆë‹¤\nâ€¢ `/voice leave` â€” ìŒì„± ì±„ë„ì—ì„œ ì—°ê²° í•´ì œ"
+
+  yolo:
+    disabled:                   "âš ï¸ ì´ ì„¸ì…˜ì—ì„œ YOLO ëª¨ë“œ **êº¼ì§** â€” ìœ„í—˜í•œ ëª…ë ¹ì€ ìŠ¹ì¸ì´ í•„ìš”í•©ë‹ˆë‹¤."
+    enabled:                    "âš¡ ì´ ì„¸ì…˜ì—ì„œ YOLO ëª¨ë“œ **ì¼œì§** â€” ëª¨ë“  ëª…ë ¹ì´ ìžë™ ìŠ¹ì¸ë©ë‹ˆë‹¤. ì£¼ì˜í•´ì„œ ì‚¬ìš©í•˜ì„¸ìš”."
+
+  shared:
+    session_db_unavailable:      "ì„¸ì…˜ ë°ì´í„°ë² ì´ìŠ¤ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
+    session_db_unavailable_prefix: "ì„¸ì…˜ ë°ì´í„°ë² ì´ìŠ¤ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤"
+    session_not_found:           "ë°ì´í„°ë² ì´ìŠ¤ì—ì„œ ì„¸ì…˜ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
+    warn_passthrough:            "âš ï¸ {error}"

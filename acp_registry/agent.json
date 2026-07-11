@@ -1,0 +1,16 @@
+{
+  "id": "kova-agent",
+  "name": "Kova Agent",
+  "version": "0.18.2",
+  "description": "Personal AI agent with persistent memory, skills, and rich tool support.",
+  "repository": "https://github.com/chiragborse1/Kova-Agent",
+  "website": "https://github.com/chiragborse1/Kova-Agent",
+  "authors": ["Chirag Borse"],
+  "license": "MIT",
+  "distribution": {
+    "uvx": {
+      "package": "hermes-agent[acp]==0.18.2",
+      "args": ["hermes-acp"]
+    }
+  }
+}

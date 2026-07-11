@@ -1,0 +1,402 @@
+﻿# Kova statik mesaj katalogu -- Turkce
+# See locales/en.yaml for the source of truth; keep keys in sync.
+
+approval:
+  dangerous_header: "âš ï¸  TEHLÄ°KELÄ° KOMUT: {description}"
+  choose_long:     "      [b]ir kez  |  [o]turum  |  [h]er zaman  |  [r]eddet"
+  choose_short:    "      [b]ir kez  |  [o]turum  |  [r]eddet"
+  prompt_long:     "      SeÃ§im [b/o/h/R]: "
+  prompt_short:    "      SeÃ§im [b/o/R]: "
+  timeout:         "      â± Zaman aÅŸÄ±mÄ± â€” komut reddedildi"
+  allowed_once:    "      âœ“ Bir kez izin verildi"
+  allowed_session: "      âœ“ Bu oturum iÃ§in izin verildi"
+  allowed_always:  "      âœ“ KalÄ±cÄ± izin listesine eklendi"
+  denied:          "      âœ— Reddedildi"
+  cancelled:       "      âœ— Ä°ptal edildi"
+  blocklist_message: "Bu komut koÅŸulsuz engelleme listesinde ve onaylanamaz."
+
+gateway:
+  approval_expired: "âš ï¸ Onay sÃ¼resi doldu (ajan artÄ±k beklemiyor). AjanÄ±n tekrar denemesini isteyin."
+  draining:         "â³ Yeniden baÅŸlatmadan Ã¶nce {count} aktif ajan bekleniyor..."
+  goal_cleared:     "âœ“ Hedef temizlendi."
+  no_active_goal:   "Aktif hedef yok."
+  config_read_failed: "âš ï¸ config.yaml okunamadÄ±: {error}"
+  config_save_failed: "âš ï¸ YapÄ±landÄ±rma kaydedilemedi: {error}"
+
+  model:
+    error_prefix:           "Hata: {error}"
+    switched:               "Model `{model}` olarak deÄŸiÅŸtirildi"
+    provider_label:         "SaÄŸlayÄ±cÄ±: {provider}"
+    context_label:          "BaÄŸlam: {tokens} token"
+    max_output_label:       "Maks. Ã§Ä±ktÄ±: {tokens} token"
+    cost_label:             "Maliyet: {cost}"
+    capabilities_label:     "Yetenekler: {capabilities}"
+    prompt_caching_enabled: "Prompt Ã¶nbelleÄŸi: etkin"
+    warning_prefix:         "UyarÄ±: {warning}"
+    saved_global:           "config.yaml'a kaydedildi (`--global`)"
+    session_only_hint:      "_(yalnÄ±zca bu oturum â€” kalÄ±cÄ± yapmak iÃ§in `--global` ekleyin)_"
+    current_label:          "GeÃ§erli: `{model}` ({provider})"
+    current_tag:            " (geÃ§erli)"
+    more_models_suffix:     " (+{count} tane daha)"
+    usage_switch_model:     "`/model <name>` â€” modeli deÄŸiÅŸtir"
+    usage_switch_provider:  "`/model <name> --provider <slug>` â€” saÄŸlayÄ±cÄ±yÄ± deÄŸiÅŸtir"
+    usage_persist:          "`/model <name> --global` â€” kalÄ±cÄ± kaydet"
+
+  agents:
+    header:                "ðŸ¤– **Aktif Ajanlar ve GÃ¶revler**"
+    active_agents:         "**Aktif ajanlar:** {count}"
+    this_chat:             " Â· bu sohbet"
+    more:                  "... ve {count} tane daha"
+    running_processes:     "**Ã‡alÄ±ÅŸan arka plan sÃ¼reÃ§leri:** {count}"
+    async_jobs:            "**Gateway asenkron iÅŸleri:** {count}"
+    none:                  "Aktif ajan veya Ã§alÄ±ÅŸan gÃ¶rev yok."
+    state_starting:        "baÅŸlatÄ±lÄ±yor"
+    state_running:         "Ã§alÄ±ÅŸÄ±yor"
+
+  approve:
+    no_pending:            "Onaylanacak bekleyen komut yok."
+    once_singular:         "âœ… Komut onaylandÄ±. Ajan devam ediyor..."
+    once_plural:           "âœ… Komutlar onaylandÄ± ({count} komut). Ajan devam ediyor..."
+    session_singular:      "âœ… Komut onaylandÄ± (desen bu oturum iÃ§in onaylandÄ±). Ajan devam ediyor..."
+    session_plural:        "âœ… Komutlar onaylandÄ± (desen bu oturum iÃ§in onaylandÄ±) ({count} komut). Ajan devam ediyor..."
+    always_singular:       "âœ… Komut onaylandÄ± (desen kalÄ±cÄ± olarak onaylandÄ±). Ajan devam ediyor..."
+    always_plural:         "âœ… Komutlar onaylandÄ± (desen kalÄ±cÄ± olarak onaylandÄ±) ({count} komut). Ajan devam ediyor..."
+
+  background:
+    usage:                 "KullanÄ±m: /background <prompt>\nÃ–rnek: /background BugÃ¼nÃ¼n Ã¶ne Ã§Ä±kan HN haberlerini Ã¶zetle\n\nÄ°stemi ayrÄ± bir oturumda Ã§alÄ±ÅŸtÄ±rÄ±r. Sohbete devam edebilirsin â€” sonuÃ§ tamamlandÄ±ÄŸÄ±nda burada gÃ¶rÃ¼necek."
+    started:               "ðŸ”„ Arka plan gÃ¶revi baÅŸlatÄ±ldÄ±: \"{preview}\"\nGÃ¶rev kimliÄŸi: {task_id}\nSohbete devam edebilirsin â€” sonuÃ§lar tamamlandÄ±ÄŸÄ±nda burada gÃ¶rÃ¼necek."
+
+  branch:
+    db_unavailable:        "Oturum veritabanÄ± kullanÄ±lamÄ±yor."
+    no_conversation:       "DallandÄ±rÄ±lacak konuÅŸma yok â€” Ã¶nce bir mesaj gÃ¶nderin."
+    create_failed:         "Dal oluÅŸturulamadÄ±: {error}"
+    switch_failed:         "Dal oluÅŸturuldu ancak ona geÃ§ilemedi."
+    branched_one:          "â‘‚ **{title}** dalÄ±na geÃ§ildi ({count} mesaj kopyalandÄ±)\nOrijinal: `{parent}`\nDal: `{new}`\nOrijinale geri dÃ¶nmek iÃ§in `/resume` kullanÄ±n."
+    branched_many:         "â‘‚ **{title}** dalÄ±na geÃ§ildi ({count} mesaj kopyalandÄ±)\nOrijinal: `{parent}`\nDal: `{new}`\nOrijinale geri dÃ¶nmek iÃ§in `/resume` kullanÄ±n."
+
+  commands:
+    usage:                 "KullanÄ±m: `/commands [page]`"
+    skill_header:          "âš¡ **Skill KomutlarÄ±**:"
+    default_desc:          "Skill komutu"
+    none:                  "KullanÄ±labilir komut yok."
+    header:                "ðŸ“š **Komutlar** (toplam {total}, sayfa {page}/{total_pages})"
+    nav_prev:              "`/commands {page}` â† Ã¶nceki"
+    nav_next:              "sonraki â†’ `/commands {page}`"
+    out_of_range:          "_(Ä°stenen sayfa {requested} aralÄ±k dÄ±ÅŸÄ±ndaydÄ±, sayfa {page} gÃ¶steriliyor.)_"
+
+  compress:
+    not_enough:            "SÄ±kÄ±ÅŸtÄ±rmak iÃ§in yeterli konuÅŸma yok (en az 4 mesaj gerekli)."
+    no_provider:           "YapÄ±landÄ±rÄ±lmÄ±ÅŸ saÄŸlayÄ±cÄ± yok â€” sÄ±kÄ±ÅŸtÄ±rÄ±lamÄ±yor."
+    nothing_to_do:         "HenÃ¼z sÄ±kÄ±ÅŸtÄ±rÄ±lacak bir ÅŸey yok (transkript hÃ¢lÃ¢ tamamen korunan baÄŸlam)."
+    aggressive_unsupported: "--aggressive desteklenmiyor; yalnÄ±zca son alÄ±ÅŸveriÅŸleri tutmak iÃ§in '/compress here [N]' kullanÄ±n veya turlarÄ± silmek iÃ§in /undo kullanÄ±n."
+    focus_line:            "Odak: \"{topic}\""
+    summary_failed:        "âš ï¸ Ã–zet oluÅŸturma baÅŸarÄ±sÄ±z ({error}). {count} geÃ§miÅŸ mesaj kaldÄ±rÄ±lÄ±p yer tutucuyla deÄŸiÅŸtirildi; Ã¶nceki baÄŸlam artÄ±k kurtarÄ±lamaz. auxiliary.compression model yapÄ±landÄ±rmanÄ±zÄ± kontrol edin."
+    aborted:               "âš ï¸ SÄ±kÄ±ÅŸtÄ±rma iptal edildi ({error}). HiÃ§bir mesaj silinmedi â€” konuÅŸma deÄŸiÅŸmedi. Tekrar denemek iÃ§in /compress, temiz bir oturum iÃ§in /reset komutunu Ã§alÄ±ÅŸtÄ±rÄ±n veya auxiliary.compression model yapÄ±landÄ±rmanÄ±zÄ± kontrol edin."
+    aux_failed:            "â„¹ï¸ YapÄ±landÄ±rÄ±lmÄ±ÅŸ sÄ±kÄ±ÅŸtÄ±rma modeli `{model}` baÅŸarÄ±sÄ±z oldu ({error}). Ana modelinizle kurtarÄ±ldÄ± â€” baÄŸlam saÄŸlam â€” ancak config.yaml iÃ§indeki `auxiliary.compression.model` Ã¶ÄŸesini kontrol etmek isteyebilirsiniz."
+    failed:                "SÄ±kÄ±ÅŸtÄ±rma baÅŸarÄ±sÄ±z: {error}"
+
+  debug:
+    upload_failed:         "âœ— Hata ayÄ±klama raporu yÃ¼klenemedi: {error}"
+    header:                "**Hata ayÄ±klama raporu yÃ¼klendi:**"
+    auto_delete:           "â± Paste'ler 6 saat iÃ§inde otomatik olarak silinecek."
+    full_logs_hint:        "Tam gÃ¼nlÃ¼k yÃ¼klemeleri iÃ§in CLI'dan `hermes debug share` kullanÄ±n."
+    share_hint:            "Destek iÃ§in bu baÄŸlantÄ±larÄ± Kova ekibiyle paylaÅŸÄ±n."
+
+  deny:
+    stale:                 "âŒ Komut reddedildi (onay geÃ§ersizdi)."
+    no_pending:            "Reddedilecek bekleyen komut yok."
+    denied_singular:       "âŒ Komut reddedildi."
+    denied_plural:         "âŒ Komutlar reddedildi ({count} komut)."
+    denied_reason_singular: "âŒ Komut reddedildi. GerekÃ§e ajana iletildi: \"{reason}\""
+    denied_reason_plural:  "âŒ Komutlar reddedildi ({count} komut). GerekÃ§e ajana iletildi: \"{reason}\""
+
+  fast:
+    not_supported:         "âš¡ /fast yalnÄ±zca Priority Processing destekleyen OpenAI modellerinde kullanÄ±labilir."
+    status:                "âš¡ Priority Processing\n\nMevcut mod: `{mode}`\n\n_KullanÄ±m:_ `/fast <normal|fast|status>`"
+    unknown_arg:           "âš ï¸ Bilinmeyen argÃ¼man: `{arg}`\n\n**GeÃ§erli seÃ§enekler:** normal, fast, status"
+    saved:                 "âš¡ âœ“ Priority Processing: **{label}** (yapÄ±landÄ±rmaya kaydedildi)\n_(sonraki mesajda geÃ§erli olur)_"
+    session_only:          "âš¡ âœ“ Priority Processing: **{label}** (yalnÄ±zca bu oturum)"
+    label_fast:            "FAST"
+    label_normal:          "NORMAL"
+    status_fast:           "fast"
+    status_normal:         "normal"
+
+  footer:
+    status:                "ðŸ“Ž Ã‡alÄ±ÅŸma zamanÄ± altbilgisi: **{state}**\nAlanlar: `{fields}`\nPlatform: `{platform}`"
+    usage:                 "KullanÄ±m: `/footer [on|off|status]`"
+    saved:                 "ðŸ“Ž Ã‡alÄ±ÅŸma zamanÄ± altbilgisi: **{state}**{example}\n_(genel olarak kaydedildi â€” sonraki mesajda geÃ§erli olur)_"
+    example_line:          "\nÃ–rnek: `{preview}`"
+    state_on:              "ON"
+    state_off:             "OFF"
+
+  goal:
+    unavailable:           "Bu oturumda hedefler kullanÄ±lamÄ±yor."
+    no_goal_set:           "Hedef ayarlanmadÄ±."
+    paused:                "â¸ Hedef duraklatÄ±ldÄ±: {goal}"
+    no_resume:             "Devam ettirilecek hedef yok."
+    resumed:               "â–¶ Hedef devam ettirildi: {goal}\nDevam etmek iÃ§in herhangi bir mesaj gÃ¶nderin veya bekleyin â€” bir sonraki turda adÄ±mÄ± atacaÄŸÄ±m."
+    invalid:               "GeÃ§ersiz hedef: {error}"
+    set:                   "âŠ™ Hedef ayarlandÄ± ({budget} turluk bÃ¼tÃ§e): {goal}\nHedef tamamlanana, siz duraklatana/temizleyene veya bÃ¼tÃ§e tÃ¼kenene kadar Ã§alÄ±ÅŸmaya devam edeceÄŸim.\nKontroller: /goal status Â· /goal pause Â· /goal resume Â· /goal clear"
+
+  help:
+    header:                "ðŸ“– **Kova KomutlarÄ±**\n"
+    skill_header:          "\nâš¡ **Skill KomutlarÄ±** ({count} aktif):"
+    more_use_commands:     "\n... ve {count} tane daha. Tam sayfalÄ± liste iÃ§in `/commands` kullanÄ±n."
+
+  insights:
+    invalid_days:          "GeÃ§ersiz --days deÄŸeri: {value}"
+    error:                 "Analiz oluÅŸturulurken hata: {error}"
+
+  kanban:
+    error_prefix:          "âš  kanban hatasÄ±: {error}"
+    subscribed_suffix:     "(abone olundu â€” {task_id} tamamlandÄ±ÄŸÄ±nda veya engellendiÄŸinde bildirim alacaksÄ±nÄ±z)"
+    truncated_suffix:      "â€¦ (kÄ±saltÄ±ldÄ±; tam Ã§Ä±ktÄ± iÃ§in terminalinizde `hermes kanban â€¦` komutunu kullanÄ±n)"
+    no_output:             "(Ã§Ä±ktÄ± yok)"
+    wake:
+      completed:           "completed"
+      gave_up:             "gave up (retries exhausted)"
+      crashed:             "crashed (worker exited); dispatcher will retry"
+      timed_out:           "timed out; dispatcher will retry"
+      blocked:             "blocked; needs attention"
+      status_default:      "status changed"
+      status_joiner:       ", "
+      message:             "[kanban] Task {task_id} {status}.\nTitle: {title}\nAssignee: @{assignee}\nBoard: {board}\n\nCheck the result or decide the next step."
+
+  personality:
+    none_configured:       "`{path}/config.yaml` iÃ§inde yapÄ±landÄ±rÄ±lmÄ±ÅŸ kiÅŸilik yok"
+    header:                "ðŸŽ­ **Mevcut KiÅŸilikler**\n"
+    none_option:           "â€¢ `none` â€” (kiÅŸilik kaplamasÄ± yok)"
+    item:                  "â€¢ `{name}` â€” {preview}"
+    usage:                 "\nKullanÄ±m: `/personality <name>`"
+    save_failed:           "âš ï¸ KiÅŸilik deÄŸiÅŸikliÄŸi kaydedilemedi: {error}"
+    cleared:               "ðŸŽ­ KiÅŸilik temizlendi â€” temel ajan davranÄ±ÅŸÄ± kullanÄ±lÄ±yor.\n_(bir sonraki mesajda etkili olur)_"
+    set_to:                "ðŸŽ­ KiÅŸilik **{name}** olarak ayarlandÄ±\n_(bir sonraki mesajda etkili olur)_"
+    unknown:               "Bilinmeyen kiÅŸilik: `{name}`\n\nMevcut: {available}"
+
+  profile:
+    header:                "ðŸ‘¤ **Profil:** `{profile}`"
+    home:                  "ðŸ“‚ **Ana dizin:** `{home}`"
+
+  reasoning:
+    level_default:             "medium (varsayÄ±lan)"
+    level_disabled:            "none (devre dÄ±ÅŸÄ±)"
+    scope_session:             "oturum geÃ§ersiz kÄ±lma"
+    scope_global:              "genel yapÄ±landÄ±rma"
+    status:                    "ðŸ§  **AkÄ±l YÃ¼rÃ¼tme AyarlarÄ±**\n\n**GÃ¼Ã§:** `{level}`\n**Kapsam:** {scope}\n**GÃ¶rÃ¼ntÃ¼leme:** {display}\n\n_KullanÄ±m:_ `/reasoning <none|minimal|low|medium|high|xhigh|reset|show|hide> [--global]`"
+    display_on:                "aÃ§Ä±k âœ“"
+    display_off:               "kapalÄ±"
+    display_set_on:            "ðŸ§  âœ“ AkÄ±l yÃ¼rÃ¼tme gÃ¶rÃ¼ntÃ¼leme: **AÃ‡IK**\n**{platform}** Ã¼zerinde her yanÄ±ttan Ã¶nce modelin dÃ¼ÅŸÃ¼ncesi gÃ¶sterilecek."
+    display_set_off:           "ðŸ§  âœ“ **{platform}** iÃ§in akÄ±l yÃ¼rÃ¼tme gÃ¶rÃ¼ntÃ¼leme: **KAPALI**"
+    reset_global_unsupported:  "âš ï¸ `/reasoning reset --global` desteklenmiyor. Genel varsayÄ±lanÄ± deÄŸiÅŸtirmek iÃ§in `/reasoning <level> --global` kullanÄ±n."
+    reset_done:                "ðŸ§  âœ“ Oturumun akÄ±l yÃ¼rÃ¼tme geÃ§ersiz kÄ±lmasÄ± temizlendi; genel yapÄ±landÄ±rmaya geri dÃ¶nÃ¼lÃ¼yor."
+    unknown_arg:               "âš ï¸ Bilinmeyen argÃ¼man: `{arg}`\n\n**GeÃ§erli seviyeler:** none, minimal, low, medium, high, xhigh\n**GÃ¶rÃ¼ntÃ¼leme:** show, hide\n**KalÄ±cÄ±:** bu oturumun Ã¶tesinde kaydetmek iÃ§in `--global` ekleyin"
+    set_global:                "ðŸ§  âœ“ AkÄ±l yÃ¼rÃ¼tme gÃ¼cÃ¼ `{effort}` olarak ayarlandÄ± (yapÄ±landÄ±rmaya kaydedildi)\n_(sonraki mesajda etkili)_"
+    set_global_save_failed:    "ðŸ§  âœ“ AkÄ±l yÃ¼rÃ¼tme gÃ¼cÃ¼ `{effort}` olarak ayarlandÄ± (yalnÄ±zca bu oturum â€” yapÄ±landÄ±rma kaydedilemedi)\n_(sonraki mesajda etkili)_"
+    set_session:               "ðŸ§  âœ“ AkÄ±l yÃ¼rÃ¼tme gÃ¼cÃ¼ `{effort}` olarak ayarlandÄ± (yalnÄ±zca bu oturum â€” kalÄ±cÄ± yapmak iÃ§in `--global` ekleyin)\n_(sonraki mesajda etkili)_"
+
+  reload_mcp:
+    cancelled:             "ðŸŸ¡ /reload-mcp iptal edildi. MCP araÃ§larÄ± deÄŸiÅŸtirilmedi."
+    always_followup:       "â„¹ï¸ Bundan sonraki `/reload-mcp` Ã§aÄŸrÄ±larÄ± onaysÄ±z Ã§alÄ±ÅŸacak. `config.yaml` iÃ§inde `approvals.mcp_reload_confirm: true` ile yeniden etkinleÅŸtirebilirsiniz."
+    confirm_prompt:        "âš ï¸ **/reload-mcp OnayÄ±**\n\nMCP sunucularÄ±nÄ± yeniden yÃ¼klemek bu oturumdaki araÃ§ kÃ¼mesini yeniden oluÅŸturur ve **saÄŸlayÄ±cÄ± prompt Ã¶nbelleÄŸini geÃ§ersiz kÄ±lar** â€” bir sonraki mesaj tÃ¼m giriÅŸ token'larÄ±nÄ± yeniden gÃ¶nderir. Uzun baÄŸlam veya yÃ¼ksek akÄ±l yÃ¼rÃ¼tmeli modellerde bu maliyetli olabilir.\n\nSeÃ§im yapÄ±n:\nâ€¢ **Bir Kez Onayla** â€” ÅŸimdi yeniden yÃ¼kle\nâ€¢ **Her Zaman Onayla** â€” ÅŸimdi yeniden yÃ¼kle ve bu onayÄ± kalÄ±cÄ± olarak sustur\nâ€¢ **Ä°ptal** â€” MCP araÃ§larÄ±nÄ± deÄŸiÅŸtirme\n\n_Metin alternatifi: `/approve`, `/always` veya `/cancel` ile yanÄ±tlayÄ±n._"
+    header:                "ðŸ”„ **MCP SunucularÄ± Yeniden YÃ¼klendi**\n"
+    reconnected:           "â™»ï¸ Yeniden baÄŸlanan: {names}"
+    added:                 "âž• Eklenen: {names}"
+    removed:               "âž– KaldÄ±rÄ±lan: {names}"
+    none_connected:        "BaÄŸlÄ± MCP sunucusu yok."
+    tools_available:       "\nðŸ”§ {servers} sunucudan {tools} araÃ§ kullanÄ±labilir"
+    failed:                "âŒ MCP yeniden yÃ¼kleme baÅŸarÄ±sÄ±z: {error}"
+
+  reload_skills:
+    header:                "ðŸ”„ **Beceriler Yeniden YÃ¼klendi**\n"
+    no_new:                "Yeni beceri tespit edilmedi."
+    total:                 "\nðŸ“š {count} beceri kullanÄ±labilir"
+    added_header:          "âž• **Eklenen Beceriler:**"
+    removed_header:        "âž– **KaldÄ±rÄ±lan Beceriler:**"
+    item_with_desc:        "    - {name}: {desc}"
+    item_no_desc:          "    - {name}"
+    failed:                "âŒ Beceri yeniden yÃ¼kleme baÅŸarÄ±sÄ±z: {error}"
+
+  reset:
+    header_default:        "âœ¨ Oturum sÄ±fÄ±rlandÄ±! Yeniden baÅŸlÄ±yoruz."
+    header_new:            "âœ¨ Yeni oturum baÅŸlatÄ±ldÄ±!"
+    header_titled:         "âœ¨ Yeni oturum baÅŸlatÄ±ldÄ±: {title}"
+    title_rejected:        "\nâš ï¸ BaÅŸlÄ±k reddedildi: {error}"
+    title_error_untitled:  "\nâš ï¸ {error} â€” oturum baÅŸlÄ±ksÄ±z baÅŸlatÄ±ldÄ±."
+    title_empty_untitled:  "\nâš ï¸ Temizlik sonrasÄ± baÅŸlÄ±k boÅŸ â€” oturum baÅŸlÄ±ksÄ±z baÅŸlatÄ±ldÄ±."
+    tip:                   "\nâœ¦ Ä°pucu: {tip}"
+
+  restart:
+    in_progress:           "â³ Gateway yeniden baÅŸlatma zaten sÃ¼rÃ¼yor..."
+    restarting:            "â™» Gateway yeniden baÅŸlatÄ±lÄ±yor. 60 saniye iÃ§inde bildirim almazsanÄ±z konsoldan `hermes gateway restart` ile yeniden baÅŸlatÄ±n."
+
+  resume:
+    db_unavailable:        "Oturum veritabanÄ± kullanÄ±lamÄ±yor."
+    parse_error:           "âš ï¸ Could not parse `/resume` arguments: {error}.
+Use quotes around titles with spaces, for example: `/resume \"Project A Plan\"`."
+    matrix_no_named_sessions: "No named sessions found for this Matrix room.
+Use `/title My Session` to name the current room session, `/resume --all` to list all Matrix sessions, or `/resume --cross-room <session name>` to explicitly cross room boundaries."
+    matrix_blocked_no_origin: "âš ï¸ Matrix /resume blocked: this named session has no recorded room origin, so Kova will not resume it inside the current room by default. Use `/resume --cross-room {name}` if you intentionally want to cross room boundaries."
+    matrix_blocked_other_room: "âš ï¸ Matrix /resume blocked: that session belongs to a different Matrix room ({room}). Use `/resume --cross-room {name}` if you intentionally want to resume it here."
+    matrix_cross_room_success: "âš ï¸ Cross-room resume: resumed **{title}** inside Matrix room **{room}**.
+Future messages in this room will use that transcript until `/reset` or another `/resume`.{msg_part}"
+    blocked_not_owner:     "âš ï¸ /resume blocked: '**{name}**' belongs to a different user or chat. You can only resume sessions from this chat."
+    no_named_sessions:     "AdlandÄ±rÄ±lmÄ±ÅŸ oturum bulunamadÄ±.\nMevcut oturumu adlandÄ±rmak iÃ§in `/title Oturumum`, daha sonra geri dÃ¶nmek iÃ§in `/resume Oturumum` kullanÄ±n."
+    list_header:           "ðŸ“‹ **AdlandÄ±rÄ±lmÄ±ÅŸ Oturumlar**\n"
+    list_item:             "â€¢ **{title}**{preview_part}"
+    list_item_numbered:    "{index}. **{title}**{preview_part}"
+    list_preview_suffix:   " â€” _{preview}_"
+    list_footer:           "\nKullanÄ±m: `/resume <oturum adÄ±>`"
+    list_footer_numbered:  "\nKullanÄ±m: `/resume <oturum adÄ±>` veya `/resume <numara>` (Ã¶rn. en yenisi iÃ§in `/resume 1`)"
+    list_failed:           "Oturumlar listelenemedi: {error}"
+    out_of_range:          "Devam endeksi {index} aralÄ±k dÄ±ÅŸÄ±nda.\nKullanÄ±labilir oturumlarÄ± gÃ¶rmek iÃ§in `/resume` komutunu argÃ¼mansÄ±z Ã§alÄ±ÅŸtÄ±rÄ±n."
+    not_found:             "'**{name}**' ile eÅŸleÅŸen oturum bulunamadÄ±.\nKullanÄ±labilir oturumlarÄ± gÃ¶rmek iÃ§in argÃ¼mansÄ±z `/resume` kullanÄ±n."
+    already_on:            "ðŸ“Œ Zaten **{name}** oturumundasÄ±nÄ±z."
+    switch_failed:         "Oturum deÄŸiÅŸtirilemedi."
+    resumed_one:           "â†» **{title}** oturumu sÃ¼rdÃ¼rÃ¼ldÃ¼ ({count} mesaj). KonuÅŸma geri yÃ¼klendi."
+    resumed_many:          "â†» **{title}** oturumu sÃ¼rdÃ¼rÃ¼ldÃ¼ ({count} mesaj). KonuÅŸma geri yÃ¼klendi."
+    resumed_no_count:      "â†» **{title}** oturumu sÃ¼rdÃ¼rÃ¼ldÃ¼. KonuÅŸma geri yÃ¼klendi."
+
+  retry:
+    no_previous:           "Yeniden denenecek Ã¶nceki mesaj yok."
+
+  rollback:
+    not_enabled:           "Kontrol noktalarÄ± etkin deÄŸil.\nconfig.yaml iÃ§inde etkinleÅŸtirin:\n```\ncheckpoints:\n  enabled: true\n```"
+    none_found:            "{cwd} iÃ§in kontrol noktasÄ± bulunamadÄ±"
+    invalid_number:        "GeÃ§ersiz kontrol noktasÄ± numarasÄ±. 1-{max} aralÄ±ÄŸÄ±nÄ± kullanÄ±n."
+    restored:              "âœ… {hash} kontrol noktasÄ±na geri yÃ¼klendi: {reason}\nGeri alma Ã¶ncesi anlÄ±k gÃ¶rÃ¼ntÃ¼ otomatik olarak kaydedildi."
+    restore_failed:        "âŒ {error}"
+
+  set_home:
+    save_failed:           "Ana kanal kaydedilemedi: {error}"
+    success:               "âœ… Ana kanal **{name}** (ID: {chat_id}) olarak ayarlandÄ±.\nCron iÅŸleri ve platformlar arasÄ± mesajlar buraya iletilecek."
+
+  status:
+    header:                "ðŸ“Š **Kova Gateway Durumu**"
+    matrix_scope_header:   "**Matrix scope:**"
+    matrix_scope_room:     "  room: {room}"
+    matrix_scope_room_id:  "  room_id: {room_id}"
+    matrix_scope_thread:   "  thread_id: {thread_id}"
+    matrix_scope_mode:     "  session_scope: {scope}"
+    matrix_scope_key:      "  session_key: {session_key}"
+    session_id:            "**Oturum kimliÄŸi:** `{session_id}`"
+    title:                 "**BaÅŸlÄ±k:** {title}"
+    created:               "**OluÅŸturuldu:** {timestamp}"
+    last_activity:         "**Son etkinlik:** {timestamp}"
+    model:                 "**Model:** `{model}`"
+    model_provider:        "**Model:** `{model}` ({provider})"
+    context:               "**Context:** {used} / {total} ({pct}%)"
+    context_used:          "**Context:** ~{used} tokens"
+    tokens:                "**Token:** {tokens}"
+    agent_running:         "**AracÄ± Ã§alÄ±ÅŸÄ±yor:** {state}"
+    state_yes:             "Evet âš¡"
+    state_no:              "HayÄ±r"
+    queued:                "**SÄ±radaki devam:** {count}"
+    platforms:             "**BaÄŸlÄ± platformlar:** {platforms}"
+
+  stop:
+    stopped_pending:       "âš¡ Durduruldu. Ajan henÃ¼z baÅŸlamamÄ±ÅŸtÄ± â€” bu oturuma devam edebilirsin."
+    stopped:               "âš¡ Durduruldu. Bu oturuma devam edebilirsin."
+    no_active:             "Durdurulacak aktif gÃ¶rev yok."
+
+  title:
+    db_unavailable:        "Oturum veritabanÄ± kullanÄ±lamÄ±yor."
+    warn_prefix:           "âš ï¸ {error}"
+    empty_after_clean:     "âš ï¸ Temizlemeden sonra baÅŸlÄ±k boÅŸ. LÃ¼tfen yazdÄ±rÄ±labilir karakterler kullanÄ±n."
+    set_to:                "âœï¸ Oturum baÅŸlÄ±ÄŸÄ± ayarlandÄ±: **{title}**"
+    not_found:             "Oturum veritabanÄ±nda bulunamadÄ±."
+    current_with_title:    "ðŸ“Œ Oturum: `{session_id}`\nBaÅŸlÄ±k: **{title}**"
+    current_no_title:      "ðŸ“Œ Oturum: `{session_id}`\nBaÅŸlÄ±k ayarlanmamÄ±ÅŸ. KullanÄ±m: `/title Oturum AdÄ±m`"
+
+  topic:
+    not_telegram_dm:         "/topic komutu yalnÄ±zca Telegram Ã¶zel sohbetlerinde kullanÄ±labilir."
+    no_session_db:           "Oturum veritabanÄ± kullanÄ±lamÄ±yor."
+    unauthorized:            "Bu bot Ã¼zerinde /topic kullanma yetkiniz yok."
+    restore_needs_topic:     "Bir oturumu geri yÃ¼klemek iÃ§in Ã¶nce bir Telegram topic oluÅŸturun veya aÃ§Ä±n, ardÄ±ndan o topic iÃ§inde /topic <session-id> gÃ¶nderin. Yeni bir topic oluÅŸturmak iÃ§in All Messages'Ä± aÃ§Ä±p orada herhangi bir mesaj gÃ¶nderin."
+    topics_disabled:         "Bu bot iÃ§in Telegram topic'leri henÃ¼z etkin deÄŸil.\n\nNasÄ±l etkinleÅŸtirilir:\n1. @BotFather'Ä± aÃ§Ä±n.\n2. Botunuzu seÃ§in.\n3. Bot Settings â†’ Threads Settings'Ä± aÃ§Ä±n.\n4. Threaded Mode'u aÃ§Ä±n ve kullanÄ±cÄ±larÄ±n yeni thread oluÅŸturmasÄ±na izin verildiÄŸinden emin olun.\n\nArdÄ±ndan /topic'i tekrar gÃ¶nderin."
+    topics_user_disallowed:  "Telegram topic'leri etkin, ancak kullanÄ±cÄ±larÄ±n topic oluÅŸturmasÄ±na izin verilmiyor.\n\n@BotFather â†’ botunuz â†’ Bot Settings â†’ Threads Settings yolunu aÃ§Ä±n ve 'Disallow users to create new threads' seÃ§eneÄŸini kapatÄ±n.\n\nArdÄ±ndan /topic'i tekrar gÃ¶nderin."
+    enable_failed:           "Telegram topic modu etkinleÅŸtirilemedi: {error}"
+    bound_status:            "Bu topic ÅŸuna baÄŸlÄ±:\nOturum: {label}\nID: {session_id}\n\nBu topic'i yeni bir oturumla deÄŸiÅŸtirmek iÃ§in /new kullanÄ±n.\nParalel Ã§alÄ±ÅŸma iÃ§in All Messages'Ä± aÃ§Ä±p orada bir mesaj gÃ¶ndererek baÅŸka bir topic oluÅŸturun."
+    thread_ready:            "Telegram Ã§ok oturumlu topic'leri etkin.\n\nBu topic baÄŸÄ±msÄ±z bir Kova oturumu olarak kullanÄ±lacak. Bu topic'in mevcut oturumunu deÄŸiÅŸtirmek iÃ§in /new kullanÄ±n. Paralel Ã§alÄ±ÅŸma iÃ§in All Messages'Ä± aÃ§Ä±p orada bir mesaj gÃ¶ndererek baÅŸka bir topic oluÅŸturun."
+    untitled_session:        "AdsÄ±z oturum"
+
+  undo:
+    nothing:               "Geri alÄ±nacak bir ÅŸey yok."
+    removed:               "â†©ï¸ {turns} tur geri alÄ±ndÄ± ({count} mesaj).\nYedeklendiÄŸi yer: \"{preview}\"\nYukarÄ±daki metni kopyalayÄ±p/dÃ¼zenleyip gÃ¶ndererek buradan yeniden sorabilirsiniz."
+    invalid_count:         "GeÃ§ersiz sayÄ± \"{arg}\" â€” /undo veya /undo N kullanÄ±n."
+
+  update:
+    platform_not_messaging:  "âœ— /update yalnÄ±zca mesajlaÅŸma platformlarÄ±nda kullanÄ±labilir. Terminalden `hermes update` komutunu Ã§alÄ±ÅŸtÄ±rÄ±n."
+    not_git_repo:            "âœ— Git deposu deÄŸil â€” gÃ¼ncellenemiyor."
+    hermes_cmd_not_found:    "âœ— `hermes` komutu bulunamadÄ±. Kova Ã§alÄ±ÅŸÄ±yor, ancak gÃ¼ncelleme komutu yÃ¼rÃ¼tÃ¼lebilir dosyayÄ± PATH'te veya mevcut Python yorumlayÄ±cÄ±sÄ± aracÄ±lÄ±ÄŸÄ±yla bulamadÄ±. Terminalde `hermes update` komutunu manuel olarak Ã§alÄ±ÅŸtÄ±rmayÄ± deneyin."
+    start_failed:            "âœ— GÃ¼ncelleme baÅŸlatÄ±lamadÄ±: {error}"
+    starting:                "âš• Kova gÃ¼ncellemesi baÅŸlatÄ±lÄ±yorâ€¦ Ä°lerlemeyi buraya akÄ±tacaÄŸÄ±m."
+
+  usage:
+    rate_limits:              "â±ï¸ **HÄ±z SÄ±nÄ±rlarÄ±:** {state}"
+    header_session:           "ðŸ“Š **Oturum Token KullanÄ±mÄ±**"
+    label_model:              "Model: `{model}`"
+    label_input_tokens:       "Girdi token'larÄ±: {count}"
+    label_cache_read:         "Ã–nbellek okuma token'larÄ±: {count}"
+    label_cache_write:        "Ã–nbellek yazma token'larÄ±: {count}"
+    label_output_tokens:      "Ã‡Ä±ktÄ± token'larÄ±: {count}"
+    label_total:              "Toplam: {count}"
+    label_api_calls:          "API Ã§aÄŸrÄ±larÄ±: {count}"
+    label_cost:               "Maliyet: {prefix}${amount}"
+    label_cost_included:      "Maliyet: dahil"
+    label_context:            "BaÄŸlam: {used} / {total} ({pct}%)"
+    label_compressions:       "SÄ±kÄ±ÅŸtÄ±rmalar: {count}"
+    breakdown_header: "ðŸ§© **BaÄŸlam dÃ¶kÃ¼mÃ¼** _(tahmini)_"
+    breakdown_line: "â€¢ {label}: ~{count} ({pct}%)"
+    breakdown_cat_system_prompt: "Sistem istemi"
+    breakdown_cat_tool_definitions: "AraÃ§ tanÄ±mlarÄ±"
+    breakdown_cat_rules: "Kurallar"
+    breakdown_cat_skills: "Beceriler"
+    breakdown_cat_mcp: "MCP"
+    breakdown_cat_subagent_definitions: "Alt aracÄ± tanÄ±mlarÄ±"
+    breakdown_cat_memory: "Bellek"
+    breakdown_cat_conversation: "KonuÅŸma"
+    header_session_info:      "ðŸ“Š **Oturum Bilgisi**"
+    label_messages:           "Mesajlar: {count}"
+    label_estimated_context:  "Tahmini baÄŸlam: ~{count} token"
+    detailed_after_first:     "_(AyrÄ±ntÄ±lÄ± kullanÄ±m, ilk ajan yanÄ±tÄ±ndan sonra kullanÄ±labilir)_"
+    no_data:                  "Bu oturum iÃ§in kullanÄ±m verisi yok."
+
+  credits:
+    not_logged_in:            "Nous Portal'a giriÅŸ yapÄ±lmadÄ±. Bakiyenizi gÃ¶rmek ve yÃ¼kleme yapmak iÃ§in giriÅŸ yapÄ±n."
+
+  verbose:
+    not_enabled:           "`/verbose` komutu mesajlaÅŸma platformlarÄ±nda etkin deÄŸil.\n\n`config.yaml` iÃ§inde etkinleÅŸtirin:\n```yaml\ndisplay:\n  tool_progress_command: true\n```"
+    mode_off:              "âš™ï¸ AraÃ§ ilerlemesi: **OFF** â€” araÃ§ etkinliÄŸi gÃ¶sterilmez."
+    mode_new:              "âš™ï¸ AraÃ§ ilerlemesi: **NEW** â€” araÃ§ deÄŸiÅŸtiÄŸinde gÃ¶sterilir (Ã¶nizleme uzunluÄŸu: `display.tool_preview_length`, varsayÄ±lan 40)."
+    mode_all:              "âš™ï¸ AraÃ§ ilerlemesi: **ALL** â€” her araÃ§ Ã§aÄŸrÄ±sÄ± gÃ¶sterilir (Ã¶nizleme uzunluÄŸu: `display.tool_preview_length`, varsayÄ±lan 40)."
+    mode_verbose:          "âš™ï¸ AraÃ§ ilerlemesi: **VERBOSE** â€” her araÃ§ Ã§aÄŸrÄ±sÄ± tÃ¼m argÃ¼manlarÄ±yla gÃ¶sterilir."
+    mode_log:              "âš™ï¸ AraÃ§ ilerlemesi: **LOG** â€” sohbette sessiz; araÃ§ Ã§aÄŸrÄ±larÄ± ~/.hermes/logs/tool_calls.log dosyasÄ±na yazÄ±lÄ±r."
+    saved_suffix:          "_(**{platform}** iÃ§in kaydedildi â€” sonraki mesajda geÃ§erli olur)_"
+    save_failed:           "_(yapÄ±landÄ±rmaya kaydedilemedi: {error})_"
+
+  voice:
+    enabled_voice_only:    "Sesli mod etkinleÅŸtirildi.\nSesli mesaj gÃ¶nderdiÄŸinizde sesli yanÄ±t vereceÄŸim.\nTÃ¼m mesajlara sesli yanÄ±t almak iÃ§in /voice tts kullanÄ±n."
+    disabled_text:         "Sesli mod devre dÄ±ÅŸÄ±. YalnÄ±zca metin yanÄ±tlarÄ±."
+    tts_enabled:           "Otomatik TTS etkinleÅŸtirildi.\nTÃ¼m yanÄ±tlar bir sesli mesaj iÃ§erecek."
+    status_mode:           "Sesli mod: {label}"
+    status_channel:        "Ses kanalÄ±: #{channel}"
+    status_participants:   "KatÄ±lÄ±mcÄ±lar: {count}"
+    status_member:         "  - {name}{status}"
+    speaking:              " (konuÅŸuyor)"
+    enabled_short:         "Sesli mod etkinleÅŸtirildi."
+    disabled_short:        "Sesli mod devre dÄ±ÅŸÄ±."
+    label_off:             "KapalÄ± (yalnÄ±zca metin)"
+    label_voice_only:      "AÃ§Ä±k (sesli mesajlara sesli yanÄ±t)"
+    label_all:             "TTS (tÃ¼m mesajlara sesli yanÄ±t)"
+    help:                  "{toggle}\n\n**/voice nasÄ±l Ã§alÄ±ÅŸÄ±r**\nâ€¢ `/voice on` â€” sesli mesaj gÃ¶nderdiÄŸinde sesli yanÄ±t\nâ€¢ `/voice tts` â€” *her* mesaja sesli yanÄ±t\nâ€¢ `/voice off` â€” yalnÄ±zca metin yanÄ±tlarÄ±na dÃ¶n\nâ€¢ `/voice status` â€” geÃ§erli modu gÃ¶ster\nâ€¢ `/voice` (argÃ¼mansÄ±z) â€” aÃ§Ä±k ve kapalÄ± arasÄ±nda hÄ±zlÄ± geÃ§iÅŸ{channels}"
+    help_channels:         "\n\n**CanlÄ± ses kanallarÄ± (Discord)**\nâ€¢ Ã–nce bir ses kanalÄ±na katÄ±l, sonra `/voice channel` â€” katÄ±lÄ±rÄ±m, dinlerim ve yanÄ±tlarÄ±mÄ± sesli sÃ¶ylerim\nâ€¢ `/voice leave` â€” ses kanalÄ±ndan ayrÄ±l"
+
+  yolo:
+    disabled:                   "âš ï¸ Bu oturumda YOLO modu **KAPALI** â€” tehlikeli komutlar onay gerektirecek."
+    enabled:                    "âš¡ Bu oturumda YOLO modu **AÃ‡IK** â€” tÃ¼m komutlar otomatik onaylanÄ±r. Dikkatli kullanÄ±n."
+
+  shared:
+    session_db_unavailable:      "Oturum veritabanÄ± kullanÄ±lamÄ±yor."
+    session_db_unavailable_prefix: "Oturum veritabanÄ± kullanÄ±lamÄ±yor"
+    session_not_found:           "Oturum veritabanÄ±nda bulunamadÄ±."
+    warn_passthrough:            "âš ï¸ {error}"
