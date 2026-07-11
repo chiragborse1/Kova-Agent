@@ -1,4 +1,4 @@
-"""Headless Google Meet bot — Playwright + live-caption scraping.
+﻿"""Headless Google Meet bot — Playwright + live-caption scraping.
 
 Runs as a standalone subprocess spawned by ``process_manager.py``. Reads config
 from env vars, writes status + transcript to files under
@@ -449,7 +449,7 @@ def run_bot() -> int:  # noqa: C901 — orchestration, explicit branches
     out_dir_env = os.environ.get("HERMES_MEET_OUT_DIR", "").strip()
     headed = os.environ.get("HERMES_MEET_HEADED", "").lower() in {"1", "true", "yes"}
     auth_state = os.environ.get("HERMES_MEET_AUTH_STATE", "").strip()
-    guest_name = os.environ.get("HERMES_MEET_GUEST_NAME", "Hermes Agent")
+    guest_name = os.environ.get("HERMES_MEET_GUEST_NAME", "Kova Agent")
     duration_s = _parse_duration(os.environ.get("HERMES_MEET_DURATION", ""))
     # v2: optional realtime mode. Enabled when HERMES_MEET_MODE=realtime.
     mode = os.environ.get("HERMES_MEET_MODE", "transcribe").strip().lower()

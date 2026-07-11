@@ -1,4 +1,4 @@
-"""
+﻿"""
 Hermes Agent — Web UI server.
 
 Provides a FastAPI backend serving the Vite/React frontend and REST API
@@ -7518,7 +7518,7 @@ async def _telegram_onboarding_request(
 
 @app.post("/api/messaging/telegram/onboarding/start")
 async def start_telegram_onboarding(body: TelegramOnboardingStart):
-    bot_name = (body.bot_name or "Hermes Agent").strip() or "Hermes Agent"
+    bot_name = (body.bot_name or "Kova Agent").strip() or "Kova Agent"
     payload = await _telegram_onboarding_request(
         "POST",
         "/v1/telegram/pairings",

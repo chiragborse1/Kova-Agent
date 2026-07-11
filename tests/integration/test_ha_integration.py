@@ -1,4 +1,4 @@
-"""Integration tests for Home Assistant (tool + gateway).
+﻿"""Integration tests for Home Assistant (tool + gateway).
 
 Spins up a real in-process fake HA server (HTTP + WebSocket) and exercises
 the full adapter and tool handler paths over real TCP connections.
@@ -279,7 +279,7 @@ class TestSendNotification:
             assert result.success is True
             assert len(server.received_notifications) == 1
             notif = server.received_notifications[0]
-            assert notif["title"] == "Hermes Agent"
+            assert notif["title"] == "Kova Agent"
             assert notif["message"] == "Test notification from agent"
 
     @pytest.mark.asyncio

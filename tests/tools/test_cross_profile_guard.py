@@ -1,4 +1,4 @@
-"""Tests for the cross-profile soft guard wired into write_file / patch /
+﻿"""Tests for the cross-profile soft guard wired into write_file / patch /
 skill_manage.
 
 The classifier is tested in tests/agent/test_file_safety_cross_profile.py.
@@ -250,9 +250,9 @@ class TestSystemPromptActiveProfile:
         # explicit user direction.
         from pathlib import Path
         src = Path("agent/system_prompt.py").read_text()
-        assert "Active Hermes profile" in src
+        assert "Active Kova profile" in src
         assert "cross_profile=True" in src
         assert "~/.hermes/profiles/" in src
         # Both branches present (default and named profile).
-        assert "Active Hermes profile: default" in src
-        assert "Active Hermes profile: {active_profile}" in src
+        assert "Active Kova profile: default" in src
+        assert "Active Kova profile: {active_profile}" in src

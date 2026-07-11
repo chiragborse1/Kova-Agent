@@ -1,4 +1,4 @@
-"""
+﻿"""
 Microsoft Teams platform adapter for Hermes Agent.
 
 Uses the microsoft-teams-apps SDK for authentication and activity processing.
@@ -827,7 +827,7 @@ class TeamsAdapter(BasePlatformAdapter):
         ) as client:
             response = await client.get(
                 url,
-                headers={"User-Agent": "Mozilla/5.0 (compatible; HermesAgent/1.0)"},
+                headers={"User-Agent": "Mozilla/5.0 (compatible; KovaAgent/1.0)"},
             )
             response.raise_for_status()
             return response.content

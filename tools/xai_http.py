@@ -1,4 +1,4 @@
-"""Shared helpers for direct xAI HTTP integrations."""
+﻿"""Shared helpers for direct xAI HTTP integrations."""
 
 from __future__ import annotations
 
@@ -75,7 +75,7 @@ def hermes_xai_user_agent() -> str:
         from hermes_cli import __version__
     except Exception:
         __version__ = "unknown"
-    return f"Hermes-Agent/{__version__}"
+    return f"Kova-Agent/{__version__}"
 
 
 def _load_config_section(section_name: str) -> Dict[str, Any]:

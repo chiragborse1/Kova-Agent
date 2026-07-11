@@ -1,4 +1,4 @@
-"""Agent-facing tools for the google_meet plugin.
+﻿"""Agent-facing tools for the google_meet plugin.
 
 Tools:
   meet_join        — join a Google Meet URL (spawns Playwright bot locally
@@ -252,7 +252,7 @@ def handle_meet_join(args: Dict[str, Any], **_kw) -> str:
         try:
             res = client.start_bot(
                 url=url,
-                guest_name=str(args.get("guest_name") or "Hermes Agent"),
+                guest_name=str(args.get("guest_name") or "Kova Agent"),
                 duration=str(args.get("duration")) if args.get("duration") else None,
                 headed=bool(args.get("headed", False)),
                 mode=mode,
@@ -271,7 +271,7 @@ def handle_meet_join(args: Dict[str, Any], **_kw) -> str:
     res = pm.start(
         url=url,
         headed=bool(args.get("headed", False)),
-        guest_name=str(args.get("guest_name") or "Hermes Agent"),
+        guest_name=str(args.get("guest_name") or "Kova Agent"),
         duration=str(args.get("duration")) if args.get("duration") else None,
         mode=mode,
     )

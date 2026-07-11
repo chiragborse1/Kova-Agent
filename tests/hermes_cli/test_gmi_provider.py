@@ -1,4 +1,4 @@
-"""Focused tests for GMI Cloud first-class provider wiring."""
+﻿"""Focused tests for GMI Cloud first-class provider wiring."""
 
 from __future__ import annotations
 
@@ -280,16 +280,16 @@ class TestGmiAuxiliary:
         # for traffic attribution. The generic profile-fallback branch in
         # resolve_provider_client should carry it through to the OpenAI client.
         headers = mock_openai.call_args.kwargs.get("default_headers", {})
-        assert headers.get("User-Agent", "").startswith("HermesAgent/")
+        assert headers.get("User-Agent", "").startswith("KovaAgent/")
 
     def test_gmi_profile_declares_hermes_user_agent(self):
-        """The GMI plugin sets a HermesAgent/<ver> User-Agent on its profile."""
+        """The GMI plugin sets a KovaAgent/<ver> User-Agent on its profile."""
         from providers import get_provider_profile
 
         profile = get_provider_profile("gmi")
         assert profile is not None
         ua = profile.default_headers.get("User-Agent", "")
-        assert ua.startswith("HermesAgent/"), (
+        assert ua.startswith("KovaAgent/"), (
             f"expected GMI profile User-Agent to start with 'HermesAgent/', got {ua!r}"
         )
 

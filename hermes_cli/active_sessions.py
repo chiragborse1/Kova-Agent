@@ -1,4 +1,4 @@
-"""Cross-process active chat session leases.
+﻿"""Cross-process active chat session leases.
 
 The session database records persisted conversations.  This module records
 currently open chat surfaces, including idle CLI/TUI sessions that have not
@@ -72,7 +72,7 @@ def resolve_max_concurrent_sessions(config: Any) -> Optional[int]:
 
 def active_session_limit_message(active_count: int, max_sessions: int) -> str:
     return (
-        f"Hermes is at the active session limit ({active_count}/{max_sessions}). "
+        f"Kova is at the active session limit ({active_count}/{max_sessions}). "
         "Try again when another session finishes."
     )
 

@@ -1,4 +1,4 @@
-"""Shared auxiliary client router for side tasks.
+﻿"""Shared auxiliary client router for side tasks.
 
 Provides a single resolution chain so every consumer (context compression,
 session search, web extraction, vision analysis, browser vision) picks up
@@ -604,7 +604,7 @@ def build_or_headers(or_config: dict | None = None) -> dict:
 # NVIDIA NIM cloud billing attribution.  Keep this host-gated because the
 # nvidia provider also supports local/on-prem NIM endpoints via NVIDIA_BASE_URL.
 _NVIDIA_NIM_CLOUD_HEADERS = {
-    "X-BILLING-INVOKE-ORIGIN": "HermesAgent",
+    "X-BILLING-INVOKE-ORIGIN": "KovaAgent",
 }
 
 
@@ -682,7 +682,7 @@ def _codex_cloudflare_headers(access_token: str) -> Dict[str, str]:
     crash at client construction.
     """
     headers = {
-        "User-Agent": "codex_cli_rs/0.0.0 (Hermes Agent)",
+        "User-Agent": "codex_cli_rs/0.0.0 (Kova Agent)",
         "originator": "codex_cli_rs",
     }
     if not isinstance(access_token, str) or not access_token.strip():

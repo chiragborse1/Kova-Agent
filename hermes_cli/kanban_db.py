@@ -1,4 +1,4 @@
-"""SQLite-backed Kanban board for multi-profile, multi-project collaboration.
+﻿"""SQLite-backed Kanban board for multi-profile, multi-project collaboration.
 
 In a fresh install the board lives at ``<root>/kanban.db`` where
 ``<root>`` is the **shared Hermes root** (the parent of any active
@@ -7822,7 +7822,7 @@ def _default_spawn(
         log_f.close()
         raise RuntimeError(
             "`hermes` executable not found on PATH. "
-            "Install Hermes Agent or activate its venv before running the kanban dispatcher."
+            "Install Kova Agent or activate its venv before running the kanban dispatcher."
         )
     # NOTE: we intentionally do NOT close log_f here — we want Popen's
     # child process to keep writing after this function returns.  The

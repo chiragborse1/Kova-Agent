@@ -1,4 +1,4 @@
-"""Tests for the Home Assistant gateway adapter.
+﻿"""Tests for the Home Assistant gateway adapter.
 
 Tests real logic: state change formatting, event filtering pipeline,
 cooldown behavior, config integration, and adapter initialization.
@@ -514,7 +514,7 @@ class TestSendViaRestApi:
         # Verify the REST API was called with correct payload
         call_args = mock_session.post.call_args
         assert "/api/services/persistent_notification/create" in call_args[0][0]
-        assert call_args[1]["json"]["title"] == "Hermes Agent"
+        assert call_args[1]["json"]["title"] == "Kova Agent"
         assert call_args[1]["json"]["message"] == "Test notification"
         assert "Bearer tok" in call_args[1]["headers"]["Authorization"]
 

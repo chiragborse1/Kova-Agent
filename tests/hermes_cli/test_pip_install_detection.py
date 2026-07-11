@@ -1,4 +1,4 @@
-from unittest.mock import patch
+﻿from unittest.mock import patch
 
 
 def test_pip_install_detected_when_no_git_dir(tmp_path):
@@ -195,7 +195,7 @@ def test_banner_warns_on_pip_install(tmp_path):
         out = buf.getvalue()
 
     assert "officially" in out
-    assert "platform-support" in out
+    assert "Kova-Agent" in out
 
 
 def test_banner_warns_on_homebrew_install(tmp_path):
@@ -221,7 +221,7 @@ def test_banner_warns_on_homebrew_install(tmp_path):
 
     assert "officially" in out
     assert "Homebrew" in out
-    assert "platform-support" in out
+    assert "Kova-Agent" in out
 
 
 def test_banner_no_pip_warning_on_git_install(tmp_path):

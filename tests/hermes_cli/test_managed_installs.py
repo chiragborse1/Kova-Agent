@@ -1,4 +1,4 @@
-from types import SimpleNamespace
+﻿from types import SimpleNamespace
 from unittest.mock import patch
 
 from hermes_cli.config import (
@@ -20,7 +20,7 @@ def test_get_managed_system_homebrew(monkeypatch):
 def test_format_managed_message_homebrew(monkeypatch):
     monkeypatch.setenv("HERMES_MANAGED", "homebrew")
 
-    message = format_managed_message("update Hermes Agent")
+    message = format_managed_message("update Kova Agent")
 
     assert "managed by Homebrew" in message
     assert "brew upgrade hermes-agent" in message

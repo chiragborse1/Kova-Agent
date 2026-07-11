@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
 AI Agent Runner with Tool Calling
 
@@ -284,7 +284,7 @@ def _routermint_headers() -> dict:
     from hermes_cli import __version__ as _HERMES_VERSION
 
     return {
-        "User-Agent": f"HermesAgent/{_HERMES_VERSION}",
+        "User-Agent": f"KovaAgent/{_HERMES_VERSION}",
     }
 
 

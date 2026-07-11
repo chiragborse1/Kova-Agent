@@ -1,4 +1,4 @@
-"""Tests for the IRC platform adapter plugin."""
+﻿"""Tests for the IRC platform adapter plugin."""
 
 import asyncio
 import pytest
@@ -578,7 +578,7 @@ class TestIRCStandaloneSend:
         # NICK uses the cron-suffixed identity to avoid colliding with the
         # long-running gateway adapter that may already hold the nickname.
         assert any(line.startswith("NICK hermesbot-cron") for line in sent_lines)
-        assert any(line.startswith("USER hermesbot-cron 0 * :Hermes Agent (cron)")
+        assert any(line.startswith("USER hermesbot-cron 0 * :Kova Agent (cron)")
                    for line in sent_lines)
         assert any(line == "PRIVMSG #cron :hello from cron" for line in sent_lines)
         assert any(line.startswith("QUIT ") for line in sent_lines)

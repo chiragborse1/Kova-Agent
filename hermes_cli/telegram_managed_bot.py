@@ -1,4 +1,4 @@
-"""Telegram Managed Bot onboarding client.
+﻿"""Telegram Managed Bot onboarding client.
 
 Uses Telegram's Managed Bots feature to create a user-owned child bot without
 manual BotFather token copy-paste. Hermes talks only to the Nous onboarding
@@ -27,7 +27,7 @@ TELEGRAM_ONBOARDING_URL_ENV = "TELEGRAM_ONBOARDING_URL"
 # actual deep link, so this is only used by local helpers/tests.
 DEFAULT_MANAGER_BOT = "HermesSetupBot"
 
-DEFAULT_BOT_NAME = "Hermes Agent"
+DEFAULT_BOT_NAME = "Kova Agent"
 DEFAULT_POLL_TIMEOUT = 180
 POLL_INTERVAL = 2
 

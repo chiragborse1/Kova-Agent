@@ -1,4 +1,4 @@
-"""
+﻿"""
 Canonical model catalogs and lightweight validation helpers.
 
 Add, remove, or reorder entries here — both `hermes setup` and
@@ -2796,7 +2796,7 @@ def copilot_default_headers(*, is_agent_turn: bool = True) -> dict[str, str]:
     except ImportError:
         return {
             "Editor-Version": COPILOT_EDITOR_VERSION,
-            "User-Agent": "HermesAgent/1.0",
+            "User-Agent": "KovaAgent/1.0",
             "Openai-Intent": "conversation-edits",
             "x-initiator": "agent" if is_agent_turn else "user",
         }

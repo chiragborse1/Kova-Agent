@@ -1,4 +1,4 @@
-"""Tests for ACP Registry metadata shipped with Hermes."""
+"""Tests for ACP Registry metadata shipped with Kova."""
 
 from __future__ import annotations
 
@@ -28,13 +28,13 @@ def test_agent_json_matches_official_registry_required_fields():
     data = _manifest()
 
     assert FORBIDDEN_MANIFEST_KEYS.isdisjoint(data)
-    assert data["id"] == "hermes-agent"
+    assert data["id"] == "kova-agent"
     assert re.fullmatch(r"[a-z][a-z0-9-]*", data["id"])
-    assert data["name"] == "Hermes Agent"
+    assert data["name"] == "Kova Agent"
     assert data["description"]
     assert data["repository"] == "https://github.com/chiragborse1/Kova-Agent"
     assert data["website"].startswith("https://github.com/chiragborse1/")
-    assert data["authors"] == ["Nous Research"]
+    assert data["authors"] == ["Chirag Borse"]
     assert data["license"] == "MIT"
     assert set(data["distribution"]) <= ALLOWED_DISTRIBUTIONS
 

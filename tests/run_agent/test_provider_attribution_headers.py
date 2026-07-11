@@ -1,4 +1,4 @@
-"""Attribution default_headers applied per provider via base-URL detection."""
+﻿"""Attribution default_headers applied per provider via base-URL detection."""
 from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
 
@@ -21,7 +21,7 @@ def test_openrouter_base_url_applies_or_headers(mock_openai):
 
     headers = agent._client_kwargs["default_headers"]
     assert headers["HTTP-Referer"] == "https://github.com/chiragborse1/Kova-Agent"
-    assert headers["X-Title"] == "Hermes Agent"
+    assert headers["X-Title"] == "Kova Agent"
 
 
 @patch("run_agent.OpenAI")
@@ -39,7 +39,7 @@ def test_routermint_base_url_applies_user_agent_header(mock_openai):
     agent._apply_client_headers_for_base_url("https://api.routermint.com/v1")
 
     headers = agent._client_kwargs["default_headers"]
-    assert headers["User-Agent"].startswith("HermesAgent/")
+    assert headers["User-Agent"].startswith("KovaAgent/")
 
 
 @patch("run_agent.OpenAI")
@@ -55,12 +55,12 @@ def test_nvidia_cloud_base_url_applies_billing_origin_header(mock_openai):
         skip_memory=True,
     )
 
-    assert agent._client_kwargs["default_headers"]["X-BILLING-INVOKE-ORIGIN"] == "HermesAgent"
+    assert agent._client_kwargs["default_headers"]["X-BILLING-INVOKE-ORIGIN"] == "KovaAgent"
 
     agent._apply_client_headers_for_base_url("https://integrate.api.nvidia.com/v1")
 
     headers = agent._client_kwargs["default_headers"]
-    assert headers["X-BILLING-INVOKE-ORIGIN"] == "HermesAgent"
+    assert headers["X-BILLING-INVOKE-ORIGIN"] == "KovaAgent"
 
 
 @patch("run_agent.OpenAI")
@@ -106,7 +106,7 @@ def test_routed_client_preserves_openai_sdk_custom_headers(mock_openai):
         )
 
     headers = agent._client_kwargs["default_headers"]
-    assert headers["X-BILLING-INVOKE-ORIGIN"] == "HermesAgent"
+    assert headers["X-BILLING-INVOKE-ORIGIN"] == "KovaAgent"
 
 
 @patch("run_agent.OpenAI")
@@ -156,7 +156,7 @@ def test_gmi_base_url_picks_up_profile_user_agent(mock_openai):
     agent._apply_client_headers_for_base_url("https://api.gmi-serving.com/v1")
 
     headers = agent._client_kwargs["default_headers"]
-    assert headers["User-Agent"].startswith("HermesAgent/")
+    assert headers["User-Agent"].startswith("KovaAgent/")
 
 
 @patch("run_agent.OpenAI")
