@@ -557,7 +557,7 @@ def recommended_update_command() -> str:
 # banner, the TUI/desktop session info panel, and ``hermes update``. NixOS
 # stays fully supported (Tier 2) and must never hit this path.
 
-PLATFORM_SUPPORT_DOCS_URL = "https://hermes-agent.nousresearch.com/docs/getting-started/platform-support"
+PLATFORM_SUPPORT_DOCS_URL = "https://github.com/chiragborse1/Kova-Agent"
 
 _UNSUPPORTED_INSTALL_METHODS = frozenset({"pip", "homebrew"})
 
@@ -876,13 +876,25 @@ def _secure_file(path):
         pass
 
 
+def _is_old_branded_soul(text: str) -> bool:
+    """True if ``text`` is an old installer-seeded SOUL.md with "Hermes Agent" identity.
+
+    Older install.sh / install.ps1 / docker images seeded "You are Hermes Agent..."
+    which overrode the runtime DEFAULT_SOUL_MD ("You are Kova Agent..."). A file
+    that still contains "Hermes Agent" as the identity was seeded by those old
+    scripts and is safe to upgrade to DEFAULT_SOUL_MD in place.
+    """
+    return "You are Hermes Agent" in text
+
+
 def _ensure_default_soul_md(home: Path) -> None:
-    """Seed a default SOUL.md into HERMES_HOME, upgrading legacy empty templates.
+    """Seed a default SOUL.md into HERMES_HOME, upgrading legacy or old-branded templates.
 
     First run: write DEFAULT_SOUL_MD. Existing installs whose SOUL.md is still
     the old comment-only scaffold (seeded by older install.sh / install.ps1 /
     docker images, which shadowed the runtime default) get upgraded in place to
-    DEFAULT_SOUL_MD. A SOUL.md the user actually customized is never touched.
+    DEFAULT_SOUL_MD. Also upgrades old "Hermes Agent" branded SOUL.md files from
+    pre-rebrand installers. A SOUL.md the user actually customized is never touched.
     """
     soul_path = home / "SOUL.md"
     if soul_path.exists():
@@ -890,9 +902,9 @@ def _ensure_default_soul_md(home: Path) -> None:
             existing = soul_path.read_text(encoding="utf-8")
         except (OSError, UnicodeDecodeError):
             return
-        if not is_legacy_template_soul(existing):
+        if not is_legacy_template_soul(existing) and not _is_old_branded_soul(existing):
             return
-        # Legacy empty template -> upgrade to the real default in place.
+        # Legacy empty template or old branded text -> upgrade to the real default in place.
     soul_path.write_text(DEFAULT_SOUL_MD, encoding="utf-8")
     _secure_file(soul_path)
 
@@ -2803,7 +2815,7 @@ DEFAULT_CONFIG = {
     # The default URL is served by the docs site GitHub Pages deploy.
     "model_catalog": {
         "enabled": True,
-        "url": "https://hermes-agent.nousresearch.com/docs/api/model-catalog.json",
+        "url": "https://github.com/chiragborse1/Kova-Agent/blob/main/website/static/api/model-catalog.json",
         # Disk cache TTL in hours.  Beyond this, the CLI refetches on the
         # next /model or `hermes model` invocation; network failures
         # silently fall back to the stale cache.

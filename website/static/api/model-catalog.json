@@ -2,8 +2,8 @@
   "version": 1,
   "updated_at": "2026-07-08T19:45:27Z",
   "metadata": {
-    "source": "hermes-agent repo",
-    "docs": "https://hermes-agent.nousresearch.com/docs/reference/model-catalog"
+    "source": "kova-agent repo",
+    "docs": "https://github.com/chiragborse1/Kova-Agent"
   },
   "providers": {
     "openrouter": {

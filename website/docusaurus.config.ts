@@ -3,15 +3,15 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'Hermes Agent',
-  tagline: 'The self-improving AI agent',
+  title: 'Kova Agent',
+  tagline: 'The personal AI agent',
   favicon: 'img/favicon.ico',
 
-  url: 'https://hermes-agent.nousresearch.com',
-  baseUrl: '/docs/',
+  url: 'https://chiragborse1.github.io',
+  baseUrl: '/Kova-Agent/',
 
-  organizationName: 'NousResearch',
-  projectName: 'hermes-agent',
+  organizationName: 'chiragborse1',
+  projectName: 'Kova-Agent',
 
   onBrokenLinks: 'warn',
 
@@ -137,7 +137,7 @@ const config: Config = {
           position: 'left',
         },
         {
-          href: 'https://hermes-agent.nousresearch.com/',
+          href: 'https://github.com/chiragborse1/Kova-Agent',
           label: 'Download',
           position: 'left',
         },
@@ -146,12 +146,12 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://hermes-agent.nousresearch.com',
+          href: 'https://github.com/chiragborse1/Kova-Agent',
           label: 'Home',
           position: 'right',
         },
         {
-          href: 'https://github.com/NousResearch/hermes-agent',
+          href: 'https://github.com/chiragborse1/Kova-Agent',
           label: 'GitHub',
           position: 'right',
         },
@@ -178,15 +178,15 @@ const config: Config = {
           title: 'Community',
           items: [
             { label: 'Discord', href: 'https://discord.gg/NousResearch' },
-            { label: 'GitHub Issues', href: 'https://github.com/NousResearch/hermes-agent/issues' },
+            { label: 'GitHub Issues', href: 'https://github.com/chiragborse1/Kova-Agent/issues' },
             { label: 'Skills Hub', href: 'https://agentskills.io' },
           ],
         },
         {
           title: 'More',
           items: [
-            { label: 'Desktop Download', href: 'https://hermes-agent.nousresearch.com/' },
-            { label: 'GitHub', href: 'https://github.com/NousResearch/hermes-agent' },
+            { label: 'Desktop Download', href: 'https://github.com/chiragborse1/Kova-Agent/releases' },
+            { label: 'GitHub', href: 'https://github.com/chiragborse1/Kova-Agent' },
             { label: 'Nous Research', href: 'https://nousresearch.com' },
           ],
         },
