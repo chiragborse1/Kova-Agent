@@ -6,7 +6,7 @@ from typing import Callable
 
 
 def build_console_parser(subparsers, *, cmd_console: Callable) -> None:
-    """Attach the safe Hermes Console REPL subcommand."""
+    """Attach the safe Kova Console REPL subcommand."""
     console_parser = subparsers.add_parser(
         "console",
         help="Open the safe Hermes command console",

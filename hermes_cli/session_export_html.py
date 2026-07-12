@@ -561,7 +561,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             {sessions_html}
             
             <footer>
-                Built with ☤ Hermes Agent • Generated on {generated_at}
+                Built with ☤ Kova Agent • Generated on {generated_at}
             </footer>
         </div>
     </div>
@@ -790,7 +790,7 @@ def generate_multi_session_html_export(sessions: List[Dict[str, Any]]) -> str:
     sessions_html_list = []
     for s in sessions:
         sid = s.get("id", "N/A")
-        title = s.get("title") or "Hermes Session"
+        title = s.get("title") or "Kova Session"
         model = s.get("model", "Unknown")
         started_at = _format_timestamp(s.get("started_at", 0))
         messages = s.get("messages", [])
@@ -836,7 +836,7 @@ def generate_multi_session_html_export(sessions: List[Dict[str, Any]]) -> str:
         sessions_html_list.append(session_html)
 
     return HTML_TEMPLATE.format(
-        page_title="Hermes Session Export" if is_multi else _escape_html(sessions[0].get("title", "Hermes Session")),
+        page_title="Hermes Session Export" if is_multi else _escape_html(sessions[0].get("title", "Kova Session")),
         sidebar_html=sidebar_html,
         sessions_html="\n".join(sessions_html_list),
         main_margin="var(--sidebar-width)" if is_multi else "0",

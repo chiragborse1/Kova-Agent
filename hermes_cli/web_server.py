@@ -256,7 +256,7 @@ def _get_pty_active_session_files(app: "FastAPI") -> dict[str, Path]:
         return app.state.pty_active_session_files
 
 
-app = FastAPI(title="Hermes Agent", version=__version__, lifespan=_lifespan)
+app = FastAPI(title="Kova Agent", version=__version__, lifespan=_lifespan)
 
 # Memory-provider OAuth connect routes live in the memory layer, not here.
 from hermes_cli.memory_oauth import router as _memory_oauth_router  # noqa: E402
@@ -3379,7 +3379,7 @@ async def update_hermes():
     """Kick off ``hermes update`` in the background."""
     if _dashboard_local_update_managed_externally():
         message = (
-            "Hermes updates are managed outside this dashboard in "
+            "Kova updates are managed outside this dashboard in "
             "containerized environments. The built-in local updater is "
             "disabled here."
         )
@@ -3501,7 +3501,7 @@ async def check_hermes_update(force: bool = False):
             "can_apply": False,
             "update_command": "managed outside dashboard",
             "message": (
-                "Hermes updates are managed outside this dashboard in "
+                "Kova updates are managed outside this dashboard in "
                 "containerized environments."
             ),
         }
@@ -7364,7 +7364,7 @@ async def cancel_whatsapp_onboarding(pairing_id: str):
 
 
 _TELEGRAM_ONBOARDING_DEFAULT_URL = "https://github.com/chiragborse1/Kova-Agent"
-_TELEGRAM_ONBOARDING_USER_AGENT = f"HermesDashboard/{__version__}"
+_TELEGRAM_ONBOARDING_USER_AGENT = f"KovaDashboard/{__version__}"
 _TELEGRAM_USER_ID_RE = re.compile(r"^\d+$")
 
 
@@ -14757,7 +14757,7 @@ def _ws_close_reason(text: str) -> str:
 
 
 # ---------------------------------------------------------------------------
-# /api/console — safe Hermes Console command WebSocket.
+# /api/console — safe Kova Console command WebSocket.
 #
 # Unlike /api/pty, this endpoint never spawns a PTY, shell, or full Hermes CLI
 # subprocess. It runs the curated console engine in-process and exchanges
@@ -15100,7 +15100,7 @@ async def console_ws(ws: WebSocket) -> None:
                         "type": "error",
                         "id": command_id,
                         "message": (
-                            "Command timed out. Hermes Console returned to the prompt."
+                            "Command timed out. Kova Console returned to the prompt."
                         ),
                         "command": line,
                     },
