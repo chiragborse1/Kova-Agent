@@ -230,9 +230,6 @@ class KreaImageGenProvider(ImageGenProvider):
         return "Krea"
 
     def is_available(self) -> bool:
-        # Available with a direct Krea key OR via the managed Nous gateway
-        # (Nous Subscription), so portal users with no Krea key can still
-        # reach Krea 2 through the gateway.
         return bool(os.environ.get("KREA_API_KEY")) or _managed_krea_gateway_ready()
 
     def list_models(self) -> List[Dict[str, Any]]:
@@ -254,7 +251,7 @@ class KreaImageGenProvider(ImageGenProvider):
         return {
             "name": "Krea",
             "badge": "paid",
-            "tag": "Krea 2 foundation model — Medium ($0.03), Large ($0.06), Medium Turbo ($0.015). Style transfer, moodboards, reference-guided generation. Direct key or managed Nous Subscription gateway.",
+            "tag": "Krea 2 foundation model — Medium ($0.03), Large ($0.06), Medium Turbo ($0.015). Style transfer, moodboards, reference-guided generation.",
             "env_vars": [
                 {
                     "key": "KREA_API_KEY",

@@ -1,7 +1,7 @@
 """
-Multi-provider authentication system for Hermes Agent.
+Multi-provider authentication system for Kova Agent.
 
-Supports OAuth device code flows (Nous Portal, future: OpenAI Codex) and
+Supports OAuth device code flows and
 traditional API key providers (OpenRouter, custom endpoints). Auth state
 is persisted in ~/.hermes/auth.json with cross-process file locking.
 
@@ -11,9 +11,6 @@ Architecture:
 - resolve_provider() picks the active provider via priority chain
 - resolve_*_runtime_credentials() handles token refresh and runtime keys
 - logout_command() is the CLI entry point for clearing auth
-
-Nous authentication paths:
-- Invoke JWT (preferred): use a scoped access_token directly for inference.
 """
 
 from __future__ import annotations
@@ -71,8 +68,7 @@ except Exception:
 AUTH_STORE_VERSION = 1
 AUTH_LOCK_TIMEOUT_SECONDS = 15.0
 
-# Nous Portal defaults
-DEFAULT_NOUS_PORTAL_URL = "https://portal.nousresearch.com"
+# Authentication defaults
 DEFAULT_NOUS_INFERENCE_URL = "https://inference-api.nousresearch.com/v1"
 DEFAULT_NOUS_CLIENT_ID = "hermes-cli"
 NOUS_INFERENCE_INVOKE_SCOPE = "inference:invoke"
@@ -174,15 +170,6 @@ class ProviderConfig:
 
 
 PROVIDER_REGISTRY: Dict[str, ProviderConfig] = {
-    "nous": ProviderConfig(
-        id="nous",
-        name="Nous Portal",
-        auth_type="oauth_device_code",
-        portal_base_url=DEFAULT_NOUS_PORTAL_URL,
-        inference_base_url=DEFAULT_NOUS_INFERENCE_URL,
-        client_id=DEFAULT_NOUS_CLIENT_ID,
-        scope=DEFAULT_NOUS_SCOPE,
-    ),
     "openai-codex": ProviderConfig(
         id="openai-codex",
         name="OpenAI Codex",
@@ -834,32 +821,12 @@ def format_auth_error(error: Exception) -> str:
         return "Subscription credits are exhausted. Top up/renew credits, then retry."
 
     if error.code in {"subscription_expired", "no_usable_credits", "account_missing"}:
-        if error.provider == "nous":
-            return _format_nous_entitlement_auth_error(error)
+        return f"{error} Check credits or billing, then retry."
 
     if error.code == "temporarily_unavailable":
         return f"{error} Please retry in a few seconds."
 
     return str(error)
-
-
-def _format_nous_entitlement_auth_error(error: AuthError) -> str:
-    try:
-        from hermes_cli.nous_account import (
-            format_nous_portal_entitlement_message,
-            get_nous_portal_account_info,
-        )
-
-        account_info = get_nous_portal_account_info(force_fresh=True)
-        message = format_nous_portal_entitlement_message(
-            account_info,
-            capability="Nous model access",
-        )
-        if message:
-            return message
-    except Exception:
-        pass
-    return f"{error} Check credits or billing in Nous Portal, then retry."
 
 
 def _token_fingerprint(token: Any) -> Optional[str]:

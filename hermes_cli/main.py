@@ -13014,12 +13014,6 @@ def main():
     build_webhook_parser(subparsers, cmd_webhook=cmd_webhook)
 
     # =========================================================================
-    # portal command — Nous Portal status + Tool Gateway routing
-    # =========================================================================
-    from hermes_cli.portal_cli import add_parser as _add_portal_parser
-    _add_portal_parser(subparsers)
-
-    # =========================================================================
     # kanban command — multi-profile collaboration board
     # =========================================================================
     from hermes_cli.kanban import build_parser as _build_kanban_parser

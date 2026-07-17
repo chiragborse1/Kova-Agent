@@ -1667,10 +1667,6 @@ def handle_max_iterations(agent, messages: list, api_call_count: int) -> str:
                     "enabled": True,
                     "effort": "medium"
                 }
-        if _is_nous:
-            from agent.portal_tags import nous_portal_tags as _portal_tags
-            summary_extra_body["tags"] = _portal_tags()
-
         if agent.api_mode == "codex_responses":
             codex_kwargs = agent._build_api_kwargs(api_messages)
             codex_kwargs.pop("tools", None)

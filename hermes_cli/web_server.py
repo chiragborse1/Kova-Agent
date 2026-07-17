@@ -2919,31 +2919,8 @@ def _safe_call(mod, fn_name: str, default):
 async def get_portal_status():
     cfg = load_config() or {}
     auth: Dict[str, Any] = {}
-    try:
-        from hermes_cli.auth import get_nous_auth_status
-
-        auth = get_nous_auth_status() or {}
-    except Exception:
-        auth = {}
 
     features = []
-    try:
-        from hermes_cli.nous_subscription import get_nous_subscription_features
-
-        feats = get_nous_subscription_features(cfg)
-        if feats is not None:
-            for feat in feats.items():
-                if getattr(feat, "managed_by_nous", False):
-                    state = "via Nous Portal"
-                elif getattr(feat, "active", False) and getattr(feat, "current_provider", None):
-                    state = feat.current_provider
-                elif getattr(feat, "active", False):
-                    state = "active"
-                else:
-                    state = "not configured"
-                features.append({"label": getattr(feat, "label", ""), "state": state})
-    except Exception:
-        _log.exception("portal features failed")
 
     model_cfg = cfg.get("model") if isinstance(cfg.get("model"), dict) else {}
     return {
@@ -5540,32 +5517,6 @@ def _apply_model_assignment_sync(
         # When switching the main provider to Nous, mirror the CLI's
         # post-model-selection behaviour (hermes_cli/main.py
         # prompt_enable_tool_gateway / tools_config apply_nous_managed_defaults):
-        # auto-route any *unconfigured* tools through the Nous Tool Gateway.
-        # This is purely additive — apply_nous_managed_defaults skips every
-        # tool where the user already has a direct key (FIRECRAWL_API_KEY,
-        # FAL_KEY, etc.) or an explicit backend/provider in config, so it
-        # never overwrites a user's own setup. GUI users thus land on the
-        # gateway the same way CLI users do, without a separate prompt.
-        gateway_tools: list[str] = []
-        if provider.strip().lower() == "nous":
-            try:
-                from hermes_cli.nous_subscription import apply_nous_managed_defaults
-                from hermes_cli.tools_config import _get_platform_tools
-
-                enabled = _get_platform_tools(
-                    cfg, "cli", include_default_mcp_servers=False
-                )
-                changed = apply_nous_managed_defaults(
-                    cfg,
-                    enabled_toolsets=enabled,
-                    force_fresh=True,
-                )
-                gateway_tools = sorted(changed)
-            except Exception:
-                # Portal lookup hiccups / non-subscriber / non-nous gating
-                # must never block saving the model assignment.
-                _log.debug("apply_nous_managed_defaults skipped", exc_info=True)
-
         save_config(cfg)
 
         # Register a named ``custom_providers`` entry for a custom/local
@@ -16905,13 +16856,6 @@ def start_server(
     the banner announces the bind rather than a browser URL.
     """
     import uvicorn
-
-    try:
-        from hermes_cli.nous_auth_keepalive import start_nous_auth_keepalive
-
-        start_nous_auth_keepalive()
-    except Exception as exc:
-        _log.debug("Nous auth keepalive did not start: %s", exc)
 
     # Phase 0: stash the auth-gate flag on app.state so middleware / SPA-token
     # injection / WS-auth paths can branch on it consistently.  Phase 3.5

@@ -5,9 +5,7 @@ Three cookies in play:
                          (HttpOnly, lifetime = token TTL, ~15 min)
   - hermes_session_rt:   the OAuth refresh token
                          (HttpOnly, lifetime = 24h, ROTATING + reuse-detected)
-                         Nous Portal issues a rotating refresh token for the
-                         dashboard auth-code grant (Portal NAS #293 / hermes
-                         #37247). ``set_session_cookies`` writes this cookie
+                          ``set_session_cookies`` writes this cookie
                          whenever the provider returns a non-empty
                          ``refresh_token``; the middleware uses it to rotate a
                          fresh access token transparently on AT expiry. A
@@ -68,10 +66,10 @@ SESSION_AT_COOKIE = "hermes_session_at"
 SESSION_RT_COOKIE = "hermes_session_rt"
 PKCE_COOKIE = "hermes_session_pkce"
 # One-shot loop-guard marker for the auto-SSO redirect (Phase 1,
-# cloud-auto-discovery). Set when the gate auto-initiates the portal OAuth
+# cloud-auto-discovery). Set when the gate auto-initiates the OAuth
 # redirect on an unauthenticated document load; its mere PRESENCE on the next
 # unauthenticated load tells the gate "we already bounced once" so a genuinely
-# absent portal session degrades to the /login page instead of ping-ponging.
+# absent session degrades to the /login page instead of ping-ponging.
 # Carries no secret — it's a boolean breadcrumb — but is set HttpOnly/Lax/Secure
 # like the others for consistency. Short TTL so a user who returns later gets a
 # fresh silent attempt rather than a permanently-disabled one.
@@ -83,7 +81,7 @@ SSO_ATTEMPT_COOKIE = "hermes_sso_attempt"
 _NAME_VARIANTS = ("__Host-", "__Secure-", "")
 
 # RT cookie Max-Age. Kept at 30 days as a generous upper bound on the cookie's
-# browser lifetime; Portal's actual refresh-token TTL (24h, rotating) is the
+# browser lifetime; the actual refresh-token TTL (24h, rotating) is the
 # real authority — once the RT itself expires/rotates out, a refresh attempt
 # returns 400 → RefreshExpiredError → clean re-login, regardless of how long
 # the cookie lingers. (Not tightened to 24h here to avoid coupling the cookie
@@ -92,8 +90,8 @@ _NAME_VARIANTS = ("__Host-", "__Secure-", "")
 _RT_MAX_AGE = 30 * 24 * 60 * 60
 _PKCE_MAX_AGE = 10 * 60
 # Auto-SSO loop-guard marker TTL. Just long enough to cover one redirect
-# round trip to the portal and back (a few seconds in practice); kept at 60s
-# so a slow portal hop or a manual back-button still trips the guard, while a
+# round trip to the auth provider and back (a few seconds in practice); kept at 60s
+# so a slow hop or a manual back-button still trips the guard, while a
 # user returning minutes later gets a fresh silent attempt rather than being
 # stuck on /login forever. The marker is also cleared explicitly on a
 # successful callback and whenever the gate falls back to /login.
@@ -155,8 +153,7 @@ def set_session_cookies(
     ``access_token_expires_in`` is in seconds. Use the provider's reported
     TTL for the access token.
 
-    ``refresh_token`` is written as the RT cookie when non-empty. Nous Portal
-    issues a 24h rotating refresh token (hermes #37247); a provider that
+    ``refresh_token`` is written as the RT cookie when non-empty. A provider that
     omits it returns ``Session.refresh_token == ""`` and we simply don't
     persist the RT cookie — the session then behaves as access-token-only
     until the AT expires. No other branch changes between the two cases.
@@ -257,7 +254,7 @@ def set_sso_attempt_cookie(
 ) -> None:
     """Set the one-shot auto-SSO loop-guard marker (Phase 1).
 
-    Written by the gate the moment it auto-initiates the portal OAuth
+    Written by the gate the moment it auto-initiates the OAuth
     redirect on an unauthenticated document load. The value is a constant
     (``"1"``) — only its presence matters. Short Max-Age so a stale marker
     can't permanently suppress a future silent attempt.

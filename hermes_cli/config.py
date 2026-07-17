@@ -1,5 +1,5 @@
 ﻿"""
-Configuration management for Hermes Agent.
+Configuration management for Kova Agent.
 
 Config files are stored in ~/.hermes/ for easy access:
 - ~/.hermes/config.yaml  - All settings (model, toolsets, terminal, etc.)
@@ -606,7 +606,7 @@ def format_unsupported_install_warning(method: str) -> str:
 _DOCKER_UPDATE_MESSAGE = """\
 ✗ ``hermes update`` doesn't apply inside the Docker container.
 
-Hermes Agent runs as a published image (nousresearch/hermes-agent), not a
+Kova Agent runs as a published image (nousresearch/hermes-agent), not a
 git checkout — the container has no working tree to pull into.  Update by
 pulling a fresh image and restarting your container instead:
 
@@ -884,7 +884,7 @@ def _is_old_branded_soul(text: str) -> bool:
     that still contains "Hermes Agent" as the identity was seeded by those old
     scripts and is safe to upgrade to DEFAULT_SOUL_MD in place.
     """
-    return "You are Hermes Agent" in text
+    return "You are Hermes Agent" in text or "You are hermes" in text.lower()
 
 
 def _ensure_default_soul_md(home: Path) -> None:
@@ -893,7 +893,7 @@ def _ensure_default_soul_md(home: Path) -> None:
     First run: write DEFAULT_SOUL_MD. Existing installs whose SOUL.md is still
     the old comment-only scaffold (seeded by older install.sh / install.ps1 /
     docker images, which shadowed the runtime default) get upgraded in place to
-    DEFAULT_SOUL_MD. Also upgrades old "Hermes Agent" branded SOUL.md files from
+    DEFAULT_SOUL_MD. Also upgrades old "Hermes Agent" or "hermes" branded SOUL.md files from
     pre-rebrand installers. A SOUL.md the user actually customized is never touched.
     """
     soul_path = home / "SOUL.md"

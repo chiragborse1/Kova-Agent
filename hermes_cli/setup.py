@@ -1,5 +1,5 @@
 """
-Interactive setup wizard for Hermes Agent.
+Interactive setup wizard for Kova Agent.
 
 Modular wizard with independently-runnable sections:
   1. Model & Provider — choose your AI provider and model
@@ -21,7 +21,6 @@ import copy
 from pathlib import Path
 from typing import Optional, Dict, Any
 
-from hermes_cli.nous_subscription import get_nous_subscription_features
 from tools.tool_backend_helpers import managed_nous_tools_enabled
 from utils import base_url_hostname
 from hermes_constants import get_optional_skills_dir
@@ -187,7 +186,7 @@ def print_noninteractive_setup_guidance(reason: str | None = None) -> None:
         print_info(reason)
     print_info("The interactive wizard cannot be used here.")
     print()
-    print_info("Configure Hermes using environment variables or config commands:")
+    print_info("Configure Kova using environment variables or config commands:")
     print_info("  hermes config set model.provider custom")
     print_info("  hermes config set model.base_url http://localhost:8080/v1")
     print_info("  hermes config set model.default your-model-name")
@@ -398,7 +397,6 @@ def _print_setup_summary(config: dict, hermes_home):
     print_header("Tool Availability Summary")
 
     tool_status = []
-    subscription_features = get_nous_subscription_features(config)
 
     # Vision — use the same runtime resolver as the actual vision tools
     try:
@@ -415,105 +413,63 @@ def _print_setup_summary(config: dict, hermes_home):
 
 
     # Web tools (Exa, Parallel, Firecrawl, or Tavily)
-    if subscription_features.web.managed_by_nous:
-        tool_status.append(("Web Search & Extract (Nous subscription)", True, None))
-    elif subscription_features.web.available:
-        label = "Web Search & Extract"
-        if subscription_features.web.current_provider:
-            label = f"Web Search & Extract ({subscription_features.web.current_provider})"
-        tool_status.append((label, True, None))
-    else:
-        tool_status.append(("Web Search & Extract", False, "EXA_API_KEY, PARALLEL_API_KEY, FIRECRAWL_API_KEY/FIRECRAWL_API_URL, TAVILY_API_KEY, or SEARXNG_URL"))
+    tool_status.append(("Web Search & Extract", False, "EXA_API_KEY, PARALLEL_API_KEY, FIRECRAWL_API_KEY/FIRECRAWL_API_URL, TAVILY_API_KEY, or SEARXNG_URL"))
 
     # Browser tools (local Chromium, Camofox, Browserbase, Browser Use, or Firecrawl)
-    browser_provider = subscription_features.browser.current_provider
-    if subscription_features.browser.managed_by_nous:
-        tool_status.append(("Browser Automation (Nous Browser Use)", True, None))
-    elif subscription_features.browser.available:
-        label = "Browser Automation"
-        if browser_provider:
-            label = f"Browser Automation ({browser_provider})"
-        tool_status.append((label, True, None))
-    else:
-        missing_browser_hint = "npm install -g agent-browser, set CAMOFOX_URL, or configure Browser Use or Browserbase"
-        if browser_provider == "Browserbase":
-            missing_browser_hint = (
-                "npm install -g agent-browser and set "
-                "BROWSERBASE_API_KEY/BROWSERBASE_PROJECT_ID"
-            )
-        elif browser_provider == "Browser Use":
-            missing_browser_hint = (
-                "npm install -g agent-browser and set BROWSER_USE_API_KEY"
-            )
-        elif browser_provider == "Camofox":
-            missing_browser_hint = "CAMOFOX_URL"
-        elif browser_provider == "Local browser":
-            missing_browser_hint = (
-                "npm install -g agent-browser && agent-browser install --with-deps"
-            )
-        tool_status.append(
-            ("Browser Automation", False, missing_browser_hint)
-        )
+    missing_browser_hint = "npm install -g agent-browser, set CAMOFOX_URL, or configure Browser Use or Browserbase"
+    tool_status.append(
+        ("Browser Automation", False, missing_browser_hint)
+    )
 
-    # Image generation — FAL (direct or via Nous), or any plugin-registered
+    # Image generation — FAL (direct), or any plugin-registered
     # provider (OpenAI, etc.)
-    if subscription_features.image_gen.managed_by_nous:
-        tool_status.append(("Image Generation (Nous subscription)", True, None))
-    elif subscription_features.image_gen.available:
-        tool_status.append(("Image Generation", True, None))
-    else:
-        # Fall back to probing plugin-registered providers so OpenAI-only
-        # setups don't show as "missing FAL_KEY".
-        _img_backend = None
-        try:
-            from agent.image_gen_registry import list_providers
-            from hermes_cli.plugins import _ensure_plugins_discovered
+    # Fall back to probing plugin-registered providers so OpenAI-only
+    # setups don't show as "missing FAL_KEY".
+    _img_backend = None
+    try:
+        from agent.image_gen_registry import list_providers
+        from hermes_cli.plugins import _ensure_plugins_discovered
 
-            _ensure_plugins_discovered()
-            for _p in list_providers():
-                if _p.name == "fal":
-                    continue
-                try:
-                    if _p.is_available():
-                        _img_backend = _p.display_name
-                        break
-                except Exception:
-                    continue
-        except Exception:
-            pass
-        if _img_backend:
-            tool_status.append((f"Image Generation ({_img_backend})", True, None))
-        else:
-            tool_status.append(("Image Generation", False, "FAL_KEY or OPENAI_API_KEY"))
+        _ensure_plugins_discovered()
+        for _p in list_providers():
+            if _p.name == "fal":
+                continue
+            try:
+                if _p.is_available():
+                    _img_backend = _p.display_name
+                    break
+            except Exception:
+                continue
+    except Exception:
+        pass
+    if _img_backend:
+        tool_status.append((f"Image Generation ({_img_backend})", True, None))
+    else:
+        tool_status.append(("Image Generation", False, "FAL_KEY or OPENAI_API_KEY"))
 
     # Video generation — opt-in via `hermes tools` → Video Generation.
     # Only show the row when a plugin reports available so we don't badger
     # users who don't care about video gen with a "missing" status line.
-    if subscription_features.video_gen.managed_by_nous:
-        tool_status.append(("Video Generation (FAL via Nous subscription)", True, None))
-    else:
-        try:
-            from agent.video_gen_registry import list_providers as _list_video_providers
-            from hermes_cli.plugins import _ensure_plugins_discovered as _ensure_plugins
-            _ensure_plugins()
-            _video_backend = None
-            for _vp in _list_video_providers():
-                try:
-                    if _vp.is_available():
-                        _video_backend = _vp.display_name
-                        break
-                except Exception:
-                    continue
-        except Exception:
-            _video_backend = None
-        if _video_backend:
-            tool_status.append((f"Video Generation ({_video_backend})", True, None))
+    try:
+        from agent.video_gen_registry import list_providers as _list_video_providers
+        from hermes_cli.plugins import _ensure_plugins_discovered as _ensurePlugins
+        _ensurePlugins()
+        _video_backend = None
+        for _vp in _list_video_providers():
+            try:
+                if _vp.is_available():
+                    _video_backend = _vp.display_name
+                    break
+            except Exception:
+                continue
+    except Exception:
+        _video_backend = None
+    if _video_backend:
+        tool_status.append((f"Video Generation ({_video_backend})", True, None))
 
     # TTS — show configured provider
     tts_provider = cfg_get(config, "tts", "provider", default="edge")
-    if subscription_features.tts.managed_by_nous:
-        tool_status.append(("Text-to-Speech (OpenAI via Nous subscription)", True, None))
-    elif tts_provider == "elevenlabs" and get_env_value("ELEVENLABS_API_KEY"):
+    if tts_provider == "elevenlabs" and get_env_value("ELEVENLABS_API_KEY"):
         tool_status.append(("Text-to-Speech (ElevenLabs)", True, None))
     elif tts_provider == "openai" and (
         get_env_value("VOICE_TOOLS_OPENAI_KEY") or get_env_value("OPENAI_API_KEY")

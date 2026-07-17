@@ -15,11 +15,6 @@ from hermes_cli.auth import AuthError, resolve_provider
 from hermes_cli.colors import Colors, color
 from hermes_cli.config import get_env_path, get_env_value, get_hermes_home, load_config
 from hermes_cli.models import provider_label
-from hermes_cli.nous_account import (
-    format_nous_portal_entitlement_message,
-    get_nous_portal_account_info,
-)
-from hermes_cli.nous_subscription import get_nous_subscription_features
 from hermes_cli.runtime_provider import resolve_requested_provider
 from hermes_constants import OPENROUTER_MODELS_URL
 from tools.tool_backend_helpers import managed_nous_tools_enabled
@@ -193,73 +188,17 @@ def show_status(args):
 
     try:
         from hermes_cli.auth import (
-            get_nous_auth_status,
             get_codex_auth_status,
             get_qwen_auth_status,
             get_minimax_oauth_auth_status,
         )
-        nous_status = get_nous_auth_status()
         codex_status = get_codex_auth_status()
         qwen_status = get_qwen_auth_status()
         minimax_status = get_minimax_oauth_auth_status()
     except Exception:
-        nous_status = {}
         codex_status = {}
         qwen_status = {}
         minimax_status = {}
-
-    nous_account_info = None
-    if (
-        nous_status.get("logged_in")
-        or nous_status.get("access_token")
-        or nous_status.get("portal_base_url")
-        or nous_status.get("inference_credential_present")
-        or nous_status.get("error_code")
-    ):
-        try:
-            nous_account_info = get_nous_portal_account_info()
-        except Exception:
-            nous_account_info = None
-
-    nous_logged_in = bool(
-        nous_status.get("logged_in")
-        or (nous_account_info and nous_account_info.logged_in)
-    )
-    nous_inference_present = bool(
-        nous_status.get("inference_credential_present")
-        or (nous_account_info and nous_account_info.inference_credential_present)
-    )
-    nous_error = nous_status.get("error")
-    if nous_logged_in:
-        nous_label = "logged in"
-    elif nous_inference_present:
-        nous_label = "not logged in (Nous inference key configured)"
-    else:
-        nous_label = "not logged in (run: hermes portal)"
-    print(
-        f"  {'Nous Portal':<12}  {check_mark(nous_logged_in)} "
-        f"{nous_label}"
-    )
-    portal_url = nous_status.get("portal_base_url") or "(unknown)"
-    inference_url = (
-        nous_status.get("inference_base_url")
-        or (nous_account_info.inference_base_url if nous_account_info else None)
-    )
-    access_exp = _format_iso_timestamp(nous_status.get("access_expires_at"))
-    key_exp = _format_iso_timestamp(nous_status.get("agent_key_expires_at"))
-    refresh_label = "yes" if nous_status.get("has_refresh_token") else "no"
-    if nous_logged_in or portal_url != "(unknown)" or nous_error:
-        print(f"    Portal URL: {portal_url}")
-    if nous_inference_present and inference_url:
-        print(f"    Inference:  {inference_url}")
-    if nous_logged_in or nous_status.get("access_expires_at"):
-        print(f"    Access exp: {access_exp}")
-    if nous_logged_in or nous_inference_present or nous_status.get("agent_key_expires_at"):
-        print(f"    Key exp:    {key_exp}")
-    if nous_logged_in or nous_status.get("has_refresh_token"):
-        print(f"    Refresh:    {refresh_label}")
-    if nous_error:
-        print(f"    Error:      {nous_error}")
 
     codex_logged_in = bool(codex_status.get("logged_in"))
     print(

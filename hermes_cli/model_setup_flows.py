@@ -300,7 +300,6 @@ def _model_flow_nous(config, current_model="", args=None):
         save_config,
         save_env_value,
     )
-    from hermes_cli.nous_subscription import prompt_enable_tool_gateway
 
     state = get_provider_auth_state("nous")
     if not state or not state.get("access_token"):

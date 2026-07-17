@@ -440,16 +440,12 @@ def _resolve_relay_identity_token() -> str:
     """Resolve the caller-identity bearer token the connector introspects to a tenant.
 
     Canonical resolver shared by the runtime self-provision path and the
-    ``hermes gateway enroll`` CLI. Two modes, in precedence order:
-
-      1. **Generic OIDC client-credentials** (air-gapped / self-hosted-IdP, NO
-         Nous Portal): when ``gateway.idp.token_url`` (or
-         ``GATEWAY_RELAY_IDP_TOKEN_URL``) is configured, obtain a workload access
-         token via the OAuth2 ``client_credentials`` grant against the operator's
-         own IdP (Entra; Authentik in the sandbox). The connector's Seam-A OIDC
-         verifier reads a claim (default ``tid``) off it as the tenant.
-      2. **Nous Portal** (default): ``resolve_nous_access_token()`` — existing
-         managed/hosted behaviour.
+    ``hermes gateway enroll`` CLI. Requires a generic OIDC client-credentials
+    configuration (``gateway.idp.token_url`` or
+    ``GATEWAY_RELAY_IDP_TOKEN_URL``). Obtains a workload access token via the
+    OAuth2 ``client_credentials`` grant against the operator's own IdP (Entra;
+    Authentik in the sandbox). The connector's Seam-A OIDC verifier reads a
+    claim (default ``tid``) off it as the tenant.
 
     Raises on failure; callers decide whether that's fatal (enroll CLI) or a
     graceful boot no-op (self-provision).
@@ -471,12 +467,13 @@ def _resolve_relay_identity_token() -> str:
             token_url = token_url or ""
 
     if not token_url:
-        # Mode 2 — Nous Portal (default, unchanged behaviour).
-        from hermes_cli.auth import resolve_nous_access_token
+        raise RuntimeError(
+            "No IdP token URL configured for relay identity resolution. "
+            "Set gateway.idp.token_url in config.yaml or "
+            "GATEWAY_RELAY_IDP_TOKEN_URL in your environment."
+        )
 
-        return resolve_nous_access_token()
-
-    # Mode 1 — generic OAuth2 client_credentials grant.
+    # Generic OAuth2 client_credentials grant.
     import json
     import urllib.error
     import urllib.parse

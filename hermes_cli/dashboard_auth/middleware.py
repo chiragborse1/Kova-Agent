@@ -138,7 +138,7 @@ def _unauth_response(request: Request, *, reason: str) -> Response:
 
 
 def _auto_sso_response(request: Request) -> Response | None:
-    """Maybe auto-initiate the portal OAuth redirect on an unauth HTML load.
+    """Maybe auto-initiate the OAuth redirect on an unauth HTML load.
 
     Returns a 302 → ``/auth/login`` (the existing OAuth-initiation route)
     when ALL of the following hold, else ``None`` (caller falls back to the
@@ -153,14 +153,14 @@ def _auto_sso_response(request: Request) -> Response | None:
       * that provider is OAuth-style, not a password form provider. Password
         providers must render ``/login`` so the user can enter credentials;
       * the one-shot loop-guard marker is ABSENT. Its presence means we
-        already bounced to the portal once and came back still
-        unauthenticated (no portal session) — auto-redirecting again would
+        already bounced to the auth provider once and came back still
+        unauthenticated (no session) — auto-redirecting again would
         ping-pong, so we fall through to ``/login`` and clear the marker.
 
-    The portal ``/oauth/authorize`` auto-approves any current member of the
-    dashboard's org and is a silent 302 when the user already holds a portal
+    The provider's ``/oauth/authorize`` auto-approves any current member of the
+    dashboard's org and is a silent 302 when the user already holds a
     session, so for the common case (clicked a dashboard link while signed
-    in to the portal) this removes the interstitial CLICK entirely. It
+    in) this removes the interstitial CLICK entirely. It
     removes a click, not a security check: the redirect lands on
     ``/auth/login`` which runs the unchanged PKCE auth-code flow.
     """
@@ -169,7 +169,7 @@ def _auto_sso_response(request: Request) -> Response | None:
     if path.startswith("/api/"):
         return None
 
-    # Already bounced once and still no session → portal has no session for
+    # Already bounced once and still no session → provider has no session for
     # this user. Stop here, clear the marker, let /login render.
     if read_sso_attempt_cookie(request):
         from hermes_cli.dashboard_auth.prefix import prefix_from_request
@@ -199,7 +199,7 @@ def _auto_sso_response(request: Request) -> Response | None:
 
     resp = RedirectResponse(url=auth_login, status_code=302)
     # Drop the one-shot marker so a return trip that's STILL unauthenticated
-    # (portal had no session) trips the guard above next time instead of
+    # (provider had no session) trips the guard above next time instead of
     # looping. Detect HTTPS for the Secure flag the same way the auth routes
     # do; bind Path via the active prefix.
     from hermes_cli.dashboard_auth.cookies import detect_https
@@ -279,11 +279,11 @@ async def gated_auth_middleware(
     if not at and not _rt:
         # Neither token present — no session at all. Nothing to verify or
         # refresh. Before falling back to the /login interstitial, try to
-        # silently bounce the user through the portal OAuth flow: the portal
+        # silently bounce the user through the OAuth flow: the provider
         # auto-approves org members and 302s straight back when they already
-        # hold a portal session, so the interstitial click is pure friction
+        # hold a session, so the interstitial click is pure friction
         # for the common case. The one-shot loop-guard inside _auto_sso_response
-        # prevents a ping-pong when the portal genuinely has no session.
+        # prevents a ping-pong when the provider genuinely has no session.
         auto = _auto_sso_response(request)
         if auto is not None:
             return auto
@@ -314,7 +314,7 @@ async def gated_auth_middleware(
         # multiple providers stacked, that MUST NOT abort the chain — the
         # token may belong to a *different*, reachable provider. (Concretely:
         # a self-hosted-OIDC session hits the `nous` provider first, which
-        # tries to reach Nous Portal's JWKS; if that's unreachable it raises,
+        # tries to reach the JWKS; if that's unreachable it raises,
         # but the `self-hosted` provider can still verify the token.) So we
         # remember the unreachable error and keep going. Only if NO provider
         # verifies the token AND at least one was unreachable do we surface a
@@ -428,7 +428,7 @@ def _attempt_refresh(request: Request, *, refresh_token):
     there's no RT or every provider's ``refresh_session`` failed with
     ``RefreshExpiredError`` (dead/revoked/reuse-detected RT → force re-login).
 
-    A ``ProviderError`` (Portal unreachable) is NOT swallowed into a re-login
+    A ``ProviderError`` (IDP unreachable) is NOT swallowed into a re-login
     here — re-raising would 500 the request; instead we log and return None so
     the caller forces a clean re-login, which is the safer UX than a hard
     error on a transient network blip during the narrow refresh window.

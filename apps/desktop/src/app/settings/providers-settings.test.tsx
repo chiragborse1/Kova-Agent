@@ -28,7 +28,7 @@ function provider(id: string, loggedIn: boolean, patch: Partial<OAuthProvider> =
     docs_url: '',
     flow: 'device_code',
     id,
-    name: id === 'nous' ? 'Nous Portal' : 'MiniMax',
+    name: id === 'nous' ? 'Nous' : 'MiniMax',
     status: {
       logged_in: loggedIn
     },

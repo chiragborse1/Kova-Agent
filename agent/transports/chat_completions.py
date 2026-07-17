@@ -304,7 +304,7 @@ class ChatCompletionsTransport(ProviderTransport):
             supports_reasoning: bool
             github_reasoning_extra: dict | None
             lmstudio_reasoning_options: list[str] | None  # raw allowed_options from /api/v1/models
-            # Claude on OpenRouter/Nous max output
+            # Claude on OpenRouter max output
             anthropic_max_output: int | None
             extra_body_additions: dict | None
         """
@@ -708,7 +708,7 @@ class ChatCompletionsTransport(ProviderTransport):
         # OpenAI structured-refusal field. When a model declines, the SDK
         # populates ``message.refusal`` with the explanation and leaves
         # ``content`` empty. OpenAI-compatible proxies that front Anthropic /
-        # Bedrock (e.g. Nous Portal) surface a Claude refusal this way — or via
+        # Bedrock surface a Claude refusal this way — or via
         # ``finish_reason="content_filter"`` — instead of the native
         # ``stop_reason="refusal"``. Without capturing it the refusal looks
         # like an empty response, so the agent loop retries a deterministic

@@ -875,14 +875,14 @@ class GatewayConfig:
             # ``hermes config set gateway.multiplex_profiles true``.
             multiplex_profiles = nested_gateway.get("multiplex_profiles")
         # Operator override: GATEWAY_MULTIPLEX_PROFILES wins over config.yaml when
-        # set to a recognized value. Hosted deployments (Nous Portal / Fly) stamp
-        # it on the container so the single multiplexed gateway — which the
-        # connector now depends on for per-profile relay routing — is forced on at
-        # every boot regardless of the image's config.yaml, while self-hosted
-        # users keep setting gateway.multiplex_profiles in config.yaml. A blank or
-        # unrecognized env value falls through to config (the empty-secret trap:
-        # a provisioned-but-unpopulated Fly secret must not shadow config), so
-        # this is a genuine 3-tier chain: env > config.yaml > default False.
+        # set to a recognized value. Hosted deployments stamp it on the container
+        # so the single multiplexed gateway — which the connector now depends on
+        # for per-profile relay routing — is forced on at every boot regardless of
+        # the image's config.yaml, while self-hosted users keep setting
+        # gateway.multiplex_profiles in config.yaml. A blank or unrecognized env
+        # value falls through to config (the empty-secret trap: a
+        # provisioned-but-unpopulated Fly secret must not shadow config), so this
+        # is a genuine 3-tier chain: env > config.yaml > default False.
         env_multiplex = _env_multiplex_profiles_override()
         if env_multiplex is not None:
             multiplex_profiles = env_multiplex

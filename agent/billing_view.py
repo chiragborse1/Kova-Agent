@@ -204,15 +204,8 @@ def build_billing_state(*, timeout: float = 15.0) -> BillingState:
     a clear message rather than crashing.
     """
     try:
-        from hermes_cli.nous_billing import (
-            BillingAuthError,
-            BillingError,
-            _absolutize_portal_url,
-            get_billing_state,
-            resolve_portal_base_url,
-        )
-    except Exception:
         return BillingState(logged_in=False, error="billing client unavailable")
+    except Exception:
 
     try:
         payload = get_billing_state(timeout=timeout)
