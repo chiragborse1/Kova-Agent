@@ -36,7 +36,7 @@ Usage:
     hermes honcho migrate                  # Step-by-step migration guide: OpenClaw native → Hermes + Honcho
     hermes version             Show version
     hermes update              Update to latest version
-    hermes uninstall           Uninstall Hermes Agent
+    hermes uninstall           Uninstall Kova Agent
     hermes acp                 Run as an ACP server for editor integration
     hermes sessions browse     Interactive session picker with search
 
@@ -4379,7 +4379,7 @@ def cmd_version(args):
 
 
 def cmd_uninstall(args):
-    """Uninstall Hermes Agent (or just the Chat GUI with --gui)."""
+    """Uninstall Kova Agent (or just the Chat GUI with --gui)."""
     # Machine-readable install snapshot for the desktop app's uninstall UI.
     # Must run before any TTY gate — it's called from a non-interactive child.
     if getattr(args, "gui_summary", False):
@@ -8591,7 +8591,7 @@ def _ensure_fhs_path_guard() -> None:
 
     path_line = 'export PATH="/usr/local/bin:$PATH"'
     path_comment = (
-        "# Hermes Agent — ensure /usr/local/bin is on PATH " "(RHEL non-login shells)"
+        "# Kova Agent — ensure /usr/local/bin is on PATH " "(RHEL non-login shells)"
     )
     wrote_any = False
     for candidate in (".bashrc", ".bash_profile"):
@@ -12646,7 +12646,7 @@ def cmd_memory(args):
 
 
 def cmd_acp(args):
-    """Launch Hermes Agent as an ACP server."""
+    """Launch Kova Agent as an ACP server."""
     try:
         from acp_adapter.entry import main as acp_main
 

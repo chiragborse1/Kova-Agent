@@ -1,4 +1,4 @@
-"""ACP agent server — exposes Hermes Agent via the Agent Client Protocol."""
+"""ACP agent server — exposes Kova Agent via the Agent Client Protocol."""
 
 from __future__ import annotations
 
@@ -883,7 +883,7 @@ class HermesACPAgent(acp.Agent):
 
         return InitializeResponse(
             protocol_version=acp.PROTOCOL_VERSION,
-            agent_info=Implementation(name="hermes-agent", version=HERMES_VERSION),
+            agent_info=Implementation(name="kova-agent", version=HERMES_VERSION),
             agent_capabilities=AgentCapabilities(
                 load_session=True,
                 prompt_capabilities=PromptCapabilities(image=True),

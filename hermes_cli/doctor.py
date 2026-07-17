@@ -1,7 +1,7 @@
 """
 Doctor command for hermes CLI.
 
-Diagnoses issues with Hermes Agent setup.
+Diagnoses issues with Kova Agent setup.
 """
 
 import os

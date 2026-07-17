@@ -3674,7 +3674,7 @@ def save_config_value(key_path: str, value: any) -> bool:
 
 class HermesCLI(CLIAgentSetupMixin, CLICommandsMixin):
     """
-    Interactive CLI for the Hermes Agent.
+    Interactive CLI for the Kova Agent.
     
     Provides a REPL interface with rich formatting, command history,
     and tool execution capabilities.
@@ -6228,7 +6228,7 @@ class HermesCLI(CLIAgentSetupMixin, CLICommandsMixin):
             self._console_print()
             self._console_print(
                 "[bold yellow]⚠  Nous Research Hermes 3 & 4 models are NOT agentic and are not "
-                "designed for use with Hermes Agent.[/]"
+                "designed for use with Kova Agent.[/]"
             )
             self._console_print(
                 "[dim]   They lack tool-calling capabilities required for agent workflows. "
@@ -15780,7 +15780,7 @@ def main(
     ignore_rules: bool = False,
 ):
     """
-    Hermes Agent CLI - Interactive AI Assistant
+    Kova Agent CLI - Interactive AI Assistant
     
     Args:
         query: Single query to execute (then exit). Alias: -q

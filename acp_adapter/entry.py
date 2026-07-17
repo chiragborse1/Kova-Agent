@@ -1,4 +1,4 @@
-"""CLI entry point for the hermes-agent ACP adapter.
+"""CLI entry point for the kova-agent ACP adapter.
 
 Loads environment variables from ``~/.hermes/.env``, configures logging
 to write to stderr (so stdout is reserved for ACP JSON-RPC transport),

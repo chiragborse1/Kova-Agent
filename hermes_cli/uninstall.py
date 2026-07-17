@@ -1,5 +1,5 @@
 """
-Hermes Agent Uninstaller.
+Kova Agent Uninstaller.
 
 Provides options for:
 - Full uninstall: Remove everything including configs and data

@@ -1,6 +1,6 @@
-"""On-demand supply-chain audit for Hermes Agent installs.
+"""On-demand supply-chain audit for Kova Agent installs.
 
-Scans three surfaces a Hermes user actually controls and we can map to
+Scans three surfaces a Kova user actually controls and we can map to
 upstream advisories without auth or extra binaries:
 
 1. The Hermes venv (every PyPI dist via ``importlib.metadata``).
