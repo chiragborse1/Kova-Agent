@@ -56,6 +56,38 @@ _IS_WINDOWS = sys.platform == "win32"
 _bootstrap_applied = False
 
 
+def _activate_utf8_mode_for_current_process() -> None:
+    """Activate PEP 540 UTF-8 mode for the current process on Windows.
+
+    Setting PYTHONUTF8=1 in os.environ only affects *child* processes.
+    The current process still uses the locale encoding (cp1252 on US
+    Windows) for ``open()`` / ``Path.read_text()`` unless ``-X utf8``
+    was on the command line.  Since we can't retroactively set
+    ``sys.flags.utf8_mode`` (it's a read-only named tuple), the only
+    reliable option is to re-exec the current process with ``-X utf8``.
+
+    This function re-execs *once* (guarded by ``PYTHONUTF8_REEXECED``)
+    and is a no-op if ``-X utf8`` is already active or we're not on
+    Windows.
+    """
+    if not _IS_WINDOWS:
+        return
+    if getattr(sys.flags, "utf8_mode", False):
+        return  # already active
+    if os.environ.get("_PYTHONUTF8_REEXECED"):
+        return  # already re-execed — avoid infinite loop
+
+    import subprocess
+    os.environ["_PYTHONUTF8_REEXECED"] = "1"
+    # Re-exec with -X utf8.  Preserves sys.argv so the CLI works
+    # identically.  Exit with the child's return code.
+    result = subprocess.run(
+        [sys.executable, "-X", "utf8"] + sys.argv,
+        env=os.environ,
+    )
+    sys.exit(result.returncode)
+
+
 def apply_windows_utf8_bootstrap() -> bool:
     """Apply the Windows UTF-8 bootstrap if we're on Windows.
 
@@ -182,6 +214,14 @@ def activate_durable_lazy_target() -> None:
         # backend simply reports itself unavailable, exactly as before.
         pass
 
+
+# On Windows, if -X utf8 wasn't on the command line, re-exec with it
+# so open() / Path.read_text() in the current process use UTF-8
+# (not cp1252).  This is a no-op on POSIX or when -X utf8 is already
+# active.  Must run BEFORE apply_windows_utf8_bootstrap() because a
+# re-exec will re-import this module in the child (where -X utf8 is
+# set, so it's a no-op).
+_activate_utf8_mode_for_current_process()
 
 # Apply on import — entry points just need ``import hermes_bootstrap``
 # (or ``from hermes_bootstrap import apply_windows_utf8_bootstrap``) at
