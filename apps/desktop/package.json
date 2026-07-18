@@ -162,7 +162,7 @@
         ]
       }
     ],
-    "artifactName": "Kova-${version}-${os}-${arch}.${ext}",
+    "artifactName": "Kova.${ext}",
     "icon": "assets/icon",
     "directories": {
       "output": "release"
