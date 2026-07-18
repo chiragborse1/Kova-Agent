@@ -36,7 +36,7 @@ import {
   unpackedDirName
 } from './update-relaunch'
 
-const ROOT = '/home/u/.hermes/hermes-agent'
+const ROOT = '/home/u/.hermes/kova-agent'
 const UNPACKED = path.join(ROOT, 'apps', 'desktop', 'release', 'linux-unpacked')
 
 // ---------------------------------------------------------------------------
@@ -63,7 +63,7 @@ test('resolveUnpackedRelease is null for AppImage / .deb / .rpm / dev / unresolv
   assert.equal(resolveUnpackedRelease('/opt/Hermes/hermes', ROOT, 'linux'), null)
   // dev electron
   assert.equal(
-    resolveUnpackedRelease('/home/u/.hermes/hermes-agent/node_modules/electron/dist/electron', ROOT, 'linux'),
+    resolveUnpackedRelease('/home/u/.hermes/kova-agent/node_modules/electron/dist/electron', ROOT, 'linux'),
     null
   )
   // empty / missing
@@ -190,7 +190,7 @@ test('shellQuote neutralizes single quotes and metacharacters', () => {
 test('buildRelaunchScript embeds pid/exec/args/env/cwd and is valid bash', () => {
   const script = buildRelaunchScript({
     pid: 4242,
-    execPath: '/home/u/.hermes/hermes-agent/apps/desktop/release/linux-unpacked/Hermes',
+    execPath: '/home/u/.hermes/kova-agent/apps/desktop/release/linux-unpacked/Hermes',
     args: ['hermes://open/agent/42', "--note=it's fine"],
     env: { HERMES_HOME: '/home/u/.hermes', HERMES_DESKTOP_REMOTE_URL: 'http://box:9119' },
     cwd: '/home/u/work dir'

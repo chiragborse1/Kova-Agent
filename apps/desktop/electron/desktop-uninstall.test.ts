@@ -125,9 +125,9 @@ test('shouldRemoveAppBundle requires packaged AND a resolved path', () => {
 test('buildPosixCleanupScript waits for the PID, runs the uninstall module, removes bundle', () => {
   const script = buildPosixCleanupScript({
     desktopPid: 4321,
-    pythonExe: '/home/x/.hermes/hermes-agent/venv/bin/python',
+    pythonExe: '/home/x/.hermes/kova-agent/venv/bin/python',
     pythonPath: null,
-    agentRoot: '/home/x/.hermes/hermes-agent',
+    agentRoot: '/home/x/.hermes/kova-agent',
     uninstallArgs: ['-m', 'hermes_cli.uninstall', '--mode', 'gui'],
     appPath: '/opt/hermes/linux-unpacked',
     hermesHome: '/home/x/.hermes'
@@ -147,8 +147,8 @@ test('buildPosixCleanupScript exports PYTHONPATH when pythonPath is set (lite/fu
   const script = buildPosixCleanupScript({
     desktopPid: 1,
     pythonExe: '/usr/bin/python3',
-    pythonPath: '/home/x/.hermes/hermes-agent',
-    agentRoot: '/home/x/.hermes/hermes-agent',
+    pythonPath: '/home/x/.hermes/kova-agent',
+    agentRoot: '/home/x/.hermes/kova-agent',
     uninstallArgs: ['-m', 'hermes_cli.uninstall', '--mode', 'full'],
     appPath: null,
     hermesHome: '/home/x/.hermes'
@@ -156,7 +156,7 @@ test('buildPosixCleanupScript exports PYTHONPATH when pythonPath is set (lite/fu
 
   // System python + source on PYTHONPATH so import hermes_cli works while the
   // venv is torn down.
-  assert.match(script, /export PYTHONPATH='\/home\/x\/\.hermes\/hermes-agent'/)
+  assert.match(script, /export PYTHONPATH='\/home\/x\/\.hermes\/kova-agent'/)
   assert.match(script, /'\/usr\/bin\/python3' '-m' 'hermes_cli\.uninstall' '--mode' 'full'/)
 })
 
