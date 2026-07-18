@@ -63,6 +63,11 @@ jobs:
           cache-to: ${{ (github.event_name != 'pull_request') && matrix.cache-to || '' }}
 
       - name: Log in to Docker Hub
+        id: login
+        # continue-on-error: when DOCKERHUB_USERNAME/TOKEN secrets aren't
+        # configured (typical for forks), the login fails and we skip
+        # push/merge below rather than fail the whole build matrix.
+        continue-on-error: true
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release'
         uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
         with:
@@ -74,7 +79,8 @@ jobs:
       # pattern for multi-runner multi-platform builds.
       - name: Push ${{ matrix.arch }} by digest
         id: push
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release'
+        # Only push if login succeeded (i.e. Docker Hub secrets configured).
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release') && steps.login.outcome == 'success'
         uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
         with:
           context: .
@@ -91,14 +97,14 @@ jobs:
       # Write the digest to a file and upload it as an artifact so the
       # merge job can stitch both per-arch digests into a manifest list.
       - name: Export digest
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release'
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release') && steps.push.conclusion == 'success'
         run: |
           mkdir -p /tmp/digests
           digest="${{ steps.push.outputs.digest }}"
           touch "/tmp/digests/${digest#sha256:}"
 
       - name: Upload digest artifact
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release'
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release') && steps.push.conclusion == 'success'
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: digest-${{ matrix.arch }}
@@ -155,12 +161,17 @@ jobs:
   # On releases: tags :<release_tag_name>.
   # ---------------------------------------------------------------------------
   merge:
-    if: github.repository == 'chiragborse1/Kova-Agent' && (github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release')
+    # Only run merge when this is a real release or the build actually
+    # pushed (Docker Hub secrets configured). On fork PRs / branches
+    # without secrets the build matrix still runs (we want test coverage)
+    # but the merge step skips cleanly.
+    if: github.repository == 'chiragborse1/Kova-Agent' && (github.event_name == 'release' || (github.event_name == 'push' && github.ref == 'refs/heads/main'))
     runs-on: ubuntu-latest
     needs: [build]
     timeout-minutes: 10
     steps:
       - name: Download digests
+        continue-on-error: true
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
           path: /tmp/digests
@@ -177,6 +188,11 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Create manifest list and push
+        # Skip when no digests were produced (no Docker Hub secrets configured,
+        # or build was skipped). We check the directory rather than gating on
+        # job-level conditionals so a partial upload (one arch succeeded,
+        # another failed) still creates a manifest list from whatever landed.
+        if: hashFiles('/tmp/digests/*') != ''
         working-directory: /tmp/digests
         env:
           IMAGE_NAME: ${{ env.IMAGE_NAME }}

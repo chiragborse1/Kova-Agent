@@ -490,11 +490,12 @@ def _seed_supervise_skeleton(svc_dir: Path) -> None:
         path.chmod(mode)
         try:
             os.chown(path, _HERMES_UID, _HERMES_GID)
-        except PermissionError:
-            # Running as the hermes user already — directory is hermes-
-            # owned by default. The chown is a no-op in that case, so
-            # swallowing this keeps both root and unprivileged callers
-            # on one code path.
+        except (PermissionError, AttributeError):
+            # PermissionError: running as the hermes user already —
+            # directory is hermes-owned by default; chown is a no-op.
+            # AttributeError: os.chown doesn't exist on Windows; ownership
+            # is irrelevant there since the ACL system handles perms.
+            # Both keep root, unprivileged, and Windows callers on one path.
             pass
 
     # Top-level event/ dir (this is the s6-svlisten1 event-subscription
