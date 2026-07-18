@@ -720,7 +720,7 @@ app.setName(APP_NAME)
 // need this, so gate it on Windows. (Fixes: desktop approval/turn notifications
 // never firing on Windows.)
 if (IS_WINDOWS) {
-  app.setAppUserModelId('com.nousresearch.hermes')
+  app.setAppUserModelId('com.chiragborse1.kova')
 }
 
 // Seed the native About panel with the live Hermes version. This is refreshed
@@ -8153,7 +8153,7 @@ function showAboutPanelFresh() {
   app.setAboutPanelOptions({
     applicationName: APP_NAME,
     applicationVersion: resolveHermesVersion(),
-    copyright: 'Copyright © 2026 Nous Research'
+  copyright: 'Copyright © 2026 Chirag Borse'
   })
   app.showAboutPanel()
 }
