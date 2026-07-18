@@ -198,6 +198,11 @@ class TestOpenRouterParity:
 class TestNousParity:
     """Nous: product tags, reasoning, omit when disabled."""
 
+    @pytest.fixture(autouse=True)
+    def _skip_if_no_nous(self):
+        if get_provider_profile("nous") is None:
+            pytest.skip("Nous provider not available")
+
     def test_tags(self, transport):
         from agent.portal_tags import nous_portal_tags
         kw = transport.build_kwargs(

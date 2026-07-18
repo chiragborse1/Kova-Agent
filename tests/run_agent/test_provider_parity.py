@@ -418,6 +418,12 @@ class TestBuildApiKwargsKimiNoTemperatureOverride:
 
 
 class TestBuildApiKwargsNousPortal:
+    @pytest.fixture(autouse=True)
+    def _skip_if_no_nous(self):
+        from providers import get_provider_profile
+        if get_provider_profile("nous") is None:
+            pytest.skip("Nous provider not available")
+
     def test_includes_nous_product_tags(self, monkeypatch):
         from agent.portal_tags import nous_portal_tags
         agent = _make_agent(

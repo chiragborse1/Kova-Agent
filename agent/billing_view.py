@@ -204,10 +204,6 @@ def build_billing_state(*, timeout: float = 15.0) -> BillingState:
     a clear message rather than crashing.
     """
     try:
-        return BillingState(logged_in=False, error="billing client unavailable")
-    except Exception:
-
-    try:
         payload = get_billing_state(timeout=timeout)
     except BillingAuthError:
         return BillingState(logged_in=False)

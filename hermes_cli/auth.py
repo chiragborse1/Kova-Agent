@@ -1839,6 +1839,8 @@ _NOUS_STALE_PORTAL_HOSTS: FrozenSet[str] = frozenset({
     "api.nousresearch.com",
 })
 
+DEFAULT_NOUS_PORTAL_URL = "https://portal.nousresearch.com"
+
 # Allowlist of valid Nous Portal hosts. A portal_base_url outside this
 # set is treated as a misconfiguration and falls back to the default.
 # "localhost" / "127.0.0.1" are valid for local development and testing.

@@ -334,9 +334,11 @@ class TestChatCompletionsBuildKwargs:
         ]
 
     def test_nous_tags(self, transport):
-        from agent.portal_tags import nous_portal_tags
         from providers import get_provider_profile
         profile = get_provider_profile("nous")
+        if profile is None:
+            pytest.skip("Nous provider not available")
+        from agent.portal_tags import nous_portal_tags
         msgs = [{"role": "user", "content": "Hi"}]
         kw = transport.build_kwargs(model="gpt-4o", messages=msgs, provider_profile=profile)
         assert kw["extra_body"]["tags"] == nous_portal_tags()

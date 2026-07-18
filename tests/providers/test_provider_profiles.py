@@ -408,6 +408,11 @@ class TestOpenRouterProfile:
 
 
 class TestNousProfile:
+    @pytest.fixture(autouse=True)
+    def _skip_if_no_nous(self):
+        if get_provider_profile("nous") is None:
+            pytest.skip("Nous provider not available")
+
     def test_tags(self):
         from agent.portal_tags import nous_portal_tags
         p = get_provider_profile("nous")

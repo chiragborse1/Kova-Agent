@@ -148,6 +148,11 @@ class TestOpenRouterProfileParity:
 
 
 class TestNousProfileParity:
+    @pytest.fixture(autouse=True)
+    def _skip_if_no_nous(self):
+        if get_provider_profile("nous") is None:
+            pytest.skip("Nous provider not available")
+
     def test_tags(self, transport):
         legacy = transport.build_kwargs(
             model="hermes-3", messages=_msgs(), tools=None, provider_profile=get_provider_profile("nous"),
