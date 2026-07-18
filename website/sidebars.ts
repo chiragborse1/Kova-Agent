@@ -667,8 +667,6 @@ const sidebars: SidebarsConfig = {
       collapsed: true,
       items: [
         'integrations/index',
-        'integrations/nous-portal',
-        'integrations/providers',
         'user-guide/features/mcp',
         'user-guide/features/acp',
         'user-guide/features/provider-routing',
@@ -681,11 +679,7 @@ const sidebars: SidebarsConfig = {
       label: 'Guides & Tutorials',
       collapsed: true,
       items: [
-        'guides/run-nemotron-3-ultra-free',
-        'guides/run-hermes-with-nous-portal',
         'guides/tips',
-        'guides/local-llm-on-mac',
-        'guides/daily-briefing-bot',
         'guides/team-telegram-assistant',
         'guides/python-library',
         'guides/use-mcp-with-hermes',
