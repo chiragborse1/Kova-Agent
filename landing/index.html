@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kova Agent - Your Personal AI Agent</title>
+  <meta name="description" content="Kova Agent is a personal AI agent with persistent memory, skills, and rich tool support. Runs anywhere - CLI, desktop, messaging platforms.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0b;
+      --bg-card: #111113;
+      --bg-card-hover: #18181b;
+      --border: #27272a;
+      --border-hover: #3f3f46;
+      --text: #fafafa;
+      --text-muted: #a1a1aa;
+      --accent: #f59e0b;
+      --accent-hover: #fbbf24;
+      --accent-dim: rgba(245, 158, 11, 0.1);
+      --green: #22c55e;
+      --blue: #3b82f6;
+      --purple: #a855f7;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* --- NAV --- */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10, 10, 11, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-brand .logo {
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links .btn-sm {
+      background: var(--accent);
+      color: #000;
+      padding: 0.45rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .nav-links .btn-sm:hover { background: var(--accent-hover); }
+
+    /* --- HERO --- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent-dim);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      color: var(--accent);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.03em;
+    }
+    .hero h1 .accent { color: var(--accent); }
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.8rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+    }
+    .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--border-hover); background: var(--bg-card-hover); }
+
+    .hero-terminal {
+      margin-top: 3rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      width: 100%;
+      text-align: left;
+    }
+    .hero-terminal .prompt { color: var(--accent); }
+    .hero-terminal .cmd { color: var(--text); }
+    .hero-terminal .comment { color: #52525b; }
+
+    /* --- SECTION --- */
+    section {
+      padding: 6rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin-bottom: 3rem;
+    }
+
+    /* --- DOWNLOAD --- */
+    .download-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .download-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      text-align: center;
+    }
+    .download-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+    .download-card.detected {
+      border-color: var(--accent);
+    }
+    .download-card.detected::before {
+      content: 'Your Platform';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #000;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.7rem;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    .download-card .platform-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .download-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .download-card .platform-ver {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      margin-bottom: 1.5rem;
+    }
+    .download-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 0.75rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .download-btn.primary {
+      background: var(--accent);
+      color: #000;
+    }
+    .download-btn.primary:hover { background: var(--accent-hover); }
+    .download-btn.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .download-btn.secondary:hover { border-color: var(--border-hover); }
+    .download-meta {
+      margin-top: 0.8rem;
+      font-size: 0.78rem;
+      color: #52525b;
+    }
+    .download-meta a {
+      color: var(--text-muted);
+      text-decoration: underline;
+      text-decoration-color: var(--border);
+    }
+    .download-meta a:hover { color: var(--text); }
+
+    /* --- INSTALL --- */
+    .install-section {
+      margin-top: 3rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+    .install-section h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .install-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .install-item label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+    .install-cmd {
+      background: #000;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.65rem 0.9rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .install-cmd code {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .install-cmd .copy-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.3rem;
+      border-radius: 4px;
+      transition: color 0.2s;
+      flex-shrink: 0;
+      font-size: 0.85rem;
+    }
+    .install-cmd .copy-btn:hover { color: var(--accent); }
+    .install-cmd .copy-btn.copied { color: var(--green); }
+
+    /* --- FEATURES --- */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: var(--border-hover); }
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .feature-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    /* --- PLATFORMS --- */
+    .platform-strip {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .platform-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy {
+      color: #52525b;
+      font-size: 0.8rem;
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      .download-grid { grid-template-columns: 1fr; }
+      .install-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .nav-links { gap: 1rem; }
+      .nav-links a:not(.btn-sm) { display: none; }
+      section { padding: 4rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-brand">
+      <span class="logo">K</span>
+      Kova Agent
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#downloads">Download</a>
+      <a href="https://github.com/chiragborse1/Kova-Agent" target="_blank">GitHub</a>
+      <a href="https://github.com/chiragborse1/Kova-Agent/blob/main/website/docs/user-guide/getting-started.md" target="_blank" class="btn-sm">Docs</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      v0.1 - Early Release
+    </div>
+    <h1>Your personal<br><span class="accent">AI agent.</span></h1>
+    <p>Kova Agent runs on your machine, remembers your context across sessions, learns new skills, and connects to the platforms you already use.</p>
+    <div class="hero-actions">
+      <a href="#downloads" class="btn btn-primary" id="hero-download">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download for <span id="hero-os-label">Windows</span>
+      </a>
+      <a href="https://github.com/chiragborse1/Kova-Agent" target="_blank" class="btn btn-secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        Star on GitHub
+      </a>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="section-label">What it does</div>
+    <div class="section-title">Built for real work</div>
+    <div class="section-desc">Not another chat wrapper. Kova is a full agent that runs tools, manages files, and remembers everything.</div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(245, 158, 11, 0.1);">&#x1f9e0;</div>
+        <h3>Persistent Memory</h3>
+        <p>Remembers your projects, preferences, and context across every session. Pick up where you left off, every time.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(59, 130, 246, 0.1);">&#x1f6e0;</div>
+        <h3>Real Tool Use</h3>
+        <p>Reads files, writes code, runs commands, browses the web, and manages your terminal. Not just text in, text out.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(168, 85, 247, 0.1);">&#x1f3a8;</div>
+        <h3>Learns Skills</h3>
+        <p>Creates reusable skills from your workflows. The more you use it, the smarter it gets at helping you specifically.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(34, 197, 94, 0.1);">&#x1f4ac;</div>
+        <h3>Multi-Platform</h3>
+        <p>Works in your terminal, as a desktop app, or connected to Telegram, Discord, Slack, and 20+ messaging platforms.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(239, 68, 68, 0.1);">&#x1f916;</div>
+        <h3>Multi-Agent</h3>
+        <p>Delegates complex tasks to sub-agents that work in parallel. Orchestrates across projects and tools automatically.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(20, 184, 166, 0.1);">&#x1f512;</div>
+        <h3>Runs Locally</h3>
+        <p>Your data stays on your machine. No cloud dependency. Works with OpenAI, Anthropic, Google, or any OpenAI-compatible API.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOADS -->
+  <section id="downloads">
+    <div class="section-label">Get Kova</div>
+    <div class="section-title">Download & Install</div>
+    <div class="section-desc">Native app for your platform, or install via terminal.</div>
+
+    <div class="download-grid">
+
+      <!-- Windows -->
+      <div class="download-card" data-os="win">
+        <span class="platform-icon">&#x1f5a5;&#xfe0f;</span>
+        <h3>Windows</h3>
+        <p class="platform-ver">Windows 10 / 11</p>
+        <a href="https://github.com/chiragborse1/Kova-Agent/releases/latest/download/Kova-Setup.exe" download="" class="download-btn primary">
+          Download .exe
+        </a>
+        <p class="download-meta"><a href="https://github.com/chiragborse1/Kova-Agent/releases">All releases</a></p>
+      </div>
+
+      <!-- macOS -->
+      <div class="download-card" data-os="mac">
+        <span class="platform-icon">&#x1f34e;</span>
+        <h3>macOS</h3>
+        <p class="platform-ver">macOS 12+</p>
+        <a href="https://github.com/chiragborse1/Kova-Agent/releases/latest/download/Kova.dmg" download="" class="download-btn primary">
+          Download .dmg
+        </a>
+        <p class="download-meta"><a href="https://github.com/chiragborse1/Kova-Agent/releases">All releases</a></p>
+      </div>
+
+      <!-- Linux -->
+      <div class="download-card" data-os="linux">
+        <span class="platform-icon">&#x1f427;</span>
+        <h3>Linux</h3>
+        <p class="platform-ver">Any distro</p>
+        <a href="https://github.com/chiragborse1/Kova-Agent/releases" target="_blank" class="download-btn secondary">
+          View on GitHub
+        </a>
+        <p class="download-meta">or install via terminal below</p>
+      </div>
+
+    </div>
+
+    <!-- Install via terminal -->
+    <div class="install-section">
+      <h3>Or install via terminal</h3>
+      <div class="install-grid">
+        <div class="install-item">
+          <label>macOS / Linux</label>
+          <div class="install-cmd">
+            <code>curl -fsSL https://kova.ai/install.sh | bash</code>
+            <button class="copy-btn" onclick="copyCmd(this, 'curl -fsSL https://kova.ai/install.sh | bash')">&#x1f4cb;</button>
+          </div>
+        </div>
+        <div class="install-item">
+          <label>Windows (PowerShell)</label>
+          <div class="install-cmd">
+            <code>irm https://kova.ai/install.ps1 | iex</code>
+            <button class="copy-btn" onclick="copyCmd(this, 'irm https://kova.ai/install.ps1 | iex')">&#x1f4cb;</button>
+          </div>
+        </div>
+        <div class="install-item">
+          <label>pip</label>
+          <div class="install-cmd">
+            <code>pip install kova-agent</code>
+            <button class="copy-btn" onclick="copyCmd(this, 'pip install kova-agent')">&#x1f4cb;</button>
+          </div>
+        </div>
+        <div class="install-item">
+          <label>uv</label>
+          <div class="install-cmd">
+            <code>uv tool install kova-agent</code>
+            <button class="copy-btn" onclick="copyCmd(this, 'uv tool install kova-agent')">&#x1f4cb;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- PLATFORMS -->
+  <section style="text-align: center;">
+    <div class="section-label">Works where you work</div>
+    <div class="section-title">Connected Platforms</div>
+    <div class="section-desc" style="margin-left: auto; margin-right: auto;">Kova plugs into the tools and messaging apps you already use.</div>
+    <div class="platform-strip">
+      <div class="platform-chip">&#x1f4ac; Telegram</div>
+      <div class="platform-chip">&#x1f3ae; Discord</div>
+      <div class="platform-chip">&#x1f4ac; Slack</div>
+      <div class="platform-chip">&#x1f4e7; Email</div>
+      <div class="platform-chip">&#x1f4f1; WhatsApp</div>
+      <div class="platform-chip">&#x1f5a5; Desktop App</div>
+      <div class="platform-chip">&#x1f4bb; Terminal / CLI</div>
+      <div class="platform-chip">&#x2601; VS Code</div>
+      <div class="platform-chip">&#x1f310; Web Dashboard</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-links">
+      <a href="https://github.com/chiragborse1/Kova-Agent" target="_blank">GitHub</a>
+      <a href="https://github.com/chiragborse1/Kova-Agent/blob/main/website/docs/user-guide/getting-started.md" target="_blank">Docs</a>
+      <a href="https://github.com/chiragborse1/Kova-Agent/issues" target="_blank">Issues</a>
+      <a href="https://github.com/chiragborse1/Kova-Agent/blob/main/LICENSE" target="_blank">License (MIT)</a>
+    </div>
+    <p class="footer-copy">Kova Agent is open source. Built with care.</p>
+  </footer>
+
+  <script>
+    // OS detection
+    const ua = navigator.userAgent.toLowerCase();
+    let detectedOS = 'win';
+    if (ua.includes('mac')) detectedOS = 'mac';
+    else if (ua.includes('linux')) detectedOS = 'linux';
+
+    // Highlight detected platform card
+    const card = document.querySelector(`.download-card[data-os="${detectedOS}"]`);
+    if (card) card.classList.add('detected');
+
+    // Update hero button label
+    const osLabels = { win: 'Windows', mac: 'macOS', linux: 'Linux' };
+    const heroLabel = document.getElementById('hero-os-label');
+    if (heroLabel) heroLabel.textContent = osLabels[detectedOS];
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Copy to clipboard
+    function copyCmd(btn, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        btn.classList.add('copied');
+        btn.innerHTML = '\u2713';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = '\ud83d\udccb';
+        }, 1500);
+      });
+    }
+  </script>
+
+</body>
+</html>
