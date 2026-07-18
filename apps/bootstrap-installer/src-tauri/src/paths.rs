@@ -70,9 +70,9 @@ pub fn bootstrap_cache_dir() -> PathBuf {
 /// platforms the extension differs but the directory is the same.
 pub fn installer_dest() -> PathBuf {
     let name = if cfg!(target_os = "windows") {
-        "hermes-setup.exe"
+        "kova-setup.exe"
     } else {
-        "hermes-setup"
+        "kova-setup"
     };
     hermes_home().join(name)
 }
@@ -166,7 +166,7 @@ pub fn init_logging() -> Option<WorkerGuard> {
     if let Err(err) = std::fs::create_dir_all(&dir) {
         // No log dir → log to stderr only. Don't panic; the installer
         // should still be usable on an exotic filesystem.
-        eprintln!("[hermes-setup] could not create log dir {dir:?}: {err}");
+        eprintln!("[kova-setup] could not create log dir {dir:?}: {err}");
         return None;
     }
 
