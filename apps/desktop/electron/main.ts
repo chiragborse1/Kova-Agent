@@ -2269,7 +2269,7 @@ let isQuittingForHandoff = false
 // updater isn't staged (e.g. a dev/source run that never went through the
 // installer); callers degrade gracefully.
 function resolveUpdaterBinary() {
-  const name = IS_WINDOWS ? 'hermes-setup.exe' : 'hermes-setup'
+  const name = IS_WINDOWS ? 'kova-setup.exe' : 'kova-setup'
   const candidate = path.join(HERMES_HOME, name)
 
   return fileExists(candidate) ? candidate : null
