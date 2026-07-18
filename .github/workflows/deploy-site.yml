@@ -132,12 +132,18 @@ jobs:
           fi
 
           echo "Downloading currently live skills index"
+          # The "currently live" URL is the deployment THIS workflow owns
+          # (i.e. the GitHub Pages site for this fork). Override per-repo
+          # with a SKILLS_INDEX_URL Actions variable (Settings -> Secrets
+          # and variables -> Actions -> Variables). Default matches
+          # website/docusaurus.config.ts (url + baseUrl + docs prefix).
+          LIVE_INDEX_URL="${SKILLS_INDEX_URL:-https://chiragborse1.github.io/Kova-Agent/docs/api/skills-index.json}"
           if curl -fsSL --retry 3 --retry-delay 5 \
-            "https://hermes-agent.nousresearch.com/docs/api/skills-index.json"
-            # TODO: Update to kova domain when available \
+            "$LIVE_INDEX_URL" \
             -o "$INDEX_PATH" && validate_index; then
             exit 0
           fi
+          echo "::warning::Could not download live index from $LIVE_INDEX_URL; falling back to a fresh crawl"
 
           echo "::warning::Live skills index unavailable or unhealthy; falling back to a fresh crawl"
           rm -f "$INDEX_PATH"

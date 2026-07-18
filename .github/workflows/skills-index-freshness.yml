@@ -3,9 +3,17 @@ name: Skills Index Freshness Check
 # Belt-and-suspenders for the twice-daily build_skills_index pipeline.
 # If the live /docs/api/skills-index.json ever goes more than 26 hours
 # stale OR the file disappears entirely OR a major source has collapsed,
-# this workflow opens a GitHub issue so we hear about it before users do.
+# this workflow opens a GitHub issue so we hear about it before users do
+# AND kicks off a fresh rebuild + redeploy when the index is stale (the
+# most common cause is a missed 6/18 UTC cron tick or a Pages deploy that
+# didn't pick up the latest artifact).
 #
 # Triggered every 4 hours so we catch a stuck cron within one tick.
+#
+# The probe URL is configurable via the `SKILLS_INDEX_URL` repository
+# variable (Settings -> Secrets and variables -> Actions -> Variables). The
+# default points at this fork's GitHub Pages deployment; upstream forks
+# can override it without editing the workflow.
 
 on:
   schedule:
@@ -15,34 +23,51 @@ on:
 permissions:
   contents: read
   issues: write
+  actions: write  # to trigger deploy-site.yml on self-heal
 
 jobs:
   check-freshness:
     if: github.repository == 'chiragborse1/Kova-Agent'
     runs-on: ubuntu-latest
+    env:
+      # GitHub Pages URL for this fork. Override per-repo by setting a
+      # repository variable named SKILLS_INDEX_URL (Variables are visible
+      # to PR forks too, which is exactly what we want).
+      SKILLS_INDEX_URL: ${{ vars.SKILLS_INDEX_URL || 'https://chiragborse1.github.io/Kova-Agent/docs/api/skills-index.json' }}
+      # How old the index can get before we flag it. The build cron is
+      # 6/18 UTC (every 12h); 26h gives one missed tick of slack.
+      MAX_AGE_HOURS: '26'
     steps:
       - name: Probe live index
         id: probe
         run: |
           set -e
-          URL="https://hermes-agent.nousresearch.com/docs/api/skills-index.json"
-          echo "Probing $URL"
+          echo "Probing $SKILLS_INDEX_URL"
           # -L follows redirects; -f fails on HTTP errors; -s suppresses progress
-          if ! curl -fsSL -o /tmp/skills-index.json "$URL"; then
+          if ! curl -fsSL --retry 2 --retry-delay 5 -o /tmp/skills-index.json "$SKILLS_INDEX_URL"; then
+            # Fetch failures are configuration problems (wrong URL, host
+            # down), NOT stale data — don't self-heal, just escalate.
+            http_code=$(curl -sS -o /dev/null -w '%{http_code}' "$SKILLS_INDEX_URL" 2>/dev/null || echo "?")
             echo "status=fetch-failed" >> "$GITHUB_OUTPUT"
-            echo "detail=Could not download $URL" >> "$GITHUB_OUTPUT"
+            echo "detail=Could not download $SKILLS_INDEX_URL (HTTP ${http_code})" >> "$GITHUB_OUTPUT"
+            echo "hint=Check vars.SKILLS_INDEX_URL matches the actual deployment URL for ${{ github.repository }}" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          # Validate + extract generated_at and per-source counts
-          python3 <<'PY' >> "$GITHUB_OUTPUT"
-          import json, sys
+          # Validate + extract generated_at and per-source counts.
+          # Floors mirror scripts/build_skills_index.py EXPECTED_FLOORS so
+          # the probe can never disagree with the builder about what
+          # counts as "healthy" -- keep both files in sync if you change
+          # either set of thresholds.
+          python3 <<PY >> "$GITHUB_OUTPUT"
+          import json, os, sys
+          from collections import Counter
           from datetime import datetime, timezone
 
           try:
               with open("/tmp/skills-index.json") as f:
                   data = json.load(f)
           except Exception as e:
-              print(f"status=parse-failed")
+              print("status=parse-failed")
               print(f"detail=JSON decode error: {e}")
               sys.exit(0)
 
@@ -54,8 +79,6 @@ jobs:
               print(f"detail=skills field is not a list (got {type(skills).__name__})")
               sys.exit(0)
 
-          # Per-source counts
-          from collections import Counter
           by_src = Counter(s.get("source", "") for s in skills)
 
           # Freshness
@@ -66,32 +89,38 @@ jobs:
           except Exception:
               pass
 
-          # Floors — same as build_skills_index.py EXPECTED_FLOORS.
+          # Floors — kept in sync with scripts/build_skills_index.py.
           floors = {
-              "skills.sh": 100,
+              "skills.sh": 10000,
               "lobehub": 100,
-              "clawhub": 50,
+              "clawhub": 20000,
               "official": 50,
               "github": 30,
               "browse-sh": 50,
           }
+          max_age = float(os.environ.get("MAX_AGE_HOURS", "26"))
           issues = []
-          if age_hours is not None and age_hours > 26:
-              issues.append(f"Index is {age_hours:.1f}h old (limit 26h)")
+          if age_hours is not None and age_hours > max_age:
+              issues.append(f"Index is {age_hours:.1f}h old (limit {max_age:.0f}h)")
           for src, floor in floors.items():
               count = by_src.get(src, 0)
               if src == "skills.sh":
                   count = by_src.get("skills.sh", 0) + by_src.get("skills-sh", 0)
               if count < floor:
                   issues.append(f"{src}: {count} < {floor}")
-          if total < 1500:
-              issues.append(f"total skills: {total} < 1500")
+
+          MIN_TOTAL = 1500
+          if total < MIN_TOTAL:
+              issues.append(f"total skills: {total} < {MIN_TOTAL}")
 
           if issues:
               detail = "; ".join(issues)
               print("status=degraded")
-              # GITHUB_OUTPUT doesn't allow newlines without explicit delimiter
               print(f"detail={detail}")
+              # Self-heal signal: 1 when the failure is the kind a rebuild
+              # can fix (stale age, collapsed source). The caller reads
+              # this and decides whether to trigger deploy-site.yml.
+              print("recoverable=1")
           else:
               print("status=ok")
               print(f"detail=Index OK — {total} skills, generated {generated_at}")
@@ -101,18 +130,52 @@ jobs:
 
       - name: Report status
         run: |
-          echo "Probe status: ${{ steps.probe.outputs.status }}"
-          echo "Detail:       ${{ steps.probe.outputs.detail }}"
+          echo "Probe status:   ${{ steps.probe.outputs.status }}"
+          echo "Detail:         ${{ steps.probe.outputs.detail }}"
           if [ -n "${{ steps.probe.outputs.summary }}" ]; then
-            echo "Summary:      ${{ steps.probe.outputs.summary }}"
+            echo "Summary:        ${{ steps.probe.outputs.summary }}"
+          fi
+          if [ -n "${{ steps.probe.outputs.hint }}" ]; then
+            echo "Hint:           ${{ steps.probe.outputs.hint }}"
           fi
 
-      - name: Open issue on degraded / failed probe
+      # Self-heal: when the probe finds a stale or degenerate index,
+      # trigger a forced rebuild + redeploy. This catches the two most
+      # common failure modes (missed cron tick, deploy didn't pick up
+      # the latest artifact) without waiting for a human. We dedupe by
+      # checking whether a deploy is already in flight before triggering.
+      - name: Self-heal - trigger rebuild and redeploy
+        id: heal
+        if: steps.probe.outputs.status == 'degraded' && steps.probe.outputs.recoverable == '1'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Don't pile up concurrent deploys — bail if one is already running.
+          in_flight=$(gh run list \
+            --repo "${{ github.repository }}" \
+            --workflow deploy-site.yml \
+            --status in_progress \
+            --json databaseId --jq 'length' 2>/dev/null || echo 0)
+          if [ "${in_flight:-0}" -gt 0 ]; then
+            echo "A deploy is already in flight (${in_flight} run(s)) — skipping self-heal trigger"
+            echo "heal_triggered=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "Triggering fresh rebuild + redeploy via deploy-site.yml"
+          gh workflow run deploy-site.yml \
+            --repo "${{ github.repository }}" \
+            -f rebuild_skills_index=true
+          echo "heal_triggered=true" >> "$GITHUB_OUTPUT"
+
+      - name: Open issue on degraded or failed probe
         if: steps.probe.outputs.status != 'ok'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           STATUS: ${{ steps.probe.outputs.status }}
           DETAIL: ${{ steps.probe.outputs.detail }}
+          HINT: ${{ steps.probe.outputs.hint }}
+          HEAL: ${{ steps.heal.outputs.heal_triggered }}
+          PROBE_URL: ${{ env.SKILLS_INDEX_URL }}
         run: |
           # Find existing open issue by title prefix so we don't spam — we
           # append a comment instead of opening a new one each tick.
@@ -124,23 +187,51 @@ jobs:
             --json number,title \
             --jq '.[] | select(.title | startswith("'"$TITLE_PREFIX"'")) | .number' \
             | head -1)
+
+          HEAL_NOTE=""
+          if [ "$HEAL" = "true" ]; then
+            HEAL_NOTE="\n\n:white_check_mark: **Self-heal kicked off** -- a fresh rebuild + redeploy was triggered automatically (the most common cause is a missed 6/18 UTC cron tick). The next probe tick in ~4h should report green if the rebuild succeeded; otherwise this issue will stay open and the link below will show the deploy run."
+          elif [ "$STATUS" = "degraded" ]; then
+            HEAL_NOTE="\n\n:warning: Self-heal was skipped because another deploy was already in flight when the probe ran."
+          fi
+
+          HINT_NOTE=""
+          if [ -n "$HINT" ]; then
+            HINT_NOTE="\n\n:bulb: **Hint:** $HINT"
+          fi
+
           BODY="Automated freshness probe failed.
 
           **Status:** \`$STATUS\`
           **Detail:** $DETAIL
+          **Probe URL:** \`$PROBE_URL\`$HEAL_NOTE$HINT_NOTE
 
-          The Skills Hub at /docs/skills depends on \`/docs/api/skills-index.json\`.
+          The Skills Hub at \`/docs/skills\` depends on \`/docs/api/skills-index.json\`.
           The unified index is rebuilt by \`.github/workflows/skills-index.yml\` (cron 6/18 UTC)
-          and \`.github/workflows/deploy-site.yml\` (on every push affecting website/skills).
-          If this issue keeps reopening, check the latest runs:
+          and \`.github/workflows/deploy-site.yml\` (on every push affecting website/skills, or
+          manually with \`rebuild_skills_index=true\`)."
 
+          if [ "$HEAL" = "true" ]; then
+            BODY="$BODY
+          - Latest self-heal deploy run: https://github.com/${{ github.repository }}/actions/workflows/deploy-site.yml"
+          fi
+
+          BODY="$BODY
+
+          If this issue keeps reopening, check the latest runs:
           - https://github.com/${{ github.repository }}/actions/workflows/skills-index.yml
           - https://github.com/${{ github.repository }}/actions/workflows/deploy-site.yml
 
           This issue was opened by \`.github/workflows/skills-index-freshness.yml\`. Close it once the underlying problem is fixed; the next probe will reopen if it's still broken."
+
           if [ -n "$existing" ]; then
             echo "Appending to existing issue #$existing"
-            gh issue comment "$existing" --repo "${{ github.repository }}" --body "Probe still failing at $(date -u +%FT%TZ): \`$STATUS\` — $DETAIL"
+            HEAL_TAIL=""
+            if [ "$HEAL" = "true" ]; then
+              HEAL_TAIL=" (self-heal rebuild triggered)"
+            fi
+            gh issue comment "$existing" --repo "${{ github.repository }}" --body \
+              "Probe still failing at $(date -u +%FT%TZ): \`$STATUS\` — $DETAIL$HEAL_TAIL"
           else
             echo "Opening new watchdog issue"
             gh issue create --repo "${{ github.repository }}" \
