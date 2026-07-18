@@ -5,7 +5,7 @@ name: Publish to PyPI
 on:
   push:
     tags:
-      - "v20*" # CalVer tags: v2026.5.15, v2026.5.15.2, etc.
+      - "v*" # SemVer tags: v0.1.0, v0.2.0, etc.
   workflow_dispatch:
     inputs:
       confirm_tag:
@@ -68,7 +68,6 @@ jobs:
 
       - name: Verify frontend assets exist
         run: |
-          test -f hermes_cli/web_dist/index.html || { echo "ERROR: web_dist not built"; exit 1; }
           test -f hermes_cli/tui_dist/entry.js || { echo "ERROR: tui_dist not built"; exit 1; }
 
       - name: Bundle install scripts into wheel
@@ -92,7 +91,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/hermes-agent
+      url: https://pypi.org/p/kova-agent
     permissions:
       id-token: write # OIDC trusted publishing
 

@@ -17,12 +17,12 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
-  IMAGE_NAME: nousresearch/hermes-agent
+  IMAGE_NAME: chiragborse1/kova-agent
 
 jobs:
   # Build, test, and optionally push the image for each architecture.
   build:
-    if: github.repository == 'NousResearch/hermes-agent'
+    if: github.repository == 'chiragborse1/Kova-Agent'
     strategy:
       fail-fast: false
       matrix:
@@ -58,7 +58,7 @@ jobs:
           platforms: ${{ matrix.platform }}
           tags: ${{ env.IMAGE_NAME }}:test
           build-args: |
-            HERMES_GIT_SHA=${{ github.sha }}
+            KOVA_GIT_SHA=${{ github.sha }}
           cache-from: ${{ matrix.cache-from }}
           cache-to: ${{ (github.event_name != 'pull_request') && matrix.cache-to || '' }}
 
@@ -83,7 +83,7 @@ jobs:
           labels: |
             org.opencontainers.image.revision=${{ github.sha }}
           build-args: |
-            HERMES_GIT_SHA=${{ github.sha }}
+            KOVA_GIT_SHA=${{ github.sha }}
           outputs: type=image,name=${{ env.IMAGE_NAME }},push-by-digest=true,name-canonical=true,push=true
           cache-from: ${{ matrix.cache-from }}
           cache-to: ${{ matrix.cache-to }}
@@ -137,7 +137,7 @@ jobs:
       - name: Run docker integration tests
         env:
           # Skip rebuild; use the image already loaded by the build step.
-          HERMES_TEST_IMAGE: ${{ env.IMAGE_NAME }}:test
+          KOVA_TEST_IMAGE: ${{ env.IMAGE_NAME }}:test
           # Match the policy in tests.yml :: test job — no accidental
           # real-API calls from inside the harness.
           OPENROUTER_API_KEY: ""
@@ -155,7 +155,7 @@ jobs:
   # On releases: tags :<release_tag_name>.
   # ---------------------------------------------------------------------------
   merge:
-    if: github.repository == 'NousResearch/hermes-agent' && (github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release')
+    if: github.repository == 'chiragborse1/Kova-Agent' && (github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release')
     runs-on: ubuntu-latest
     needs: [build]
     timeout-minutes: 10
