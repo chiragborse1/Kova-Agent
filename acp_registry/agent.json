@@ -9,8 +9,8 @@
   "license": "MIT",
   "distribution": {
     "uvx": {
-      "package": "hermes-agent[acp]==0.1",
-      "args": ["hermes-acp"]
+      "package": "kova-agent[acp]==0.1",
+      "args": ["kova-acp"]
     }
   }
 }

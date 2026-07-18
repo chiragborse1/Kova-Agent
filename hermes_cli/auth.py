@@ -70,7 +70,7 @@ AUTH_LOCK_TIMEOUT_SECONDS = 15.0
 
 # Authentication defaults
 DEFAULT_NOUS_INFERENCE_URL = "https://inference-api.nousresearch.com/v1"
-DEFAULT_NOUS_CLIENT_ID = "hermes-cli"
+DEFAULT_NOUS_CLIENT_ID = "kova-cli"
 NOUS_INFERENCE_INVOKE_SCOPE = "inference:invoke"
 NOUS_BILLING_MANAGE_SCOPE = "billing:manage"
 DEFAULT_NOUS_SCOPE = NOUS_INFERENCE_INVOKE_SCOPE
@@ -101,7 +101,7 @@ try:  # Version tag for the Codex token-endpoint User-Agent; fall back if unavai
     from hermes_cli import __version__ as _HERMES_CLI_VERSION
 except Exception:  # pragma: no cover - version import should always succeed
     _HERMES_CLI_VERSION = "unknown"
-CODEX_OAUTH_USER_AGENT = f"hermes-cli/{_HERMES_CLI_VERSION}"
+CODEX_OAUTH_USER_AGENT = f"kova-cli/{_HERMES_CLI_VERSION}"
 CODEX_ACCESS_TOKEN_REFRESH_SKEW_SECONDS = 120
 XAI_OAUTH_ISSUER = "https://auth.x.ai"
 XAI_OAUTH_DISCOVERY_URL = f"{XAI_OAUTH_ISSUER}/.well-known/openid-configuration"
@@ -1576,7 +1576,7 @@ def _get_config_hint_for_unknown_provider(provider_name: str) -> str:
         if not issues:
             return ""
 
-        lines = ["Config issue detected — run 'hermes doctor' for full diagnostics:"]
+        lines = ["Config issue detected — run 'kova doctor' for full diagnostics:"]
         for ci in issues:
             prefix = "ERROR" if ci.severity == "error" else "WARNING"
             lines.append(f"  [{prefix}] {ci.message}")
@@ -1672,7 +1672,7 @@ def resolve_provider(
         if _config_hint:
             msg += f"\n\n{_config_hint}"
         else:
-            msg += " Check 'hermes model' for available providers, or run 'hermes doctor' to diagnose config issues."
+            msg += " Check 'kova model' for available providers, or run 'kova doctor' to diagnose config issues."
         raise AuthError(msg, code="invalid_provider")
 
     # Explicit one-off CLI creds always mean openrouter/custom
@@ -1785,7 +1785,7 @@ def resolve_provider(
         pass  # boto3 not installed — skip Bedrock auto-detection
 
     raise AuthError(
-        "No inference provider configured. Run 'hermes model' to choose a "
+        "No inference provider configured. Run 'kova model' to choose a "
         "provider and model, or set an API key (OPENROUTER_API_KEY, "
         "OPENAI_API_KEY, etc.) in ~/.hermes/.env.",
         code="no_provider_configured",
@@ -2050,7 +2050,7 @@ def _assert_nous_inference_jwt_usable(
         return
     raise AuthError(
         "Nous Portal access token is not a usable inference JWT "
-        f"({reason}). Re-authenticate with: hermes auth add nous",
+        f"({reason}). Re-authenticate with: kova auth add nous",
         provider="nous",
         code=reason,
         relogin_required=True,
@@ -2699,7 +2699,7 @@ def _refresh_spotify_oauth_state(
     refresh_token = str(state.get("refresh_token", "") or "").strip()
     if not refresh_token:
         raise AuthError(
-            "Spotify refresh token missing. Run `hermes auth spotify` again.",
+            "Spotify refresh token missing. Run `kova auth spotify` again.",
             provider="spotify",
             code="spotify_refresh_token_missing",
             relogin_required=True,
@@ -2728,7 +2728,7 @@ def _refresh_spotify_oauth_state(
     if response.status_code >= 400:
         detail = response.text.strip()
         raise AuthError(
-            "Spotify token refresh failed. Run `hermes auth spotify` again."
+            "Spotify token refresh failed. Run `kova auth spotify` again."
             + (f" Response: {detail}" if detail else ""),
             provider="spotify",
             code="spotify_refresh_failed",
@@ -2766,7 +2766,7 @@ def resolve_spotify_runtime_credentials(
         state = _load_provider_state(auth_store, "spotify")
         if not state:
             raise AuthError(
-                "Spotify is not authenticated. Run `hermes auth spotify` first.",
+                "Spotify is not authenticated. Run `kova auth spotify` first.",
                 provider="spotify",
                 code="spotify_auth_missing",
                 relogin_required=True,
@@ -2805,7 +2805,7 @@ def resolve_spotify_runtime_credentials(
     access_token = str(state.get("access_token", "") or "").strip()
     if not access_token:
         raise AuthError(
-            "Spotify access token missing. Run `hermes auth spotify` again.",
+            "Spotify access token missing. Run `kova auth spotify` again.",
             provider="spotify",
             code="spotify_access_token_missing",
             relogin_required=True,
@@ -2866,7 +2866,7 @@ def _spotify_interactive_setup(redirect_uri_hint: str) -> str:
     print("Steps:")
     print(f"  1. Opening {SPOTIFY_DASHBOARD_URL} in your browser...")
     print("  2. Click 'Create app' and fill in:")
-    print("       App name:     anything (e.g. hermes-agent)")
+    print("       App name:     anything (e.g. kova-agent)")
     print("       Description:  anything")
     print(f"       Redirect URI: {redirect_uri_hint}")
     print("       API/SDK:      Web API")
@@ -3189,7 +3189,7 @@ def _read_codex_tokens(*, _lock: bool = True) -> Dict[str, Any]:
     state = _load_provider_state(auth_store, "openai-codex")
     if not state:
         raise AuthError(
-            "No Codex credentials stored. Run `hermes auth` to authenticate.",
+            "No Codex credentials stored. Run `kova auth` to authenticate.",
             provider="openai-codex",
             code="codex_auth_missing",
             relogin_required=True,
@@ -3197,7 +3197,7 @@ def _read_codex_tokens(*, _lock: bool = True) -> Dict[str, Any]:
     tokens = state.get("tokens")
     if not isinstance(tokens, dict):
         raise AuthError(
-            "Codex auth state is missing tokens. Run `hermes auth` to re-authenticate.",
+            "Codex auth state is missing tokens. Run `kova auth` to re-authenticate.",
             provider="openai-codex",
             code="codex_auth_invalid_shape",
             relogin_required=True,
@@ -3206,14 +3206,14 @@ def _read_codex_tokens(*, _lock: bool = True) -> Dict[str, Any]:
     refresh_token = tokens.get("refresh_token")
     if not isinstance(access_token, str) or not access_token.strip():
         raise AuthError(
-            "Codex auth is missing access_token. Run `hermes auth` to re-authenticate.",
+            "Codex auth is missing access_token. Run `kova auth` to re-authenticate.",
             provider="openai-codex",
             code="codex_auth_missing_access_token",
             relogin_required=True,
         )
     if not isinstance(refresh_token, str) or not refresh_token.strip():
         raise AuthError(
-            "Codex auth is missing refresh_token. Run `hermes auth` to re-authenticate.",
+            "Codex auth is missing refresh_token. Run `kova auth` to re-authenticate.",
             provider="openai-codex",
             code="codex_auth_missing_refresh_token",
             relogin_required=True,
@@ -3379,7 +3379,7 @@ def refresh_codex_oauth_pure(
     del access_token  # Access token is only used by callers to decide whether to refresh.
     if not isinstance(refresh_token, str) or not refresh_token.strip():
         raise AuthError(
-            "Codex auth is missing refresh_token. Run `hermes auth` to re-authenticate.",
+            "Codex auth is missing refresh_token. Run `kova auth` to re-authenticate.",
             provider="openai-codex",
             code="codex_auth_missing_refresh_token",
             relogin_required=True,
@@ -3458,7 +3458,7 @@ def refresh_codex_oauth_pure(
                 "Codex refresh token was already consumed by another client "
                 "(e.g. Codex CLI or VS Code extension). "
                 "Run `codex` in your terminal to generate fresh tokens, "
-                "then run `hermes auth` to re-authenticate."
+                "then run `kova auth` to re-authenticate."
             )
             relogin_required = True
         # A 401/403 from the token endpoint always means the refresh token
@@ -3654,7 +3654,7 @@ def resolve_codex_runtime_credentials(
         if read_error is not None:
             raise read_error
         raise AuthError(
-            "No Codex credentials stored. Run `hermes auth` to authenticate.",
+            "No Codex credentials stored. Run `kova auth` to authenticate.",
             provider="openai-codex",
             code="codex_auth_missing",
             relogin_required=True,
@@ -3691,7 +3691,7 @@ def resolve_codex_runtime_credentials(
         "provider": "openai-codex",
         "base_url": base_url,
         "api_key": access_token,
-        "source": "hermes-auth-store",
+        "source": "kova-auth-store",
         "last_refresh": data.get("last_refresh"),
         "auth_mode": "chatgpt",
     }
@@ -3874,7 +3874,7 @@ def _read_xai_oauth_tokens(*, _lock: bool = True) -> Dict[str, Any]:
             state = global_state
     if not state:
         raise AuthError(
-            "No xAI OAuth credentials stored. Select xAI Grok OAuth (SuperGrok / Premium+) in `hermes model`.",
+            "No xAI OAuth credentials stored. Select xAI Grok OAuth (SuperGrok / Premium+) in `kova model`.",
             provider="xai-oauth",
             code="xai_auth_missing",
             relogin_required=True,
@@ -3882,7 +3882,7 @@ def _read_xai_oauth_tokens(*, _lock: bool = True) -> Dict[str, Any]:
     tokens = state.get("tokens")
     if not isinstance(tokens, dict):
         raise AuthError(
-            "xAI OAuth state is missing tokens. Re-authenticate with `hermes model`.",
+            "xAI OAuth state is missing tokens. Re-authenticate with `kova model`.",
             provider="xai-oauth",
             code="xai_auth_invalid_shape",
             relogin_required=True,
@@ -3891,14 +3891,14 @@ def _read_xai_oauth_tokens(*, _lock: bool = True) -> Dict[str, Any]:
     refresh_token = str(tokens.get("refresh_token", "") or "").strip()
     if not access_token:
         raise AuthError(
-            "xAI OAuth state is missing access_token. Re-authenticate with `hermes model`.",
+            "xAI OAuth state is missing access_token. Re-authenticate with `kova model`.",
             provider="xai-oauth",
             code="xai_auth_missing_access_token",
             relogin_required=True,
         )
     if not refresh_token:
         raise AuthError(
-            "xAI OAuth state is missing refresh_token. Re-authenticate with `hermes model`.",
+            "xAI OAuth state is missing refresh_token. Re-authenticate with `kova model`.",
             provider="xai-oauth",
             code="xai_auth_missing_refresh_token",
             relogin_required=True,
@@ -4084,7 +4084,7 @@ def _xai_validate_oauth_endpoint(url: str, *, field: str) -> str:
             f"xAI OIDC discovery {field} host {host!r} is not on the xAI origin "
             f"(expected x.ai or a *.x.ai subdomain). Refusing to use a cached "
             f"endpoint that may have been substituted by a MITM during initial "
-            f"discovery; re-authenticate with `hermes model` to re-fetch.",
+            f"discovery; re-authenticate with `kova model` to re-fetch.",
             provider="xai-oauth",
             code="xai_discovery_invalid",
         )
@@ -4206,7 +4206,7 @@ def refresh_xai_oauth_pure(
     del access_token
     if not isinstance(refresh_token, str) or not refresh_token.strip():
         raise AuthError(
-            "xAI OAuth is missing refresh_token. Re-authenticate with `hermes model`.",
+            "xAI OAuth is missing refresh_token. Re-authenticate with `kova model`.",
             provider="xai-oauth",
             code="xai_auth_missing_refresh_token",
             relogin_required=True,
@@ -4216,7 +4216,7 @@ def refresh_xai_oauth_pure(
     # written by an older Hermes (or hand-edited) may carry a non-xAI
     # token_endpoint that would receive every future refresh_token in
     # plaintext if we trusted it blindly. Cheap suffix check; fast-fail
-    # with a clear error so the user can re-run `hermes model` to refetch.
+    # with a clear error so the user can re-run `kova model` to refetch.
     _xai_validate_oauth_endpoint(endpoint, field="token_endpoint")
     timeout = httpx.Timeout(max(5.0, float(timeout_seconds)))
     with httpx.Client(timeout=timeout, headers={"Accept": "application/json"}) as client:
@@ -4233,7 +4233,7 @@ def refresh_xai_oauth_pure(
         detail = response.text.strip()
         # ``403`` from xAI's token endpoint is almost always a tier /
         # entitlement gate (the OAuth grant exists but the account isn't
-        # on the allowlist for API access).  Re-running ``hermes model``
+        # on the allowlist for API access).  Re-running ``kova model``
         # won't fix that — surface a separate error code so
         # ``format_auth_error`` doesn't append a misleading
         # re-authenticate hint, and point users at the ``XAI_API_KEY``
@@ -4420,7 +4420,7 @@ def resolve_xai_oauth_runtime_credentials(
         "provider": "xai-oauth",
         "base_url": base_url,
         "api_key": access_token,
-        "source": "hermes-auth-store",
+        "source": "kova-auth-store",
         "last_refresh": data.get("last_refresh"),
         # Display/telemetry only. Device-code is the only supported xAI OAuth
         # flow, so report it unconditionally — auth.json may still carry a
@@ -5100,9 +5100,9 @@ def _refresh_access_token(
             "~/.hermes/auth.json) called POST /api/oauth/token with Hermes's "
             "refresh token without persisting the rotated token back.\n"
             "Nous refresh tokens are single-use — only Hermes may call the "
-            "refresh endpoint. For health checks, use `hermes auth status` "
+            "refresh endpoint. For health checks, use `kova auth status` "
             "instead.\n"
-            "Re-authenticate with: hermes auth add nous"
+            "Re-authenticate with: kova auth add nous"
         )
         relogin = True
 
@@ -5356,7 +5356,7 @@ def refresh_nous_oauth_pure(
                     raise AuthError(
                         "Nous Portal access token is not a usable inference JWT "
                         f"({current_invoke_jwt_status}) and no refresh token is available. "
-                        "Re-authenticate with: hermes auth add nous",
+                        "Re-authenticate with: kova auth add nous",
                         provider="nous",
                         code=current_invoke_jwt_status,
                         relogin_required=True,
@@ -5413,7 +5413,7 @@ def refresh_nous_oauth_from_state(
     return refresh_nous_oauth_pure(
         state.get("access_token", ""),
         state.get("refresh_token", ""),
-        state.get("client_id", "hermes-cli"),
+        state.get("client_id", "kova-cli"),
         state.get("portal_base_url", DEFAULT_NOUS_PORTAL_URL),
         state.get("inference_base_url", DEFAULT_NOUS_INFERENCE_URL),
         token_type=state.get("token_type", "Bearer"),
@@ -5653,7 +5653,7 @@ def resolve_nous_runtime_credentials(
                             raise AuthError(
                                 "Nous Portal access token is not a usable inference JWT "
                                 f"({reason}) and no refresh token is available. "
-                                "Re-authenticate with: hermes auth add nous",
+                                "Re-authenticate with: kova auth add nous",
                                 provider="nous",
                                 code=reason,
                                 relogin_required=True,
@@ -6312,7 +6312,7 @@ def _get_azure_foundry_auth_status() -> Dict[str, Any]:
             else:
                 info["hint"] = (
                     "azure-identity is installed; live credential validation "
-                    "is skipped here. Run `hermes doctor` to verify token acquisition."
+                    "is skipped here. Run `kova doctor` to verify token acquisition."
                 )
             return info
         except Exception as exc:
@@ -6831,10 +6831,10 @@ def _save_model_choice(model_id: str) -> None:
 
 
 def login_command(args) -> None:
-    """Deprecated: use 'hermes model' or 'hermes setup' instead."""
-    print("The 'hermes login' command has been removed.")
-    print("Use 'hermes auth' to manage credentials,")
-    print("'hermes model' to select a provider, or 'hermes setup' for full setup.")
+    """Deprecated: use 'kova model' or 'kova setup' instead."""
+    print("The 'kova login' command has been removed.")
+    print("Use 'kova auth' to manage credentials,")
+    print("'kova model' to select a provider, or 'kova setup' for full setup.")
     raise SystemExit(0)
 
 
@@ -7703,7 +7703,7 @@ def build_minimax_oauth_token_provider() -> Callable[[], str]:
         state = get_provider_auth_state("minimax-oauth")
         if not state or not state.get("access_token"):
             raise AuthError(
-                "Not logged into MiniMax OAuth. Run `hermes model` and select "
+                "Not logged into MiniMax OAuth. Run `kova model` and select "
                 "MiniMax (OAuth).",
                 provider="minimax-oauth", code="not_logged_in", relogin_required=True,
             )
@@ -7743,7 +7743,7 @@ def resolve_minimax_oauth_runtime_credentials(
     state = get_provider_auth_state("minimax-oauth")
     if not state or not state.get("access_token"):
         raise AuthError(
-            "Not logged into MiniMax OAuth. Run `hermes model` and select "
+            "Not logged into MiniMax OAuth. Run `kova model` and select "
             "MiniMax (OAuth).",
             provider="minimax-oauth", code="not_logged_in", relogin_required=True,
         )
@@ -7931,7 +7931,7 @@ def _nous_device_code_login(
             print(message)
             print(f"  Subscribe here: {portal_url}/billing")
             print()
-            print("After subscribing, run `hermes model` again to finish setup.")
+            print("After subscribing, run `kova model` again to finish setup.")
             raise SystemExit(1)
         raise
 
@@ -8206,7 +8206,7 @@ def _login_nous(args, pconfig: ProviderConfig) -> None:
                 _save_auth_store(auth_store)
             print()
             print("No provider change. Nous credentials saved for future use.")
-            print("  Run `hermes model` again to switch to Nous Portal.")
+            print("  Run `kova model` again to switch to Nous Portal.")
             return
 
         config_path = _update_config_for_provider(
@@ -8250,7 +8250,7 @@ def logout_command(args) -> None:
         if should_reset_config and os.getenv("OPENROUTER_API_KEY"):
             print("Kova will use OpenRouter for inference.")
         elif should_reset_config:
-            print("Run `hermes model` or configure an API key to use Kova.")
+            print("Run `kova model` or configure an API key to use Kova.")
         else:
             print("Model provider configuration was unchanged.")
     else:

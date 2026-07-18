@@ -13,14 +13,14 @@ Matches OpenClaw's 9-tool MCP channel bridge surface:
 Plus: channels_list (Hermes-specific extra)
 
 Usage:
-    hermes mcp serve
-    hermes mcp serve --verbose
+    kova mcp serve
+    kova mcp serve --verbose
 
 MCP client config (e.g. claude_desktop_config.json):
     {
         "mcpServers": {
-            "hermes": {
-                "command": "hermes",
+            "kova": {
+                "command": "kova",
                 "args": ["mcp", "serve"]
             }
         }

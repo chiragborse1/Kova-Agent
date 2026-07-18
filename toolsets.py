@@ -439,7 +439,7 @@ TOOLSETS = {
         # them down per the platform config. _DEFAULT_OFF_TOOLSETS (moa,
         # homeassistant) are excluded by _get_platform_tools() unless
         # the user explicitly enables them.
-        "description": "Default cron toolset - same core tools as hermes-cli; gated by `hermes tools`",
+        "description": "Default cron toolset - same core tools as kova-cli; gated by `kova tools`",
         "tools": _HERMES_CORE_TOOLS,
         "includes": []
     },
@@ -574,7 +574,7 @@ TOOLSETS = {
         "includes": []
     },
 
-    "hermes-gateway": {
+    "kova-gateway": {
         "description": "Gateway toolset - union of all messaging platform tools",
         "tools": [],
         "includes": ["hermes-telegram", "hermes-discord", "hermes-whatsapp", "hermes-slack", "hermes-signal", "hermes-bluebubbles", "hermes-homeassistant", "hermes-email", "hermes-sms", "hermes-mattermost", "hermes-matrix", "hermes-dingtalk", "hermes-feishu", "hermes-wecom", "hermes-wecom-callback", "hermes-weixin", "hermes-qqbot", "hermes-webhook", "hermes-yuanbao"]

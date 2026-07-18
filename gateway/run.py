@@ -2474,7 +2474,7 @@ def _resolve_hermes_bin() -> Optional[list[str]]:
     """
     import shutil
 
-    hermes_bin = shutil.which("hermes")
+    hermes_bin = shutil.which("kova")
     if hermes_bin:
         return [hermes_bin]
 
@@ -6322,7 +6322,7 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
 
                 service_name = get_service_name()
             except Exception:
-                service_name = "hermes-gateway"
+                service_name = "kova-gateway"
 
             current_pid = os.getpid()
 
@@ -14682,7 +14682,7 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                 elif exit_code == 0:
                     msg = "✅ Kova update finished successfully."
                 else:
-                    msg = "❌ Kova update failed. Check the gateway logs or run `hermes update` manually for details."
+                    msg = "❌ Kova update failed. Check the gateway logs or run `kova update` manually for details."
                 await adapter.send(
                     chat_id,
                     msg,

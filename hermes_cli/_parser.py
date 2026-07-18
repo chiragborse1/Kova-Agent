@@ -1,5 +1,5 @@
 """
-Top-level argparse construction for the hermes CLI.
+Top-level argparse construction for the kova CLI.
 
 Lives in its own module so other modules (e.g. ``relaunch.py``) can
 introspect the parser to discover which flags exist without running the
@@ -39,46 +39,46 @@ def _inherited_flag(parser, *args, **kwargs):
 
 _EPILOGUE = """
 Examples:
-    hermes                        Start interactive chat
-    hermes chat -q "Hello"        Single query mode
-    hermes --tui                  Launch the modern TUI (or set display.interface: tui)
-    hermes --cli                  Force the classic REPL (overrides display.interface: tui)
-    hermes -c                     Resume the most recent session
-    hermes -c "my project"        Resume a session by name (latest in lineage)
-    hermes --resume <session_id>  Resume a specific session by ID
-    hermes setup                  Run setup wizard
-    hermes logout                 Clear stored authentication
-    hermes auth add <provider>    Add a pooled credential
-    hermes auth list              List pooled credentials
-    hermes auth remove <p> <t>    Remove pooled credential by index, id, or label
-    hermes auth reset <provider>  Clear exhaustion status for a provider
-    hermes model                  Select default model
-    hermes fallback [list]        Show fallback provider chain
-    hermes fallback add           Add a fallback provider (same picker as `hermes model`)
-    hermes fallback remove        Remove a fallback provider from the chain
-    hermes config                 View configuration
-    hermes config edit            Edit config in $EDITOR
-    hermes config set model gpt-4 Set a config value
-    hermes gateway                Run messaging gateway
-    hermes -s hermes-agent-dev,github-auth
-    hermes -w                     Start in isolated git worktree
-    hermes gateway install        Install gateway background service
-    hermes sessions list          List past sessions
-    hermes sessions browse        Interactive session picker
-    hermes sessions rename ID T   Rename/title a session
-    hermes logs                   View agent.log (last 50 lines)
-    hermes logs -f                Follow agent.log in real time
-    hermes logs errors            View errors.log
-    hermes logs --since 1h        Lines from the last hour
-    hermes debug share             Upload debug report for support
-    hermes console                Open the safe Hermes command console
-    hermes update                 Update to latest version
-    hermes dashboard              Start web UI dashboard (port 9119)
-    hermes dashboard --stop       Stop running dashboard processes
-    hermes dashboard --status     List running dashboard processes
+    kova                        Start interactive chat
+    kova chat -q "Hello"        Single query mode
+    kova --tui                  Launch the modern TUI (or set display.interface: tui)
+    kova --cli                  Force the classic REPL (overrides display.interface: tui)
+    kova -c                     Resume the most recent session
+    kova -c "my project"        Resume a session by name (latest in lineage)
+    kova --resume <session_id>  Resume a specific session by ID
+    kova setup                  Run setup wizard
+    kova logout                 Clear stored authentication
+    kova auth add <provider>    Add a pooled credential
+    kova auth list              List pooled credentials
+    kova auth remove <p> <t>    Remove pooled credential by index, id, or label
+    kova auth reset <provider>  Clear exhaustion status for a provider
+    kova model                  Select default model
+    kova fallback [list]        Show fallback provider chain
+    kova fallback add           Add a fallback provider (same picker as `kova model`)
+    kova fallback remove        Remove a fallback provider from the chain
+    kova config                 View configuration
+    kova config edit            Edit config in $EDITOR
+    kova config set model gpt-4 Set a config value
+    kova gateway                Run messaging gateway
+    kova -s kova-agent-dev,github-auth
+    kova -w                     Start in isolated git worktree
+    kova gateway install        Install gateway background service
+    kova sessions list          List past sessions
+    kova sessions browse        Interactive session picker
+    kova sessions rename ID T   Rename/title a session
+    kova logs                   View agent.log (last 50 lines)
+    kova logs -f                Follow agent.log in real time
+    kova logs errors            View errors.log
+    kova logs --since 1h        Lines from the last hour
+    kova debug share             Upload debug report for support
+    kova console                Open the safe Kova command console
+    kova update                 Update to latest version
+    kova dashboard              Start web UI dashboard (port 9119)
+    kova dashboard --stop       Stop running dashboard processes
+    kova dashboard --status     List running dashboard processes
 
 For more help on a command:
-    hermes <command> --help
+    kova <command> --help
 """
 
 
@@ -90,7 +90,7 @@ def build_top_level_parser():
     other subparsers via ``subparsers.add_parser(...)``.
     """
     parser = argparse.ArgumentParser(
-        prog="hermes",
+        prog="kova",
         description="Kova Agent - AI assistant with tool-calling capabilities",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=_EPILOGUE,

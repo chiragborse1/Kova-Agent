@@ -273,7 +273,7 @@ def _check_version_consistency(issues: list[str]) -> None:
         _fail_and_issue(
             "Version mismatch between source files",
             f"(pyproject.toml {pyproject_version} != hermes_cli/__init__.py {init_version})",
-            "Re-sync version files (e.g. run 'hermes update', or set "
+            "Re-sync version files (e.g. run 'kova update', or set "
             "hermes_cli/__init__.py __version__ to match pyproject.toml)",
             issues,
         )
@@ -1345,7 +1345,7 @@ def run_doctor(args):
         # Determine the venv entry point location
         _venv_bin = None
         for _venv_name in ("venv", ".venv"):
-            _candidate = PROJECT_ROOT / _venv_name / "bin" / "hermes"
+            _candidate = PROJECT_ROOT / _venv_name / "bin" / "kova"
             if _candidate.exists():
                 _venv_bin = _candidate
                 break
@@ -1359,7 +1359,7 @@ def run_doctor(args):
         else:
             _cmd_link_dir = Path.home() / ".local" / "bin"
             _cmd_link_display = "~/.local/bin"
-        _cmd_link = _cmd_link_dir / "hermes"
+        _cmd_link = _cmd_link_dir / "kova"
 
         if _venv_bin is None:
             check_warn(

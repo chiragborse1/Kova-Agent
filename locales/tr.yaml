@@ -99,8 +99,8 @@ gateway:
     upload_failed:         "✗ Hata ayıklama raporu y�klenemedi: {error}"
     header:                "**Hata ayıklama raporu y�klendi:**"
     auto_delete:           "⏱ Paste'ler 6 saat i�inde otomatik olarak silinecek."
-    full_logs_hint:        "Tam g�nl�k y�klemeleri i�in CLI'dan `hermes debug share` kullanın."
-    share_hint:            "Destek i�in bu bağlantıları Hermes ekibiyle paylaşın."
+    full_logs_hint:        "Tam g�nl�k y�klemeleri i�in CLI'dan `kova debug share` kullanın."
+    share_hint:            "Destek i�in bu bağlantıları Kova ekibiyle paylaşın."
 
   deny:
     stale:                 "❌ Komut reddedildi (onay ge�ersizdi)."
@@ -139,7 +139,7 @@ gateway:
     set:                   "⊙ Hedef ayarlandı ({budget} turluk b�t�e): {goal}\nHedef tamamlanana, siz duraklatana/temizleyene veya b�t�e t�kenene kadar �alışmaya devam edeceğim.\nKontroller: /goal status � /goal pause � /goal resume � /goal clear"
 
   help:
-    header:                "📖 **Hermes Komutları**\n"
+    header:                "📖 **Kova Komutları**\n"
     skill_header:          "\n⚡ **Skill Komutları** ({count} aktif):"
     more_use_commands:     "\n... ve {count} tane daha. Tam sayfalı liste i�in `/commands` kullanın."
 
@@ -150,7 +150,7 @@ gateway:
   kanban:
     error_prefix:          "⚠ kanban hatası: {error}"
     subscribed_suffix:     "(abone olundu � {task_id} tamamlandığında veya engellendiğinde bildirim alacaksınız)"
-    truncated_suffix:      "� (kısaltıldı; tam �ıktı i�in terminalinizde `hermes kanban �` komutunu kullanın)"
+    truncated_suffix:      "� (kısaltıldı; tam �ıktı i�in terminalinizde `kova kanban �` komutunu kullanın)"
     no_output:             "(�ıktı yok)"
     wake:
       completed:           "completed"
@@ -227,7 +227,7 @@ gateway:
 
   restart:
     in_progress:           "⏳ Gateway yeniden başlatma zaten s�r�yor..."
-    restarting:            "♻ Gateway yeniden başlatılıyor. 60 saniye i�inde bildirim almazsanız konsoldan `hermes gateway restart` ile yeniden başlatın."
+    restarting:            "♻ Gateway yeniden başlatılıyor. 60 saniye i�inde bildirim almazsanız konsoldan `kova gateway restart` ile yeniden başlatın."
 
   resume:
     db_unavailable:        "Oturum veritabanı kullanılamıyor."
@@ -271,7 +271,7 @@ Future messages in this room will use that transcript until `/reset` or another 
     success:               "✅ Ana kanal **{name}** (ID: {chat_id}) olarak ayarlandı.\nCron işleri ve platformlar arası mesajlar buraya iletilecek."
 
   status:
-    header:                "📊 **Hermes Gateway Durumu**"
+    header:                "📊 **Kova Gateway Durumu**"
     matrix_scope_header:   "**Matrix scope:**"
     matrix_scope_room:     "  room: {room}"
     matrix_scope_room_id:  "  room_id: {room_id}"
@@ -316,7 +316,7 @@ Future messages in this room will use that transcript until `/reset` or another 
     topics_user_disallowed:  "Telegram topic'leri etkin, ancak kullanıcıların topic oluşturmasına izin verilmiyor.\n\n@BotFather → botunuz → Bot Settings → Threads Settings yolunu a�ın ve 'Disallow users to create new threads' se�eneğini kapatın.\n\nArdından /topic'i tekrar g�nderin."
     enable_failed:           "Telegram topic modu etkinleştirilemedi: {error}"
     bound_status:            "Bu topic şuna bağlı:\nOturum: {label}\nID: {session_id}\n\nBu topic'i yeni bir oturumla değiştirmek i�in /new kullanın.\nParalel �alışma i�in All Messages'ı a�ıp orada bir mesaj g�ndererek başka bir topic oluşturun."
-    thread_ready:            "Telegram �ok oturumlu topic'leri etkin.\n\nBu topic bağımsız bir Hermes oturumu olarak kullanılacak. Bu topic'in mevcut oturumunu değiştirmek i�in /new kullanın. Paralel �alışma i�in All Messages'ı a�ıp orada bir mesaj g�ndererek başka bir topic oluşturun."
+    thread_ready:            "Telegram �ok oturumlu topic'leri etkin.\n\nBu topic bağımsız bir Kova oturumu olarak kullanılacak. Bu topic'in mevcut oturumunu değiştirmek i�in /new kullanın. Paralel �alışma i�in All Messages'ı a�ıp orada bir mesaj g�ndererek başka bir topic oluşturun."
     untitled_session:        "Adsız oturum"
 
   undo:
@@ -325,11 +325,11 @@ Future messages in this room will use that transcript until `/reset` or another 
     invalid_count:         "Ge�ersiz sayı \"{arg}\" � /undo veya /undo N kullanın."
 
   update:
-    platform_not_messaging:  "✗ /update yalnızca mesajlaşma platformlarında kullanılabilir. Terminalden `hermes update` komutunu �alıştırın."
+    platform_not_messaging:  "✗ /update yalnızca mesajlaşma platformlarında kullanılabilir. Terminalden `kova update` komutunu �alıştırın."
     not_git_repo:            "✗ Git deposu değil � g�ncellenemiyor."
-    hermes_cmd_not_found:    "✗ `hermes` komutu bulunamadı. Hermes �alışıyor, ancak g�ncelleme komutu y�r�t�lebilir dosyayı PATH'te veya mevcut Python yorumlayıcısı aracılığıyla bulamadı. Terminalde `hermes update` komutunu manuel olarak �alıştırmayı deneyin."
+    hermes_cmd_not_found:    "✗ `kova` komutu bulunamadı. Kova �alışıyor, ancak g�ncelleme komutu y�r�t�lebilir dosyayı PATH'te veya mevcut Python yorumlayıcısı aracılığıyla bulamadı. Terminalde `kova update` komutunu manuel olarak �alıştırmayı deneyin."
     start_failed:            "✗ G�ncelleme başlatılamadı: {error}"
-    starting:                "⚕ Hermes g�ncellemesi başlatılıyor� İlerlemeyi buraya akıtacağım."
+    starting:                "⚕ Kova g�ncellemesi başlatılıyor� İlerlemeyi buraya akıtacağım."
 
   usage:
     rate_limits:              "⏱️ **Hız Sınırları:** {state}"
@@ -400,3 +400,4 @@ Future messages in this room will use that transcript until `/reset` or another 
     session_db_unavailable_prefix: "Oturum veritabanı kullanılamıyor"
     session_not_found:           "Oturum veritabanında bulunamadı."
     warn_passthrough:            "⚠️ {error}"
+

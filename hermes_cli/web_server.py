@@ -8573,7 +8573,7 @@ def _submit_anthropic_pkce(
             data=exchange_data,
             headers={
                 "Content-Type": "application/json",
-                "User-Agent": "hermes-dashboard/1.0",
+                "User-Agent": "kova-dashboard/1.0",
             },
             method="POST",
         )

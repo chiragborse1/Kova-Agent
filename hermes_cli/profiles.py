@@ -245,7 +245,7 @@ _DEFAULT_EXPORT_INCLUDE_ROOT = frozenset({
 
 # Names that cannot be used as profile aliases
 _RESERVED_NAMES = frozenset({
-    "hermes", "default", "test", "tmp", "root", "sudo",
+    "kova", "default", "test", "tmp", "root", "sudo",
 })
 
 # Hermes subcommands that cannot be used as profile names/aliases
@@ -466,7 +466,7 @@ def create_wrapper_script(name: str, target: Optional[str] = None) -> Optional[P
     else:
         wrapper_path = wrapper_dir / canon
         try:
-            hermes_exe = shutil.which("hermes") or "hermes"
+            hermes_exe = shutil.which("kova") or "kova"
             wrapper_path.write_text(f'#!/bin/sh\nexec {shlex.quote(hermes_exe)} -p {profile} "$@"\n')
             wrapper_path.chmod(wrapper_path.stat().st_mode | stat.S_IEXEC | stat.S_IXGRP | stat.S_IXOTH)
             return wrapper_path

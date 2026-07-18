@@ -31,7 +31,7 @@ if sys.platform == "win32":
 else:
     import fcntl
 
-_GATEWAY_KIND = "hermes-gateway"
+_GATEWAY_KIND = "kova-gateway"
 _RUNTIME_STATUS_FILE = "gateway_state.json"
 _LOCKS_DIRNAME = "gateway-locks"
 _IS_WINDOWS = sys.platform == "win32"
@@ -255,14 +255,14 @@ def _gateway_command_subcommand(command: str | None) -> str | None:
         if token == "gateway/run.py" or token.endswith("/gateway/run.py"):
             return "run"
         basename = token.rsplit("/", 1)[-1]
-        if basename in ("hermes-gateway", "hermes-gateway.exe"):
+        if basename in ("kova-gateway", "kova-gateway.exe"):
             return "run"
 
     joined = " ".join(tokens)
     has_gateway_entry = (
         "hermes_cli.main" in joined
         or "hermes_cli/main.py" in joined
-        or any(t.rsplit("/", 1)[-1] in ("hermes", "hermes.exe") for t in tokens)
+        or any(t.rsplit("/", 1)[-1] in ("kova", "kova.exe") for t in tokens)
     )
     if not has_gateway_entry:
         return None

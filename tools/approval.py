@@ -625,7 +625,7 @@ DANGEROUS_PATTERNS = [
     # `hermes` and `gateway` (e.g. `hermes -p ade gateway restart`) so a
     # profile flag can't slip the agent past the guard.
     (r'\bhermes\s+(?:-{1,2}\S+(?:\s+\S+)?\s+)*gateway\s+(stop|restart)\b', "stop/restart hermes gateway (kills running agents)"),
-    (r'\bhermes\s+update\b', "hermes update (restarts gateway, kills running agents)"),
+    (r'\bhermes\s+update\b', "kova update (restarts gateway, kills running agents)"),
     # Docker container lifecycle — any user with docker.sock mounted (a common
     # Docker Compose pattern) gives the agent the ability to restart/stop/kill
     # containers without approval.  These are agent-initiated lifecycle operations
@@ -634,8 +634,8 @@ DANGEROUS_PATTERNS = [
     (r'\bdocker\s+compose\s+(restart|stop|kill|down)\b', "docker compose restart/stop/kill/down (container lifecycle)"),
     (r'\bdocker\s+(restart|stop|kill)\b', "docker restart/stop/kill (container lifecycle)"),
     # Gateway protection: never start gateway outside systemd management
-    (r'gateway\s+run\b.*(&\s*$|&\s*;|\bdisown\b|\bsetsid\b)', "start gateway outside systemd (use 'systemctl --user restart hermes-gateway')"),
-    (r'\bnohup\b.*gateway\s+run\b', "start gateway outside systemd (use 'systemctl --user restart hermes-gateway')"),
+    (r'gateway\s+run\b.*(&\s*$|&\s*;|\bdisown\b|\bsetsid\b)', "start gateway outside systemd (use 'systemctl --user restart kova-gateway')"),
+    (r'\bnohup\b.*gateway\s+run\b', "start gateway outside systemd (use 'systemctl --user restart kova-gateway')"),
     # Self-termination protection: prevent agent from killing its own process
     (r'\b(pkill|killall)\b.*\b(hermes|gateway|cli\.py)\b', "kill hermes/gateway process (self-termination)"),
     # Self-termination via kill + command substitution (pgrep/pidof).

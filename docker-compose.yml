@@ -29,8 +29,8 @@
 services:
   gateway:
     build: .
-    image: hermes-agent
-    container_name: hermes
+    image: kova-agent
+    container_name: kova
     restart: unless-stopped
     network_mode: host
     volumes:
@@ -61,8 +61,8 @@ services:
     command: ["gateway", "run"]
 
   dashboard:
-    image: hermes-agent
-    container_name: hermes-dashboard
+    image: kova-agent
+    container_name: kova-dashboard
     restart: unless-stopped
     network_mode: host
     depends_on:

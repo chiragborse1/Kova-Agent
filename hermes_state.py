@@ -1032,7 +1032,7 @@ class SessionDB:
         self._fts_unavailable_warned = True
         logger.warning(
             "SQLite FTS5 unavailable for %s; full-text session search "
-            "disabled. Run `hermes update` to rebuild the venv with a "
+            "disabled. Run `kova update` to rebuild the venv with a "
             "current Python (managed uv guarantees FTS5). "
             "(underlying error: %s)",
             self.db_path,

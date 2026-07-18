@@ -104,11 +104,11 @@ class CLIAgentSetupMixin:
                 )
             else:
                 print("\n⚠️  Provider resolver returned an empty API key. "
-                      "Set OPENROUTER_API_KEY or run: hermes setup")
+                      "Set OPENROUTER_API_KEY or run: kova setup")
                 return False
         if not isinstance(base_url, str) or not base_url:
             print("\n⚠️  Provider resolver returned an empty base URL. "
-                  "Check your provider config or run: hermes setup")
+                  "Check your provider config or run: kova setup")
             return False
 
         credentials_changed = api_key != self.api_key or base_url != self.base_url

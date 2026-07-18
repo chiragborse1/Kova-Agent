@@ -1,37 +1,37 @@
 #!/command/with-contenv sh
 # shellcheck shell=sh
-# /opt/hermes/docker/main-wrapper.sh — wraps the container's CMD with
+# /opt/kova/docker/main-wrapper.sh — wraps the container's CMD with
 # the same argument-routing logic the pre-s6 entrypoint.sh used. Runs
 # as /init's "main program" (Docker CMD) so it inherits stdin/stdout/
 # stderr from the container.
 #
 # Shebang note: /init scrubs env before invoking CMD, so a plain
 # `#!/bin/sh` wrapper sees an empty environ and `ENV HERMES_HOME=/opt/data`
-# from the Dockerfile never reaches `hermes`. with-contenv repopulates
+# from the Dockerfile never reaches `kova`. with-contenv repopulates
 # the env from /run/s6/container_environment before exec'ing, which is
 # what s6-supervised services use too (see main-hermes/run).
 #
 # Routing:
-#   no args                       → exec `hermes` (the default)
+#   no args                       → exec `kova` (the default)
 #   first arg is an executable    → exec it directly (sleep, bash, sh, …)
-#   first arg is anything else    → exec `hermes <args>` (subcommand passthrough)
+#   first arg is anything else    → exec `kova <args>` (subcommand passthrough)
 #
-# Drop to hermes via s6-setuidgid, but skip it when already non-root.
+# Drop to kova via s6-setuidgid, but skip it when already non-root.
 set -e
 
-drop() { [ "$(id -u)" = 0 ] && set -- s6-setuidgid hermes "$@"; exec "$@"; }
+drop() { [ "$(id -u)" = 0 ] && set -- s6-setuidgid kova "$@"; exec "$@"; }
 
 # --- Reject the unsupported `docker run --user <uid>:<gid>` start ---
 # Mirror the guard in stage2-hook.sh (cont-init). This is the surface the
 # user actually sees in `docker run` output: when the container is pinned to
-# an arbitrary non-root, non-hermes UID, the bootstrap was skipped and the
+# an arbitrary non-root, non-kova UID, the bootstrap was skipped and the
 # baked image dirs (owned by the hermes build UID) are unwritable, so fail
 # fast here with actionable guidance rather than crashing on `cd`/EACCES
 # further down. See stage2-hook.sh for the full rationale.
 cur_uid="$(id -u)"
-if [ "$cur_uid" != 0 ] && [ "$cur_uid" != "$(id -u hermes)" ]; then
+if [ "$cur_uid" != 0 ] && [ "$cur_uid" != "$(id -u kova)" ]; then
     cat >&2 <<EOF
-[hermes] ERROR: container started with --user $cur_uid (an arbitrary, non-hermes UID) — not supported.
+[kova] ERROR: container started with --user $cur_uid (an arbitrary, non-kova UID) — not supported.
 
 To make container-written files match your HOST user, don't use --user.
 Start as root (the default) and pass your host UID/GID instead:
@@ -42,7 +42,7 @@ NAS users (Synology / unRAID / UGOS) can use the PUID/PGID aliases:
 
     docker run -e PUID=\$(id -u) -e PGID=\$(id -g) ...
 
-The image remaps the hermes user to that UID/GID at boot and chowns the data
+The image remaps the kova user to that UID/GID at boot and chowns the data
 volume, so files land owned by your host user — the same outcome --user gave,
 without breaking the s6 supervision tree.
 EOF

@@ -6,10 +6,10 @@ Config files are stored in ~/.hermes/ for easy access:
 - ~/.hermes/.env         - API keys and secrets
 
 This module provides:
-- hermes config          - Show current configuration
-- hermes config edit     - Open config in editor
-- hermes config set      - Set a specific value
-- hermes config wizard   - Re-run setup wizard
+- kova config          - Show current configuration
+- kova config edit     - Open config in editor
+- kova config set      - Set a specific value
+- kova config wizard   - Re-run setup wizard
 """
 
 import copy
@@ -132,7 +132,7 @@ def _warn_config_parse_failure(config_path: Path, exc: Exception) -> None:
         msg += f" A copy of the corrupted file was saved to {backup_path}."
     logger.warning(msg)
     try:
-        sys.stderr.write(f"⚠️  hermes config: {msg}\n")
+        sys.stderr.write(f"⚠️  kova config: {msg}\n")
         sys.stderr.flush()
     except Exception:
         pass
@@ -522,17 +522,17 @@ def recommended_update_command_for_method(method: str) -> str:
     if method == "nixos":
         return _NIX_UPDATE_MSG
     if method == "homebrew":
-        return "brew upgrade hermes-agent"
+        return "brew upgrade kova-agent"
     if method == "docker":
-        return "docker pull nousresearch/hermes-agent:latest"
+        return "docker pull nousresearch/kova-agent:latest"
     if method == "pip":
         if is_uv_tool_install():
-            return "uv tool upgrade hermes-agent"
+            return "uv tool upgrade kova-agent"
         import shutil
         if shutil.which("uv"):
-            return "uv pip install --upgrade hermes-agent"
-        return "pip install --upgrade hermes-agent"
-    return "hermes update"
+            return "uv pip install --upgrade kova-agent"
+        return "pip install --upgrade kova-agent"
+    return "kova update"
 
 
 def recommended_update_command() -> str:
@@ -604,19 +604,19 @@ def format_unsupported_install_warning(method: str) -> str:
 #     helper spells that out, with notes on tag pinning and config
 #     persistence so users don't get blindsided.
 _DOCKER_UPDATE_MESSAGE = """\
-✗ ``hermes update`` doesn't apply inside the Docker container.
+✗ ``kova update`` doesn't apply inside the Docker container.
 
-Kova Agent runs as a published image (nousresearch/hermes-agent), not a
+Kova Agent runs as a published image (nousresearch/kova-agent), not a
 git checkout — the container has no working tree to pull into.  Update by
 pulling a fresh image and restarting your container instead:
 
-  docker pull nousresearch/hermes-agent:latest
+  docker pull nousresearch/kova-agent:latest
   # then restart whatever started the container, e.g.:
-  docker compose up -d --force-recreate hermes-agent
+  docker compose up -d --force-recreate kova-agent
   # or, for ad-hoc runs, exit the current container and `docker run` again
 
 Verify the new version after restart:
-  docker run --rm nousresearch/hermes-agent:latest --version
+  docker run --rm nousresearch/kova-agent:latest --version
 
 Notes:
   • If you pinned a specific tag (e.g. ``:v0.14.0``) the ``:latest`` tag
@@ -711,7 +711,7 @@ def get_container_exec_info() -> Optional[dict]:
 
     backend = info.get("backend", "docker")
     container_name = info.get("container_name", "hermes-agent")
-    exec_user = info.get("exec_user", "hermes")
+    exec_user = info.get("exec_user", "kova")
     hermes_bin = info.get("hermes_bin", "/data/current-package/bin/hermes")
 
     return {

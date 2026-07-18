@@ -93,8 +93,8 @@ def _strip_console_status_footer(text: str) -> str:
     last = _strip_ansi(lines[-1]).strip()
     prev = _strip_ansi(lines[-2]).strip()
     if not (
-        prev.startswith("Run 'hermes doctor'")
-        and last.startswith("Run 'hermes setup'")
+        prev.startswith("Run 'kova doctor'")
+        and last.startswith("Run 'kova setup'")
     ):
         return text.rstrip()
 
@@ -235,7 +235,7 @@ EXPECTED_HOSTED_PATHS: tuple[tuple[str, ...], ...] = (
 
 
 def _parser_root() -> tuple[_ArgumentParser, argparse._SubParsersAction]:
-    parser = _ArgumentParser(prog="hermes", add_help=False)
+    parser = _ArgumentParser(prog="kova", add_help=False)
     subparsers = parser.add_subparsers(dest="_console_command")
     return parser, subparsers
 
@@ -596,7 +596,7 @@ class HermesConsoleEngine:
 
         try:
             tokens = _split_line(raw_line)
-            if tokens and tokens[0] == "hermes":
+            if tokens and tokens[0] == "kova":
                 tokens = tokens[1:]
             if not tokens:
                 return self._help_result()

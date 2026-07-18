@@ -89,7 +89,7 @@ RUN set -eu; \
     ln -sf /init /usr/bin/tini
 
 # Non-root user for runtime; UID can be overridden via HERMES_UID at runtime
-RUN useradd -u 10000 -m -d /opt/data hermes
+RUN useradd -u 10000 -m -d /opt/data kova
 
 COPY --chmod=0755 --from=uv_source /usr/local/bin/uv /usr/local/bin/uvx /usr/local/bin/
 
@@ -105,7 +105,7 @@ RUN ln -sf /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm && 
     ln -sf /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx && \
     ln -sf /usr/local/lib/node_modules/corepack/dist/corepack.js /usr/local/bin/corepack
 
-WORKDIR /opt/hermes
+WORKDIR /opt/kova
 
 # ---------- Layer-cached dependency install ----------
 # Copy only package manifests first so npm install + Playwright are cached
@@ -212,10 +212,10 @@ RUN uv pip install --no-cache-dir --no-deps -e "."
 # read-only for the hermes user (go-w from the --chmod above).
 
 USER root
-RUN mkdir -p /opt/hermes/bin && \
-    cp /opt/hermes/docker/hermes-exec-shim.sh /opt/hermes/bin/hermes && \
-    chmod 0755 /opt/hermes/bin/hermes && \
-    printf 'docker\n' > /opt/hermes/.install_method
+RUN mkdir -p /opt/kova/bin && \
+    cp /opt/kova/docker/hermes-exec-shim.sh /opt/kova/bin/kova && \
+    chmod 0755 /opt/kova/bin/kova && \
+    printf 'docker\n' > /opt/kova/.install_method
 # The ``.install_method`` stamp is baked next to the running code (the install
 # tree), NOT into $HERMES_HOME. $HERMES_HOME (/opt/data) is a shared data
 # volume that is commonly bind-mounted from the host and even shared with a
@@ -266,14 +266,14 @@ COPY docker/s6-rc.d/ /etc/s6-overlay/s6-rc.d/
 # slots from $HERMES_HOME/profiles/<name>/ after a container restart
 # (the /run/service/ scandir is tmpfs and wiped on restart). Phase 4.
 RUN mkdir -p /etc/cont-init.d && \
-    printf '#!/command/with-contenv sh\nexec /opt/hermes/docker/stage2-hook.sh\n' \
-        > /etc/cont-init.d/01-hermes-setup && \
-    chmod +x /etc/cont-init.d/01-hermes-setup
+    printf '#!/command/with-contenv sh\nexec /opt/kova/docker/stage2-hook.sh\n' \
+        > /etc/cont-init.d/01-kova-setup && \
+    chmod +x /etc/cont-init.d/01-kova-setup
 COPY --chmod=0755 docker/cont-init.d/015-supervise-perms /etc/cont-init.d/015-supervise-perms
 COPY --chmod=0755 docker/cont-init.d/02-reconcile-profiles /etc/cont-init.d/02-reconcile-profiles
 
 # ---------- Runtime ----------
-ENV HERMES_WEB_DIST=/opt/hermes/hermes_cli/web_dist
+ENV HERMES_WEB_DIST=/opt/kova/hermes_cli/web_dist
 # Point the TUI launcher at the prebuilt bundle baked at build time (Layer 8:
 # `ui-tui && npm run build`). This makes _make_tui_argv take the prebuilt-bundle
 # fast path (`node --expose-gc /opt/hermes/ui-tui/dist/entry.js`) and skip the
@@ -290,7 +290,7 @@ ENV HERMES_WEB_DIST=/opt/hermes/hermes_cli/web_dist
 # embedded-chat (/api/pty) connections → ENOTEMPTY → the chat tab dies with a
 # 502 / "[session ended]". Pointing at the prebuilt bundle sidesteps the whole
 # check. (A separate launcher hardening is tracked independently.)
-ENV HERMES_TUI_DIR=/opt/hermes/ui-tui
+ENV HERMES_TUI_DIR=/opt/kova/ui-tui
 ENV HERMES_HOME=/opt/data
 ENV HERMES_WRITE_SAFE_ROOT=/opt/data
 ENV HERMES_DISABLE_LAZY_INSTALLS=1
@@ -331,7 +331,7 @@ ENV HERMES_LAZY_INSTALL_TARGET=/opt/data/lazy-packages
 # shim wins PATH resolution. The shim's last act is to exec the venv
 # binary by absolute path, so this PATH ordering is transparent to
 # every other consumer.
-ENV PATH="/opt/hermes/bin:/opt/hermes/.venv/bin:/opt/data/.local/bin:${PATH}"
+ENV PATH="/opt/kova/bin:/opt/kova/.venv/bin:/opt/data/.local/bin:${PATH}"
 RUN mkdir -p /opt/data
 VOLUME [ "/opt/data" ]
 
@@ -357,5 +357,5 @@ VOLUME [ "/opt/data" ]
 # and exec's the final program so its exit code becomes the container
 # exit code. Without the wrapper-as-ENTRYPOINT, leading-dash args
 # like `--version` would be intercepted by /init's POSIX shell.
-ENTRYPOINT [ "/init", "/opt/hermes/docker/main-wrapper.sh" ]
+ENTRYPOINT [ "/init", "/opt/kova/docker/main-wrapper.sh" ]
 CMD [ ]

@@ -722,13 +722,13 @@ def run_import(args) -> None:
                 # hermes_cli.profiles might not be available (fresh install)
                 if any(profiles_dir.iterdir()):
                     print("\n  Profiles detected but aliases could not be created.")
-                    print("  Run: hermes profile list  (after installing hermes)")
+                    print("  Run: kova profile list  (after installing kova)")
 
         # Guidance
         print()
         if not (hermes_root / "hermes-agent").is_dir():
             print("Note: The hermes-agent codebase was not included in the backup.")
-            print("  If this is a fresh install, run: hermes update")
+            print("  If this is a fresh install, run: kova update")
 
         if restored_profiles:
             gw_profiles = [n for n, _ in restored_profiles]
@@ -750,7 +750,7 @@ def run_import(args) -> None:
 # Entries may be individual files OR directories.  Directories are captured
 # recursively; missing entries are silently skipped.  Pairing data lives in
 # platform-specific JSON blobs outside state.db, so it's listed here explicitly
-# — `hermes update` snapshots this set before pulling so approved-user lists
+# — `kova update` snapshots this set before pulling so approved-user lists
 # are recoverable if anything goes wrong (issue #15733).
 _QUICK_STATE_FILES = (
     "state.db",
@@ -1026,7 +1026,7 @@ def restore_cron_jobs_if_emptied(
     snapshot_id: str,
     hermes_home: Optional[Path] = None,
 ) -> Optional[Dict[str, Any]]:
-    """Safety net for silent cron-job loss across ``hermes update``.
+    """Safety net for silent cron-job loss across ``kova update``.
 
     Config-version migrations have been observed to leave ``cron/jobs.json``
     valid-but-empty after an update, silently dropping every scheduled job
@@ -1275,7 +1275,7 @@ def create_pre_update_backup(
 
     Returns the path to the created zip, or ``None`` if no files were
     found or the backup could not be created.  Never raises — the caller
-    (``hermes update``) should continue even if the backup fails.
+    (``kova update``) should continue even if the backup fails.
     """
     hermes_root = hermes_home or get_default_hermes_root()
     if not hermes_root.is_dir():

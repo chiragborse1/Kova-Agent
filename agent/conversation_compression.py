@@ -579,7 +579,7 @@ def compress_context(
                     "compression lock subsystem unavailable for session=%s "
                     "(%s: %s) — proceeding without lock. This usually means a "
                     "stale in-memory module after an update; restart the "
-                    "process (or `hermes update`) to resync.",
+                    "process (or `kova update`) to resync.",
                     _lock_sid, type(_lock_err).__name__, _lock_err,
                 )
             _lock_acquired = True  # treat as acquired-but-unlocked; proceed

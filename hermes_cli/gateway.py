@@ -1700,7 +1700,7 @@ def _windows_gateway_should_absorb_console_controls() -> bool:
 # Service Configuration
 # =============================================================================
 
-_SERVICE_BASE = "hermes-gateway"
+_SERVICE_BASE = "kova-gateway"
 SERVICE_DESCRIPTION = "Kova Agent Gateway - Messaging Platform Integration"
 
 
@@ -2461,11 +2461,11 @@ def _launchd_user_home() -> Path:
 def get_launchd_plist_path() -> Path:
     """Return the launchd plist path, scoped per profile.
 
-    Default ``~/.hermes`` → ``ai.hermes.gateway.plist`` (backward compatible).
-    Profile ``~/.hermes/profiles/coder`` → ``ai.hermes.gateway-coder.plist``.
+    Default ``~/.hermes`` → ``ai.kova.gateway.plist`` (backward compatible).
+    Profile ``~/.hermes/profiles/coder`` → ``ai.kova.gateway-coder.plist``.
     """
     suffix = _profile_suffix()
-    name = f"ai.hermes.gateway-{suffix}" if suffix else "ai.hermes.gateway"
+    name = f"ai.kova.gateway-{suffix}" if suffix else "ai.kova.gateway"
     return _launchd_user_home() / "Library" / "LaunchAgents" / f"{name}.plist"
 
 
@@ -3513,7 +3513,7 @@ def systemd_status(deep: bool = False, system: bool = False, full: bool = False)
 def get_launchd_label() -> str:
     """Return the launchd service label, scoped per profile."""
     suffix = _profile_suffix()
-    return f"ai.hermes.gateway-{suffix}" if suffix else "ai.hermes.gateway"
+    return f"ai.kova.gateway-{suffix}" if suffix else "ai.kova.gateway"
 
 
 # Cached launchd domain result — probing is cheap but should only run once per

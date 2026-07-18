@@ -78,7 +78,7 @@ def _model_switch_skew_guard() -> Optional[str]:
         error=(
             f"This gateway is running code from {boot_rev} but the checkout on "
             f"disk is now {disk_rev}. Switching models would risk a stale-module "
-            f"crash — restart the gateway to load the new code: hermes gateway restart"
+            f"crash — restart the gateway to load the new code: kova gateway restart"
         ),
     )
 
@@ -1181,7 +1181,7 @@ class GatewaySlashCommandsMixin:
                 return (
                     f"✓ {platform.value} paused. "
                     f"Resume with `/platform resume {platform.value}` or "
-                    f"`hermes gateway restart` to reset."
+                    f"`kova gateway restart` to reset."
                 )
             # action == "resume"
             if platform not in failed:
@@ -4306,7 +4306,7 @@ class GatewaySlashCommandsMixin:
             return (
                 "No skill bundles installed.\n"
                 "Create one on the host with:\n"
-                "  `hermes bundles create <name> --skill <s1> --skill <s2>`\n"
+                "  `kova bundles create <name> --skill <s1> --skill <s2>`\n"
                 f"Directory: `{_bundles_dir()}`"
             )
 
@@ -4448,7 +4448,7 @@ class GatewaySlashCommandsMixin:
 
         Gateway uploads ONLY the summary report (system info + log tails),
         NOT full log files, to protect conversation privacy.  Users who need
-        full log uploads should use ``hermes debug share`` from the CLI.
+        full log uploads should use ``kova debug share`` from the CLI.
         """
         import asyncio
         from hermes_cli.debug import (

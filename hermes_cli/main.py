@@ -3,44 +3,44 @@
 Hermes CLI - Main entry point.
 
 Usage:
-    hermes                     # Interactive chat (default)
-    hermes chat                # Interactive chat
-    hermes gateway             # Run gateway in foreground
-    hermes gateway start       # Start gateway as service
-    hermes gateway stop        # Stop gateway service
-    hermes gateway status      # Show gateway status
-    hermes gateway install     # Install gateway service
-    hermes gateway uninstall   # Uninstall gateway service
-    hermes setup               # Interactive setup wizard
-    hermes logout              # Clear stored authentication
-    hermes status              # Show status of all components
-    hermes cron                # Manage cron jobs
-    hermes cron list           # List cron jobs
-    hermes cron status         # Check if cron scheduler is running
-    hermes doctor              # Check configuration and dependencies
-    hermes honcho setup                    # Configure Honcho AI memory integration
-    hermes honcho status                   # Show Honcho config and connection status
-    hermes honcho sessions                 # List directory → session name mappings
-    hermes honcho map <name>               # Map current directory to a session name
-    hermes honcho peer                     # Show peer names and dialectic settings
-    hermes honcho peer --user NAME         # Set user peer name
-    hermes honcho peer --ai NAME           # Set AI peer name
-    hermes honcho peer --reasoning LEVEL   # Set dialectic reasoning level
-    hermes honcho mode                     # Show current memory mode
-    hermes honcho mode [hybrid|honcho|local]  # Set memory mode
-    hermes honcho tokens                   # Show token budget settings
-    hermes honcho tokens --context N       # Set session.context() token cap
-    hermes honcho tokens --dialectic N     # Set dialectic result char cap
-    hermes honcho identity                 # Show AI peer identity representation
-    hermes honcho identity <file>          # Seed AI peer identity from a file (SOUL.md etc.)
-    hermes honcho migrate                  # Step-by-step migration guide: OpenClaw native → Hermes + Honcho
-    hermes version             Show version
-    hermes update              Update to latest version
-    hermes uninstall           Uninstall Kova Agent
-    hermes acp                 Run as an ACP server for editor integration
-    hermes sessions browse     Interactive session picker with search
+    kova                     # Interactive chat (default)
+    kova chat                # Interactive chat
+    kova gateway             # Run gateway in foreground
+    kova gateway start       # Start gateway as service
+    kova gateway stop        # Stop gateway service
+    kova gateway status      # Show gateway status
+    kova gateway install     # Install gateway service
+    kova gateway uninstall   # Uninstall gateway service
+    kova setup               # Interactive setup wizard
+    kova logout              # Clear stored authentication
+    kova status              # Show status of all components
+    kova cron                # Manage cron jobs
+    kova cron list           # List cron jobs
+    kova cron status         # Check if cron scheduler is running
+    kova doctor              # Check configuration and dependencies
+    kova honcho setup                    # Configure Honcho AI memory integration
+    kova honcho status                   # Show Honcho config and connection status
+    kova honcho sessions                 # List directory → session name mappings
+    kova honcho map <name>               # Map current directory to a session name
+    kova honcho peer                     # Show peer names and dialectic settings
+    kova honcho peer --user NAME         # Set user peer name
+    kova honcho peer --ai NAME           # Set AI peer name
+    kova honcho peer --reasoning LEVEL   # Set dialectic reasoning level
+    kova honcho mode                     # Show current memory mode
+    kova honcho mode [hybrid|honcho|local]  # Set memory mode
+    kova honcho tokens                   # Show token budget settings
+    kova honcho tokens --context N       # Set session.context() token cap
+    kova honcho tokens --dialectic N     # Set dialectic result char cap
+    kova honcho identity                 # Show AI peer identity representation
+    kova honcho identity <file>          # Seed AI peer identity from a file (SOUL.md etc.)
+    kova honcho migrate                  # Step-by-step migration guide: OpenClaw native → Hermes + Honcho
+    kova version             Show version
+    kova update              Update to latest version
+    kova uninstall           Uninstall Kova Agent
+    kova acp                 Run as an ACP server for editor integration
+    kova sessions browse     Interactive session picker with search
 
-    hermes claw migrate --dry-run  # Preview migration without changes
+    kova claw migrate --dry-run  # Preview migration without changes
 """
 
 # IMPORTANT: hermes_bootstrap must be the very first import — it sets up
@@ -66,7 +66,7 @@ import sys
 
 
 def _set_process_title() -> None:
-    """Set the process title to 'hermes' so tools like 'ps', 'top', and
+    """Set the process title to 'kova' so tools like 'ps', 'top', and
     'htop' show the app name instead of 'python3.xx'.
 
     Purely cosmetic — non-fatal on any platform.
@@ -77,13 +77,13 @@ def _set_process_title() -> None:
       2. ctypes ``prctl(PR_SET_NAME)`` (Linux only, 15-char limit).
       3. ctypes ``pthread_setname_np`` (macOS only, kernel thread name —
          changes lldb/top but not ``ps aux``).
-      4. No-op on Windows (the .exe name is already ``hermes.exe``).
+       4. No-op on Windows (the .exe name is already ``kova.exe``).
     """
     # Strategy 1: setproctitle (best — works on macOS, Linux, BSD)
     try:
         import setproctitle  # type: ignore[import-untyped]
 
-        setproctitle.setproctitle("hermes")
+        setproctitle.setproctitle("kova")
         return
     except ImportError:
         pass
@@ -96,10 +96,10 @@ def _set_process_title() -> None:
         system = platform.system()
         if system == "Linux":
             libc = ctypes.CDLL("libc.so.6", use_errno=True)
-            libc.prctl(15, b"hermes", 0, 0, 0)  # PR_SET_NAME = 15
+            libc.prctl(15, b"kova", 0, 0, 0)  # PR_SET_NAME = 15
         elif system == "Darwin":
             libc = ctypes.CDLL("libc.dylib", use_errno=True)
-            libc.pthread_setname_np(b"hermes")
+            libc.pthread_setname_np(b"kova")
         # Windows: the .exe name is already ``hermes.exe`` — nothing to do.
     except Exception:
         pass
@@ -5085,19 +5085,19 @@ def _desktop_packaged_executable(desktop_dir: Path) -> Optional[Path]:
     """Return the current platform's unpacked Electron app executable."""
     release_dir = desktop_dir / "release"
     if sys.platform == "darwin":
-        candidates = list(release_dir.glob("mac*/Hermes.app/Contents/MacOS/Hermes"))
+        candidates = list(release_dir.glob("mac*/Kova.app/Contents/MacOS/Kova"))
     elif sys.platform == "win32":
         candidates = [
-            release_dir / "win-unpacked" / "Hermes.exe",
-            release_dir / "win-ia32-unpacked" / "Hermes.exe",
-            release_dir / "win-arm64-unpacked" / "Hermes.exe",
+            release_dir / "win-unpacked" / "Kova.exe",
+            release_dir / "win-ia32-unpacked" / "Kova.exe",
+            release_dir / "win-arm64-unpacked" / "Kova.exe",
         ]
     else:
         candidates = [
-            release_dir / "linux-unpacked" / "hermes",
-            release_dir / "linux-unpacked" / "Hermes",
-            release_dir / "linux-arm64-unpacked" / "hermes",
-            release_dir / "linux-arm64-unpacked" / "Hermes",
+            release_dir / "linux-unpacked" / "kova",
+            release_dir / "linux-unpacked" / "Kova",
+            release_dir / "linux-arm64-unpacked" / "kova",
+            release_dir / "linux-arm64-unpacked" / "Kova",
         ]
 
     existing = [p for p in candidates if p.exists()]
@@ -7197,10 +7197,10 @@ def _hermes_exe_shims(scripts_dir: Path) -> list[Path]:
     if not _is_windows():
         return []
 
-    names = set(_load_console_script_names()) or {"hermes", "hermes-agent", "hermes-acp"}
+    names = set(_load_console_script_names()) or {"kova", "kova-agent", "kova-acp"}
     # The gateway shim is not a [project.scripts] entry point, but older
     # update/install paths still rewrite and quarantine it.
-    names.add("hermes-gateway")
+    names.add("kova-gateway")
     return [scripts_dir / f"{name}.exe" for name in sorted(names)]
 
 
@@ -7325,8 +7325,8 @@ def _format_concurrent_instances_message(
     matches: list[tuple[int, str]], scripts_dir: Path
 ) -> str:
     """Build a human-readable explanation + remediation hint for the user."""
-    shim = scripts_dir / "hermes.exe"
-    lines = ["✗ Another hermes.exe is running:"]
+    shim = scripts_dir / "kova.exe"
+    lines = ["✗ Another kova.exe is running:"]
     for pid, name in matches:
         lines.append(f"    PID {pid}  {name}")
     lines.append("")
@@ -13506,7 +13506,7 @@ def main():
         p.add_argument(
             "--model",
             help="Only match sessions whose model name contains this substring "
-            "(e.g. 'sonnet', 'gpt-5', 'hermes')",
+            "(e.g. 'sonnet', 'gpt-5', 'kova')",
         )
         p.add_argument(
             "--provider",

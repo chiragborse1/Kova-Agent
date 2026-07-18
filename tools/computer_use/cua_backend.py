@@ -289,7 +289,7 @@ def cua_driver_update_nudge() -> Optional[str]:
     current = state.get("current_version") or "?"
     return (
         f"cua-driver {latest} is available (you have {current}); "
-        f"update with `hermes computer-use install --upgrade`."
+        f"update with `kova computer-use install --upgrade`."
     )
 
 

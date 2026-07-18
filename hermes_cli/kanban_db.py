@@ -7589,7 +7589,7 @@ def _resolve_hermes_argv() -> list[str]:
             return _hermes_path_argv(resolved_env_bin)
         return _module_hermes_argv()
 
-    hermes_bin = _safe_which_no_cwd("hermes") if _IS_WINDOWS else shutil.which("hermes")
+    hermes_bin = _safe_which_no_cwd("kova") if _IS_WINDOWS else shutil.which("kova")
     if hermes_bin:
         return _hermes_path_argv(hermes_bin)
     return _module_hermes_argv()
