@@ -28,9 +28,9 @@ import {
 import type { ModelOptionProvider, OAuthProvider } from '@/types/hermes'
 
 import { DocsLink, FlowPanel, Status } from './flow'
-import { FeaturedProviderRow, KeyProviderRow, ProviderRow, sortProviders } from './providers'
+import { KeyProviderRow, ProviderRow, sortProviders } from './providers'
 
-export { FeaturedProviderRow, KeyProviderRow, ProviderRow, providerTitle, sortProviders } from './providers'
+export { KeyProviderRow, ProviderRow, providerTitle, sortProviders } from './providers'
 
 interface DesktopOnboardingOverlayProps {
   enabled: boolean
@@ -370,7 +370,6 @@ function Header() {
   )
 }
 
-export const FEATURED_ID = 'nous'
 const SHOW_ALL_KEY = 'hermes-onboarding-show-all-v1'
 
 const readShowAll = () => {
@@ -427,38 +426,15 @@ export function Picker({ ctx }: { ctx: OnboardingContext }) {
   }
 
   const select = (p: OAuthProvider) => void startProviderOAuth(p, ctx)
-  const featured = ordered.find(p => p.id === FEATURED_ID) ?? null
-  const rest = featured ? ordered.filter(p => p.id !== FEATURED_ID) : ordered
-  // Collapse the secondary providers behind a disclosure only when Nous
-  // Portal is present to anchor the choice — otherwise show the full list.
-  const collapsible = Boolean(featured) && rest.length > 0
-  const showRest = !collapsible || showAll
 
   return (
     <div className="grid gap-2">
       <div className="grid max-h-[60dvh] gap-2 overflow-y-auto p-1">
-        {featured ? <FeaturedProviderRow onSelect={select} provider={featured} /> : null}
-        {showRest ? (
-          <>
-            {rest.map(p => (
-              <ProviderRow key={p.id} onSelect={select} provider={p} />
-            ))}
-            <KeyProviderRow onClick={() => setOnboardingMode('apikey')} />
-          </>
-        ) : null}
+        {ordered.map(p => (
+          <ProviderRow key={p.id} onSelect={select} provider={p} />
+        ))}
+        <KeyProviderRow onClick={() => setOnboardingMode('apikey')} />
       </div>
-      {collapsible ? (
-        <Button
-          className="mt-1 self-center font-medium"
-          onClick={() => setShowAll(persistShowAll(!showAll))}
-          size="xs"
-          type="button"
-          variant="text"
-        >
-          {showAll ? t.onboarding.collapse : t.onboarding.otherProviders}
-          <ChevronDown className={cn('size-3.5 transition', showAll && 'rotate-180')} />
-        </Button>
-      ) : null}
       <div className="flex items-center justify-between gap-3 pt-1">
         {/* First run only: let the user defer the choice and land in the app.
             In manual mode the overlay already has a close affordance, so the
