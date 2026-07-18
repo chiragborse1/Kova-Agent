@@ -2515,7 +2515,7 @@ async function applyUpdates(opts = {}) {
       // the GUI button's contract: append --branch <current> for non-main
       // checkouts, keep it bare for main so the card stays clean.
       const updateRoot = resolveUpdateRoot()
-      let command = 'hermes update'
+      let command = 'kova update'
 
       try {
         const head = await runGit(['rev-parse', '--abbrev-ref', 'HEAD'], { cwd: updateRoot })
@@ -2525,7 +2525,7 @@ async function applyUpdates(opts = {}) {
           const branch = await resolveHealedBranch(updateRoot, current)
 
           if (branch !== 'main') {
-            command = `hermes update --branch ${branch}`
+            command = `kova update --branch ${branch}`
           }
         }
       } catch {
@@ -2773,9 +2773,9 @@ async function applyUpdatesPosixInApp(opts: any) {
   const hermes = resolveHermesCliBinary(updateRoot)
 
   if (!hermes) {
-    emitUpdateProgress({ stage: 'manual', message: 'hermes update', percent: null })
+    emitUpdateProgress({ stage: 'manual', message: 'kova update', percent: null })
 
-    return { ok: true, manual: true, command: 'hermes update', hermesRoot: updateRoot }
+    return { ok: true, manual: true, command: 'kova update', hermesRoot: updateRoot }
   }
 
   // Put the Hermes-managed Node and the venv on PATH so `hermes desktop`'s
@@ -2837,9 +2837,9 @@ async function applyUpdatesPosixInApp(opts: any) {
   })) as any
 
   if (updated.code !== 0) {
-    emitUpdateProgress({ stage: 'error', message: 'hermes update failed.', error: updated.error || 'update-failed' })
+    emitUpdateProgress({ stage: 'error', message: 'kova update failed.', error: updated.error || 'update-failed' })
 
-    return { ok: false, error: 'hermes update failed' }
+    return { ok: false, error: 'kova update failed' }
   }
 
   emitUpdateProgress({ stage: 'rebuild', message: 'Rebuilding the desktop app…', percent: 60 })
