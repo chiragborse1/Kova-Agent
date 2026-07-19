@@ -66,7 +66,7 @@ pub fn bootstrap_cache_dir() -> PathBuf {
 /// HERMES_HOME so it survives repo checkout deletion (unlike anything under
 /// hermes-agent/).
 ///
-/// On Windows this is `%LOCALAPPDATA%\hermes\hermes-setup.exe`; on other
+/// On Windows this is `%LOCALAPPDATA%\hermes\kova-setup.exe`; on other
 /// platforms the extension differs but the directory is the same.
 pub fn installer_dest() -> PathBuf {
     let name = if cfg!(target_os = "windows") {
@@ -80,14 +80,14 @@ pub fn installer_dest() -> PathBuf {
 /// Marker the updater writes for the duration of an in-app update and removes
 /// when it finishes (see update.rs `UpdateMarkerGuard`). A freshly-launched
 /// desktop checks this before spawning its own local backend: spawning one
-/// mid-update re-locks the venv shim and triggers `force_kill_other_hermes`,
+/// mid-update re-locks the venv shim and triggers `force_kill_other_kova`,
 /// which then kills that legitimate backend in a respawn loop (#50238).
 ///
 /// Lives directly under HERMES_HOME (same rationale as `installer_dest`) so the
 /// Electron desktop — which resolves HERMES_HOME identically and pins it into
 /// the updater's env — agrees on the exact path.
 pub fn update_in_progress_marker() -> PathBuf {
-    hermes_home().join(".hermes-update-in-progress")
+    hermes_home().join(".kova-update-in-progress")
 }
 
 /// Copy the currently-running installer binary to `installer_dest()` so it's
@@ -155,7 +155,7 @@ fn repair_macos_installer_helper(_path: &Path) {}
 /// We don't always know ACTIVE_HERMES_ROOT until install.ps1 reports it, so
 /// this is a probe helper, not a definitive path.
 pub fn likely_bootstrap_marker(install_root: &Path) -> PathBuf {
-    install_root.join(".hermes-bootstrap-complete")
+    install_root.join(".kova-bootstrap-complete")
 }
 
 /// Initializes tracing to bootstrap-installer.log under HERMES_HOME/logs/.
