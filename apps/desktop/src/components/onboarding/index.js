@@ -1,4 +1,4 @@
-import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useStore } from '@nanostores/react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -6,14 +6,14 @@ import { Codicon } from '@/components/ui/codicon';
 import { Input } from '@/components/ui/input';
 import { getGlobalModelOptions } from '@/hermes';
 import { useI18n } from '@/i18n';
-import { Check, ChevronDown, ChevronLeft, KeyRound, Loader2 } from '@/lib/icons';
+import { Check, ChevronLeft, KeyRound, Loader2 } from '@/lib/icons';
 import { isProviderSetupErrorMessage } from '@/lib/provider-setup-errors';
 import { cn } from '@/lib/utils';
 import { $desktopBoot } from '@/store/boot';
 import { $desktopOnboarding, clearPendingProviderOAuth, closeManualOnboarding, confirmOnboardingModel, DEFAULT_MANUAL_ONBOARDING_REASON, DEFAULT_ONBOARDING_REASON, dismissFirstRunOnboarding, peekPendingProviderOAuth, refreshOnboarding, saveOnboardingApiKey, setOnboardingMode, startProviderOAuth } from '@/store/onboarding';
 import { DocsLink, FlowPanel, Status } from './flow';
-import { FeaturedProviderRow, KeyProviderRow, ProviderRow, sortProviders } from './providers';
-export { FeaturedProviderRow, KeyProviderRow, ProviderRow, providerTitle, sortProviders } from './providers';
+import { KeyProviderRow, ProviderRow, sortProviders } from './providers';
+export { KeyProviderRow, ProviderRow, providerTitle, sortProviders } from './providers';
 const API_KEY_OPTIONS = [
     {
         id: 'openrouter',
@@ -227,7 +227,6 @@ function Header() {
     const { t } = useI18n();
     return (_jsxs("div", { className: "bg-(--ui-chat-bubble-background) px-5 pt-5 pb-1", children: [_jsx("h2", { className: "text-[0.9375rem] font-semibold tracking-tight", children: t.onboarding.headerTitle }), _jsx("p", { className: "mt-1 max-w-xl text-[0.8125rem] leading-5 text-(--ui-text-tertiary)", children: t.onboarding.headerDesc })] }));
 }
-export const FEATURED_ID = 'nous';
 const SHOW_ALL_KEY = 'hermes-onboarding-show-all-v1';
 const readShowAll = () => {
     try {
@@ -264,13 +263,7 @@ export function Picker({ ctx }) {
         return _jsx(Status, { children: t.onboarding.lookingUpProviders });
     }
     const select = (p) => void startProviderOAuth(p, ctx);
-    const featured = ordered.find(p => p.id === FEATURED_ID) ?? null;
-    const rest = featured ? ordered.filter(p => p.id !== FEATURED_ID) : ordered;
-    // Collapse the secondary providers behind a disclosure only when Nous
-    // Portal is present to anchor the choice — otherwise show the full list.
-    const collapsible = Boolean(featured) && rest.length > 0;
-    const showRest = !collapsible || showAll;
-    return (_jsxs("div", { className: "grid gap-2", children: [_jsxs("div", { className: "grid max-h-[60dvh] gap-2 overflow-y-auto p-1", children: [featured ? _jsx(FeaturedProviderRow, { onSelect: select, provider: featured }) : null, showRest ? (_jsxs(_Fragment, { children: [rest.map(p => (_jsx(ProviderRow, { onSelect: select, provider: p }, p.id))), _jsx(KeyProviderRow, { onClick: () => setOnboardingMode('apikey') })] })) : null] }), collapsible ? (_jsxs(Button, { className: "mt-1 self-center font-medium", onClick: () => setShowAll(persistShowAll(!showAll)), size: "xs", type: "button", variant: "text", children: [showAll ? t.onboarding.collapse : t.onboarding.otherProviders, _jsx(ChevronDown, { className: cn('size-3.5 transition', showAll && 'rotate-180') })] })) : null, _jsxs("div", { className: "flex items-center justify-between gap-3 pt-1", children: [manual ? _jsx("span", {}) : _jsx(ChooseLaterLink, {}), _jsx(Button, { className: "-mr-2 font-medium", onClick: () => setOnboardingMode('apikey'), size: "xs", type: "button", variant: "text", children: t.onboarding.haveApiKey })] })] }));
+    return (_jsxs("div", { className: "grid gap-2", children: [_jsxs("div", { className: "grid max-h-[60dvh] gap-2 overflow-y-auto p-1", children: [ordered.map(p => (_jsx(ProviderRow, { onSelect: select, provider: p }, p.id))), _jsx(KeyProviderRow, { onClick: () => setOnboardingMode('apikey') })] }), _jsxs("div", { className: "flex items-center justify-between gap-3 pt-1", children: [manual ? _jsx("span", {}) : _jsx(ChooseLaterLink, {}), _jsx(Button, { className: "-mr-2 font-medium", onClick: () => setOnboardingMode('apikey'), size: "xs", type: "button", variant: "text", children: t.onboarding.haveApiKey })] })] }));
 }
 // "I'll choose a provider later" — dismisses the first-run picker and persists
 // the skip so it never re-nags. The user connects a provider any time from

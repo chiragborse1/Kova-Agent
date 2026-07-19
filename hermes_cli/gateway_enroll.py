@@ -202,7 +202,7 @@ def cmd_gateway_enroll(args) -> None:
     except AuthError as exc:
         if getattr(exc, "relogin_required", False):
             print("✗ You're not logged in.")
-            print("  Run `hermes setup` (or `hermes auth add`) first, then retry.")
+            print("  Run `kova setup` (or `kova auth add`) first, then retry.")
         else:
             print(f"✗ Could not resolve an access token: {exc}")
         sys.exit(1)

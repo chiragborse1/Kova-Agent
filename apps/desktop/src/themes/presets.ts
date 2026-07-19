@@ -20,68 +20,68 @@ const SYSTEM_MONO =
 
 export const DEFAULT_TYPOGRAPHY: DesktopThemeTypography = { fontSans: SYSTEM_SANS, fontMono: SYSTEM_MONO }
 
-const NOUS_BLUE = '#17171a'
-const PSYCHE_BLUE = '#404040'
-const PSYCHE_WARM = '#FFFFFF'
+const NOUS_BLUE = '#cf806d'
+const PSYCHE_BLUE = '#db704b'
+const PSYCHE_WARM = '#FFE6CB'
 
 const nousTint = (pct: number) => `color-mix(in srgb, ${NOUS_BLUE} ${pct}%, #FFFFFF)`
 const nousTintTransparent = (pct: number) => `color-mix(in srgb, ${NOUS_BLUE} ${pct}%, transparent)`
 
 /**
- * Nous — canonical Kova desktop identity. Clean neutral palette
- * with dark accents on a white background.
+ * Nous — canonical Kova desktop identity. Warm neutrals
+ * with salmon/orange accents on a clean background.
  */
 export const nousTheme: DesktopTheme = {
   name: 'nous',
   label: 'Nous',
-  description: 'Clean neutrals with dark accents',
+  description: 'Warm neutrals with salmon accents',
   colors: {
     background: '#ffffff',
     foreground: '#17171A',
     card: '#ffffff',
     cardForeground: '#17171A',
-    muted: '#f5f5f5',
+    muted: nousTint(5),
     mutedForeground: '#666678',
     popover: '#ffffff',
     popoverForeground: '#17171A',
     primary: NOUS_BLUE,
     primaryForeground: '#FCFCFC',
-    secondary: '#f0f0f0',
+    secondary: nousTint(7),
     secondaryForeground: '#242432',
-    accent: '#f5f5f5',
+    accent: nousTint(10),
     accentForeground: '#202030',
-    border: 'rgba(0,0,0,0.08)',
-    input: 'rgba(0,0,0,0.12)',
+    border: nousTintTransparent(22),
+    input: nousTintTransparent(30),
     ring: NOUS_BLUE,
     midground: NOUS_BLUE,
     composerRing: NOUS_BLUE,
     destructive: '#C72E4D',
     destructiveForeground: '#FFFFFF',
-    sidebarBackground: '#f7f7f8',
-    sidebarBorder: 'rgba(0,0,0,0.06)',
-    userBubble: '#f5f5f5',
-    userBubbleBorder: 'rgba(0,0,0,0.1)'
+    sidebarBackground: '#faf5f2',
+    sidebarBorder: nousTintTransparent(18),
+    userBubble: nousTint(6),
+    userBubbleBorder: nousTintTransparent(24)
   },
   darkColors: {
     background: '#1a1a1a',
-    foreground: '#e5e5e5',
+    foreground: PSYCHE_WARM,
     card: '#222222',
-    cardForeground: '#e5e5e5',
+    cardForeground: PSYCHE_WARM,
     muted: '#2a2a2a',
-    mutedForeground: '#a3a3a3',
+    mutedForeground: '#b5a89e',
     popover: '#222222',
-    popoverForeground: '#e5e5e5',
-    primary: '#e5e5e5',
+    popoverForeground: PSYCHE_WARM,
+    primary: PSYCHE_WARM,
     primaryForeground: '#1a1a1a',
     secondary: '#2a2a2a',
-    secondaryForeground: '#d4d4d4',
-    accent: '#333333',
-    accentForeground: '#e5e5e5',
+    secondaryForeground: '#d4ccc8',
+    accent: PSYCHE_BLUE,
+    accentForeground: '#f0ebe8',
     border: '#333333',
     input: '#2a2a2a',
-    ring: '#e5e5e5',
-    midground: '#e5e5e5',
-    composerRing: '#e5e5e5',
+    ring: PSYCHE_WARM,
+    midground: NOUS_BLUE,
+    composerRing: PSYCHE_WARM,
     destructive: '#C0473A',
     destructiveForeground: '#FEF2F2',
     sidebarBackground: '#1a1a1a',

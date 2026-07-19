@@ -921,7 +921,7 @@ def cmd_mcp_configure(args):
     """Reconfigure which tools are enabled for an existing MCP server."""
     import sys as _sys
     if not _sys.stdin.isatty():
-        print("Error: 'hermes mcp configure' requires an interactive terminal.", file=_sys.stderr)
+        print("Error: 'kova mcp configure' requires an interactive terminal.", file=_sys.stderr)
         _sys.exit(1)
     name = args.name
     servers = _get_mcp_servers()
@@ -1065,17 +1065,17 @@ def mcp_command(args):
         from hermes_cli.mcp_picker import run_picker
         run_picker()
         print(color("  Commands:", Colors.CYAN))
-        _info("hermes mcp                                    Open the catalog picker (default)")
-        _info("hermes mcp catalog                            List Nous-approved MCPs")
-        _info("hermes mcp install <name>                     Install a catalog MCP")
-        _info("hermes mcp serve                              Run as MCP server")
-        _info("hermes mcp add <name> --url <endpoint>        Add a custom MCP server")
-        _info("hermes mcp add <name> --command <cmd>         Add a stdio server")
-        _info("hermes mcp add <name> --preset <preset>       Add from a known preset")
-        _info("hermes mcp remove <name>                      Remove a server")
-        _info("hermes mcp list                               List configured servers")
-        _info("hermes mcp test <name>                        Test connection")
-        _info("hermes mcp configure <name>                   Toggle tools")
+        _info("kova mcp                                    Open the catalog picker (default)")
+        _info("kova mcp catalog                            List Nous-approved MCPs")
+        _info("kova mcp install <name>                     Install a catalog MCP")
+        _info("kova mcp serve                              Run as MCP server")
+        _info("kova mcp add <name> --url <endpoint>        Add a custom MCP server")
+        _info("kova mcp add <name> --command <cmd>         Add a stdio server")
+        _info("kova mcp add <name> --preset <preset>       Add from a known preset")
+        _info("kova mcp remove <name>                      Remove a server")
+        _info("kova mcp list                               List configured servers")
+        _info("kova mcp test <name>                        Test connection")
+        _info("kova mcp configure <name>                   Toggle tools")
         _info("hermes mcp login <name>                       Re-authenticate OAuth")
         _info("hermes mcp reauth <name> | --all              Re-auth one or all OAuth servers")
         print()

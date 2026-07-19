@@ -529,7 +529,7 @@ def _capture_default_log_snapshots(
 # ---------------------------------------------------------------------------
 
 def _capture_dump() -> str:
-    """Run ``hermes dump`` and return its stdout as a string."""
+    """Run ``kova dump`` and return its stdout as a string."""
     from hermes_cli.dump import run_dump
 
     class _FakeArgs:
@@ -745,7 +745,7 @@ def build_debug_share(
 
     if redact:
         logger.info(
-            "hermes debug share: applied force-mode redaction to log snapshots before upload"
+            "kova debug share: applied force-mode redaction to log snapshots before upload"
         )
 
     report = bundle["report"]
@@ -858,7 +858,7 @@ def run_debug_share(args):
         )
     except RuntimeError as exc:
         print(f"\nUpload failed: {exc}", file=sys.stderr)
-        print("\nRun `hermes debug share --local` to print the report instead.\n")
+        print("\nRun `kova debug share --local` to print the report instead.\n")
         sys.exit(1)
 
     # Print results
@@ -918,7 +918,7 @@ def _run_debug_share_nous(args, *, log_lines: int, redact: bool) -> None:
     bundle = collect_share_bundle(log_lines=log_lines, redact=redact)
     if redact:
         logger.info(
-            "hermes debug share --nous: applied force-mode redaction before upload"
+            "kova debug share --nous: applied force-mode redaction before upload"
         )
     blob = build_nous_bundle(bundle, redact=redact)
 
@@ -930,8 +930,8 @@ def _run_debug_share_nous(args, *, log_lines: int, redact: bool) -> None:
             f"\nNous upload failed: {exc}\n"
             "\nThe Nous diagnostics service may be unavailable or not yet "
             "provisioned.\n"
-            "Run `hermes debug share --local` to print the report instead, "
-            "or `hermes debug share` to upload to a public paste service.\n",
+            "Run `kova debug share --local` to print the report instead, "
+            "or `kova debug share` to upload to a public paste service.\n",
             file=sys.stderr,
         )
         sys.exit(1)
@@ -959,8 +959,8 @@ def run_debug_delete(args):
     """Delete one or more paste URLs uploaded by /debug."""
     urls = getattr(args, "urls", [])
     if not urls:
-        print("Usage: hermes debug delete <url> [<url> ...]")
-        print("  Deletes paste.rs pastes uploaded by 'hermes debug share'.")
+        print("Usage: kova debug delete <url> [<url> ...]")
+        print("  Deletes paste.rs pastes uploaded by 'kova debug share'.")
         return
 
     for url in urls:

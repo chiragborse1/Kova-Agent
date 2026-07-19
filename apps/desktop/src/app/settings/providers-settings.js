@@ -2,7 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useStore } from '@nanostores/react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { runInTerminal } from '@/app/right-sidebar/store';
-import { FEATURED_ID, FeaturedProviderRow, KeyProviderRow, ProviderRow, providerTitle, sortProviders } from '@/components/onboarding';
+import { KeyProviderRow, ProviderRow, providerTitle, sortProviders } from '@/components/onboarding';
 import { Button } from '@/components/ui/button';
 import { RowButton } from '@/components/ui/row-button';
 import { SearchField } from '@/components/ui/search-field';
@@ -98,16 +98,11 @@ function OAuthPicker({ disconnecting, onDisconnect, onTerminalDisconnect, onWant
         return null;
     }
     const select = (p) => startManualProviderOAuth(p.id);
-    const featured = ordered.find(p => p.id === FEATURED_ID && !p.status?.logged_in) ?? null;
-    const rest = featured ? ordered.filter(p => p.id !== FEATURED_ID) : ordered;
-    // Keep connected accounts grouped and always visible; only the unconnected
-    // providers hide behind the disclosure, so the page leads with what's set up.
-    // Both lists preserve `sortProviders` order (curated priority, then name).
-    const connected = rest.filter(p => p.status?.logged_in);
-    const others = rest.filter(p => !p.status?.logged_in);
+    const connected = ordered.filter(p => p.status?.logged_in);
+    const others = ordered.filter(p => !p.status?.logged_in);
     const collapsible = others.length > 0;
     const showOthers = !collapsible || showAll;
-    return (_jsxs("section", { className: "mb-5 grid gap-2", children: [_jsxs("div", { className: "flex flex-wrap items-baseline justify-between gap-x-3", children: [_jsx(SettingsCategoryHeading, { icon: KeyRound, title: p.connectAccount }), _jsx(Button, { className: "text-[length:var(--conversation-caption-font-size)]", onClick: onWantApiKey, size: "inline", type: "button", variant: "textStrong", children: p.haveApiKey })] }), _jsx("p", { className: "-mt-2 mb-1 text-[length:var(--conversation-caption-font-size)] leading-(--conversation-caption-line-height) text-(--ui-text-tertiary)", children: p.intro }), featured && _jsx(FeaturedProviderRow, { onSelect: select, provider: featured }), connected.length > 0 && (_jsxs(_Fragment, { children: [_jsx(GroupLabel, { children: p.connected }), connected.map(p => (_jsx(ConnectedProviderRow, { disconnecting: disconnecting === p.id, onDisconnect: onDisconnect, onSelect: select, onTerminalDisconnect: onTerminalDisconnect, provider: p }, p.id)))] })), showOthers && (_jsxs(_Fragment, { children: [connected.length > 0 && _jsx(GroupLabel, { children: p.otherProviders }), others.map(p => (_jsx(ProviderRow, { onSelect: select, provider: p }, p.id))), _jsx(KeyProviderRow, { onClick: onWantApiKey })] })), collapsible && (_jsxs(Button, { className: "py-1 text-[length:var(--conversation-caption-font-size)]", onClick: () => setShowAll(v => !v), size: "inline", type: "button", variant: "text", children: [showAll ? p.collapse : connected.length > 0 ? p.connectAnother : p.otherProviders, _jsx(ChevronDown, { className: cn('size-3.5 transition', showAll && 'rotate-180') })] }))] }));
+    return (_jsxs("section", { className: "mb-5 grid gap-2", children: [_jsxs("div", { className: "flex flex-wrap items-baseline justify-between gap-x-3", children: [_jsx(SettingsCategoryHeading, { icon: KeyRound, title: p.connectAccount }), _jsx(Button, { className: "text-[length:var(--conversation-caption-font-size)]", onClick: onWantApiKey, size: "inline", type: "button", variant: "textStrong", children: p.haveApiKey })] }), _jsx("p", { className: "-mt-2 mb-1 text-[length:var(--conversation-caption-font-size)] leading-(--conversation-caption-line-height) text-(--ui-text-tertiary)", children: p.intro }), connected.length > 0 && (_jsxs(_Fragment, { children: [_jsx(GroupLabel, { children: p.connected }), connected.map(p => (_jsx(ConnectedProviderRow, { disconnecting: disconnecting === p.id, onDisconnect: onDisconnect, onSelect: select, onTerminalDisconnect: onTerminalDisconnect, provider: p }, p.id)))] })), showOthers && (_jsxs(_Fragment, { children: [connected.length > 0 && _jsx(GroupLabel, { children: p.otherProviders }), others.map(p => (_jsx(ProviderRow, { onSelect: select, provider: p }, p.id))), _jsx(KeyProviderRow, { onClick: onWantApiKey })] })), collapsible && (_jsxs(Button, { className: "py-1 text-[length:var(--conversation-caption-font-size)]", onClick: () => setShowAll(v => !v), size: "inline", type: "button", variant: "text", children: [showAll ? p.collapse : connected.length > 0 ? p.connectAnother : p.otherProviders, _jsx(ChevronDown, { className: cn('size-3.5 transition', showAll && 'rotate-180') })] }))] }));
 }
 function ConnectedProviderRow({ disconnecting, onDisconnect, onSelect, onTerminalDisconnect, provider }) {
     const { t } = useI18n();

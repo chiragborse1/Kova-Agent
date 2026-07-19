@@ -1,11 +1,11 @@
-"""hermes hooks — inspect and manage shell-script hooks.
+"""kova hooks — inspect and manage shell-script hooks.
 
 Usage::
 
-    hermes hooks list
-    hermes hooks test <event> [--for-tool X] [--payload-file F]
-    hermes hooks revoke <command>
-    hermes hooks doctor
+    kova hooks list
+    kova hooks test <event> [--for-tool X] [--payload-file F]
+    kova hooks revoke <command>
+    kova hooks doctor
 
 Consent records live under ``~/.hermes/shell-hooks-allowlist.json`` and
 hook definitions come from the ``hooks:`` block in ``~/.hermes/config.yaml``
@@ -24,12 +24,12 @@ from typing import Any, Dict, List
 
 
 def hooks_command(args) -> None:
-    """Entry point for ``hermes hooks`` — dispatches to the requested action."""
+    """Entry point for ``kova hooks`` — dispatches to the requested action."""
     sub = getattr(args, "hooks_action", None)
 
     if not sub:
-        print("Usage: hermes hooks {list|test|revoke|doctor}")
-        print("Run 'hermes hooks --help' for details.")
+        print("Usage: kova hooks {list|test|revoke|doctor}")
+        print("Run 'kova hooks --help' for details.")
         return
 
     if sub in {"list", "ls"}:

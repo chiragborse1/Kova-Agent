@@ -265,7 +265,7 @@ def _clean_summary(text: str | None) -> str:
     summary = " ".join(str(text).split())
     if not summary:
         return ""
-    if summary.startswith("Run `hermes "):
+    if summary.startswith("Run `kova "):
         return ""
     return summary
 
@@ -565,14 +565,14 @@ def _register_command_family(
         child_key = tuple(child_path)
         full_path = (root, *tuple(child_path))
         usage = " ".join(full_path)
-        command_summary = summary or (summaries or {}).get(full_path) or f"Run `hermes {usage}`."
+        command_summary = summary or (summaries or {}).get(full_path) or f"Run `kova {usage}`."
         engine.register(
             full_path,
             usage,
             command_summary,
             handler_factory(tuple(child_path)),
             mutating=child_key in mutating_paths,
-            confirmation=confirmation or f"Run `hermes {usage}`?",
+            confirmation=confirmation or f"Run `kova {usage}`?",
             contexts=ALL_CONTEXTS if child_key in hosted_paths else LOCAL_CONTEXTS,
         )
 
@@ -604,7 +604,7 @@ class HermesConsoleEngine:
             if _contains_shell_syntax(raw_line, tokens):
                 raise ConsoleCommandError(
                     "Kova Console does not run shell syntax. Use one supported "
-                    "Hermes command at a time."
+                    "Kova command at a time."
                 )
 
             builtin = self._execute_builtin(tokens)
@@ -655,9 +655,9 @@ class HermesConsoleEngine:
         return "\n".join(lines)
 
     def _register_defaults(self) -> None:
-        self.register(("status",), "status", "Show Hermes component status.", _status, contexts=ALL_CONTEXTS)
+        self.register(("status",), "status", "Show Kova component status.", _status, contexts=ALL_CONTEXTS)
         self.register(("doctor",), "doctor", "Run diagnostics without auto-fix.", _doctor, contexts=ALL_CONTEXTS)
-        self.register(("logs",), "logs [name] [-n N]", "Show recent Hermes logs.", _logs, contexts=ALL_CONTEXTS)
+        self.register(("logs",), "logs [name] [-n N]", "Show recent Kova logs.", _logs, contexts=ALL_CONTEXTS)
         self.register(("sessions", "list"), "sessions list [--limit N]", "List recent sessions.", _sessions_list, contexts=ALL_CONTEXTS)
         self.register(("sessions", "stats"), "sessions stats", "Show session store statistics.", _sessions_stats, contexts=ALL_CONTEXTS)
         self.register(("config", "show"), "config show", "Show current configuration.", _config_show, contexts=ALL_CONTEXTS)
@@ -668,7 +668,7 @@ class HermesConsoleEngine:
             "Set a configuration value.",
             _config_set,
             mutating=True,
-            confirmation="Update Hermes configuration?",
+            confirmation="Update Kova configuration?",
             contexts=ALL_CONTEXTS,
         )
         self.register(("cron", "list"), "cron list [--all]", "List scheduled jobs.", _cron_list, contexts=ALL_CONTEXTS)
@@ -1833,7 +1833,7 @@ def run_console_repl(
     stderr=None,
     interactive: bool | None = None,
 ) -> int:
-    """Run the local ``hermes console`` REPL."""
+    """Run the local ``kova console`` REPL."""
 
     stdin = stdin or sys.stdin
     stdout = stdout or sys.stdout

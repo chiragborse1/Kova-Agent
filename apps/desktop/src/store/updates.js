@@ -302,8 +302,8 @@ export async function applyUpdates(opts = {}) {
                 ...IDLE,
                 applying: false,
                 stage: 'manual',
-                message: result.command ?? 'hermes update',
-                command: result.command ?? 'hermes update'
+                message: result.command ?? 'kova update',
+                command: result.command ?? 'kova update'
             });
             return result;
         }
@@ -436,7 +436,7 @@ export async function applyBackendUpdate() {
         const started = await updateHermes();
         if (!started.ok) {
             const message = started.message || translateNow('updates.applyStatus.notAvailable');
-            const command = started.update_command || 'hermes update';
+            const command = started.update_command || 'kova update';
             $backendUpdateApply.set({ ...IDLE, applying: false, stage: 'manual', message, command });
             return { ok: false, error: 'manual', manual: true, message, command };
         }

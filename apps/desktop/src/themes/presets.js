@@ -11,28 +11,27 @@ const SYSTEM_SANS = '"Segoe WPC", "Segoe UI", -apple-system, BlinkMacSystemFont,
     EMOJI_FALLBACK;
 const SYSTEM_MONO = '"Cascadia Code", "JetBrains Mono", "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace, ' + EMOJI_FALLBACK;
 export const DEFAULT_TYPOGRAPHY = { fontSans: SYSTEM_SANS, fontMono: SYSTEM_MONO };
-const NOUS_BLUE = '#fd0b0b';
-const PSYCHE_BLUE = '#c41010';
+const NOUS_BLUE = '#cf806d';
+const PSYCHE_BLUE = '#db704b';
 const PSYCHE_WARM = '#FFE6CB';
 const nousTint = (pct) => `color-mix(in srgb, ${NOUS_BLUE} ${pct}%, #FFFFFF)`;
 const nousTintTransparent = (pct) => `color-mix(in srgb, ${NOUS_BLUE} ${pct}%, transparent)`;
 /**
- * Nous — canonical Hermes desktop identity. The palette keeps the current
- * glass geometry neutral, then lets the old bb/gui blue and psyche cream
- * return as accent seeds.
+ * Nous — canonical Kova desktop identity. Warm neutrals
+ * with salmon/orange accents on a clean background.
  */
 export const nousTheme = {
     name: 'nous',
     label: 'Nous',
-    description: 'Glass neutrals with Nous blue accents',
+    description: 'Warm neutrals with salmon accents',
     colors: {
-        background: '#F8FAFF',
+        background: '#ffffff',
         foreground: '#17171A',
-        card: '#FFFFFF',
+        card: '#ffffff',
         cardForeground: '#17171A',
         muted: nousTint(5),
         mutedForeground: '#666678',
-        popover: '#FFFFFF',
+        popover: '#ffffff',
         popoverForeground: '#17171A',
         primary: NOUS_BLUE,
         primaryForeground: '#FCFCFC',
@@ -47,37 +46,37 @@ export const nousTheme = {
         composerRing: NOUS_BLUE,
         destructive: '#C72E4D',
         destructiveForeground: '#FFFFFF',
-        sidebarBackground: '#F3F7FF',
+        sidebarBackground: '#faf5f2',
         sidebarBorder: nousTintTransparent(18),
         userBubble: nousTint(6),
         userBubbleBorder: nousTintTransparent(24)
     },
     darkColors: {
-        background: '#0D2F86',
+        background: '#1a1a1a',
         foreground: PSYCHE_WARM,
-        card: '#12378F',
+        card: '#222222',
         cardForeground: PSYCHE_WARM,
-        muted: '#183F9A',
-        mutedForeground: '#B5C7F3',
-        popover: '#123A96',
+        muted: '#2a2a2a',
+        mutedForeground: '#b5a89e',
+        popover: '#222222',
         popoverForeground: PSYCHE_WARM,
         primary: PSYCHE_WARM,
-        primaryForeground: '#0D2F86',
-        secondary: '#1B45A4',
-        secondaryForeground: '#E0E8FF',
+        primaryForeground: '#1a1a1a',
+        secondary: '#2a2a2a',
+        secondaryForeground: '#d4ccc8',
         accent: PSYCHE_BLUE,
-        accentForeground: '#F0F4FF',
-        border: '#3158AD',
-        input: '#0B2566',
+        accentForeground: '#f0ebe8',
+        border: '#333333',
+        input: '#2a2a2a',
         ring: PSYCHE_WARM,
         midground: NOUS_BLUE,
         composerRing: PSYCHE_WARM,
         destructive: '#C0473A',
         destructiveForeground: '#FEF2F2',
-        sidebarBackground: '#09286F',
-        sidebarBorder: '#234A9C',
-        userBubble: '#143B91',
-        userBubbleBorder: '#3A63BD'
+        sidebarBackground: '#1a1a1a',
+        sidebarBorder: '#333333',
+        userBubble: '#2a2a2a',
+        userBubbleBorder: '#404040'
     },
     typography: {
         fontSans: SYSTEM_SANS,

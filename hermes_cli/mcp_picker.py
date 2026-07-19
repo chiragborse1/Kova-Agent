@@ -122,7 +122,7 @@ def _enable_disable(name: str, *, enable: bool) -> None:
     save_config(cfg)
     print(color(
         f"  ✓ '{name}' {'enabled' if enable else 'disabled'}. "
-        "Start a new Hermes session for changes to take effect.",
+        "Start a new Kova session for changes to take effect.",
         Colors.GREEN,
     ))
 
@@ -310,7 +310,7 @@ def install_by_name(identifier: str) -> int:
     if entry is None:
         print(color(
             f"  ✗ '{identifier}' is not in the catalog. "
-            "Run `hermes mcp catalog` to see available entries.",
+            "Run `kova mcp catalog` to see available entries.",
             Colors.RED,
         ))
         return 1
