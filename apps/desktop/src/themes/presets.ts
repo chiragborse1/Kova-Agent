@@ -20,7 +20,7 @@ const SYSTEM_MONO =
 
 export const DEFAULT_TYPOGRAPHY: DesktopThemeTypography = { fontSans: SYSTEM_SANS, fontMono: SYSTEM_MONO }
 
-const NOUS_BLUE = '#cf806d'
+const NOUS_BLUE = '#e07040'
 const PSYCHE_BLUE = '#db704b'
 const PSYCHE_WARM = '#FFE6CB'
 
