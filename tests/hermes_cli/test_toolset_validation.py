@@ -30,7 +30,7 @@ def test_valid_config_produces_no_warnings():
 
 def test_38798_corruption_warns_and_suggests_correct_name():
     # The exact reported shape: cli holds 'hermes' instead of 'hermes-cli'.
-    warnings = validate_platform_toolsets({"cli": ["hermes"]}, _is_valid)
+    warnings = validate_platform_toolsets({"cli": ["kova"]}, _is_valid)
     unknown = [w for w in warnings if "unknown toolset 'hermes'" in w]
     assert len(unknown) == 1
     # Actionable: points at the valid name the entry should have been.
@@ -74,7 +74,7 @@ def test_non_string_entries_are_skipped_not_counted_invalid():
 
 
 def test_all_invalid_reports_each_and_the_zero_state():
-    cfg = {"cli": ["hermes"], "discord": ["hermes"]}
+    cfg = {"cli": ["kova"], "discord": ["kova"]}
     warnings = validate_platform_toolsets(cfg, _is_valid)
     assert sum("unknown toolset" in w for w in warnings) == 2
     assert any("zero valid toolsets" in w for w in warnings)
@@ -87,5 +87,5 @@ def test_real_validate_toolset_treats_hermes_cli_valid_and_hermes_invalid():
 
     assert validate_toolset("hermes-cli") is True
     assert validate_toolset("hermes") is False
-    warnings = validate_platform_toolsets({"cli": ["hermes"]}, validate_toolset)
+    warnings = validate_platform_toolsets({"cli": ["kova"]}, validate_toolset)
     assert any("did you mean 'hermes-cli'?" in w for w in warnings)

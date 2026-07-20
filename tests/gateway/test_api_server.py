@@ -3104,9 +3104,9 @@ class TestChatCompletionsAgentIncomplete:
             data = await resp.json()
             assert data["choices"][0]["finish_reason"] == "length"
             assert data["choices"][0]["message"]["content"] == "Here is part one of the answer"
-            assert data["hermes"]["partial"] is True
-            assert data["hermes"]["completed"] is False
-            assert data["hermes"]["error_code"] == "output_truncated"
+            assert data["kova"]["partial"] is True
+            assert data["kova"]["completed"] is False
+            assert data["kova"]["error_code"] == "output_truncated"
             assert resp.headers.get("X-Hermes-Completed") == "false"
             assert resp.headers.get("X-Hermes-Partial") == "true"
 
@@ -3137,7 +3137,7 @@ class TestChatCompletionsAgentIncomplete:
             assert raw_secret not in body
             assert raw_secret not in resp.headers.get("X-Hermes-Error", "")
             assert "OPENAI_API_KEY=" in body
-            assert data["error"]["hermes"]["failed"] is True
+            assert data["error"]["kova"]["failed"] is True
 
     @pytest.mark.asyncio
     async def test_failure_with_no_text_returns_502_error_envelope(self, adapter):
@@ -3169,8 +3169,8 @@ class TestChatCompletionsAgentIncomplete:
             data = await resp.json()
             assert data["error"]["code"] == "agent_incomplete"
             assert "truncated" in data["error"]["message"].lower()
-            assert data["error"]["hermes"]["partial"] is True
-            assert data["error"]["hermes"]["failed"] is True
+            assert data["error"]["kova"]["partial"] is True
+            assert data["error"]["kova"]["failed"] is True
             assert resp.headers.get("X-Hermes-Completed") == "false"
 
     @pytest.mark.asyncio

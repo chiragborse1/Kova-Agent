@@ -151,8 +151,8 @@ TIPS = [
 
     # --- Profiles ---
     "Each profile gets its own config, API keys, memory, sessions, skills, and cron jobs.",
-    "Profile names become shell commands — 'hermes profile create coder' creates the 'coder' command.",
-    "hermes profile export coder -o backup.tar.gz creates a portable profile archive.",
+    "Profile names become shell commands — 'kova profile create coder' creates the 'coder' command.",
+    "kova profile export coder -o backup.tar.gz creates a portable profile archive.",
     "If two profiles accidentally share a bot token, the second gateway is blocked with a clear error.",
 
     # --- Sessions ---
@@ -320,8 +320,8 @@ TIPS = [
     "When compression fails, further attempts are paused for 10 minutes to avoid API hammering.",
     "Long dangerous commands (>70 chars) get a 'view' option in the approval prompt to see the full text first.",
     "Audio level visualization shows ▁▂▃▄▅▆▇ bars during voice recording based on microphone RMS levels.",
-    "Profile names cannot collide with existing PATH binaries — 'hermes profile create ls' would be rejected.",
-    "hermes profile create backup --clone-all copies everything (config, keys, SOUL.md, memories, skills, sessions).",
+    "Profile names cannot collide with existing PATH binaries — 'kova profile create ls' would be rejected.",
+    "kova profile create backup --clone-all copies everything (config, keys, SOUL.md, memories, skills, sessions).",
     "The voice record key is configurable via voice.record_key in config.yaml — not just Ctrl+B.",
     ".cursorrules and .cursor/rules/*.mdc files are auto-detected and loaded as project context.",
     "Context files support 10+ prompt injection patterns — invisible Unicode, 'ignore instructions', exfil attempts.",

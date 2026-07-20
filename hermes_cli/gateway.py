@@ -595,7 +595,7 @@ def find_gateway_pids(
             profiles (the pre-7923 global behaviour).  ``kova update``
             needs this because a code update affects every profile.
             When ``False`` (default), only PIDs belonging to the current
-            Hermes profile are returned.
+            kova profile are returned.
     """
     _exclude = set(exclude_pids or set())
     pids: list[int] = []
@@ -2997,7 +2997,7 @@ def refresh_systemd_unit_if_needed(system: bool = False) -> bool:
     unit_path.write_text(new_unit, encoding="utf-8")
     _run_systemctl(["daemon-reload"], system=system, check=True, timeout=30)
     print(
-        f"↻ Updated gateway {_service_scope_label(system)} service definition to match the current Hermes install"
+        f"↻ Updated gateway {_service_scope_label(system)} service definition to match the current kova install"
     )
     return True
 
@@ -4113,7 +4113,7 @@ def refresh_launchd_plist_if_needed() -> bool:
             _launchd_reload_log_path(),
         )
     print(
-        "↻ Updated gateway launchd service definition to match the current Hermes install"
+        "↻ Updated gateway launchd service definition to match the current kova install"
     )
     return True
 
@@ -4431,9 +4431,9 @@ def launchd_status(deep: bool = False):
     # ── Report ──
     print(f"Launchd plist: {plist_path}")
     if launchd_plist_is_current():
-        print("✓ Service definition matches the current Hermes install")
+        print("✓ Service definition matches the current kova install")
     else:
-        print("⚠ Service definition is stale relative to the current Hermes install")
+        print("⚠ Service definition is stale relative to the current kova install")
         print("  Run: kova gateway start")
 
     if service_listed:
@@ -6639,7 +6639,7 @@ def _gateway_command_inner(args):
             if detect_service_manager() == "s6":
                 print("Per-profile gateways are auto-registered when you create a profile.")
                 print()
-                print("  hermes profile create <name>     # creates the s6 service slot")
+                print("  kova profile create <name>     # creates the s6 service slot")
                 print("  hermes -p <name> gateway start   # bring it up via s6")
                 print("  kova status                    # see currently-supervised gateways")
                 return
@@ -6688,7 +6688,7 @@ def _gateway_command_inner(args):
             if detect_service_manager() == "s6":
                 print("Per-profile gateways are auto-unregistered when you delete the profile.")
                 print()
-                print("  hermes profile delete <name>     # tears down the s6 service slot")
+                print("  kova profile delete <name>     # tears down the s6 service slot")
                 print("  hermes -p <name> gateway stop    # stop without deleting the profile")
                 return
             print("Service uninstall is not applicable inside a Docker container.")

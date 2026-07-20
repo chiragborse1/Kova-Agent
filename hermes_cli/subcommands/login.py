@@ -1,4 +1,4 @@
-"""``hermes login`` subcommand parser.
+"""``kova login`` subcommand parser.
 
 Extracted verbatim from ``hermes_cli/main.py:main()`` (god-file Phase 2).
 Handler injected to avoid importing ``main``.
@@ -12,10 +12,10 @@ from typing import Callable
 def build_login_parser(subparsers, *, cmd_login: Callable) -> None:
     """Attach the deprecated ``login`` subcommand to ``subparsers``.
 
-    ``hermes login`` was removed in favor of ``kova auth`` / ``kova model``
+    ``kova login`` was removed in favor of ``kova auth`` / ``kova model``
     (the runtime handler in ``hermes_cli/auth.py::login_command`` just prints a
     deprecation message and exits).  The subparser is kept registered so that
-    old scripts/aliases invoking ``hermes login [--flags]`` still receive the
+    old scripts/aliases invoking ``kova login [--flags]`` still receive the
     actionable deprecation message rather than an argparse ``invalid choice:
     'login'`` error — but:
 
@@ -25,7 +25,7 @@ def build_login_parser(subparsers, *, cmd_login: Callable) -> None:
       without the ``help=argparse.SUPPRESS`` ``==SUPPRESS==`` leak that
       argparse emits for a top-level subparser on Python 3.12+.
     - ``--provider`` accepts ANY value (no ``choices=``) so that, e.g.,
-      ``hermes login --provider anthropic`` reaches the deprecation handler and
+      ``kova login --provider anthropic`` reaches the deprecation handler and
       gets pointed at ``kova model`` instead of crashing in argparse with
       ``invalid choice: 'anthropic'`` before the handler can run.
     """

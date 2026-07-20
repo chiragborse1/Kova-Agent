@@ -367,7 +367,7 @@ class TestSSEAgentFailureFinishReason:
 
         reason, finish, _ = self._run(trunc)
         assert reason == "length"
-        assert finish["hermes"]["error_code"] == "output_truncated"
+        assert finish["kova"]["error_code"] == "output_truncated"
 
     def test_successful_completion_reports_stop(self):
         async def ok():

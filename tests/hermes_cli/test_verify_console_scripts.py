@@ -85,7 +85,7 @@ class TestVerifyConsoleScriptsInstalled:
         from hermes_cli.main import _load_console_script_names
 
         names = _load_console_script_names()
-        assert names == ["hermes", "hermes-agent", "hermes-acp"]
+        assert names == ["kova", "hermes-agent", "hermes-acp"]
 
     def test_primary_install_success_still_verifies_scripts(self):
         import hermes_cli.main as main_mod

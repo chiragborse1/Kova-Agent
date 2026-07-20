@@ -110,7 +110,7 @@ class TestEnsureFreshToken:
         assert token == "hch-at-new" and refreshed is True
 
         # Rotated refresh token + new access token + absolute expiry persisted.
-        saved = json.loads(path.read_text())["hosts"]["hermes"]
+        saved = json.loads(path.read_text())["hosts"]["kova"]
         assert saved["apiKey"] == "hch-at-new"
         assert saved["oauth"]["refreshToken"] == "hch-rt-new"
         assert saved["oauth"]["expiresAt"] == 1000 + 3600
@@ -126,7 +126,7 @@ class TestEnsureFreshToken:
         token, refreshed = oauth.ensure_fresh_token(path, "hermes", now=1000)
         # Stale token returned, no crash, file untouched.
         assert token == "hch-at-old" and refreshed is False
-        assert json.loads(path.read_text())["hosts"]["hermes"]["apiKey"] == "hch-at-old"
+        assert json.loads(path.read_text())["hosts"]["kova"]["apiKey"] == "hch-at-old"
 
     def test_double_check_uses_disk_when_already_rotated(self, tmp_path, monkeypatch):
         # Simulates a concurrent thread that rotated the token on disk after our
@@ -134,7 +134,7 @@ class TestEnsureFreshToken:
         path = tmp_path / "honcho.json"
         _write(path, {"hosts": {"hermes": _host_block(refresh="hch-rt-fresh", expires_at=10_000)}})
         stale_raw = {"hosts": {"hermes": _host_block(refresh="hch-rt-old", expires_at=100)}}
-        stale_raw["hosts"]["hermes"]["apiKey"] = "hch-at-stale"
+        stale_raw["hosts"]["kova"]["apiKey"] = "hch-at-stale"
         monkeypatch.setattr(
             oauth, "_http_post_form",
             lambda *a, **k: pytest.fail("must not refresh; disk token is fresh"),
@@ -220,7 +220,7 @@ class TestInstallGrant:
         saved = json.loads(path.read_text())
         assert saved["apiKey"] == "hch-v3-root"  # untouched
         assert saved["hosts"]["obsidian"] == {"workspace": "obsidian"}  # untouched
-        h = saved["hosts"]["hermes"]
+        h = saved["hosts"]["kova"]
         assert h["apiKey"] == "hch-at-fresh"
         assert h["oauth"]["refreshToken"] == "hch-rt-fresh"
         assert h["saveMessages"] is True  # grant config won the deep-merge

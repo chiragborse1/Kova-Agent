@@ -395,7 +395,7 @@ def test_multi_container_enabled_adds_schema_param(monkeypatch, tmp_path):
     p = SupermemoryMemoryProvider()
     p.initialize("s1", hermes_home=str(tmp_path), platform="cli")
     assert p._enable_custom_containers is True
-    assert p._allowed_containers == ["hermes", "project_alpha", "shared"]
+    assert p._allowed_containers == ["kova", "project_alpha", "shared"]
     schemas = p.get_tool_schemas()
     for s in schemas:
         assert "container_tag" in s["parameters"]["properties"]

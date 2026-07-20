@@ -635,7 +635,7 @@ def _resolve_hermes_bin_dir() -> str | None:
     agent process's PATH plus a static set of system dirs (``_SANE_PATH``).
     When the gateway is launched by something that does NOT source the user's
     shell rc — systemd, a service manager, a desktop launcher, cron — the
-    hermes install dir (``~/.local/bin``, the venv ``bin``/``Scripts``, pipx,
+    kova install dir (``~/.local/bin``, the venv ``bin``/``Scripts``, pipx,
     nix) is absent from that PATH, so plugins shelling out to bare ``hermes``
     via the terminal tool hit ``command not found`` (exit 127) even though
     ``hermes`` works fine in the user's own interactive terminal.
@@ -686,7 +686,7 @@ def _resolve_hermes_bin_dir() -> str | None:
 
 
 def _prepend_hermes_bin_dir(existing_path: str) -> str:
-    """Prepend the hermes install dir to ``existing_path`` if it's missing.
+    """Prepend the kova install dir to ``existing_path`` if it's missing.
 
     Cross-platform (uses ``os.pathsep``). First-occurrence wins, so a PATH
     that already contains the dir is returned unchanged. Returns the input
@@ -813,7 +813,7 @@ def _make_run_env(env: dict) -> dict:
     path_key = _path_env_key(run_env)
     if path_key is not None:
         new_path = _append_missing_sane_path_entries(run_env.get(path_key, ""))
-        # Ensure the hermes install dir is reachable so plugins can shell out
+        # Ensure the kova install dir is reachable so plugins can shell out
         # to bare ``hermes`` via the terminal tool even when the gateway was
         # launched without it on PATH (systemd, service managers, cron, etc.).
         run_env[path_key] = _prepend_hermes_bin_dir(new_path)

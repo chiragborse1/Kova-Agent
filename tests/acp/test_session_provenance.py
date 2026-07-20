@@ -99,5 +99,5 @@ def test_meta_wrapper_shape(db):
     _mk(db, "root1")
     meta = session_provenance_meta(db, "acp-1", "root1")
     assert set(meta.keys()) == {"hermes"}
-    assert "sessionProvenance" in meta["hermes"]
-    assert meta["hermes"]["sessionProvenance"]["currentHermesSessionId"] == "root1"
+    assert "sessionProvenance" in meta["kova"]
+    assert meta["kova"]["sessionProvenance"]["currentHermesSessionId"] == "root1"

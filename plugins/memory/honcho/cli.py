@@ -237,7 +237,7 @@ _profile_override: str | None = None
 
 
 def _host_key() -> str:
-    """Return the active Honcho host key, derived from the current Hermes profile."""
+    """Return the active Honcho host key, derived from the current kova profile."""
     if _profile_override:
         if _profile_override in {"default", "custom"}:
             return HOST
@@ -975,7 +975,7 @@ def cmd_setup(args) -> None:
 
 
 def _active_profile_name() -> str:
-    """Return the active Hermes profile name (respects --target-profile override)."""
+    """Return the active kova profile name (respects --target-profile override)."""
     if _profile_override:
         return _profile_override
     try:

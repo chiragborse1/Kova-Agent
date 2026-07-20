@@ -221,7 +221,7 @@ def test_main_top_level_tui_accepts_toolsets(monkeypatch, main_mod):
 
     import hermes_cli.config as config_mod
 
-    monkeypatch.setattr(sys, "argv", ["hermes", "--tui", "--toolsets", "web,terminal"])
+    monkeypatch.setattr(sys, "argv", ["kova", "--tui", "--toolsets", "web,terminal"])
     monkeypatch.setitem(
         sys.modules,
         "hermes_cli.plugins",
@@ -257,7 +257,7 @@ def test_termux_fast_tui_launch_uses_light_parser(monkeypatch, main_mod):
 
     monkeypatch.setenv("TERMUX_VERSION", "1")
     monkeypatch.setattr(
-        sys, "argv", ["hermes", "--tui", "--toolsets", "web,terminal"]
+        sys, "argv", ["kova", "--tui", "--toolsets", "web,terminal"]
     )
     monkeypatch.setattr(
         main_mod,
@@ -271,7 +271,7 @@ def test_termux_fast_tui_launch_uses_light_parser(monkeypatch, main_mod):
 
 def test_termux_fast_tui_launch_skips_help(monkeypatch, main_mod):
     monkeypatch.setenv("TERMUX_VERSION", "1")
-    monkeypatch.setattr(sys, "argv", ["hermes", "--tui", "--help"])
+    monkeypatch.setattr(sys, "argv", ["kova", "--tui", "--help"])
 
     assert main_mod._try_termux_fast_tui_launch() is False
 
@@ -279,7 +279,7 @@ def test_termux_fast_tui_launch_skips_help(monkeypatch, main_mod):
 def test_fast_tui_launch_is_termux_only(monkeypatch, main_mod):
     monkeypatch.delenv("TERMUX_VERSION", raising=False)
     monkeypatch.setenv("PREFIX", "/usr")
-    monkeypatch.setattr(sys, "argv", ["hermes", "--tui"])
+    monkeypatch.setattr(sys, "argv", ["kova", "--tui"])
 
     assert main_mod._try_termux_fast_tui_launch() is False
 
@@ -291,7 +291,7 @@ def test_termux_fast_cli_launch_chat_uses_light_parser(monkeypatch, main_mod):
     monkeypatch.setenv("TERMUX_VERSION", "1")
     monkeypatch.delenv("HERMES_TUI", raising=False)
     monkeypatch.setattr(
-        sys, "argv", ["hermes", "chat", "-q", "hello", "--toolsets", "web,terminal"]
+        sys, "argv", ["kova", "chat", "-q", "hello", "--toolsets", "web,terminal"]
     )
     monkeypatch.setattr(
         main_mod, "_prepare_agent_startup", lambda args: prepared.append(args.command)
@@ -321,7 +321,7 @@ def test_termux_fast_cli_launch_bare_defers_agent_startup(monkeypatch, main_mod)
     monkeypatch.delenv("HERMES_TUI", raising=False)
     monkeypatch.delenv("HERMES_DEFER_AGENT_STARTUP", raising=False)
     monkeypatch.delenv("HERMES_FAST_STARTUP_BANNER", raising=False)
-    monkeypatch.setattr(sys, "argv", ["hermes"])
+    monkeypatch.setattr(sys, "argv", ["kova"])
     monkeypatch.setattr(
         main_mod, "_prepare_agent_startup", lambda args: prepared.append(args.command)
     )
@@ -353,7 +353,7 @@ def test_termux_fast_cli_launch_oneshot_uses_light_parser(monkeypatch, main_mod)
     monkeypatch.setattr(
         sys,
         "argv",
-        ["hermes", "-z", "hello", "--model", "gpt-test", "--provider", "openai"],
+        ["kova", "-z", "hello", "--model", "gpt-test", "--provider", "openai"],
     )
     monkeypatch.setattr(
         main_mod, "_prepare_agent_startup", lambda args: prepared.append(args.command)
@@ -388,7 +388,7 @@ def test_termux_fast_cli_launch_version_skips_update_check(monkeypatch, main_mod
 
     monkeypatch.setenv("TERMUX_VERSION", "1")
     monkeypatch.delenv("HERMES_TUI", raising=False)
-    monkeypatch.setattr(sys, "argv", ["hermes", "version"])
+    monkeypatch.setattr(sys, "argv", ["kova", "version"])
     monkeypatch.setattr(
         main_mod, "_print_version_info", lambda *, check_updates: captured.append(check_updates)
     )
@@ -402,7 +402,7 @@ def test_termux_ultrafast_version_runs_before_heavy_startup(
 ):
     monkeypatch.setenv("TERMUX_VERSION", "1")
     monkeypatch.delenv("HERMES_TERMUX_DISABLE_FAST_CLI", raising=False)
-    monkeypatch.setattr(sys, "argv", ["hermes", "--version"])
+    monkeypatch.setattr(sys, "argv", ["kova", "--version"])
 
     assert main_mod._try_termux_ultrafast_version() is True
 
@@ -428,7 +428,7 @@ def test_read_openai_version_fast(monkeypatch, tmp_path, main_mod):
 def test_termux_fast_cli_launch_skips_help(monkeypatch, main_mod):
     monkeypatch.setenv("TERMUX_VERSION", "1")
     monkeypatch.delenv("HERMES_TUI", raising=False)
-    monkeypatch.setattr(sys, "argv", ["hermes", "chat", "--help"])
+    monkeypatch.setattr(sys, "argv", ["kova", "chat", "--help"])
 
     assert main_mod._try_termux_fast_cli_launch() is False
 
@@ -437,7 +437,7 @@ def test_termux_fast_cli_launch_can_be_disabled(monkeypatch, main_mod):
     monkeypatch.setenv("TERMUX_VERSION", "1")
     monkeypatch.setenv("HERMES_TERMUX_DISABLE_FAST_CLI", "1")
     monkeypatch.delenv("HERMES_TUI", raising=False)
-    monkeypatch.setattr(sys, "argv", ["hermes", "version"])
+    monkeypatch.setattr(sys, "argv", ["kova", "version"])
 
     assert main_mod._try_termux_fast_cli_launch() is False
 
@@ -577,7 +577,7 @@ def test_main_top_level_oneshot_accepts_toolsets(monkeypatch, main_mod):
     import hermes_cli.config as config_mod
 
     monkeypatch.setattr(
-        sys, "argv", ["hermes", "-z", "hello", "--toolsets", "web,terminal"]
+        sys, "argv", ["kova", "-z", "hello", "--toolsets", "web,terminal"]
     )
     monkeypatch.setitem(
         sys.modules,

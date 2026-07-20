@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import pytest
+
 import base64
 import json
 import time
@@ -178,6 +180,9 @@ def test_auth_add_qwen_oauth_sets_active_provider(tmp_path, monkeypatch):
     assert entry["access_token"] == "qwen-test-token"
 
 
+@pytest.mark.skip(
+    reason="Nous Portal removed; 'nous' provider no longer in registry"
+)
 def test_auth_add_nous_oauth_persists_pool_entry(tmp_path, monkeypatch):
     monkeypatch.setenv("HERMES_HOME", str(tmp_path / "hermes"))
     _write_auth_store(tmp_path, {"version": 1, "providers": {}})
@@ -295,6 +300,9 @@ def test_auth_add_minimax_oauth_starts_login_and_persists_pool_entry(tmp_path, m
     assert entry["base_url"] == "https://api.minimax.io/anthropic"
 
 
+@pytest.mark.skip(
+    reason="Nous Portal removed; 'nous' provider no longer in registry"
+)
 def test_auth_add_nous_oauth_honors_custom_label(tmp_path, monkeypatch):
     """`kova auth add nous --type oauth --label <name>` must preserve the
     custom label end-to-end — it was silently dropped in the first cut of the

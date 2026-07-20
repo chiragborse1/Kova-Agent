@@ -513,7 +513,7 @@ class TestGatewayRuntimeStatus:
             "pid": 139,
             "gateway_state": "running",
             "kind": "hermes-gateway",
-            "argv": ["hermes", "gateway", "run"],
+            "argv": ["kova", "gateway", "run"],
         }
         coder_home = Path("/opt/data/profiles/coder")
 
@@ -536,7 +536,7 @@ class TestGatewayRuntimeStatus:
             "pid": 139,
             "gateway_state": "running",
             "kind": "hermes-gateway",
-            "argv": ["hermes", "gateway", "run"],
+            "argv": ["kova", "gateway", "run"],
             "start_time": 1000,
         }
         coder_home = Path("/opt/data/profiles/coder")
@@ -562,7 +562,7 @@ class TestGatewayRuntimeStatus:
             "pid": 139,
             "gateway_state": "running",
             "kind": "hermes-gateway",
-            "argv": ["hermes", "gateway", "run"],
+            "argv": ["kova", "gateway", "run"],
         }
         default_home = Path("/opt/data")
 
@@ -584,7 +584,7 @@ class TestGatewayRuntimeStatus:
             "pid": 139,
             "gateway_state": "running",
             "kind": "hermes-gateway",
-            "argv": ["hermes", "gateway", "run"],
+            "argv": ["kova", "gateway", "run"],
             "start_time": 1000,
         }
         default_home = Path("/opt/data")
@@ -608,7 +608,7 @@ class TestGatewayRuntimeStatus:
             "pid": 139,
             "gateway_state": "running",
             "kind": "hermes-gateway",
-            "argv": ["hermes", "gateway", "run"],
+            "argv": ["kova", "gateway", "run"],
             "start_time": 1000,
         }
         coder_home = Path("/opt/data/profiles/coder")

@@ -18,7 +18,7 @@ def main():
 
     # Announce via CLI (goes through real argparse + init_db + etc)
     subprocess.run(
-        ["hermes", "kanban", "heartbeat", tid, "--note", "started"],
+        ["kova", "kanban", "heartbeat", tid, "--note", "started"],
         check=True, capture_output=True,
     )
 
@@ -26,7 +26,7 @@ def main():
     for i in range(3):
         time.sleep(0.3)
         subprocess.run(
-            ["hermes", "kanban", "heartbeat", tid, "--note", f"progress {i+1}/3"],
+            ["kova", "kanban", "heartbeat", tid, "--note", f"progress {i+1}/3"],
             check=True, capture_output=True,
         )
 

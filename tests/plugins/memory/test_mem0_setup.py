@@ -168,7 +168,7 @@ class TestWriteEnv:
 class TestPostSetup:
 
     def test_platform_flag_mode(self, tmp_path, monkeypatch):
-        monkeypatch.setattr("sys.argv", ["hermes", "--mode", "platform", "--api-key", "sk-test"])
+        monkeypatch.setattr("sys.argv", ["kova", "--mode", "platform", "--api-key", "sk-test"])
         monkeypatch.setattr("plugins.memory.mem0._setup.get_hermes_home", lambda: tmp_path)
         _inject_fake_hermes_cli(monkeypatch)
         config = {"memory": {}}
@@ -186,7 +186,7 @@ class TestPostSetup:
         (tmp_path / "mem0.json").write_text(
             json.dumps({"mode": "platform", "host": "http://old-selfhosted:8888"})
         )
-        monkeypatch.setattr("sys.argv", ["hermes", "--mode", "platform", "--api-key", "sk-test"])
+        monkeypatch.setattr("sys.argv", ["kova", "--mode", "platform", "--api-key", "sk-test"])
         monkeypatch.setattr("plugins.memory.mem0._setup.get_hermes_home", lambda: tmp_path)
         _inject_fake_hermes_cli(monkeypatch)
         config = {"memory": {}}
@@ -267,7 +267,7 @@ class TestDryRun:
         assert flags["dry_run"] is False
 
     def test_dry_run_platform_no_files(self, tmp_path, monkeypatch):
-        monkeypatch.setattr("sys.argv", ["hermes", "--mode", "platform", "--api-key", "sk-test", "--dry-run"])
+        monkeypatch.setattr("sys.argv", ["kova", "--mode", "platform", "--api-key", "sk-test", "--dry-run"])
         monkeypatch.setattr("plugins.memory.mem0._setup.get_hermes_home", lambda: tmp_path)
         _inject_fake_hermes_cli(monkeypatch)
         config = {"memory": {}}

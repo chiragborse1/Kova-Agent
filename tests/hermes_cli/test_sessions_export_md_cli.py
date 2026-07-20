@@ -155,7 +155,7 @@ def test_sessions_export_md_rejects_stdout_target(monkeypatch, tmp_path, capsys)
     monkeypatch.setattr(
         sys,
         "argv",
-        ["hermes", "sessions", "export", "--format", "md", "--session-id", "s1", "-"],
+        ["kova", "sessions", "export", "--format", "md", "--session-id", "s1", "-"],
     )
 
     main_mod.main()
@@ -175,7 +175,7 @@ def test_sessions_export_jsonl_requires_output_path(monkeypatch, capsys):
             pass
 
     monkeypatch.setattr(hermes_state, "SessionDB", lambda: FakeDB())
-    monkeypatch.setattr(sys, "argv", ["hermes", "sessions", "export"])
+    monkeypatch.setattr(sys, "argv", ["kova", "sessions", "export"])
 
     main_mod.main()
 
@@ -243,7 +243,7 @@ def test_sessions_export_md_bulk_requires_filter(monkeypatch, tmp_path, capsys):
     monkeypatch.setattr(
         sys,
         "argv",
-        ["hermes", "sessions", "export", "--format", "md", str(tmp_path)],
+        ["kova", "sessions", "export", "--format", "md", str(tmp_path)],
     )
 
     main_mod.main()
@@ -455,7 +455,7 @@ def test_sessions_export_jsonl_honors_filters(monkeypatch, tmp_path, capsys):
     monkeypatch.setattr(
         sys,
         "argv",
-        ["hermes", "sessions", "export", "--source", "telegram", str(out)],
+        ["kova", "sessions", "export", "--source", "telegram", str(out)],
     )
 
     main_mod.main()
@@ -539,7 +539,7 @@ def test_sessions_export_trace_writes_claude_jsonl(monkeypatch, tmp_path, capsys
     monkeypatch.setattr(
         sys,
         "argv",
-        ["hermes", "sessions", "export", "--format", "trace", "--session-id", "s1", str(out)],
+        ["kova", "sessions", "export", "--format", "trace", "--session-id", "s1", str(out)],
     )
 
     main_mod.main()
@@ -563,7 +563,7 @@ def test_sessions_export_trace_stdout(monkeypatch, capsys):
     monkeypatch.setattr(
         sys,
         "argv",
-        ["hermes", "sessions", "export", "--format", "trace", "--session-id", "s1", "-"],
+        ["kova", "sessions", "export", "--format", "trace", "--session-id", "s1", "-"],
     )
 
     main_mod.main()

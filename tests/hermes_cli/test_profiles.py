@@ -125,7 +125,7 @@ class TestValidateProfileName:
         with pytest.raises(ValueError):
             validate_profile_name("")
 
-    @pytest.mark.parametrize("name", ["hermes", "test", "tmp", "root", "sudo"])
+    @pytest.mark.parametrize("name", ["kova", "test", "tmp", "root", "sudo"])
     def test_reserved_names_rejected(self, name):
         """Reserved names collide with the Hermes install itself or with
         common system binaries — reject them at validate time so
@@ -1692,7 +1692,7 @@ class TestEdgeCases:
                 {
                     "pid": live_pid,
                     "kind": "hermes-gateway",
-                    "argv": ["hermes", "gateway", "run"],
+                    "argv": ["kova", "gateway", "run"],
                     "start_time": gw_status._get_process_start_time(live_pid),
                     "gateway_state": "running",
                     "active_agents": 0,
@@ -1728,7 +1728,7 @@ class TestEdgeCases:
                 {
                     "pid": os.getpid(),
                     "kind": "hermes-gateway",
-                    "argv": ["hermes", "gateway", "run"],
+                    "argv": ["kova", "gateway", "run"],
                     "gateway_state": "stopped",
                 }
             ),
@@ -1760,7 +1760,7 @@ class TestEdgeCases:
                 {
                     "pid": 139,
                     "kind": "hermes-gateway",
-                    "argv": ["hermes", "gateway", "run"],
+                    "argv": ["kova", "gateway", "run"],
                     "gateway_state": "running",
                     "active_agents": 0,
                 }
@@ -1792,7 +1792,7 @@ class TestEdgeCases:
                 {
                     "pid": 139,
                     "kind": "hermes-gateway",
-                    "argv": ["hermes", "gateway", "run"],
+                    "argv": ["kova", "gateway", "run"],
                     "start_time": 1000,
                     "gateway_state": "running",
                     "active_agents": 0,

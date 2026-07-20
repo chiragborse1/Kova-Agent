@@ -489,7 +489,7 @@ def get_cross_profile_warning(path: str) -> Optional[str]:
 #
 # This guard is path-shape-only: it detects the
 # ``…/sandboxes/<backend>/<task>/home/.hermes/…`` segment and warns
-# regardless of which Hermes profile is active. It does NOT cover the
+# regardless of which kova profile is active. It does NOT cover the
 # inner-container case where the bind mount strips the ``sandboxes/`` prefix
 # (the agent's view inside the container is plain ``/root/.hermes/...``);
 # that case needs a separate dispatch-layer or host-side ``profile_state``

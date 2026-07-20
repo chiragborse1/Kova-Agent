@@ -306,7 +306,7 @@ class MemoryProvider(ABC):
         Return a list of absolute path strings (files or directories). The
         backup command resolves each, captures the ones that exist and live
         under the user's home directory into a reserved ``_external/`` subtree
-        of the archive, and ``hermes import`` restores them to their original
+        of the archive, and ``kova import`` restores them to their original
         locations. Paths outside the home directory are skipped for safety.
 
         MUST be callable without ``initialize()`` and without network — resolve

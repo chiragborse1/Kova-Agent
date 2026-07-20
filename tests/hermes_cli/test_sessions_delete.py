@@ -25,7 +25,7 @@ def test_sessions_delete_accepts_unique_id_prefix(monkeypatch, capsys):
     monkeypatch.setattr(
         sys,
         "argv",
-        ["hermes", "sessions", "delete", "20260315_092437_c9a6", "--yes"],
+        ["kova", "sessions", "delete", "20260315_092437_c9a6", "--yes"],
     )
 
     main_mod.main()
@@ -57,7 +57,7 @@ def test_sessions_delete_reports_not_found_when_prefix_is_unknown(monkeypatch, c
     monkeypatch.setattr(
         sys,
         "argv",
-        ["hermes", "sessions", "delete", "missing-prefix", "--yes"],
+        ["kova", "sessions", "delete", "missing-prefix", "--yes"],
     )
 
     main_mod.main()
@@ -84,7 +84,7 @@ def test_sessions_delete_handles_eoferror_on_confirm(monkeypatch, capsys):
     monkeypatch.setattr(hermes_state, "SessionDB", lambda: FakeDB())
     monkeypatch.setattr(
         sys, "argv",
-        ["hermes", "sessions", "delete", "20260315_092437_c9a6"],
+        ["kova", "sessions", "delete", "20260315_092437_c9a6"],
     )
     monkeypatch.setattr("builtins.input", lambda _prompt="": (_ for _ in ()).throw(EOFError))
 
@@ -122,7 +122,7 @@ def test_sessions_prune_handles_eoferror_on_confirm(monkeypatch, capsys):
     monkeypatch.setattr(hermes_state, "SessionDB", lambda: FakeDB())
     monkeypatch.setattr(
         sys, "argv",
-        ["hermes", "sessions", "prune"],
+        ["kova", "sessions", "prune"],
     )
     monkeypatch.setattr("builtins.input", lambda _prompt="": (_ for _ in ()).throw(EOFError))
 
@@ -173,7 +173,7 @@ def _run_prune(monkeypatch, capsys, argv_tail, candidates=None):
 
     monkeypatch.setattr(hermes_state, "SessionDB", lambda: FakeDB())
     monkeypatch.setattr(
-        sys, "argv", ["hermes", "sessions", "prune", *argv_tail]
+        sys, "argv", ["kova", "sessions", "prune", *argv_tail]
     )
     monkeypatch.setattr("builtins.input", lambda _prompt="": "y")
     main_mod.main()

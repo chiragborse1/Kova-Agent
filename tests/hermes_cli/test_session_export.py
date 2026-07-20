@@ -143,7 +143,7 @@ def test_sessions_export_cli_prompt_only_stdout(monkeypatch, capsys):
     monkeypatch.setattr(
         sys,
         "argv",
-        ["hermes", "sessions", "export", "-", "--session-id", "sess", "--only", "user-prompts"],
+        ["kova", "sessions", "export", "-", "--session-id", "sess", "--only", "user-prompts"],
     )
 
     main_mod.main()
@@ -218,7 +218,7 @@ def test_sessions_export_only_rejects_unsupported_format(monkeypatch, capsys):
     monkeypatch.setattr(
         sys,
         "argv",
-        ["hermes", "sessions", "export", "-", "--format", "html", "--only", "user-prompts"],
+        ["kova", "sessions", "export", "-", "--format", "html", "--only", "user-prompts"],
     )
 
     main_mod.main()

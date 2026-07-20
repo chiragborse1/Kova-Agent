@@ -366,7 +366,7 @@ class PluginContext:
 
     @property
     def profile_name(self) -> str:
-        """Return the active Hermes profile name (e.g. ``"default"``).
+        """Return the active kova profile name (e.g. ``"default"``).
 
         Derived from ``HERMES_HOME`` via
         :func:`hermes_cli.profiles.get_active_profile_name`, so it works in

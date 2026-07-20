@@ -27,7 +27,7 @@ def get_camofox_state_dir() -> Path:
 def get_camofox_identity(task_id: Optional[str] = None) -> Dict[str, str]:
     """Return the stable Hermes-managed Camofox identity for this profile.
 
-    The user identity is profile-scoped (same Hermes profile = same userId).
+    The user identity is profile-scoped (same kova profile = same userId).
     The session key is scoped to the logical browser task so newly created
     tabs within the same profile reuse the same identity contract.
     """
