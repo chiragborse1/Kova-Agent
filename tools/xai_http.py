@@ -1,4 +1,4 @@
-﻿"""Shared helpers for direct xAI HTTP integrations."""
+"""Shared helpers for direct xAI HTTP integrations."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ def has_xai_credentials() -> bool:
     """Cheap probe — return True when xAI credentials are *likely* usable.
 
     Deliberately avoids :func:`resolve_xai_http_credentials` so callers in
-    hot-paint paths (``hermes tools`` repaint, tool-registration scans,
+    hot-paint paths (``kova tools`` repaint, tool-registration scans,
     ``WebSearchProvider.is_available()``) don't incur disk locks or — in
     the OAuth path — a network token refresh. The ABC contract on
     :meth:`agent.web_search_provider.WebSearchProvider.is_available`
@@ -79,7 +79,7 @@ def hermes_xai_user_agent() -> str:
 
 
 def _load_config_section(section_name: str) -> Dict[str, Any]:
-    """Return a top-level Hermes config section as a dict, or empty."""
+    """Return a top-level kova config section as a dict, or empty."""
     try:
         from hermes_cli.config import load_config
 

@@ -1,4 +1,4 @@
-﻿"""Cross-process active chat session leases.
+"""Cross-process active chat session leases.
 
 The session database records persisted conversations.  This module records
 currently open chat surfaces, including idle CLI/TUI sessions that have not

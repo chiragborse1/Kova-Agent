@@ -9,7 +9,7 @@ Where this fits relative to the existing pieces:
 
 * ``hermes profile export/import`` — local backup / restore for a profile
   on your own machine. NOT a distribution format. Stays as-is.
-* ``hermes skills install <url>`` — the URL install pattern we're mirroring,
+* ``kova skills install <url>`` — the URL install pattern we're mirroring,
   but at the profile granularity.
 
 Subcommands (all live under ``hermes profile``, not a parallel tree):

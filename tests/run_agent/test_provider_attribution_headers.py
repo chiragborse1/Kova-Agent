@@ -1,4 +1,4 @@
-﻿"""Attribution default_headers applied per provider via base-URL detection."""
+"""Attribution default_headers applied per provider via base-URL detection."""
 from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
 

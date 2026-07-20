@@ -1,4 +1,4 @@
-﻿"""
+"""
 Home Assistant platform adapter.
 
 Connects to the HA WebSocket API for real-time event monitoring.

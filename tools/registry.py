@@ -199,7 +199,7 @@ def _check_fn_cached(fn: Callable) -> bool:
 
 def invalidate_check_fn_cache() -> None:
     """Drop all cached ``check_fn`` results. Call after config changes that
-    affect tool availability (e.g. ``hermes tools enable``)."""
+    affect tool availability (e.g. ``kova tools enable``)."""
     with _check_fn_cache_lock:
         _check_fn_cache.clear()
         _check_fn_last_good.clear()
@@ -525,7 +525,7 @@ class ToolRegistry:
         are included. ``check_fn()`` results are cached for ~30 s via
         :func:`_check_fn_cached` to amortize repeat probes (check_terminal_
         requirements probes modal/docker, browser checks probe playwright,
-        etc.); TTL chosen so env-var changes (``hermes tools enable foo``)
+        etc.); TTL chosen so env-var changes (``kova tools enable foo``)
         still take effect in near-real-time without forcing a full cache
         flush on every call.
         """

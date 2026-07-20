@@ -1,4 +1,4 @@
-﻿"""Tests for the Hindsight memory provider plugin.
+"""Tests for the Hindsight memory provider plugin.
 
 Tests cover config loading, tool handlers (tags, max_tokens, types),
 prefetch (auto_recall, preamble, query truncation), sync_turn (auto_retain,

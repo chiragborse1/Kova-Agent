@@ -189,6 +189,8 @@ _HERMES_BEHAVIORAL_VARS = frozenset({
     "HERMES_INFERENCE_MODEL",
     "HERMES_INFERENCE_PROVIDER",
     "HERMES_TUI_PROVIDER",
+    "HERMES_DESKTOP",
+    "HERMES_DESKTOP_TERMINAL",
     "HERMES_MANAGED",
     "HERMES_MANAGED_DIR",
     "HERMES_DEV",
@@ -427,7 +429,7 @@ def tmp_dir(tmp_path):
 
 @pytest.fixture()
 def mock_config():
-    """Return a minimal hermes config dict suitable for unit tests."""
+    """Return a minimal kova config dict suitable for unit tests."""
     return {
         "model": "test/mock-model",
         "toolsets": ["terminal", "file"],
@@ -658,7 +660,7 @@ def _live_system_guard(request, monkeypatch):
         "hermes_cli.main gateway",
         "hermes_cli/main.py gateway",
         "gateway/run.py",
-        "hermes gateway",
+        "kova gateway",
     )
     _MUTATING_VERBS = (
         "restart", "start", "stop", "kill", "reload",
@@ -740,7 +742,7 @@ def _live_system_guard(request, monkeypatch):
                 "Mark with @pytest.mark.live_system_guard_bypass if "
                 "intentional."
             )
-        # Block any subprocess that would run `hermes update` (or the
+        # Block any subprocess that would run `kova update` (or the
         # equivalent `python -m hermes_cli.main update`).  These commands
         # run `git fetch origin + git pull` against the REAL checkout,
         # overwriting files like pyproject.toml mid-test-run and corrupting
@@ -753,7 +755,7 @@ def _live_system_guard(request, monkeypatch):
         cmd_str = _cmd_to_string(cmd)
         low = cmd_str.lower()
         if "update" in low and (
-            # hermes update / hermes update --gateway / setsid bash -c ... hermes update
+            # kova update / kova update --gateway / setsid bash -c ... kova update
             ("hermes" in low and "update" in low.split())
             or
             # python -m hermes_cli.main update --gateway
@@ -765,7 +767,7 @@ def _live_system_guard(request, monkeypatch):
             raise RuntimeError(
                 f"tests/conftest.py live-system guard: blocked "
                 f"subprocess.{name}({cmd!r}) — this command would run "
-                "`hermes update` against the real checkout, fetching "
+                "`kova update` against the real checkout, fetching "
                 "from origin and overwriting repo files (e.g. "
                 "pyproject.toml) mid-test-run. This corrupts every "
                 "subsequent subprocess in the same runner. "

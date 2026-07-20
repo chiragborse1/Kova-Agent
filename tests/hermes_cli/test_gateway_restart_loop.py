@@ -26,9 +26,9 @@ class TestGatewayLifecyclePattern:
     """Verify the regex catches gateway lifecycle commands."""
 
     @pytest.mark.parametrize("text", [
-        "hermes gateway restart",
-        "hermes gateway stop",
-        "hermes  gateway  restart",         # double spaces
+        "kova gateway restart",
+        "kova gateway stop",
+        "kova  gateway  restart",         # double spaces
         "Hermez Gateway Restart".lower().replace("z", "s"),  # case handled
         "HERMES GATEWAY RESTART",           # uppercase
     ])
@@ -47,7 +47,7 @@ class TestGatewayLifecyclePattern:
         assert _contains_gateway_lifecycle_command(text), f"Should match: {text!r}"
 
     @pytest.mark.parametrize("text", [
-        "kill hermes gateway process",
+        "kill kova gateway process",
         "pkill -f hermes.*gateway",
         "pkill -f gateway.*hermes",          # inverse token order
     ])
@@ -56,18 +56,18 @@ class TestGatewayLifecyclePattern:
 
     @pytest.mark.parametrize("text", [
         "restart the server application",
-        "hermes cron list",
-        "hermes update",
-        "hermes config set model claude",
+        "kova cron list",
+        "kova update",
+        "kova config set model claude",
         "echo 'just a normal cron job'",
         "run the backup script",
         "gateway is running fine",
-        # `hermes gateway start` is benign — starting a gateway from inside a
+        # `kova gateway start` is benign — starting a gateway from inside a
         # gateway is a no-op / "already running", and a legit cron job may
         # start a sibling profile's gateway. Only restart/stop/kill are the
         # foot-gun (#30719 lists only those).
-        "hermes gateway start",
-        "hermes gateway start --all",
+        "kova gateway start",
+        "kova gateway start --all",
         # Tightened launchctl/systemctl branches: ops on NON-gateway hermes
         # services must not be falsely blocked (the old `.*hermes` matched any
         # hermes token).
@@ -102,7 +102,7 @@ class TestCronCreateLifecycleBlock:
         args = Namespace(
             cron_command="create",
             schedule="30m",
-            prompt="Upgrade hermes then run hermes gateway restart",
+            prompt="Upgrade hermes then run kova gateway restart",
             name=None,
             deliver=None,
             repeat=None,
@@ -217,7 +217,7 @@ class TestCronCreateLifecycleBlock:
 # ---------------------------------------------------------------------------
 
 class TestGatewaySelfTargetingGuard:
-    """Verify hermes gateway stop/restart refuse when _HERMES_GATEWAY=1."""
+    """Verify kova gateway stop/restart refuse when _HERMES_GATEWAY=1."""
 
     def test_stop_refuses_inside_gateway(self, monkeypatch):
         monkeypatch.setenv("_HERMES_GATEWAY", "1")
@@ -314,7 +314,7 @@ class TestTerminalToolGatewayLifecycleGuard:
         "systemctl restart hermes-gateway",
         "systemctl --user restart hermes-gateway",
         "systemctl stop hermes-gateway.service",
-        "hermes gateway restart",
+        "kova gateway restart",
         "launchctl kickstart gui/501/ai.hermes.gateway",
         "pkill -f hermes.*gateway",
     ])
@@ -391,7 +391,7 @@ class TestLifecycleGuardModule:
     def test_prompt_with_command_raises(self):
         from cron.lifecycle_guard import GatewayLifecycleBlocked, check_gateway_lifecycle
         with pytest.raises(GatewayLifecycleBlocked) as exc:
-            check_gateway_lifecycle("please run hermes gateway restart", None)
+            check_gateway_lifecycle("please run kova gateway restart", None)
         assert "#30719" in str(exc.value)
 
     def test_clean_prompt_does_not_raise(self):
@@ -411,7 +411,7 @@ class TestLifecycleGuardModule:
         script to slip through."""
         from cron.lifecycle_guard import GatewayLifecycleBlocked, check_gateway_lifecycle
         script = tmp_path / "ops.sh"
-        script.write_text("hermes gateway stop\n")
+        script.write_text("kova gateway stop\n")
         with pytest.raises(GatewayLifecycleBlocked):
             check_gateway_lifecycle("daily ops job", str(script))
 
@@ -462,7 +462,7 @@ class TestCreateJobBlocksLifecycleCommands:
         from cron.jobs import create_job
         from cron.lifecycle_guard import GatewayLifecycleBlocked
         with pytest.raises(GatewayLifecycleBlocked):
-            create_job(prompt="then run hermes gateway restart", schedule="30m")
+            create_job(prompt="then run kova gateway restart", schedule="30m")
 
     def test_create_job_allows_benign_prompt(self):
         from cron.jobs import create_job
@@ -478,7 +478,7 @@ class TestCreateJobBlocksLifecycleCommands:
         from tools.cronjob_tools import cronjob
         result = json.loads(cronjob(
             action="create", schedule="0 9 * * *",
-            prompt="please run hermes gateway restart nightly",
+            prompt="please run kova gateway restart nightly",
         ))
         assert result.get("success") is False
         assert "#30719" in result.get("error", "")

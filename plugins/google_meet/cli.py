@@ -1,4 +1,4 @@
-﻿"""CLI commands for the google_meet plugin.
+"""CLI commands for the google_meet plugin.
 
 Wires ``hermes meet <subcommand>``:
   setup       — preflight playwright, chromium, auth file, print fixes

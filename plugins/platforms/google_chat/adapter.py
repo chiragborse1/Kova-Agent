@@ -3029,7 +3029,7 @@ def _env_enablement() -> Optional[Dict[str, Any]]:
 
 
 def interactive_setup() -> None:
-    """Walk the user through Google Chat configuration via ``hermes setup``.
+    """Walk the user through Google Chat configuration via ``kova setup``.
 
     The setup wizard at ``hermes_cli/gateway.py`` calls this for plugin
     platforms instead of using the in-tree ``_PLATFORMS`` data block. The
@@ -3117,7 +3117,7 @@ def interactive_setup() -> None:
 
     print()
     print_success("Google Chat configuration saved to ~/.hermes/.env")
-    print_info("Restart the gateway: hermes gateway restart")
+    print_info("Restart the gateway: kova gateway restart")
 
 
 # Strict resource-name pattern.  ``spaces/<id>`` and ``users/<id>`` must
@@ -3139,8 +3139,8 @@ async def _standalone_send(
     """POST a single Google Chat message via the REST API without the SDK.
 
     Used by ``tools/send_message_tool._send_via_adapter`` when the gateway
-    runner is not in this process (e.g. ``hermes cron`` running as a
-    separate process from ``hermes gateway``).  Without this hook,
+    runner is not in this process (e.g. ``kova cron`` running as a
+    separate process from ``kova gateway``).  Without this hook,
     ``deliver=google_chat`` cron jobs fail with ``No live adapter for
     platform``.
 

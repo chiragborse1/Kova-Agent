@@ -1,4 +1,4 @@
-﻿"""Shared auxiliary client router for side tasks.
+"""Shared auxiliary client router for side tasks.
 
 Provides a single resolution chain so every consumer (context compression,
 session search, web extraction, vision analysis, browser vision) picks up
@@ -500,7 +500,7 @@ _PROVIDERS_WITHOUT_VISION: frozenset = frozenset({
 # `X-Title` is the canonical attribution header OpenRouter's dashboard
 # reads; the previous `X-OpenRouter-Title` label was not recognized there.
 _OR_HEADERS_BASE = {
-    "HTTP-Referer": "https://github.com/chaitanyasai/kova-agent",
+    "HTTP-Referer": "https://github.com/chiragborse1/Kova-Agent",
     "X-Title": "Kova Agent",
     "X-OpenRouter-Categories": "productivity,cli-agent",
 }
@@ -1739,7 +1739,7 @@ def _resolve_xai_oauth_for_aux() -> Optional[Tuple[str, str]]:
 
 
 def _read_codex_access_token() -> Optional[str]:
-    """Read a valid, non-expired Codex OAuth access token from Hermes auth store.
+    """Read a valid, non-expired Codex OAuth access token from kova auth store.
 
     If a credential pool exists but currently has no selectable runtime entry
     (for example all pool slots are marked exhausted), fall back to the
@@ -2279,7 +2279,7 @@ def _validate_proxy_env_urls() -> None:
                 _ = parsed.port          # raises ValueError for e.g. '6153export'
         except ValueError as exc:
             raise RuntimeError(
-                f"Malformed proxy environment variable {key}={value!r}. "
+                f"Malformed proxy environment variable {key.lower()}={value!r}. "
                 "Fix or unset your proxy settings and try again."
             ) from exc
 
@@ -2756,7 +2756,7 @@ def _log_skip_unhealthy(label: str, task: Optional[str] = None) -> None:
 
 def _reset_aux_unhealthy_cache() -> None:
     """Clear the unhealthy cache. Used by tests and by a future explicit
-    user trigger (e.g. ``hermes config aux reset``)."""
+    user trigger (e.g. ``kova config aux reset``)."""
     _aux_unhealthy_until.clear()
     _aux_unhealthy_logged_at.clear()
 

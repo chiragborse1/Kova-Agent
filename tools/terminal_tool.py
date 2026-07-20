@@ -2264,7 +2264,7 @@ def terminal_tool(
                         "Blocked: cannot restart or stop the gateway from inside the "
                         "gateway process. The gateway would kill this command before "
                         "it could complete (SIGTERM propagates to child processes). "
-                        "Run `hermes gateway restart` from a separate shell outside "
+                        "Run `kova gateway restart` from a separate shell outside "
                         "the running gateway."
                     ),
                     "status": "error",

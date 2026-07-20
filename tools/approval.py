@@ -1,4 +1,4 @@
-﻿"""Dangerous command approval -- detection, prompting, and per-session state.
+"""Dangerous command approval -- detection, prompting, and per-session state.
 
 This module is the single source of truth for the dangerous command system:
 - Pattern detection (DANGEROUS_PATTERNS, detect_dangerous_command)
@@ -624,7 +624,7 @@ DANGEROUS_PATTERNS = [
     # terminates all running agents mid-work.  Allow global flags between
     # `hermes` and `gateway` (e.g. `hermes -p ade gateway restart`) so a
     # profile flag can't slip the agent past the guard.
-    (r'\bhermes\s+(?:-{1,2}\S+(?:\s+\S+)?\s+)*gateway\s+(stop|restart)\b', "stop/restart hermes gateway (kills running agents)"),
+    (r'\bhermes\s+(?:-{1,2}\S+(?:\s+\S+)?\s+)*gateway\s+(stop|restart)\b', "stop/restart kova gateway (kills running agents)"),
     (r'\bhermes\s+update\b', "kova update (restarts gateway, kills running agents)"),
     # Docker container lifecycle — any user with docker.sock mounted (a common
     # Docker Compose pattern) gives the agent the ability to restart/stop/kill

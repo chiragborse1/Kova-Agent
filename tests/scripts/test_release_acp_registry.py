@@ -1,4 +1,4 @@
-﻿"""Tests for the ACP Registry version-lockstep bump in scripts/release.py.
+"""Tests for the ACP Registry version-lockstep bump in scripts/release.py.
 
 The official ACP Registry manifest must match ``pyproject.toml`` exactly —
 ``tests/acp/test_registry_manifest.py`` enforces this at lint time, and the

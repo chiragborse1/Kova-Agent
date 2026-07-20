@@ -219,7 +219,7 @@ class PlatformRegistry:
 
         Used by the iterate-all accessors (``all_entries``/``plugin_entries``),
         which are only called by paths that genuinely need every adapter:
-        gateway startup, ``hermes setup``/``gateway status``, channel
+        gateway startup, ``kova setup``/``gateway status``, channel
         directory.  CLI chat never iterates the full set.
         """
         if not self._deferred:

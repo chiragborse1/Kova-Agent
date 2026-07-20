@@ -1,4 +1,4 @@
-﻿"""Tests for the cross-profile soft guard wired into write_file / patch /
+"""Tests for the cross-profile soft guard wired into write_file / patch /
 skill_manage.
 
 The classifier is tested in tests/agent/test_file_safety_cross_profile.py.

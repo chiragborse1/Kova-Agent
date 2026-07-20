@@ -1,4 +1,4 @@
-﻿"""Tests for hermes_cli.telegram_managed_bot — QR codes, deep links, pairing."""
+"""Tests for hermes_cli.telegram_managed_bot — QR codes, deep links, pairing."""
 
 from __future__ import annotations
 

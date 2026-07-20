@@ -1,4 +1,4 @@
-﻿"""GMI Cloud provider profile."""
+"""GMI Cloud provider profile."""
 
 from hermes_cli import __version__ as _HERMES_VERSION
 from providers import register_provider

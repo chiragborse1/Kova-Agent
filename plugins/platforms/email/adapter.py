@@ -1,5 +1,5 @@
 """
-Email platform adapter for the Hermes gateway.
+Email platform adapter for the kova gateway.
 
 Allows users to interact with Hermes by sending emails.
 Uses IMAP to receive and SMTP to send messages.
@@ -567,7 +567,7 @@ class EmailAdapter(BasePlatformAdapter):
             message = (
                 "Not configured — missing "
                 + ", ".join(missing)
-                + ". Set it via `hermes gateway setup` (env) or platforms.email "
+                + ". Set it via `kova gateway setup` (env) or platforms.email "
                 "in config.yaml."
             )
             logger.error("[Email] %s", message)

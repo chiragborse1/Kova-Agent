@@ -98,8 +98,8 @@ def reconcile_profile_gateways(
     (the implicit profile that lives at the top of ``$HERMES_HOME``,
     not under ``profiles/``). The dispatcher in ``hermes_cli.gateway``
     maps an empty profile suffix to ``gateway-default``, so this slot
-    is what ``hermes gateway start`` (no ``-p``) targets. Without it,
-    bare ``hermes gateway start`` inside the container would land on
+    is what ``kova gateway start`` (no ``-p``) targets. Without it,
+    bare ``kova gateway start`` inside the container would land on
     ``s6-svc -u /run/service/gateway-default`` → uncaught
     ``CalledProcessError`` → traceback to the user (PR #30136 review).
 

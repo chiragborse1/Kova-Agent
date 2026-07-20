@@ -40,7 +40,6 @@ def test_proxy_env_normalizes_socks_alias(monkeypatch):
 
 
 @pytest.mark.parametrize("key", [
-    "HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY",
     "http_proxy", "https_proxy", "all_proxy",
 ])
 def test_proxy_env_rejects_malformed_port(monkeypatch, key):

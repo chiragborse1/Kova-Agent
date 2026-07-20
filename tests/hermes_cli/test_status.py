@@ -1,5 +1,7 @@
 from types import SimpleNamespace
 
+import pytest
+
 from hermes_cli.status import show_status
 
 
@@ -42,10 +44,13 @@ def test_show_status_termux_gateway_section_skips_systemctl(monkeypatch, capsys,
 
     output = capsys.readouterr().out
     assert "Manager:      Termux / manual process" in output
-    assert "Start with:   hermes gateway" in output
+    assert "Start with:   kova gateway" in output
     assert "systemd (user)" not in output
 
 
+@pytest.mark.skip(
+    reason="Nous Portal removed; portal auth-error UI no longer rendered"
+)
 def test_show_status_reports_nous_auth_error(monkeypatch, capsys, tmp_path):
     from hermes_cli import status as status_mod
     import hermes_cli.auth as auth_mod
@@ -78,12 +83,15 @@ def test_show_status_reports_nous_auth_error(monkeypatch, capsys, tmp_path):
     status_mod.show_status(SimpleNamespace(all=False, deep=False))
 
     output = capsys.readouterr().out
-    assert "Nous Portal   ✗ not logged in (run: hermes portal)" in output
+    assert "Nous Portal   ✗ not logged in (run: kova portal)" in output
     assert "Error:      Refresh session has been revoked" in output
     assert "Access exp:" in output
     assert "Key exp:" in output
 
 
+@pytest.mark.skip(
+    reason="Nous Portal removed; portal inference-key UI no longer rendered"
+)
 def test_show_status_reports_nous_inference_key_without_portal_login(monkeypatch, capsys, tmp_path):
     from hermes_cli import status as status_mod
     from hermes_cli.nous_account import NousPortalAccountInfo
@@ -268,7 +276,7 @@ class TestShowStatusXaiOAuth:
         status_mod.show_status(SimpleNamespace(all=False, deep=False))
         out = capsys.readouterr().out
 
-        assert "not logged in (run: hermes auth add xai-oauth)" in out
+        assert "not logged in (run: kova auth add xai-oauth)" in out
 
     def test_not_logged_in_shows_error(self, monkeypatch, capsys, tmp_path):
         import hermes_cli.auth as auth_mod
@@ -311,6 +319,9 @@ class TestShowStatusXaiOAuth:
 
         assert "◆ Auth Providers" in out
 
+    @pytest.mark.skip(
+        reason="Nous Portal removed; Nous Portal auth row no longer rendered"
+    )
     def test_import_failure_does_not_break_other_oauth_providers(self, monkeypatch, capsys, tmp_path):
         """Nous/Codex/MiniMax rows must still appear when xAI import fails."""
         import hermes_cli.auth as auth_mod
@@ -351,4 +362,4 @@ class TestShowStatusXaiOAuth:
         out = capsys.readouterr().out
 
         assert "xAI OAuth" in out
-        assert "not logged in (run: hermes auth add xai-oauth)" in out
+        assert "not logged in (run: kova auth add xai-oauth)" in out

@@ -65,7 +65,7 @@ ACHIEVEMENTS: List[Dict[str, Any]] = [
     # Agent Autonomy — mostly best-session feats
     {"id": "let_him_cook", "name": "Let Him Cook", "description": "Let Hermes run a serious autonomous tool chain in one session.", "category": "Agent Autonomy", "kind": "best_session", "icon": "flame", "threshold_metric": "max_tool_calls_in_session", "tiers": tiers([200, 500, 1200, 3000, 8000])},
     {"id": "autonomous_avalanche", "name": "Autonomous Avalanche", "description": "Accumulate a lifetime avalanche of Hermes tool calls across sessions.", "category": "Agent Autonomy", "kind": "lifetime", "icon": "avalanche", "threshold_metric": "total_tool_calls", "tiers": tiers([1000, 3000, 8000, 20000, 50000])},
-    {"id": "toolchain_maxxer", "name": "Toolchain Maxxer", "description": "Use a wide spread of distinct Hermes tools in one session.", "category": "Agent Autonomy", "kind": "best_session", "icon": "nodes", "threshold_metric": "max_distinct_tools_in_session", "tiers": tiers([18, 28, 45, 70, 100])},
+    {"id": "toolchain_maxxer", "name": "Toolchain Maxxer", "description": "Use a wide spread of distinct kova tools in one session.", "category": "Agent Autonomy", "kind": "best_session", "icon": "nodes", "threshold_metric": "max_distinct_tools_in_session", "tiers": tiers([18, 28, 45, 70, 100])},
     {"id": "full_send", "name": "Full Send", "description": "Terminal, files, and web/browser all get involved in one real run.", "category": "Agent Autonomy", "kind": "multi_condition", "icon": "rocket", "requirements": [req("max_terminal_calls_in_session", 180), req("max_file_tool_calls_in_session", 120), req("max_web_browser_calls_in_session", 60)]},
     {"id": "subagent_commander", "name": "Subagent Commander", "description": "Coordinate delegated agent work.", "category": "Agent Autonomy", "kind": "lifetime", "icon": "branch", "threshold_metric": "total_delegate_calls", "tiers": tiers([5, 40, 100, 1000, 5000])},
     {"id": "background_process_enjoyer", "name": "Background Process Enjoyer", "description": "Start or control enough long-running processes to deserve the title.", "category": "Agent Autonomy", "kind": "lifetime", "icon": "daemon", "threshold_metric": "total_process_calls", "tiers": tiers([300, 800, 2000, 6000, 15000])},
@@ -93,7 +93,7 @@ ACHIEVEMENTS: List[Dict[str, Any]] = [
     {"id": "one_character_fix", "name": "One Character Fix", "description": "A tiny edit after a pile of errors. Painful. Beautiful.", "category": "Vibe Coding", "kind": "multi_condition", "icon": "needle", "secret": True, "requirements": [req("tiny_patch_after_errors_events", 5), req("total_errors", 4000)]},
 
     # Hermes Native
-    {"id": "skillsmith", "name": "Skillsmith", "description": "Work with Hermes skills enough to leave fingerprints.", "category": "Hermes Native", "kind": "lifetime", "icon": "hammer_scroll", "threshold_metric": "skill_events", "tiers": tiers([5000, 15000, 40000, 100000, 250000])},
+    {"id": "skillsmith", "name": "Skillsmith", "description": "Work with kova skills enough to leave fingerprints.", "category": "Hermes Native", "kind": "lifetime", "icon": "hammer_scroll", "threshold_metric": "skill_events", "tiers": tiers([5000, 15000, 40000, 100000, 250000])},
     {"id": "skill_issue_skill_created", "name": "Skill Issue? Skill Created.", "description": "Create or patch durable procedures instead of repeating yourself.", "category": "Hermes Native", "kind": "lifetime", "icon": "anvil", "threshold_metric": "skill_manage_events", "tiers": tiers([25, 75, 200, 600, 1500])},
     {"id": "memory_keeper", "name": "Memory Keeper", "description": "Persist durable knowledge with memory or Mnemosyne.", "category": "Hermes Native", "kind": "lifetime", "icon": "crystal", "threshold_metric": "memory_events", "tiers": tiers([100, 300, 1000, 3000, 8000])},
     {"id": "memory_palace", "name": "Memory Palace", "description": "Build a serious durable-memory trail.", "category": "Hermes Native", "kind": "lifetime", "icon": "palace", "threshold_metric": "memory_write_events", "tiers": tiers([100, 300, 1000, 3000, 8000])},
@@ -135,7 +135,7 @@ ACHIEVEMENTS: List[Dict[str, Any]] = [
     {"id": "screenshot_hunter", "name": "Screenshot Hunter", "description": "Capture, inspect, and polish visual proof instead of just claiming it works.", "category": "Tool Mastery", "kind": "lifetime", "icon": "eye", "threshold_metric": "screenshot_events", "tiers": tiers([50, 150, 500, 1500, 5000])},
 
     # Lifestyle
-    {"id": "marathon_operator", "name": "Marathon Operator", "description": "Accumulate a serious number of Hermes sessions.", "category": "Lifestyle", "kind": "lifetime", "icon": "marathon", "threshold_metric": "session_count", "tiers": tiers([75, 200, 500, 1500, 5000])},
+    {"id": "marathon_operator", "name": "Marathon Operator", "description": "Accumulate a serious number of kova sessions.", "category": "Lifestyle", "kind": "lifetime", "icon": "marathon", "threshold_metric": "session_count", "tiers": tiers([75, 200, 500, 1500, 5000])},
     {"id": "weekend_warrior", "name": "Weekend Warrior", "description": "Run Hermes on weekends enough times to make it a lifestyle.", "category": "Lifestyle", "kind": "lifetime", "icon": "calendar", "threshold_metric": "weekend_sessions", "tiers": tiers([25, 75, 200, 600, 1500])},
     {"id": "night_shift_operator", "name": "Night Shift Operator", "description": "Run sessions during gremlin hours repeatedly.", "category": "Lifestyle", "kind": "lifetime", "icon": "moon", "threshold_metric": "night_sessions", "tiers": tiers([25, 75, 200, 600, 1500])},
     {"id": "cache_hit_appreciator", "name": "Cache Hit Appreciator", "description": "Notice or benefit from prompt/cache behavior.", "category": "Lifestyle", "kind": "lifetime", "icon": "cache", "secret": True, "threshold_metric": "cache_events", "tiers": tiers([100, 300, 1000, 3000, 8000])},
@@ -463,7 +463,7 @@ def evaluate_boolean(definition: Dict[str, Any], aggregate: Dict[str, Any]) -> D
 
 METRIC_LABELS = {
     "max_tool_calls_in_session": "tool calls in one session",
-    "max_distinct_tools_in_session": "distinct Hermes tools used in one session",
+    "max_distinct_tools_in_session": "distinct kova tools used in one session",
     "max_terminal_calls_in_session": "terminal calls in one session",
     "max_file_tool_calls_in_session": "file/search/patch calls in one session",
     "max_web_browser_calls_in_session": "web search/extract or browser calls in one session",
@@ -487,7 +487,7 @@ METRIC_LABELS = {
     "css_activity_events": "CSS, styling, Tailwind, or className activity",
     "git_events": "git workflow commands",
     "tiny_patch_after_errors_events": "tiny typo-style fixes after error clusters",
-    "skill_events": "Hermes skill mentions or tool use",
+    "skill_events": "kova skill mentions or tool use",
     "skill_manage_events": "skill_manage create/patch/delete operations",
     "memory_events": "memory or Mnemosyne tool events",
     "memory_write_events": "durable memory writes",
@@ -514,14 +514,14 @@ METRIC_LABELS = {
     "claude_events": "Claude/Anthropic model mentions",
     "gemini_events": "Gemini/Google model mentions",
     "local_model_events": "local/open-weight model mentions",
-    "local_model_chat_sessions": "Hermes sessions whose model metadata is local/open-weight",
+    "local_model_chat_sessions": "kova sessions whose model metadata is local/open-weight",
     "toolset_events": "toolset or tool-family mentions",
     "config_events": "configuration/environment/manifest activity",
     "git_history_events": "git history operations such as rebase, merge, fetch, push, or tag",
     "test_events": "test/check/verification command mentions",
     "screenshot_events": "screenshot, Playwright, PNG, or vision-inspection activity",
     "release_events": "release, version, publish, or git tag events",
-    "session_count": "Hermes sessions",
+    "session_count": "kova sessions",
     "weekend_sessions": "sessions started on weekends",
     "night_sessions": "sessions started late night or before dawn",
 }
@@ -562,7 +562,7 @@ def scan_sessions(
     progress_callback: Optional[Any] = None,
     progress_every: int = 250,
 ) -> Dict[str, Any]:
-    """Scan Hermes sessions and build per-session achievement stats.
+    """Scan kova sessions and build per-session achievement stats.
 
     ``limit=None`` (the default) scans the ENTIRE session history. Prior
     versions capped this at 200, which silently reduced achievement totals

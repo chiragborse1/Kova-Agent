@@ -1,7 +1,7 @@
-"""Guard: every `hermes update` path that reports user-modified skills must
+"""Guard: every `kova update` path that reports user-modified skills must
 also tell the user how to find them.
 
-`hermes update` keeps (does not overwrite) bundled skills the user edited and
+`kova update` keeps (does not overwrite) bundled skills the user edited and
 prints a ``~ N user-modified (kept)`` count. There are two independent update
 code paths in ``hermes_cli/main.py`` that print this notice (the git-pull path
 in ``_cmd_update_impl`` and the unpack/install path). Both must point the user

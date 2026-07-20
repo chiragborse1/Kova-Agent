@@ -207,7 +207,7 @@ def cmd_sync(args) -> None:
 def sync_honcho_profiles_quiet() -> int:
     """Sync Honcho host blocks for all profiles. Returns count of newly created blocks.
 
-    Called from `hermes update` -- no output, no exceptions.
+    Called from `kova update` -- no output, no exceptions.
     """
     try:
         from hermes_cli.profiles import list_profiles
@@ -724,7 +724,7 @@ def cmd_setup(args) -> None:
     if gw_platforms is None:
         print("\n  Gateway identity mapping routes platform users to memory peers.")
         run_mapping = _prompt(
-            "Running the Hermes gateway (Telegram/Discord/etc.)? (y/N)",
+            "Running the kova gateway (Telegram/Discord/etc.)? (y/N)",
             default="n",
         ).strip().lower() in {"y", "yes"}
     elif not gw_platforms:
@@ -937,7 +937,7 @@ def cmd_setup(args) -> None:
         print("  Memory provider set to 'honcho' in config.yaml")
     except Exception as e:
         print(f"  Could not auto-enable in config.yaml: {e}")
-        print("  Run: hermes config set memory.provider honcho")
+        print("  Run: kova config set memory.provider honcho")
 
     # --- Test connection ---
     print("  Testing connection... ", end="", flush=True)
@@ -1727,7 +1727,7 @@ def honcho_command(args) -> None:
     if sub == "setup":
         # Redirect to memory setup — honcho setup goes through the unified path
         print("\n  Honcho is configured via the memory provider system.")
-        print("  Running 'hermes memory setup'...\n")
+        print("  Running 'kova memory setup'...\n")
         from hermes_cli.memory_setup import cmd_setup_provider
         cmd_setup_provider("honcho")
         return
@@ -1779,7 +1779,7 @@ def register_cli(subparser) -> None:
 
     subs.add_parser(
         "setup",
-        help="Initial Honcho setup (redirects to hermes memory setup)",
+        help="Initial Honcho setup (redirects to kova memory setup)",
     )
 
     status_parser = subs.add_parser(

@@ -1,4 +1,4 @@
-﻿"""Integration tests for Home Assistant (tool + gateway).
+"""Integration tests for Home Assistant (tool + gateway).
 
 Spins up a real in-process fake HA server (HTTP + WebSocket) and exercises
 the full adapter and tool handler paths over real TCP connections.

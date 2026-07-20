@@ -1,7 +1,7 @@
 """Gateway lifecycle guard for cron job creation (#30719).
 
 An agent running inside a gateway can schedule a cron job that calls
-``hermes gateway restart`` (or ``launchctl kickstart ai.hermes.gateway``
+``kova gateway restart`` (or ``launchctl kickstart ai.hermes.gateway``
 or ``systemctl restart hermes-gateway``).  When the cron fires, the
 gateway dies, the supervisor (launchd KeepAlive / systemd Restart=)
 revives it, auto-resume picks up the offending session, and the resumed
@@ -11,11 +11,11 @@ until manually broken.
 This module rejects cron job specs whose prompt or script contains a
 direct shell-level gateway-lifecycle command.  It is enforced at
 ``cron.jobs.create_job`` so it fires on every job-creation path: the
-``hermes cron create`` CLI subcommand AND the agent's ``cronjob`` model
+``kova cron create`` CLI subcommand AND the agent's ``cronjob`` model
 tool (which calls ``create_job`` directly, bypassing the CLI layer).
 
 The pattern is intentionally command-shaped: it anchors on a concrete
-command identifier (``hermes gateway``, ``launchctl ... hermes-gateway``,
+command identifier (``kova gateway``, ``launchctl ... hermes-gateway``,
 ``systemctl ... hermes-gateway``, ``pkill`` against the gateway) so it
 cannot fire on prose.  A cron ``prompt`` is fed to a future LLM, not a
 shell, so an over-broad substring match on English ("Kong API gateway
@@ -25,7 +25,7 @@ command shape.
 
 This is a defence-in-depth layer.  ``tools/terminal_tool.py`` already
 blocks these commands at *execution* time when ``_HERMES_GATEWAY=1``, and
-``hermes gateway stop|restart`` refuse to self-target from inside the
+``kova gateway stop|restart`` refuse to self-target from inside the
 gateway.  Blocking at *creation* time as well means the agent gets an
 immediate, informative rejection instead of scheduling a job that will
 only fail (silently) when it fires.
@@ -136,6 +136,6 @@ def check_gateway_lifecycle(
             "Blocked: cron job contains a gateway lifecycle command "
             "(restart/stop/kill). This is blocked to prevent agent-driven "
             "SIGTERM-respawn loops under launchd/systemd supervision "
-            "(#30719). Run `hermes gateway restart` from a shell outside "
+            "(#30719). Run `kova gateway restart` from a shell outside "
             "the running gateway instead."
         )

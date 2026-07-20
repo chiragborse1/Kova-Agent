@@ -1,4 +1,4 @@
-﻿"""Tests for the google_meet plugin.
+"""Tests for the google_meet plugin.
 
 Covers the safety-gated pieces that don't require Playwright:
 

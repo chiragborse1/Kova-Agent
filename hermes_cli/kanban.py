@@ -1,4 +1,4 @@
-"""CLI for the Hermes Kanban board — ``hermes kanban …`` subcommand.
+"""CLI for the kova Kanban board — ``kova kanban …`` subcommand.
 
 Exposes the full Kanban command surface documented in the design spec
 (``docs/hermes-kanban-v1-spec.pdf``).  All DB work is delegated to
@@ -142,7 +142,7 @@ def _check_dispatcher_presence() -> tuple[bool, str]:
       is running but the config flag is off. Message is human guidance
       explaining the next step.
 
-    Used by ``hermes kanban create`` (and callers) to warn when a task
+    Used by ``kova kanban create`` (and callers) to warn when a task
     will sit in ``ready`` because nothing is there to pick it up.
     Defensive against import failures and config-read errors — if the
     probe itself errors, we return ``(True, "")`` so we don't spam
@@ -173,13 +173,13 @@ def _check_dispatcher_presence() -> tuple[bool, str]:
             "Gateway is running but kanban.dispatch_in_gateway=false in "
             "config.yaml — the task will sit in 'ready' until you flip it "
             "back on and restart the gateway, OR run the legacy "
-            "standalone daemon (`hermes kanban daemon --force`)."
+            "standalone daemon (`kova kanban daemon --force`)."
         )
     return (
         False,
         "No gateway is running — the task will sit in 'ready' until you "
         "start it. Run:\n"
-        "    hermes gateway start\n"
+        "    kova gateway start\n"
         "The gateway hosts an embedded dispatcher (tick interval 60s by "
         "default); your task will be picked up on the next tick after "
         "the gateway comes up."
@@ -217,8 +217,8 @@ def build_parser(parent_subparsers: argparse._SubParsersAction) -> argparse.Argu
         metavar="<slug>",
         help=(
             "Board slug to operate on. Defaults to the current board "
-            "(set via `hermes kanban boards switch <slug>` or the "
-            "HERMES_KANBAN_BOARD env var). Use `hermes kanban boards list` "
+            "(set via `kova kanban boards switch <slug>` or the "
+            "HERMES_KANBAN_BOARD env var). Use `kova kanban boards list` "
             "to see all boards."
         ),
     )
@@ -651,7 +651,7 @@ def build_parser(parent_subparsers: argparse._SubParsersAction) -> argparse.Argu
     # --- daemon (deprecated) ---
     p_daemon = sub.add_parser(
         "daemon",
-        help="DEPRECATED — dispatcher now runs in the gateway. Use `hermes gateway start`.",
+        help="DEPRECATED — dispatcher now runs in the gateway. Use `kova gateway start`.",
     )
     p_daemon.add_argument("--interval", type=float, default=60.0,
                           help="Seconds between dispatch ticks (default: 60)")
@@ -868,7 +868,7 @@ def build_parser(parent_subparsers: argparse._SubParsersAction) -> argparse.Argu
 # ---------------------------------------------------------------------------
 
 def kanban_command(args: argparse.Namespace) -> int:
-    """Entry point from ``hermes kanban …`` argparse dispatch.
+    """Entry point from ``kova kanban …`` argparse dispatch.
 
     Returns a shell-style exit code (0 on success, non-zero on error).
     """
@@ -915,7 +915,7 @@ def kanban_command(args: argparse.Namespace) -> int:
         if normed != kb.DEFAULT_BOARD and not kb.board_exists(normed):
             print(
                 f"kanban: board {normed!r} does not exist. "
-                f"Create it with `hermes kanban boards create {normed}`.",
+                f"Create it with `kova kanban boards create {normed}`.",
                 file=sys.stderr,
             )
             return 1
@@ -1008,7 +1008,7 @@ def _profile_author() -> str:
 # ---------------------------------------------------------------------------
 
 def _dispatch_boards(args: argparse.Namespace) -> int:
-    """Handle ``hermes kanban boards <action>``.
+    """Handle ``kova kanban boards <action>``.
 
     Boards management is deliberately separate from the task-level
     commands: it operates on the filesystem (board directories,
@@ -1064,7 +1064,7 @@ def _cmd_boards_list(args: argparse.Namespace) -> int:
         return 0
     # Human table: marker (•) for current, slug, display name, counts.
     if not boards:
-        print("(no boards — create one with `hermes kanban boards create <slug>`)")
+        print("(no boards — create one with `kova kanban boards create <slug>`)")
         return 0
     print(f"{'':2s}  {'SLUG':24s}  {'NAME':28s}  COUNTS")
     for b in boards:
@@ -1081,7 +1081,7 @@ def _cmd_boards_list(args: argparse.Namespace) -> int:
     print()
     print(f"Current board: {current}")
     if len(boards) > 1:
-        print("Switch boards with `hermes kanban boards switch <slug>`.")
+        print("Switch boards with `kova kanban boards switch <slug>`.")
     return 0
 
 
@@ -1111,7 +1111,7 @@ def _cmd_boards_create(args: argparse.Namespace) -> int:
         kb.set_current_board(meta["slug"])
         print(f"  Switched to {meta['slug']!r}.")
     else:
-        print(f"  Use `hermes kanban boards switch {meta['slug']}` to make it current.")
+        print(f"  Use `kova kanban boards switch {meta['slug']}` to make it current.")
     return 0
 
 
@@ -1147,7 +1147,7 @@ def _cmd_boards_switch(args: argparse.Namespace) -> int:
     if not kb.board_exists(normed):
         print(
             f"kanban boards switch: board {normed!r} does not exist. "
-            f"Create it with `hermes kanban boards create {normed}`.",
+            f"Create it with `kova kanban boards create {normed}`.",
             file=sys.stderr,
         )
         return 1
@@ -1258,7 +1258,7 @@ def _cmd_init(args: argparse.Namespace) -> int:
         print("Create one with `hermes -p <name> setup` before assigning tasks.")
     print()
     print("Next step: start the gateway so ready tasks actually get picked up.")
-    print("  hermes gateway start")
+    print("  kova gateway start")
     print()
     print(
         "The gateway hosts an embedded dispatcher that ticks every 60 seconds\n"
@@ -1434,7 +1434,7 @@ def _cmd_list(args: argparse.Namespace) -> int:
         print(
             f"Board: {current} "
             f"({other_count} other board{'s' if other_count != 1 else ''} — "
-            f"`hermes kanban boards list`)\n"
+            f"`kova kanban boards list`)\n"
         )
     if not tasks:
         print("(no matching tasks)")
@@ -2307,8 +2307,8 @@ def _cmd_daemon(args: argparse.Namespace) -> int:
                     f"ready queue non-empty for {health_state['bad_ticks']} "
                     f"consecutive ticks but 0 workers spawned successfully. "
                     f"Check profile health (venv, PATH, credentials) and "
-                    f"`hermes kanban list --status ready` / "
-                    f"`hermes kanban list --status blocked` for recent "
+                    f"`kova kanban list --status ready` / "
+                    f"`kova kanban list --status blocked` for recent "
                     f"spawn_failed tasks.",
                     file=sys.stderr, flush=True,
                 )

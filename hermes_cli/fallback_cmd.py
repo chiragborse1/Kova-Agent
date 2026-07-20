@@ -1,5 +1,5 @@
 """
-hermes fallback — manage the fallback provider chain.
+kova fallback — manage the fallback provider chain.
 
 Fallback providers are tried in order when the primary model fails with
 rate-limit, overload, or connection errors. See:
@@ -115,7 +115,7 @@ def cmd_fallback_list(args) -> None:  # noqa: ARG001
     if not chain:
         print("  No fallback providers configured.")
         print()
-        print("  Add one with:  hermes fallback add")
+        print("  Add one with:  kova fallback add")
         print()
         return
 
@@ -145,7 +145,7 @@ def _describe_primary(config: Dict[str, Any]) -> Optional[str]:
 
 
 def cmd_fallback_add(args) -> None:
-    """Launch the same picker as `hermes model`, then append the selection to the chain."""
+    """Launch the same picker as `kova model`, then append the selection to the chain."""
     from hermes_cli.main import _require_tty, select_provider_and_model
     from hermes_cli.config import load_config, save_config
 
@@ -159,7 +159,7 @@ def cmd_fallback_add(args) -> None:
 
     print()
     print("  Adding a fallback provider.  The picker below is the same one used by")
-    print("  `hermes model` — select the provider + model you want as a fallback.")
+    print("  `kova model` — select the provider + model you want as a fallback.")
     print()
 
     try:
@@ -338,7 +338,7 @@ def _numbered_pick(question: str, choices: List[str]) -> Optional[int]:
 # ---------------------------------------------------------------------------
 
 def cmd_fallback(args) -> None:
-    """Top-level dispatcher for ``hermes fallback [subcommand]``."""
+    """Top-level dispatcher for ``kova fallback [subcommand]``."""
     sub = getattr(args, "fallback_command", None)
     if sub in {None, "", "list", "ls"}:
         cmd_fallback_list(args)

@@ -502,7 +502,7 @@ def test_missing_profiles_root_still_registers_default_slot(
     reconciliation should still register a gateway-default slot for
     the root profile and return without raising. Previously this
     returned an empty list; the default slot is now always present
-    so `hermes gateway start` (no -p) has somewhere to land."""
+    so `kova gateway start` (no -p) has somewhere to land."""
     scandir = tmp_path / "run-service"; scandir.mkdir()
     actions = reconcile_profile_gateways(
         hermes_home=tmp_path, scandir=scandir, dry_run=False,
@@ -634,7 +634,7 @@ def test_default_slot_always_registered_on_empty_home(tmp_path: Path) -> None:
 def test_default_slot_run_script_omits_profile_flag(tmp_path: Path) -> None:
     """The default slot's run script must NOT pass `-p default` —
     that would resolve to $HERMES_HOME/profiles/default/ instead of
-    the root profile. It must call `hermes gateway run` directly."""
+    the root profile. It must call `kova gateway run` directly."""
     scandir = tmp_path / "run-service"; scandir.mkdir()
 
     reconcile_profile_gateways(
@@ -642,7 +642,7 @@ def test_default_slot_run_script_omits_profile_flag(tmp_path: Path) -> None:
     )
 
     run = (scandir / "gateway-default" / "run").read_text()
-    assert "hermes gateway run" in run
+    assert "kova gateway run" in run
     assert "-p default" not in run
     assert "-p 'default'" not in run
 

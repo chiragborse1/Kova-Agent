@@ -3,7 +3,7 @@
 Standalone Web Tools Module
 
 This module provides generic web tools that work with multiple backend providers.
-Backend is selected during ``hermes tools`` setup (web.backend in config.yaml).
+Backend is selected during ``kova tools`` setup (web.backend in config.yaml).
 When available, Hermes can route Firecrawl calls through a Nous-hosted tool-gateway
 for Nous Subscribers only.
 
@@ -106,10 +106,10 @@ logger = logging.getLogger(__name__)
 # ─── Backend Selection ────────────────────────────────────────────────────────
 
 def _env_value(name: str) -> str:
-    """Resolve ``name`` via Hermes config-aware env, falling back to process env.
+    """Resolve ``name`` via kova config-aware env, falling back to process env.
 
     Mirrors the SearXNG provider's ``_searxng_url()`` so that values set
-    through Hermes' config/.env layer (``hermes config set``, ``hermes tools``)
+    through Hermes' config/.env layer (``kova config set``, ``kova tools``)
     are honored here too — not just raw process-env exports. Without this,
     a config-only ``SEARXNG_URL`` (or any provider key) leaves the backend
     auto-detect cascade and ``check_web_api_key()`` blind to it. See #34290.
@@ -204,7 +204,7 @@ def _list_registered_web_providers():
 def _get_backend() -> str:
     """Determine which web backend to use (shared fallback).
 
-    Reads ``web.backend`` from config.yaml (set by ``hermes tools``).
+    Reads ``web.backend`` from config.yaml (set by ``kova tools``).
     Falls back to whichever API key is present for users who configured
     keys manually without running setup.
     """
@@ -684,7 +684,7 @@ def web_search_tool(query: str, limit: int = 5) -> str:
                     "error": (
                         f"web.search_backend is set to '{_vendor}', but its "
                         f"plugin ('{disabled_key}') is disabled in config. "
-                        f"Re-enable it with `hermes plugins enable {disabled_key}` "
+                        f"Re-enable it with `kova plugins enable {disabled_key}` "
                         "(or remove it from plugins.disabled)."
                     ),
                 }
@@ -693,7 +693,7 @@ def web_search_tool(query: str, limit: int = 5) -> str:
                     "success": False,
                     "error": (
                         "No web search provider configured. "
-                        "Run `hermes tools` to set one up."
+                        "Run `kova tools` to set one up."
                     ),
                 }
         else:
@@ -872,7 +872,7 @@ async def web_extract_tool(
                                     f"web.extract_backend is set to '{_vendor}', "
                                     f"but its plugin ('{disabled_key}') is disabled "
                                     "in config. Re-enable it with "
-                                    f"`hermes plugins enable {disabled_key}` "
+                                    f"`kova plugins enable {disabled_key}` "
                                     "(or remove it from plugins.disabled)."
                                 ),
                             },

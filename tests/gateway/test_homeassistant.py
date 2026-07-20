@@ -1,4 +1,4 @@
-﻿"""Tests for the Home Assistant gateway adapter.
+"""Tests for the Home Assistant gateway adapter.
 
 Tests real logic: state change formatting, event filtering pipeline,
 cooldown behavior, config integration, and adapter initialization.

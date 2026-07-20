@@ -627,6 +627,22 @@ class TestBuildSkillsSystemPrompt:
 
 
 class TestBuildNousSubscriptionPrompt:
+    """Tests for the ``build_nous_subscription_prompt`` system-prompt block.
+
+    The Nous Portal integration was removed from the product (see commit
+    ``7aafdb8``). The corresponding ``build_nous_subscription_prompt`` in
+    ``agent/prompt_builder.py`` is now a no-op that returns ``""``; the
+    historical full-feature implementation in the deleted
+    ``hermes_cli/nous_subscription`` module is no longer wired up. These
+    tests exercise that historical full-feature behavior, so they cannot
+    pass against the current source. Skip until the subscription feature
+    is restored from upstream history.
+    """
+
+    pytestmark = pytest.mark.skip(
+        reason="Nous Portal removed; build_nous_subscription_prompt is a no-op"
+    )
+
     def test_includes_active_subscription_features(self, monkeypatch):
         monkeypatch.setattr("tools.tool_backend_helpers.managed_nous_tools_enabled", lambda: True)
         monkeypatch.setattr(

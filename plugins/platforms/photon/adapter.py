@@ -146,7 +146,7 @@ def check_requirements() -> bool:
 def _sidecar_deps_stale() -> bool:
     """True when node_modules exists but is older than the committed lockfile.
 
-    `hermes update` rewrites ``package-lock.json`` when the spectrum-ts pin is
+    `kova update` rewrites ``package-lock.json`` when the spectrum-ts pin is
     bumped, but does not reinstall ``node_modules``. npm records the state of
     the last install in ``node_modules/.package-lock.json``; when the top-level
     lockfile is newer than that marker, the install is out of date. This is the

@@ -48,7 +48,7 @@ logger = logging.getLogger(__name__)
 # Marker comments wrapping the managed section so re-runs can detect
 # what's ours and what's user-edited. Both must appear or strip is a no-op.
 MIGRATION_MARKER = (
-    "# managed by hermes-agent — `hermes codex-runtime migrate` regenerates this section"
+    "# managed by hermes-agent — `kova codex-runtime migrate` regenerates this section"
 )
 MIGRATION_END_MARKER = (
     "# end hermes-agent managed section"
@@ -84,7 +84,7 @@ class MigrationReport:
                 )
                 lines.append(f"  - {name}{note}")
         else:
-            lines.append("No MCP servers found in Hermes config.")
+            lines.append("No MCP servers found in kova config.")
         if self.migrated_plugins:
             lines.append(
                 f"Migrated {len(self.migrated_plugins)} native Codex plugin(s):"
@@ -127,7 +127,7 @@ _KEYS_DROPPED_WITH_WARNING = {
 def _translate_one_server(
     name: str, hermes_cfg: dict
 ) -> tuple[Optional[dict], list[str]]:
-    """Translate one Hermes MCP server config to the codex inline-table dict
+    """Translate one kova MCP server config to the codex inline-table dict
     representation. Returns (codex_entry, skipped_keys).
 
     codex_entry is a dict ready for TOML serialization, or None when the
@@ -649,7 +649,7 @@ def migrate(
     hermes_servers = (hermes_config or {}).get("mcp_servers") or {}
     if not isinstance(hermes_servers, dict):
         report.errors.append(
-            "mcp_servers in Hermes config is not a dict; cannot migrate."
+            "mcp_servers in kova config is not a dict; cannot migrate."
         )
         return report
 

@@ -1634,14 +1634,14 @@ setup_path() {
     # Older installs created this path as a symlink to $HERMES_BIN. Without
     # the rm, `cat >` follows the symlink and overwrites the venv pip entry
     # point with this shim — making `exec "$HERMES_BIN"` self-recurse. (#21454)
-    rm -f "$command_link_dir/hermes"
-    cat > "$command_link_dir/hermes" <<EOF
+    rm -f "$command_link_dir/kova" "$command_link_dir/hermes"
+    cat > "$command_link_dir/kova" <<EOF
 #!/usr/bin/env bash
 unset PYTHONPATH
 unset PYTHONHOME
 exec "$HERMES_BIN" "\$@"
 EOF
-    chmod +x "$command_link_dir/hermes"
+    chmod +x "$command_link_dir/kova"
     log_success "Installed kova launcher → $command_link_display_dir/kova"
 
     if [ "$DISTRO" = "termux" ]; then
@@ -1662,7 +1662,7 @@ EOF
         # Probe a fresh non-login interactive bash the way the user will use it.
         # `bash -i -c` sources ~/.bashrc but NOT ~/.bash_profile or /etc/profile,
         # which is the exact scenario where RHEL root loses /usr/local/bin.
-        if env -i HOME="$HOME" TERM="${TERM:-dumb}" bash -i -c 'command -v hermes' \
+        if env -i HOME="$HOME" TERM="${TERM:-dumb}" bash -i -c 'command -v kova' \
                 >/dev/null 2>&1; then
             log_info "/usr/local/bin is already on PATH for all shells"
             log_success "kova command ready"

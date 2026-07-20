@@ -1,4 +1,4 @@
-﻿"""Tests for the gateway max_concurrent_sessions active-session cap."""
+"""Tests for the gateway max_concurrent_sessions active-session cap."""
 
 import asyncio
 import time

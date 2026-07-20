@@ -1285,7 +1285,7 @@ class TestRunJobSessionPersistence:
 
     def test_run_job_enabled_toolsets_resolves_from_platform_config_when_not_set(self, tmp_path):
         """When a job has no explicit enabled_toolsets, the scheduler now
-        resolves them from ``hermes tools`` platform config for ``cron``
+        resolves them from ``kova tools`` platform config for ``cron``
         (PR #14xxx — blanket fix for Norbert's surprise ``moa`` run).
 
         The legacy "pass None → AIAgent loads full default" path is still
@@ -1311,14 +1311,14 @@ class TestRunJobSessionPersistence:
 
     def test_run_job_per_job_toolsets_win_over_platform_config(self, tmp_path):
         """Per-job enabled_toolsets (via cronjob tool) always take precedence
-        over the platform-level ``hermes tools`` config."""
+        over the platform-level ``kova tools`` config."""
         job = {
             "id": "override-job",
             "name": "test",
             "prompt": "hello",
             "enabled_toolsets": ["terminal"],
         }
-        # Even if the user has ``hermes tools`` configured to enable web+file
+        # Even if the user has ``kova tools`` configured to enable web+file
         # for cron, the per-job override wins.
         extra = [patch("hermes_cli.tools_config._get_platform_tools", return_value={"web", "file"})]
         with self._run_job_patches(tmp_path, extra=extra) as (_fake_db, mock_agent_cls):
@@ -4084,7 +4084,7 @@ class TestCronDeliveryTargets:
 class TestHomeTargetEnvVarRegistry:
     """Regression: ``_HOME_TARGET_ENV_VARS`` must include every gateway
     platform that supports cron-driven outbound delivery. Missing an
-    entry means ``hermes cron create --deliver=<platform>`` silently
+    entry means ``kova cron create --deliver=<platform>`` silently
     fails to route through the platform's home channel."""
 
     def test_whatsapp_cloud_registered(self):

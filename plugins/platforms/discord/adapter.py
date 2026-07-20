@@ -81,7 +81,7 @@ _DISCORD_NONCONVERSATIONAL_HISTORY_MESSAGE_PATTERNS = (
         re.IGNORECASE,
     ),
     re.compile(
-        r"^\s*(?:✅|❌)\s+Hermes update\s+"
+        r"^\s*(?:✅|❌)\s+kova update\s+"
         r"(?:finished|failed|timed out)[\s\S]*$",
         re.IGNORECASE,
     ),
@@ -907,7 +907,7 @@ class DiscordAdapter(BasePlatformAdapter):
 
         discord.py reconnects normal gateway interruptions internally. When its
         top-level ``Bot.start()`` task actually exits after the adapter has been
-        marked running, the Discord websocket is dead while the Hermes gateway
+        marked running, the Discord websocket is dead while the kova gateway
         process can remain alive. Treat that split-brain state as a retryable
         fatal adapter error so ``GatewayRunner._handle_adapter_fatal_error`` can
         remove this adapter and queue Discord for the existing reconnect watcher.
@@ -4176,7 +4176,7 @@ class DiscordAdapter(BasePlatformAdapter):
         async def slash_update(interaction: discord.Interaction):
             await self._run_simple_slash(interaction, "/update", "Update initiated~")
 
-        @tree.command(name="restart", description="Gracefully restart the Hermes gateway")
+        @tree.command(name="restart", description="Gracefully restart the kova gateway")
         async def slash_restart(interaction: discord.Interaction):
             await self._run_simple_slash(interaction, "/restart", "Restart requested~")
 
@@ -4517,7 +4517,7 @@ class DiscordAdapter(BasePlatformAdapter):
 
             cmd = discord.app_commands.Command(
                 name="skill",
-                description="Run a Hermes skill",
+                description="Run a kova skill",
                 callback=_skill_handler,
             )
             tree.add_command(cmd)
@@ -5839,7 +5839,7 @@ class DiscordAdapter(BasePlatformAdapter):
     ) -> SendResult:
         """Send an interactive button-based update prompt (Yes / No).
 
-        Used by the gateway ``/update`` watcher when ``hermes update --gateway``
+        Used by the gateway ``/update`` watcher when ``kova update --gateway``
         needs user input (stash restore, config migration).
         """
         if not self._client or not DISCORD_AVAILABLE:
@@ -7082,7 +7082,7 @@ def _define_discord_view_classes() -> None:
                     pass
 
     class UpdatePromptView(discord.ui.View):
-        """Interactive Yes/No buttons for ``hermes update`` prompts.
+        """Interactive Yes/No buttons for ``kova update`` prompts.
 
         Clicking a button writes the answer to ``.update_response`` so the
         detached update process can pick it up.  Only authorized users can

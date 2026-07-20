@@ -1,4 +1,4 @@
-﻿"""Agent-facing tools for the google_meet plugin.
+"""Agent-facing tools for the google_meet plugin.
 
 Tools:
   meet_join        — join a Google Meet URL (spawns Playwright bot locally

@@ -1,4 +1,4 @@
-﻿"""Headless Google Meet bot — Playwright + live-caption scraping.
+"""Headless Google Meet bot — Playwright + live-caption scraping.
 
 Runs as a standalone subprocess spawned by ``process_manager.py``. Reads config
 from env vars, writes status + transcript to files under

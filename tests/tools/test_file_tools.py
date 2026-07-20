@@ -1,4 +1,4 @@
-﻿"""Tests for the file tools module (schema, handler wiring, error paths).
+"""Tests for the file tools module (schema, handler wiring, error paths).
 
 Tests verify tool schemas, handler dispatch, validation logic, and error
 handling without requiring a running terminal environment.

@@ -128,7 +128,7 @@ TIPS = [
     "provider_routing controls OpenRouter provider sorting, whitelisting, and blacklisting.",
 
     # --- Tools & Capabilities ---
-    "execute_code runs Python scripts that call Hermes tools programmatically — results stay out of context.",
+    "execute_code runs Python scripts that call kova tools programmatically — results stay out of context.",
     "delegate_task spawns up to 3 concurrent sub-agents by default (delegation.max_concurrent_children) with isolated contexts for parallel work.",
     "web_extract works on PDF URLs — pass any PDF link and it converts to markdown.",
     "search_files is ripgrep-backed and faster than grep — use it instead of terminal grep.",
@@ -171,14 +171,14 @@ TIPS = [
     # --- Skills ---
     "Over 80 bundled skills covering github, creative, mlops, productivity, research, and more.",
     "Every installed skill automatically becomes a slash command — type / to see them all.",
-    "hermes skills install official/security/1password installs optional skills from the repo.",
+    "kova skills install official/security/1password installs optional skills from the repo.",
     "Skills can restrict to specific OS platforms — some only load on macOS or Linux.",
     "skills.external_dirs in config.yaml lets you load skills from custom directories.",
     "The agent can create its own skills as procedural memory using skill_manage.",
     "The plan skill saves markdown plans under .hermes/plans/ in the active workspace.",
 
     # --- Cron & Scheduling ---
-    "Cron jobs can attach skills: hermes cron add --skill blogwatcher \"Check for new posts\".",
+    "Cron jobs can attach skills: kova cron add --skill blogwatcher \"Check for new posts\".",
     "Cron delivery targets include telegram, discord, slack, email, sms, and 12+ more platforms.",
     "If a cron response starts with [SILENT], delivery is suppressed — useful for monitoring-only jobs.",
     "Cron supports relative delays (30m), intervals (every 2h), cron expressions, and ISO timestamps.",
@@ -193,7 +193,7 @@ TIPS = [
 
     # --- Gateway & Messaging ---
     "Hermes runs on 21 messaging platforms: Telegram, Discord, Slack, WhatsApp, Signal, Matrix, IRC, Microsoft Teams, email, and more.",
-    "hermes gateway install sets it up as a system service that starts on boot.",
+    "kova gateway install sets it up as a system service that starts on boot.",
     "DingTalk uses Stream Mode — no webhooks or public URL needed.",
     "BlueBubbles brings iMessage to Hermes via a local macOS server.",
     "Webhook routes support HMAC validation, rate limiting, and event filtering.",
@@ -227,12 +227,12 @@ TIPS = [
     "browser_vision with annotate=true overlays numbered labels on interactive elements.",
 
     # --- MCP ---
-    "hermes mcp opens an interactive picker of Nous-approved MCPs you can install in one keystroke.",
-    "hermes mcp catalog lists Nous-approved MCP servers shipped with the repo.",
-    "hermes mcp install <name> installs a catalog entry, prompts for credentials, and lets you pick which of its tools to enable.",
+    "kova mcp opens an interactive picker of Nous-approved MCPs you can install in one keystroke.",
+    "kova mcp catalog lists Nous-approved MCP servers shipped with the repo.",
+    "kova mcp install <name> installs a catalog entry, prompts for credentials, and lets you pick which of its tools to enable.",
     "MCP servers are configured in config.yaml — both stdio and HTTP transports supported.",
     "Per-server tool filtering: tools.include whitelists and tools.exclude blacklists specific tools.",
-    "MCP servers auto-generate toolsets at runtime — hermes tools can toggle them per platform.",
+    "MCP servers auto-generate toolsets at runtime — kova tools can toggle them per platform.",
     "MCP OAuth support: auth: oauth enables browser-based authorization with PKCE.",
 
     # --- Checkpoints & Rollback ---
@@ -248,7 +248,7 @@ TIPS = [
 
     # --- Plugins ---
     "Three plugin types: general (tools/hooks), memory providers, and context engines.",
-    "hermes plugins install owner/repo installs plugins directly from GitHub.",
+    "kova plugins install owner/repo installs plugins directly from GitHub.",
     "8 external memory providers available: Honcho, OpenViking, Mem0, Hindsight, and more.",
     "Plugin hooks include pre/post_tool_call, pre/post_llm_call, and transform_terminal_output for output canonicalization.",
 
@@ -263,10 +263,10 @@ TIPS = [
     "Custom providers: save named endpoints in config.yaml under custom_providers.",
     "HERMES_EPHEMERAL_SYSTEM_PROMPT injects a system prompt that's never persisted to history.",
     "credential_pool_strategies supports fill_first, round_robin, least_used, and random rotation.",
-    "hermes auth add nous or hermes auth add openai-codex sets up OAuth-based providers.",
+    "kova auth add nous or kova auth add openai-codex sets up OAuth-based providers.",
     "The API server supports both Chat Completions and Responses API with server-side state.",
     "tool_preview_length: 0 in config shows full file paths in the spinner's activity feed.",
-    "hermes status --deep runs deeper diagnostic checks across all components.",
+    "kova status --deep runs deeper diagnostic checks across all components.",
 
     # --- Hidden Gems & Power-User Tricks ---
     "Cron jobs can attach a Python script (--script) whose stdout is injected into the prompt as context.",
@@ -333,7 +333,7 @@ TIPS = [
     "Slash commands never trigger the large-paste collapse — /command with big arguments works correctly.",
     "In interrupt mode, slash commands typed during agent execution bypass interrupt logic and run immediately.",
     "HERMES_DEV=1 bypasses container mode detection for local development.",
-    "Each MCP server gets its own toolset (mcp-servername) that can be toggled independently via hermes tools.",
+    "Each MCP server gets its own toolset (mcp-servername) that can be toggled independently via kova tools.",
     "MCP ${ENV_VAR} placeholders in config are resolved at server spawn — including vars from ~/.hermes/.env.",
     "Skills from trusted repos (NousResearch) get a 'trusted' security level; community skills get extra scanning.",
     "The skills quarantine at ~/.hermes/skills/.hub/quarantine/ holds skills pending security review.",
@@ -341,7 +341,7 @@ TIPS = [
     # --- Advanced Slash Commands ---
     '/steer <prompt> injects a note after the next tool call — nudge direction mid-task without interrupting.',
     '/goal <text> sets a standing Ralph-loop objective — Hermes auto-continues turn after turn until a judge says done.',
-    '/snapshot create [label] saves a full state snapshot of Hermes config; /snapshot restore <id> reverts later.',
+    '/snapshot create [label] saves a full state snapshot of kova config; /snapshot restore <id> reverts later.',
     '/copy [N] copies the last assistant response to your clipboard, or the Nth-from-last with a number.',
     '/redraw forces a full UI repaint, fixing terminal drift after tmux resize or mouse selection artifacts.',
     '/agents (alias /tasks) shows active agents and running background tasks across the current session.',
@@ -364,12 +364,12 @@ TIPS = [
     'Drop a ~/.hermes/BOOT.md checklist and a gateway:startup hook runs it as a one-shot agent every boot.',
 
     # --- Curator ---
-    'hermes curator run --dry-run previews what the curator would archive or consolidate without mutating anything.',
-    "hermes curator pin <skill> hard-fences a skill against both auto-archival and the agent's skill_manage tool.",
-    'hermes curator rollback restores skills from a pre-run snapshot — backups live under skills/.curator_backups/.',
+    'kova curator run --dry-run previews what the curator would archive or consolidate without mutating anything.',
+    "kova curator pin <skill> hard-fences a skill against both auto-archival and the agent's skill_manage tool.",
+    'kova curator rollback restores skills from a pre-run snapshot — backups live under skills/.curator_backups/.',
 
     # --- Credential Pools & Routing ---
-    'hermes auth reset <provider> clears all cooldowns and exhaustion flags on a credential pool.',
+    'kova auth reset <provider> clears all cooldowns and exhaustion flags on a credential pool.',
     'credential_pool_strategies.<provider>: round_robin cycles keys evenly instead of the fill_first default.',
     'use_gateway: true per-tool routes web, image, tts, or browser through your Nous subscription — no extra keys.',
     'provider_routing.data_collection: deny excludes data-storing providers on OpenRouter.',

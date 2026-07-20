@@ -272,7 +272,7 @@ def _cmd_setup(args: argparse.Namespace) -> int:
 
     print()
     print("✓ Photon setup complete.")
-    print("  Start the gateway:  hermes gateway start")
+    print("  Start the gateway:  kova gateway start")
     return 0
 
 
@@ -361,7 +361,7 @@ def _cmd_telemetry(args: argparse.Namespace) -> int:
         print(f"could not save PHOTON_TELEMETRY: {e}", file=sys.stderr)
         return 1
     print(f"✓ Spectrum telemetry turned {state} (PHOTON_TELEMETRY in ~/.hermes/.env)")
-    print("  Restart the gateway for the sidecar to pick it up:  hermes gateway restart")
+    print("  Restart the gateway for the sidecar to pick it up:  kova gateway restart")
     return 0
 
 
@@ -411,7 +411,7 @@ def _install_sidecar() -> int:
 # defaults (phone is prompted when stdin is a TTY).
 
 def gateway_setup() -> None:
-    """Run Photon first-time setup from the `hermes gateway setup` wizard."""
+    """Run Photon first-time setup from the `kova gateway setup` wizard."""
     args = argparse.Namespace(
         photon_command="setup",
         project_name=None,

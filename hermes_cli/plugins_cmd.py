@@ -1,4 +1,4 @@
-"""``hermes plugins`` CLI subcommand — install, update, remove, and list plugins.
+"""``kova plugins`` CLI subcommand — install, update, remove, and list plugins.
 
 Plugins are installed from Git repositories into ``~/.hermes/plugins/``.
 Supports full URLs and ``owner/repo`` shorthand (resolves to GitHub).
@@ -526,7 +526,7 @@ def _install_plugin_core(identifier: str, *, force: bool) -> tuple[Path, dict, s
             if not force:
                 raise PluginOperationError(
                     f"Plugin '{plugin_name}' already exists. Use force reinstall "
-                    f"or run `hermes plugins update {plugin_name}`.",
+                    f"or run `kova plugins update {plugin_name}`.",
                 )
             shutil.rmtree(target)
 
@@ -625,11 +625,11 @@ def cmd_install(
     else:
         console.print(
             f"[dim]Plugin installed but not enabled. "
-            f"Run `hermes plugins enable {installed_name}` to activate.[/dim]",
+            f"Run `kova plugins enable {installed_name}` to activate.[/dim]",
         )
 
     console.print("[dim]Restart the gateway for the plugin to take effect:[/dim]")
-    console.print("[dim]  hermes gateway restart[/dim]")
+    console.print("[dim]  kova gateway restart[/dim]")
     console.print()
 
 
@@ -751,7 +751,7 @@ def _resolve_plugin_key(name: str) -> Optional[str]:
     returns the canonical key the loader gates on (``manifest.key`` or, for a
     flat plugin, the bare name). Returns ``None`` when no plugin matches.
 
-    This is the single normalization point so ``hermes plugins enable`` /
+    This is the single normalization point so ``kova plugins enable`` /
     ``disable`` write the same key that ``PluginManager`` matches against —
     nested category plugins (e.g. ``observability/nemo_relay``) included.
     """
@@ -907,7 +907,7 @@ def _resolve_tool_override_grant(
     else:
         console.print(
             f"[dim]{key} may not override built-in tools. Re-run "
-            f"`hermes plugins enable {key} --allow-tool-override` to grant "
+            f"`kova plugins enable {key} --allow-tool-override` to grant "
             "this later.[/dim]"
         )
 
@@ -1044,7 +1044,7 @@ def _discover_entrypoint_plugins() -> list[tuple[str, str, str, str]]:
 
     Entry-point plugins are installed as Python packages, so they do not have a
     plugin directory under ``~/.hermes/plugins``. Include package metadata here
-    so ``hermes plugins list`` can show and enable them.
+    so ``kova plugins list`` can show and enable them.
     """
     from hermes_cli.plugins import ENTRY_POINTS_GROUP
 
@@ -1083,7 +1083,7 @@ def _plugin_status(name: str, enabled: set, disabled: set, key: str = "") -> str
 
 
 def _filter_plugin_entries(entries: list, args: Any, enabled: set, disabled: set) -> list:
-    """Apply ``hermes plugins list`` CLI filters."""
+    """Apply ``kova plugins list`` CLI filters."""
     filtered = entries
     if getattr(args, "no_bundled", False) or getattr(args, "user", False):
         filtered = [entry for entry in filtered if entry[3] != "bundled"]
@@ -1104,7 +1104,7 @@ def cmd_list(args: Any | None = None) -> None:
     entries = _discover_all_plugins()
     if not entries:
         console.print("[dim]No plugins installed.[/dim]")
-        console.print("[dim]Install with:[/dim] hermes plugins install owner/repo")
+        console.print("[dim]Install with:[/dim] kova plugins install owner/repo")
         return
 
     enabled = _get_enabled_set()
@@ -1155,9 +1155,9 @@ def cmd_list(args: Any | None = None) -> None:
     console.print()
     console.print(table)
     console.print()
-    console.print("[dim]Compact view:[/dim] hermes plugins list --plain --no-bundled")
-    console.print("[dim]Interactive toggle:[/dim] hermes plugins")
-    console.print("[dim]Enable/disable:[/dim] hermes plugins enable/disable <name>")
+    console.print("[dim]Compact view:[/dim] kova plugins list --plain --no-bundled")
+    console.print("[dim]Interactive toggle:[/dim] kova plugins")
+    console.print("[dim]Enable/disable:[/dim] kova plugins enable/disable <name>")
     console.print("[dim]Plugins are opt-in by default — only 'enabled' plugins load.[/dim]")
 
 
@@ -1381,7 +1381,7 @@ def cmd_toggle() -> None:
 
     if not has_plugins and not has_categories:
         console.print("[dim]No plugins installed and no provider categories available.[/dim]")
-        console.print("[dim]Install with:[/dim] hermes plugins install owner/repo")
+        console.print("[dim]Install with:[/dim] kova plugins install owner/repo")
         return
 
     # Non-TTY fallback
@@ -1976,7 +1976,7 @@ def dashboard_remove_user_plugin(name: str) -> dict[str, Any]:
 
 
 def plugins_command(args) -> None:
-    """Dispatch hermes plugins subcommands."""
+    """Dispatch kova plugins subcommands."""
     action = getattr(args, "plugins_action", None)
 
     if action == "install":

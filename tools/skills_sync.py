@@ -601,7 +601,7 @@ def sync_skills(quiet: bool = False) -> dict:
                         print(
                             f"  ⚠ {skill_name}: bundled version shipped but you "
                             f"already have a local skill by this name — yours "
-                            f"was kept. Run `hermes skills reset {skill_name}` "
+                            f"was kept. Run `kova skills reset {skill_name}` "
                             f"to replace it with the bundled version."
                         )
                 else:
@@ -807,7 +807,7 @@ def reset_bundled_skill(name: str, restore: bool = False) -> dict:
             "action": "not_in_manifest",
             "message": (
                 f"'{name}' is not a tracked bundled skill. Nothing to reset. "
-                f"(Hub-installed skills use `hermes skills uninstall`.)"
+                f"(Hub-installed skills use `kova skills uninstall`.)"
             ),
             "synced": None,
         }
@@ -861,7 +861,7 @@ def reset_bundled_skill(name: str, restore: bool = False) -> dict:
     else:
         action = "manifest_cleared"
         message = (
-            f"Cleared manifest entry for '{name}'. Future `hermes update` runs "
+            f"Cleared manifest entry for '{name}'. Future `kova update` runs "
             f"will re-baseline against your current copy and accept upstream changes."
         )
 
@@ -869,7 +869,7 @@ def reset_bundled_skill(name: str, restore: bool = False) -> dict:
 
 
 def _is_tracked_user_modification(origin_hash: str, user_hash: str) -> bool:
-    """Whether an on-disk skill counts as a user modification ``hermes update`` keeps.
+    """Whether an on-disk skill counts as a user modification ``kova update`` keeps.
 
     Shared by the sync loop (which decides what to skip) and
     ``list_user_modified_bundled_skills`` (which surfaces the names) so the two
@@ -881,7 +881,7 @@ def _is_tracked_user_modification(origin_hash: str, user_hash: str) -> bool:
 
 
 def list_user_modified_bundled_skills() -> List[dict]:
-    """Return the bundled skills that ``hermes update`` keeps because the user
+    """Return the bundled skills that ``kova update`` keeps because the user
     edited them locally.
 
     A skill counts as user-modified when its on-disk copy no longer matches the
@@ -940,7 +940,7 @@ def diff_bundled_skill(name: str) -> dict:
     """Diff a user's copy of a bundled skill against the current stock version.
 
     Lets a user see exactly what diverged before deciding whether to keep their
-    edits or ``hermes skills reset`` back to upstream.
+    edits or ``kova skills reset`` back to upstream.
 
     Returns a dict:
         ``ok`` (bool), ``name`` (str), ``found`` (bool — bundled source exists),
@@ -963,7 +963,7 @@ def diff_bundled_skill(name: str) -> dict:
             "diffs": [],
             "message": (
                 f"'{name}' is not a tracked bundled skill (no stock version to "
-                f"diff against). Hub-installed skills use `hermes skills inspect`."
+                f"diff against). Hub-installed skills use `kova skills inspect`."
             ),
         }
     dest = _compute_relative_dest(bundled_src, bundled_dir)
@@ -1039,9 +1039,9 @@ def set_bundled_skills_opt_out(enabled: bool) -> dict:
     """Toggle the .no-bundled-skills opt-out marker for the active profile.
 
     When ``enabled`` is True, writes HERMES_HOME/.no-bundled-skills so the
-    installer, ``hermes update``, and any direct sync stop seeding bundled
+    installer, ``kova update``, and any direct sync stop seeding bundled
     skills. When False, removes the marker so seeding resumes on the next
-    sync. This is the on-disk-state half of ``hermes skills opt-out`` /
+    sync. This is the on-disk-state half of ``kova skills opt-out`` /
     ``opt-in``; removal of already-present skills is a separate, explicit
     step (see ``remove_pristine_bundled_skills``).
 
@@ -1056,8 +1056,8 @@ def set_bundled_skills_opt_out(enabled: bool) -> dict:
             HERMES_HOME.mkdir(parents=True, exist_ok=True)
             marker.write_text(
                 "This profile opted out of bundled-skill seeding "
-                "(`hermes skills opt-out`).\n"
-                "Delete this file to re-enable sync on the next `hermes update`.\n",
+                "(`kova skills opt-out`).\n"
+                "Delete this file to re-enable sync on the next `kova update`.\n",
                 encoding="utf-8",
             )
             changed = not existed
@@ -1072,7 +1072,7 @@ def set_bundled_skills_opt_out(enabled: bool) -> dict:
                 marker.unlink()
             changed = existed
             message = (
-                "Opted back in. The next `hermes update` (or `hermes skills "
+                "Opted back in. The next `kova update` (or `kova skills "
                 "opt-in --sync`) will re-seed bundled skills."
                 if changed
                 else "Not opted out — no marker to remove."

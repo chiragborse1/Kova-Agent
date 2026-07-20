@@ -1,4 +1,4 @@
-﻿"""
+"""
 Microsoft Teams platform adapter for Hermes Agent.
 
 Uses the microsoft-teams-apps SDK for authentication and activity processing.
@@ -509,8 +509,8 @@ async def _standalone_send(
     """Acquire a Bot Framework bearer token and POST a single message activity.
 
     Used by ``tools/send_message_tool._send_via_adapter`` when the gateway
-    runner is not in this process (e.g. ``hermes cron`` running as a
-    separate process from ``hermes gateway``).  Without this hook,
+    runner is not in this process (e.g. ``kova cron`` running as a
+    separate process from ``kova gateway``).  Without this hook,
     ``deliver=teams`` cron jobs fail with ``No live adapter for platform``.
 
     Configuration: requires ``TEAMS_CLIENT_ID``, ``TEAMS_CLIENT_SECRET``,
@@ -1404,7 +1404,7 @@ def interactive_setup() -> None:
     print()
     print_success("Teams configuration saved to ~/.hermes/.env")
     print_info("Install the app in Teams:  teams app install --id <teamsAppId>")
-    print_info("Restart the gateway:       hermes gateway restart")
+    print_info("Restart the gateway:       kova gateway restart")
 
 
 # ── Plugin entry point ────────────────────────────────────────────────────────

@@ -2807,7 +2807,7 @@ class GatewaySlashCommandsMixin:
         ``diff`` output is truncated for chat bubbles — the full diff lives in
         the pending JSON file under ``~/.hermes/pending/skills/``. (Note this is
         the write-approval ``diff <id>``; the CLI also has an unrelated
-        ``hermes skills diff <name>`` that diffs a bundled skill vs stock.)
+        ``kova skills diff <name>`` that diffs a bundled skill vs stock.)
         """
         from gateway.run import _hermes_home
         from hermes_cli.write_approval_commands import handle_pending_subcommand
@@ -4490,8 +4490,8 @@ class GatewaySlashCommandsMixin:
     async def _handle_update_command(self, event: MessageEvent) -> str:
         """Handle /update command — update Kova Agent to the latest version.
 
-        Spawns ``hermes update`` in a detached session (via ``setsid``) so it
-        survives the gateway restart that ``hermes update`` may trigger. Marker
+        Spawns ``kova update`` in a detached session (via ``setsid``) so it
+        survives the gateway restart that ``kova update`` may trigger. Marker
         files are written so either the current gateway process or the next one
         can notify the user when the update finishes.
         """

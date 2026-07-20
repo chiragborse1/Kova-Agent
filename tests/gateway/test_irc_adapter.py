@@ -1,4 +1,4 @@
-﻿"""Tests for the IRC platform adapter plugin."""
+"""Tests for the IRC platform adapter plugin."""
 
 import asyncio
 import pytest

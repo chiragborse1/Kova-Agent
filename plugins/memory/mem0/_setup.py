@@ -942,7 +942,7 @@ def _check_min_dep_version() -> None:
 
 
 def post_setup(hermes_home: str, config: dict) -> None:
-    """Entry point called by hermes memory setup framework.
+    """Entry point called by kova memory setup framework.
 
     Routes on --mode (platform / selfhosted / oss); with no flag it shows an
     interactive picker with all three modes. Platform keeps the framework's

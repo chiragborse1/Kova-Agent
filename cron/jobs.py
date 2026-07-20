@@ -660,7 +660,7 @@ def _atomic_write_epoch(path: Path) -> None:
     """Atomically write the current epoch time to ``path``.
 
     Uses the same tmpfile + ``atomic_replace`` pattern as ``save_jobs`` so a
-    concurrent reader in another process (``hermes cron status``) never sees a
+    concurrent reader in another process (``kova cron status``) never sees a
     torn/truncated file. Best-effort: failures are swallowed by callers.
     """
     ensure_dirs()
@@ -684,7 +684,7 @@ def record_ticker_heartbeat(success: bool = False) -> None:
 
     The ticker calls this once per loop iteration. ``success=True`` additionally
     bumps the *last successful tick* marker. We track two distinct signals so
-    `hermes cron status` can tell a thread that is merely *alive and looping*
+    `kova cron status` can tell a thread that is merely *alive and looping*
     (heartbeat fresh, success stale) from one that is actually *firing jobs*
     (both fresh) — a ticker stuck failing every tick would otherwise keep the
     plain heartbeat fresh and falsely report healthy (#32612, #32895).

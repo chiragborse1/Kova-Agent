@@ -184,7 +184,7 @@ def uninstall_gateway_service():
     - Linux: user + system systemd services (with proper DBUS env setup)
     - macOS: launchd plists
     - Windows: Scheduled Task + Startup-folder fallback, via ``gateway_windows``
-    - All platforms: standalone ``hermes gateway run`` processes
+    - All platforms: standalone ``kova gateway run`` processes
     - Termux/Android: skips systemd (no systemd on Android), still kills standalone processes
     """
     import platform
@@ -724,7 +724,7 @@ def _print_uninstall_dry_run(*, project_root: Path, hermes_home: Path, full_unin
     print("  • Desktop Chat GUI artifacts")
     print(f"  • Code checkout: {project_root}")
     if full_uninstall:
-        print(f"  • Hermes config/data: {hermes_home}")
+        print(f"  • kova config/data: {hermes_home}")
         if _is_default_hermes_home(hermes_home):
             profiles = _discover_named_profiles()
             if profiles:
@@ -732,7 +732,7 @@ def _print_uninstall_dry_run(*, project_root: Path, hermes_home: Path, full_unin
                 for prof in profiles:
                     print(f"    - {prof.name}: {prof.path}")
     else:
-        print(f"  • Keep Hermes config/data: {hermes_home}")
+        print(f"  • Keep kova config/data: {hermes_home}")
     print()
 
 

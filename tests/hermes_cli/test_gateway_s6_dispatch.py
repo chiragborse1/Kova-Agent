@@ -1,7 +1,7 @@
 """Tests for the Phase 4 s6 dispatch helper in hermes_cli.gateway.
 
 `_dispatch_via_service_manager_if_s6` decides whether a
-`hermes gateway start/stop/restart` invocation should be routed to
+`kova gateway start/stop/restart` invocation should be routed to
 the in-container S6ServiceManager instead of falling through to the
 host systemd/launchd/windows code path.
 """
@@ -511,7 +511,7 @@ def test_redirect_short_circuits_supervised_child(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     """The recursion guard: when the supervised gateway s6-supervise is
-    running execs `hermes gateway run --replace`, the
+    running execs `kova gateway run --replace`, the
     HERMES_S6_SUPERVISED_CHILD sentinel must short-circuit the redirect
     so the gateway actually starts foreground. Without this guard the
     supervised process would re-dispatch `start` → re-exec `run` → ...

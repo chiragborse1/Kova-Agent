@@ -672,11 +672,11 @@ class TestNonInteractiveFailFastAtCallbackBoundary:
         import asyncio
 
         monkeypatch.setattr(mod, "_is_interactive", lambda: False)
-        with pytest.raises(OAuthNonInteractiveError, match="hermes mcp login"):
+        with pytest.raises(OAuthNonInteractiveError, match="kova mcp login"):
             asyncio.run(mod._redirect_handler("https://idp.example.com/authorize"))
 
         mod._oauth_port = _find_free_port()
-        with pytest.raises(OAuthNonInteractiveError, match="hermes mcp login"):
+        with pytest.raises(OAuthNonInteractiveError, match="kova mcp login"):
             asyncio.run(mod._wait_for_callback())
 
     def test_guard_does_not_fire_on_interactive_redirect(self, monkeypatch, capsys):
@@ -973,7 +973,7 @@ class TestPasteCallbackSkipToken:
         _paste_callback_reader(result)
         err = capsys.readouterr().err
         assert "OAuth skipped" in err
-        assert "hermes mcp login" in err
+        assert "kova mcp login" in err
 
     def test_skip_does_not_overwrite_http_winner(self, monkeypatch):
         """If HTTP listener already wrote a code, `skip` must not stomp it."""

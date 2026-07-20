@@ -1,5 +1,6 @@
 """Tests for the hermes_cli models module."""
 
+import pytest
 from unittest.mock import patch, MagicMock
 
 from hermes_cli.nous_account import NousPortalAccountInfo
@@ -677,7 +678,19 @@ class TestUnionWithPortalPaidRecommendations:
 
 
 class TestCheckNousFreeTierCache:
-    """Tests for the TTL cache on check_nous_free_tier()."""
+    """Tests for the TTL cache on check_nous_free_tier().
+
+    The Nous Portal was removed from the product (see commit 7aafdb8), so
+    ``check_nous_free_tier`` now always returns ``False`` ("default to paid,
+    don't block users"). The TTL cache behavior is no longer exercised in
+    production, and the historical expectations in these tests assume a
+    functioning portal that no longer exists. Skip until/unless the
+    subscription feature is restored from upstream history.
+    """
+
+    pytestmark = pytest.mark.skip(
+        reason="Nous Portal removed; check_nous_free_tier always returns False"
+    )
 
     def setup_method(self):
         _models_mod._free_tier_cache = None

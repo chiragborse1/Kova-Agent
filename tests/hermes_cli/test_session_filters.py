@@ -1,5 +1,5 @@
 """Tests for hermes_cli.session_filters — CLI time/filter parsing for
-`hermes sessions prune` / `hermes sessions archive`."""
+`kova sessions prune` / `kova sessions archive`."""
 
 import time
 from argparse import Namespace

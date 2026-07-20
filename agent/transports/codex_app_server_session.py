@@ -1063,7 +1063,7 @@ def _has_turn_aborted_marker(text: str) -> bool:
 
 
 def _get_hermes_version() -> str:
-    """Best-effort Hermes version string for codex's userAgent line."""
+    """Best-effort kova version string for codex's userAgent line."""
     try:
         from importlib.metadata import version
 

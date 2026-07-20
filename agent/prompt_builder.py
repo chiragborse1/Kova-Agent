@@ -141,7 +141,7 @@ HERMES_AGENT_HELP_GUIDANCE = (
     "You run on Kova Agent. When the user needs help with "
     "Kova itself — configuring, setting up, using, extending, or troubleshooting "
     "it — or when you need to understand your own features, tools, or capabilities, "
-    "the documentation at https://github.com/chaitanyasai/kova-agent is your "
+    "the documentation at https://github.com/chiragborse1/Kova-Agent is your "
     "authoritative reference and always holds the latest, most up-to-date "
     "information. Load the `kova-agent` skill with skill_view(name='kova-agent') "
     "for additional guidance and proven workflows, but treat the docs as the source "
@@ -267,7 +267,7 @@ KANBAN_GUIDANCE = (
     "\n"
     "## Do NOT\n"
     "\n"
-    "- Do not shell out to `hermes kanban <verb>` for board operations. Use "
+    "- Do not shell out to `kova kanban <verb>` for board operations. Use "
     "the `kanban_*` tools — they work across all terminal backends.\n"
     "- Do not complete a task you didn't actually finish. Block it.\n"
     "- Do not call `clarify` to ask questions. You are running headless — "
@@ -1681,8 +1681,8 @@ def build_skills_system_prompt(
             "Whenever the user asks you to configure, set up, install, enable, disable, modify, "
              "or troubleshoot Kova Agent itself — its CLI, config, models, providers, tools, "
              "skills, voice, gateway, plugins, or any feature — load the `kova-agent` skill "
-             "first. It has the actual commands (e.g. `hermes config set …`, `hermes tools`, "
-             "`hermes setup`) so you don't have to guess or invent workarounds.\n"
+             "first. It has the actual commands (e.g. `kova config set …`, `kova tools`, "
+             "`kova setup`) so you don't have to guess or invent workarounds.\n"
             "If a skill has issues, fix it with skill_manage(action='patch').\n"
             "After difficult/iterative tasks, offer to save as a skill. "
             "If a skill you loaded was missing steps, had wrong commands, or needed "
@@ -1733,7 +1733,7 @@ def build_nous_subscription_prompt(valid_tool_names: "set[str] | None" = None) -
             "When a Nous-managed feature is active, do not ask the user for Firecrawl, FAL, OpenAI TTS, OpenAI Whisper, or Browser-Use API keys.",
             "If the user is not subscribed and asks for a capability that Nous subscription would unlock or simplify, suggest Nous subscription as one option alongside direct setup or local alternatives.",
             "Do not mention subscription unless the user asks about it or it directly solves the current missing capability.",
-            "Useful commands: hermes setup, hermes setup tools, hermes setup terminal, hermes status.",
+            "Useful commands: kova setup, kova setup tools, kova setup terminal, kova status.",
         ]
     )
     return "\n".join(lines)

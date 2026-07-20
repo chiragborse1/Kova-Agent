@@ -2,8 +2,8 @@
 
 Mirrors the optional-skills/ pattern: each catalog entry lives under
 ``optional-mcps/<name>/manifest.yaml`` and ships disabled. Users discover
-entries via ``hermes mcp catalog`` or the interactive ``hermes mcp picker``,
-and install them with ``hermes mcp install <name>`` (or by toggling in the
+entries via ``kova mcp catalog`` or the interactive ``kova mcp picker``,
+and install them with ``kova mcp install <name>`` (or by toggling in the
 picker, which flows them through any required env/OAuth setup).
 
 Catalog policy:
@@ -11,7 +11,7 @@ Catalog policy:
   ``optional-mcps/`` directory = Nous approval. No community tier, no trust
   signals beyond "it's in the catalog".
 - Manifests pin transport details (commands, args, refs). MCPs are never
-  auto-updated; users explicitly re-run ``hermes mcp install <name>`` to
+  auto-updated; users explicitly re-run ``kova mcp install <name>`` to
   pull a new manifest version after a repo update.
 - Secrets prompted at install time go to ``~/.hermes/.env`` (the
   .env-is-for-secrets rule). Non-secret env vars also go to .env to keep
@@ -554,7 +554,7 @@ def _apply_tool_selection(
     Probe-fail path:
       - If manifest declares ``tools.default_enabled`` → apply directly.
       - Otherwise → leave config with no filter (all on when reachable).
-      - Either way, point the user at ``hermes mcp configure <name>``.
+      - Either way, point the user at ``kova mcp configure <name>``.
     """
     print()
     print(color(f"  Probing '{entry.name}' for available tools...", Colors.CYAN))
@@ -708,7 +708,7 @@ def install_entry(entry: CatalogEntry, *, enable: bool = True) -> None:
             # decoupled from provider-auth lifecycle.
             print(color(
                 f"  This MCP uses {entry.auth.provider} OAuth. Run "
-                f"`hermes auth {entry.auth.provider}` if you have not "
+                f"`kova auth {entry.auth.provider}` if you have not "
                 "already authenticated.",
                 Colors.YELLOW,
             ))

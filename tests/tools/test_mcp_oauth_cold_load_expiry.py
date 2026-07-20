@@ -1,4 +1,4 @@
-﻿"""Tests for cold-load token expiry tracking in MCP OAuth.
+"""Tests for cold-load token expiry tracking in MCP OAuth.
 
 PR #11383's consolidation fixed external-refresh reloading (mtime disk-watch)
 and 401 dedup, but left two underlying latent bugs in place:

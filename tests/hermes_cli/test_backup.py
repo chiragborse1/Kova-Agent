@@ -1,4 +1,4 @@
-﻿"""Tests for hermes backup and import commands."""
+"""Tests for hermes backup and import commands."""
 
 import json
 import os
@@ -1590,7 +1590,7 @@ class TestQuickSnapshot:
         assert snap_id is not None
 
 # ---------------------------------------------------------------------------
-# Pre-update backup (hermes update safety net)
+# Pre-update backup (kova update safety net)
 # ---------------------------------------------------------------------------
 
     # -- security: path traversal regression coverage -----------------------
@@ -1865,7 +1865,7 @@ class TestQuickSnapshotProjectsKanban:
 
 
 class TestPreUpdateBackup:
-    """Tests for create_pre_update_backup — the auto-backup ``hermes update``
+    """Tests for create_pre_update_backup — the auto-backup ``kova update``
     runs before touching anything."""
 
     @pytest.fixture
@@ -2062,7 +2062,7 @@ class TestRunPreUpdateBackup:
         assert len(backups) == 1
 
     def test_default_disabled_is_silent(self, hermes_home, capsys):
-        """With the default (``pre_update_backup: false``), ``hermes update``
+        """With the default (``pre_update_backup: false``), ``kova update``
         does NOT create a backup and stays silent — zipping a large
         HERMES_HOME can add minutes to every update. Users who want the
         #48200 safety net opt in via the config knob or ``--backup``.
@@ -2250,7 +2250,7 @@ class TestPreMigrationBackup:
 # ---------------------------------------------------------------------------
 
 class TestRestoreCronJobsIfEmptied:
-    """`hermes update` config migration can leave cron/jobs.json valid-but-empty,
+    """`kova update` config migration can leave cron/jobs.json valid-but-empty,
     silently dropping every scheduled job. `restore_cron_jobs_if_emptied` is the
     post-migration safety net that restores from the pre-update snapshot."""
 

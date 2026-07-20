@@ -656,7 +656,7 @@ class CredentialPool:
         When a Codex OAuth access token expires (or the ChatGPT account hits
         its 5h/weekly quota), the pool entry gets marked ``STATUS_EXHAUSTED``
         with a ``last_error_reset_at`` that can be many hours in the future.
-        Meanwhile the user may run ``hermes model`` / ``hermes auth`` which
+        Meanwhile the user may run ``kova model`` / ``kova auth`` which
         performs a fresh device-code login and writes new tokens to
         ``auth.json`` under ``_auth_store_lock``.  Without this sync the pool
         entry stays frozen until ``last_error_reset_at`` elapses — even
@@ -862,7 +862,7 @@ class CredentialPool:
         here would mean every Nous/Codex/xAI refresh in a multi-provider
         setup silently flips the ``active_provider`` flag — the next
         ``hermes`` invocation that defaults to the active provider
-        (e.g. setup wizard, ``hermes auth status``) would land on
+        (e.g. setup wizard, ``kova auth status``) would land on
         whatever provider happened to refresh last, not whatever the
         user actually chose.
         """
@@ -1435,7 +1435,7 @@ class CredentialPool:
                         _label = entry.label or entry.id[:8]
                         logger.warning(
                             "credential pool: pruning DEAD manual entry %s "
-                            "(reason=%s, age=%.1fh) — re-add via `hermes auth add %s`",
+                            "(reason=%s, age=%.1fh) — re-add via `kova auth add %s`",
                             _label,
                             entry.last_error_reason or "unknown",
                             (now - dead_at) / 3600.0,

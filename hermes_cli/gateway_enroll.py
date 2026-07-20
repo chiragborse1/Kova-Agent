@@ -1,4 +1,4 @@
-"""``hermes gateway enroll`` — enroll a self-hosted gateway with a relay connector.
+"""``kova gateway enroll`` — enroll a self-hosted gateway with a relay connector.
 
 The connector⇄gateway channel is authenticated (the gateway may be
 customer-managed and internet-exposed). This command is the gateway half of the
@@ -138,7 +138,7 @@ def _post_enroll(
         if exc.code == 401:
             raise RuntimeError(
                 "Connector rejected the caller identity (401). Your token "
-                "could not be verified — try `hermes auth add` and retry."
+                "could not be verified — try `kova auth add` and retry."
             ) from exc
         if exc.code == 403:
             raise RuntimeError(
@@ -169,7 +169,7 @@ def cmd_gateway_enroll(args) -> None:
     # write anyway.
     if is_managed():
         print(
-            "✗ `hermes gateway enroll` is not available in a managed/hosted install.\n"
+            "✗ `kova gateway enroll` is not available in a managed/hosted install.\n"
             "  The relay gateway secret is provisioned by the hosting platform."
         )
         sys.exit(1)

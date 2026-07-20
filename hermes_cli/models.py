@@ -1,7 +1,7 @@
-﻿"""
+"""
 Canonical model catalogs and lightweight validation helpers.
 
-Add, remove, or reorder entries here — both `hermes setup` and
+Add, remove, or reorder entries here — both `kova setup` and
 `hermes` provider-selection will pick up the change automatically.
 """
 
@@ -94,7 +94,7 @@ def _codex_curated_models() -> list[str]:
     """Derive the openai-codex curated list from codex_models.py.
 
     Single source of truth: DEFAULT_CODEX_MODELS + forward-compat synthesis.
-    This keeps the gateway /model picker in sync with the CLI `hermes model`
+    This keeps the gateway /model picker in sync with the CLI `kova model`
     flow without maintaining a separate static list.
     """
     from hermes_cli.codex_models import DEFAULT_CODEX_MODELS, _add_forward_compat_models
@@ -1018,7 +1018,7 @@ def get_nous_recommended_aux_model(
 class ProviderEntry(NamedTuple):
     slug: str
     label: str
-    tui_desc: str   # detailed description for `hermes model` TUI
+    tui_desc: str   # detailed description for `kova model` TUI
 
 CANONICAL_PROVIDERS: list[ProviderEntry] = [
     ProviderEntry("nous",           "Nous Portal",              "Nous Portal (Everything your agent needs, 300+ models with bundled tool use)"),
@@ -1129,7 +1129,7 @@ def provider_group_for_slug(slug: str) -> str:
 def group_providers(slugs):
     """Fold a flat ordered slug iterable into picker rows by provider group.
 
-    DISPLAY ONLY. Used by every interactive picker (``hermes model``, the
+    DISPLAY ONLY. Used by every interactive picker (``kova model``, the
     setup wizard, the Telegram ``/model`` keyboard) so grouping is identical
     across surfaces.
 
@@ -1293,11 +1293,11 @@ def get_default_model_for_provider(provider: str) -> str:
     """Return a cost-safe default model for a provider, or "" if unknown.
 
     Used as a NON-INTERACTIVE fallback when a provider is configured but no
-    model was ever selected (e.g. ``hermes auth add openai-codex`` without
-    ``hermes model``, or a profile that sets ``provider`` with no ``model``).
+    model was ever selected (e.g. ``kova auth add openai-codex`` without
+    ``kova model``, or a profile that sets ``provider`` with no ``model``).
 
     For most providers this is the first entry in ``_PROVIDER_MODELS`` — the
-    same model the ``hermes model`` picker offers first. For metered aggregators
+    same model the ``kova model`` picker offers first. For metered aggregators
     whose curated list is ordered most-capable-first, that entry is also the
     most EXPENSIVE one, so silently defaulting to it is a billing footgun. Such
     providers carry an explicit low-cost override in
@@ -1650,7 +1650,7 @@ def list_available_providers() -> list[dict[str, str]]:
     Checks which providers have valid credentials configured.
 
     Derives the provider list from :data:`CANONICAL_PROVIDERS` (single
-    source of truth shared with ``hermes model``, ``/model``, etc.).
+    source of truth shared with ``kova model``, ``/model``, etc.).
     """
     # Derive display order from canonical list + custom
     provider_order = [p.slug for p in CANONICAL_PROVIDERS] + ["custom"]
@@ -2136,7 +2136,7 @@ def _resolve_copilot_catalog_api_key() -> str:
       2. ``read_credential_pool("copilot")`` — a token (typically a
          ``gho_*`` from device-code login, or a fine-grained PAT) stored in
          ``auth.json`` under ``credential_pool.copilot[]``. The pool is
-         populated by ``hermes auth add copilot`` and by ``_seed_from_env``
+         populated by ``kova auth add copilot`` and by ``_seed_from_env``
          when the env var is set in ``~/.hermes/.env``.
 
     Without (2), users whose only Copilot credential is in the pool see
@@ -2671,7 +2671,7 @@ def clear_provider_models_cache(provider: Optional[str] = None) -> None:
 
     ``provider=None`` wipes everything; otherwise only that provider's
     entry is removed. Used by ``/model --refresh`` and
-    ``hermes model --refresh``.
+    ``kova model --refresh``.
     """
     try:
         if provider is None:

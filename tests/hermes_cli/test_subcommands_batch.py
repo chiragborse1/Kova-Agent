@@ -100,8 +100,8 @@ def test_dashboard_builder_two_handlers():
 # ── deprecated `hermes login` fails gracefully, not with argparse error ────
 #
 # `hermes login` is a removed command; its handler (`login_command` in
-# `hermes_cli/auth.py`) prints a deprecation notice pointing at `hermes auth` /
-# `hermes model` and exits 0.  Two behavior contracts guard the UX:
+# `hermes_cli/auth.py`) prints a deprecation notice pointing at `kova auth` /
+# `kova model` and exits 0.  Two behavior contracts guard the UX:
 #   1. ANY `--provider <value>` (including ones the user actually wants, like
 #      `anthropic`) must parse and reach the handler — never crash in argparse
 #      with `invalid choice` before the friendly redirect is printed (#24756).

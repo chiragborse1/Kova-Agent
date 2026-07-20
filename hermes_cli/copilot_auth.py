@@ -1,4 +1,4 @@
-﻿"""GitHub Copilot authentication utilities.
+"""GitHub Copilot authentication utilities.
 
 Implements the OAuth device code flow used by the Copilot CLI and handles
 token validation/exchange for the Copilot API.

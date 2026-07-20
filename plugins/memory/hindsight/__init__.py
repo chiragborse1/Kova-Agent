@@ -485,7 +485,7 @@ def _utc_timestamp() -> str:
 
 
 def _embedded_profile_name(config: dict[str, Any]) -> str:
-    """Return the Hindsight embedded profile name for this Hermes config."""
+    """Return the Hindsight embedded profile name for this kova config."""
     profile = config.get("profile", "hermes")
     return str(profile or "hermes")
 
@@ -1386,7 +1386,7 @@ class HindsightMemoryProvider(MemoryProvider):
                     "Hindsight local_embedded mode cannot run as root "
                     "(PostgreSQL initdb refuses root). Skipping the embedded "
                     "memory daemon. Run Hermes as a non-root user, or switch "
-                    "to cloud / local_external mode via 'hermes memory setup'."
+                    "to cloud / local_external mode via 'kova memory setup'."
                 )
                 logger.warning(msg)
                 # Surface to the terminal too — a daemon that never starts

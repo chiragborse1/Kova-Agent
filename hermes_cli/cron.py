@@ -91,9 +91,9 @@ def _warn_if_gateway_not_running() -> None:
         return
 
     print(color("  ⚠  Gateway is not running — jobs won't fire automatically.", Colors.YELLOW))
-    print(color("     Start it with: hermes gateway install", Colors.DIM))
-    print(color("                    sudo hermes gateway install --system  # Linux servers", Colors.DIM))
-    print(color("     Check status:  hermes cron status", Colors.DIM))
+    print(color("     Start it with: kova gateway install", Colors.DIM))
+    print(color("                    sudo kova gateway install --system  # Linux servers", Colors.DIM))
+    print(color("     Check status:  kova cron status", Colors.DIM))
 
 
 def cron_list(show_all: bool = False):
@@ -452,5 +452,5 @@ def cron_command(args):
         return _job_action("remove", args.job_id, "Removed")
 
     print(f"Unknown cron command: {subcmd}")
-    print("Usage: hermes cron [list|create|edit|pause|resume|run|remove|status|tick]")
+    print("Usage: kova cron [list|create|edit|pause|resume|run|remove|status|tick]")
     sys.exit(1)

@@ -1,5 +1,5 @@
 """
-HTML Export generator for Hermes sessions.
+HTML Export generator for kova sessions.
 Generates a standalone, beautiful HTML file with all messages embedded.
 Supports single and multi-session exports with a professional sidebar.
 No remote dependencies.

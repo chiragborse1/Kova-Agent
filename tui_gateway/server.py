@@ -1,4 +1,4 @@
-﻿import atexit
+import atexit
 import concurrent.futures
 import contextlib
 import contextvars
@@ -4510,7 +4510,7 @@ def _make_agent(
                 logger.warning(
                     "Unknown skill(s) requested, skipping: %s. "
                     "Continuing with: %s. "
-                    "List available skills with `hermes skills list`.",
+                    "List available skills with `kova skills list`.",
                     missing_display,
                     ", ".join(loaded_skills),
                 )
@@ -6326,7 +6326,7 @@ def _(rid, params: dict) -> dict:
 
     Desktop parity with the CLI ``/handoff`` command: we only write
     ``handoff_state='pending'`` onto the persisted session row. The actual
-    transfer is performed by the separate ``hermes gateway`` process, whose
+    transfer is performed by the separate ``kova gateway`` process, whose
     ``_handoff_watcher`` claims the row, re-binds the session to the platform's
     home channel, and forges a synthetic turn. The desktop then polls
     ``handoff.state`` for the terminal result.
@@ -10911,7 +10911,7 @@ def _discover_repos_payload(db, *, conn=None, backfill: bool = True) -> list[dic
     """Merge filesystem-scanned repos (cached) with session-derived repo roots.
 
     Repo-first: the disk scan (persisted by `projects.record_repos`) surfaces
-    repos even with zero hermes sessions. Session-derived roots cover repos
+    repos even with zero kova sessions. Session-derived roots cover repos
     outside the scan roots. Both are junk-filtered (hermes home subtree + bare
     home) and carry their session totals for the overview.
 
@@ -11724,13 +11724,13 @@ def _cli_exec_blocked(argv: list[str]) -> str | None:
         return "bare `hermes` is interactive — use `/hermes chat -q …` or run `hermes` in another terminal"
     a0 = argv[0].lower()
     if a0 == "setup":
-        return "`hermes setup` needs a full terminal — run it outside the TUI"
+        return "`kova setup` needs a full terminal — run it outside the TUI"
     if a0 == "gateway":
-        return "`hermes gateway` is long-running — run it in another terminal"
+        return "`kova gateway` is long-running — run it in another terminal"
     if a0 == "sessions" and len(argv) > 1 and argv[1].lower() == "browse":
-        return "`hermes sessions browse` is interactive — use /resume here, or run browse in another terminal"
+        return "`kova sessions browse` is interactive — use /resume here, or run browse in another terminal"
     if a0 == "config" and len(argv) > 1 and argv[1].lower() == "edit":
-        return "`hermes config edit` needs $EDITOR in a real terminal"
+        return "`kova config edit` needs $EDITOR in a real terminal"
     return None
 
 
@@ -12853,7 +12853,7 @@ def _(rid, params: dict) -> dict:
                 rid,
                 4003,
                 f"{pconfig.name} uses {pconfig.auth_type} auth — "
-                f"run `hermes model` to configure",
+                f"run `kova model` to configure",
             )
         if not pconfig.api_key_env_vars:
             return _err(rid, 4004, f"no env var defined for {pconfig.name}")
@@ -14201,7 +14201,7 @@ def _(rid, params: dict) -> dict:
     """List installed plugins with activation state, or toggle one on/off.
 
     Backs the TUI Plugins Hub. Uses the same disk-discovery + enable/disable
-    primitives as ``hermes plugins`` / the dashboard, so the three surfaces
+    primitives as ``kova plugins`` / the dashboard, so the three surfaces
     agree on what's installed and what's enabled.
 
     Actions:

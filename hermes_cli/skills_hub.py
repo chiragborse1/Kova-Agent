@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Skills Hub CLI — Unified interface for the Hermes Skills Hub.
+Skills Hub CLI — Unified interface for the kova Skills Hub.
 
 Powers both:
-  - `hermes skills <subcommand>` (CLI argparse entry point)
+  - `kova skills <subcommand>` (CLI argparse entry point)
   - `/skills <subcommand>` (slash command in the interactive chat)
 
 All logic lives in shared do_* functions. The CLI entry point and slash command
@@ -323,8 +323,8 @@ def do_search(query: str, source: str = "all", limit: int = 10,
         )
 
     c.print(table)
-    c.print("[dim]Use: hermes skills inspect <identifier> to preview, "
-            "hermes skills install <identifier> to install "
+    c.print("[dim]Use: kova skills inspect <identifier> to preview, "
+            "kova skills install <identifier> to install "
             "(--json for scripting)[/]\n")
 
 
@@ -494,9 +494,9 @@ def do_browse(page: int = 1, page_size: int = 20, source: str = "all",
         c.print(f"  [yellow]⚡ Slow sources skipped: {', '.join(timed_out)} "
                 f"— run again for cached results[/]")
 
-    c.print("[dim]Tip: 'hermes skills inspect <identifier>' to preview, "
-            "'hermes skills install <identifier>' to install, "
-            "'hermes skills search <query>' to search deeper[/]\n")
+    c.print("[dim]Tip: 'kova skills inspect <identifier>' to preview, "
+            "'kova skills install <identifier>' to install, "
+            "'kova skills search <query>' to search deeper[/]\n")
 
 
 def do_install(identifier: str, category: str = "", force: bool = False,
@@ -581,7 +581,7 @@ def do_install(identifier: str, category: str = "", force: bool = False,
                 "and the URL path doesn't produce a valid identifier.[/]\n\n"
                 "Retry with an explicit name:\n"
                 f"  [bold]/skills install {url} --name <your-name>[/]\n"
-                f"  [bold]hermes skills install {url} --name <your-name>[/]\n\n"
+                f"  [bold]kova skills install {url} --name <your-name>[/]\n\n"
                 "[dim]Or ask the SKILL.md's author to add a `name:` field to "
                 "its YAML frontmatter.[/]\n"
             )
@@ -751,7 +751,7 @@ def do_install(identifier: str, category: str = "", force: bool = False,
                 )
                 c.print(
                     "[dim]You can still schedule it any time by asking the agent "
-                    "or via[/] [bold]hermes cron add[/][dim].[/]\n"
+                    "or via[/] [bold]kova cron add[/][dim].[/]\n"
                 )
     except Exception:  # pragma: no cover - blueprint detection is best-effort
         pass
@@ -813,7 +813,7 @@ def do_inspect(identifier: str, console: Optional[Console] = None) -> None:
         preview = "\n".join(lines[:50])
         if len(lines) > 50:
             preview += f"\n\n... ({len(lines) - 50} more lines)"
-        c.print(Panel(preview, title="SKILL.md Preview", subtitle="hermes skills install <id> to install"))
+        c.print(Panel(preview, title="SKILL.md Preview", subtitle="kova skills install <id> to install"))
 
     c.print()
 
@@ -1175,7 +1175,7 @@ def do_reset(name: str, restore: bool = False,
 
 def do_list_modified(console: Optional[Console] = None,
                      as_json: bool = False) -> None:
-    """List bundled skills the user has edited (which `hermes update` keeps)."""
+    """List bundled skills the user has edited (which `kova update` keeps)."""
     from tools.skills_sync import list_user_modified_bundled_skills
 
     c = console or _console
@@ -1192,13 +1192,13 @@ def do_list_modified(console: Optional[Console] = None,
         return
 
     c.print(f"\n[bold]{len(modified)} user-modified bundled skill(s)[/] "
-            "[dim](kept as-is by `hermes update`):[/]")
+            "[dim](kept as-is by `kova update`):[/]")
     for entry in modified:
         c.print(f"  [yellow]~[/] {entry['name']}")
     c.print()
-    c.print("[dim]See changes:   hermes skills diff <name>[/]")
-    c.print("[dim]Resume updates: hermes skills reset <name>          (keep your copy, re-baseline)[/]")
-    c.print("[dim]Revert to stock: hermes skills reset <name> --restore[/]\n")
+    c.print("[dim]See changes:   kova skills diff <name>[/]")
+    c.print("[dim]Resume updates: kova skills reset <name>          (keep your copy, re-baseline)[/]")
+    c.print("[dim]Revert to stock: kova skills reset <name> --restore[/]\n")
 
 
 def do_diff(name: str, console: Optional[Console] = None) -> None:
@@ -1237,7 +1237,7 @@ def do_diff(name: str, console: Optional[Console] = None) -> None:
         else:  # binary
             c.print(f"[yellow]~ {entry['path']}:[/] binary file differs")
     c.print()
-    c.print(f"[dim]Revert with: hermes skills reset {name} --restore[/]\n")
+    c.print(f"[dim]Revert with: kova skills reset {name} --restore[/]\n")
 
 
 def do_opt_out(remove: bool = False,
@@ -1316,7 +1316,7 @@ def do_opt_in(sync: bool = False,
     """Remove the opt-out marker so bundled-skill seeding resumes.
 
     With ``sync``, immediately re-seed bundled skills instead of waiting for
-    the next ``hermes update``.
+    the next ``kova update``.
     """
     from tools.skills_sync import set_bundled_skills_opt_out, sync_skills
 
@@ -1406,7 +1406,7 @@ def do_tap(action: str, repo: str = "", console: Optional[Console] = None) -> No
 
     elif action == "add":
         if not repo:
-            c.print("[bold red]Error:[/] Repo required. Usage: hermes skills tap add owner/repo\n")
+            c.print("[bold red]Error:[/] Repo required. Usage: kova skills tap add owner/repo\n")
             return
         if mgr.add(repo):
             c.print(f"[bold green]Added tap:[/] {repo}\n")
@@ -1415,7 +1415,7 @@ def do_tap(action: str, repo: str = "", console: Optional[Console] = None) -> No
 
     elif action == "remove":
         if not repo:
-            c.print("[bold red]Error:[/] Repo required. Usage: hermes skills tap remove owner/repo\n")
+            c.print("[bold red]Error:[/] Repo required. Usage: kova skills tap remove owner/repo\n")
             return
         if mgr.remove(repo):
             c.print(f"[bold green]Removed tap:[/] {repo}\n")
@@ -1472,7 +1472,7 @@ def do_publish(skill_path: str, target: str = "github", repo: str = "",
     if target == "github":
         if not repo:
             c.print("[bold red]Error:[/] --repo required for GitHub publish.\n"
-                    "Usage: hermes skills publish <path> --to github --repo owner/repo\n")
+                    "Usage: kova skills publish <path> --to github --repo owner/repo\n")
             return
 
         auth = GitHubAuth()
@@ -1577,8 +1577,8 @@ def _github_publish(skill_path: Path, skill_name: str, target_repo: str,
             headers=headers, timeout=15,
             json={
                 "title": f"Add skill: {skill_name}",
-                "body": f"Submitting the `{skill_name}` skill via Hermes Skills Hub.\n\n"
-                        f"This skill was scanned by the Hermes Skills Guard before submission.",
+                "body": f"Submitting the `{skill_name}` skill via kova Skills Hub.\n\n"
+                        f"This skill was scanned by the kova Skills Guard before submission.",
                 "head": f"{fork_repo.split('/')[0]}:{branch_name}",
                 "base": default_branch,
             },
@@ -1684,7 +1684,7 @@ def do_snapshot_import(input_path: str, force: bool = False,
 # ---------------------------------------------------------------------------
 
 def skills_command(args) -> None:
-    """Router for `hermes skills <subcommand>` — called from hermes_cli/main.py."""
+    """Router for `kova skills <subcommand>` — called from hermes_cli/main.py."""
     action = getattr(args, "skills_action", None)
 
     if action == "browse":
@@ -1740,17 +1740,17 @@ def skills_command(args) -> None:
         elif snap_action == "import":
             do_snapshot_import(args.input, force=getattr(args, "force", False))
         else:
-            _console.print("Usage: hermes skills snapshot [export|import]\n")
+            _console.print("Usage: kova skills snapshot [export|import]\n")
     elif action == "tap":
         tap_action = getattr(args, "tap_action", None)
         repo = getattr(args, "repo", "") or getattr(args, "name", "")
         if not tap_action:
-            _console.print("Usage: hermes skills tap [list|add|remove]\n")
+            _console.print("Usage: kova skills tap [list|add|remove]\n")
             return
         do_tap(tap_action, repo=repo)
     else:
-        _console.print("Usage: hermes skills [browse|search|install|inspect|list|list-modified|diff|check|update|audit|uninstall|reset|opt-out|opt-in|publish|snapshot|tap]\n")
-        _console.print("Run 'hermes skills <command> --help' for details.\n")
+        _console.print("Usage: kova skills [browse|search|install|inspect|list|list-modified|diff|check|update|audit|uninstall|reset|opt-out|opt-in|publish|snapshot|tap]\n")
+        _console.print("Run 'kova skills <command> --help' for details.\n")
 
 
 # ---------------------------------------------------------------------------

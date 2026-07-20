@@ -3105,7 +3105,7 @@ def _resolve_delegation_credentials(cfg: dict, parent_agent) -> dict:
     if not api_key:
         raise ValueError(
             f"Delegation provider '{configured_provider}' resolved but has no API key. "
-            f"Set the appropriate environment variable or run 'hermes auth'."
+            f"Set the appropriate environment variable or run 'kova auth'."
         )
 
     return {
@@ -3120,7 +3120,7 @@ def _resolve_delegation_credentials(cfg: dict, parent_agent) -> dict:
 
 
 def _load_config() -> dict:
-    """Load delegation config from the active Hermes config.
+    """Load delegation config from the active kova config.
 
     Prefer the shared persistent loader because it follows the active
     HERMES_HOME/profile. ``cli.CLI_CONFIG`` is a legacy fallback for entry

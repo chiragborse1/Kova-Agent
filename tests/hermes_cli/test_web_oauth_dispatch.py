@@ -149,7 +149,7 @@ def test_oauth_provider_status_uses_profile_query(tmp_path, monkeypatch):
         "id": "fake-oauth",
         "name": "Fake OAuth",
         "flow": "pkce",
-        "cli_command": "hermes auth add fake-oauth",
+        "cli_command": "kova auth add fake-oauth",
         "docs_url": "https://example.com",
         "status_fn": fake_status,
     },)
@@ -384,7 +384,7 @@ def test_codex_dashboard_start_rewords_device_authorization_error(monkeypatch):
         assert "OpenAI rejected the device-code login request" in detail
         assert "Enable device-code authorization in OpenAI" in detail
         assert "click Login again" in detail
-        assert "hermes auth" not in detail
+        assert "kova auth" not in detail
     finally:
         for sid in set(ws._oauth_sessions) - before_sessions:
             ws._oauth_sessions.pop(sid, None)
@@ -522,7 +522,7 @@ def test_xai_oauth_listed_as_device_code_flow():
 
 def test_accounts_offers_every_oauth_provider_from_catalog():
     """PARITY CONTRACT: every accounts-tab provider in the unified catalog (the
-    `hermes model` universe) must be offered by /api/providers/oauth. This keeps
+    `kova model` universe) must be offered by /api/providers/oauth. This keeps
     the desktop Accounts tab in lockstep with the CLI picker — no provider the
     CLI can sign into may be missing from the GUI.
     """
@@ -534,7 +534,7 @@ def test_accounts_offers_every_oauth_provider_from_catalog():
     for d in provider_catalog():
         if d.tab == "accounts":
             assert d.slug in offered, (
-                f"{d.slug} is an accounts-tab provider in `hermes model` but is "
+                f"{d.slug} is an accounts-tab provider in `kova model` but is "
                 f"missing from the desktop Accounts tab (/api/providers/oauth)"
             )
 
@@ -654,7 +654,7 @@ def test_xai_dashboard_poller_seeds_single_entry_and_clears_suppression(tmp_path
     singleton only; the seed is the single source of truth.
 
     Suppression: an interactive dashboard login must also clear any
-    ``device_code`` suppression left by a prior ``hermes auth remove
+    ``device_code`` suppression left by a prior ``kova auth remove
     xai-oauth``.
     """
     from hermes_cli import auth as auth_mod
@@ -665,7 +665,7 @@ def test_xai_dashboard_poller_seeds_single_entry_and_clears_suppression(tmp_path
     monkeypatch.delenv("HERMES_XAI_BASE_URL", raising=False)
     monkeypatch.delenv("XAI_BASE_URL", raising=False)
 
-    # Prior `hermes auth remove xai-oauth` left the source suppressed.
+    # Prior `kova auth remove xai-oauth` left the source suppressed.
     auth_mod.suppress_credential_source("xai-oauth", "device_code")
     assert auth_mod.is_source_suppressed("xai-oauth", "device_code") is True
 
@@ -738,7 +738,7 @@ def test_unknown_pkce_provider_rejected_cleanly():
         "id": "hypothetical-pkce-provider",
         "name": "Hypothetical PKCE Provider",
         "flow": "pkce",
-        "cli_command": "hermes auth add hypothetical-pkce-provider",
+        "cli_command": "kova auth add hypothetical-pkce-provider",
         "docs_url": "https://example.com",
         "status_fn": None,
     }

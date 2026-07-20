@@ -175,7 +175,7 @@ def _resolve_cron_enabled_toolsets(job: dict, cfg: dict) -> list[str] | None:
        Keeps the agent's job-scoped toolset override intact — #6130. Enabled
        MCP servers are layered on per ``_merge_mcp_into_per_job_toolsets`` so a
        native-toolset allowlist does not silently strip MCP tools.
-    2. Per-platform ``hermes tools`` config for the ``cron`` platform.
+    2. Per-platform ``kova tools`` config for the ``cron`` platform.
        Mirrors gateway behavior (``_get_platform_tools(cfg, platform_key)``)
        so users can gate cron toolsets globally without recreating every job.
     3. ``None`` on any lookup failure — AIAgent loads the full default set
@@ -507,7 +507,7 @@ def _interpreter_shutting_down(exc: Optional[BaseException] = None) -> bool:
     """True when the Python interpreter is finalizing.
 
     A cron tick can fire while the gateway is tearing down — SIGTERM from
-    ``hermes update`` / ``hermes gateway stop`` / systemd restart, or an
+    ``kova update`` / ``kova gateway stop`` / systemd restart, or an
     OOM-kill. Once finalization starts, ``concurrent.futures`` refuses new
     work with ``RuntimeError: cannot schedule new futures after interpreter
     shutdown`` and asyncio's default executor is gone, so *any* attempt to

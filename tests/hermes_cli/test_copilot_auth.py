@@ -1,4 +1,4 @@
-﻿"""Tests for hermes_cli.copilot_auth — Copilot token validation and resolution."""
+"""Tests for hermes_cli.copilot_auth — Copilot token validation and resolution."""
 
 import pytest
 from unittest.mock import patch

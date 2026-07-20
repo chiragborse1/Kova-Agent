@@ -169,7 +169,7 @@ def build_dashboard_parser(
             "Register this install as a self-hosted dashboard with your Nous "
             "Portal account. Creates an OAuth client, writes "
             "HERMES_DASHBOARD_OAUTH_CLIENT_ID into ~/.hermes/.env, and prints "
-            "how to engage the login gate. Requires being logged in (hermes setup)."
+            "how to engage the login gate. Requires being logged in (kova setup)."
         ),
     )
     dashboard_register_parser.add_argument(

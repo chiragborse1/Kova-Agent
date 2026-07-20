@@ -1,4 +1,4 @@
-﻿"""Telegram Managed Bot onboarding client.
+"""Telegram Managed Bot onboarding client.
 
 Uses Telegram's Managed Bots feature to create a user-owned child bot without
 manual BotFather token copy-paste. Hermes talks only to the Nous onboarding

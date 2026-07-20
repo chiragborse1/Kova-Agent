@@ -614,7 +614,7 @@ _hermes_config_resolved_loaded = False
 
 
 def _get_hermes_config_resolved() -> str | None:
-    """Return the resolved absolute path of the Hermes config file (cached)."""
+    """Return the resolved absolute path of the kova config file (cached)."""
     global _hermes_config_resolved, _hermes_config_resolved_loaded
     if _hermes_config_resolved_loaded:
         return _hermes_config_resolved
@@ -655,7 +655,7 @@ def _check_sensitive_path(filepath: str, task_id: str = "default") -> str | None
         return (
             f"Refusing to write to Kova config file: {filepath}\n"
             "Agent cannot modify security-sensitive configuration. "
-            "Edit ~/.hermes/config.yaml directly or use 'hermes config' instead."
+            "Edit ~/.hermes/config.yaml directly or use 'kova config' instead."
         )
     return None
 
