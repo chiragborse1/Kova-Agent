@@ -1602,3 +1602,71 @@ class TestClaimDispatch:
         due = get_due_jobs()
         assert due == []
         assert load_jobs() == []  # cleaned up
+
+
+# =========================================================================
+# UTF-8 BOM on jobs.json (Windows Notepad / PowerShell 5.1)
+# =========================================================================
+
+class TestJobsJsonUtf8Bom:
+    """jobs.json readers must accept a leading UTF-8 BOM.
+
+    Matching the env-class dialect (utf-8-sig): a BOM from Windows editors
+    must not raise JSONDecodeError / RuntimeError on load_jobs().
+    """
+
+    def test_load_jobs_accepts_utf8_bom(self, tmp_cron_dir):
+        """BOM'd jobs.json loads — the pre-fix crash repro."""
+        import json
+        from cron.jobs import JOBS_FILE, load_jobs
+
+        payload = {
+            "jobs": [
+                {
+                    "id": "bomjob01",
+                    "name": "bom-test",
+                    "enabled": True,
+                    "prompt": "hello",
+                    "schedule": {"kind": "interval", "minutes": 60, "display": "every 60m"},
+                }
+            ]
+        }
+        JOBS_FILE.parent.mkdir(parents=True, exist_ok=True)
+        JOBS_FILE.write_bytes(
+            b"\xef\xbb\xbf" + json.dumps(payload).encode("utf-8")
+        )
+
+        loaded = load_jobs()
+        assert [j["id"] for j in loaded] == ["bomjob01"]
+        assert loaded[0]["name"] == "bom-test"
+
+    def test_load_jobs_bomless_regression(self, tmp_cron_dir):
+        """BOM-less UTF-8 jobs.json must keep loading after utf-8-sig."""
+        import json
+        from cron.jobs import JOBS_FILE, load_jobs
+
+        payload = {
+            "jobs": [
+                {
+                    "id": "plainjob01",
+                    "name": "plain",
+                    "enabled": True,
+                    "prompt": "hi",
+                    "schedule": {"kind": "interval", "minutes": 30, "display": "every 30m"},
+                }
+            ]
+        }
+        JOBS_FILE.parent.mkdir(parents=True, exist_ok=True)
+        JOBS_FILE.write_text(json.dumps(payload), encoding="utf-8")
+
+        loaded = load_jobs()
+        assert [j["id"] for j in loaded] == ["plainjob01"]
+
+    def test_load_jobs_bom_empty_jobs_list(self, tmp_cron_dir):
+        """Minimal BOM'd store ({"jobs": []}) must not raise."""
+        from cron.jobs import JOBS_FILE, load_jobs
+
+        JOBS_FILE.parent.mkdir(parents=True, exist_ok=True)
+        JOBS_FILE.write_bytes(b'\xef\xbb\xbf{"jobs": []}')
+
+        assert load_jobs() == []
