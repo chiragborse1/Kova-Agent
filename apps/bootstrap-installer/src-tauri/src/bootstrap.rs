@@ -12,7 +12,7 @@
 //!   4. Worker iterates stages, calling `install.ps1 -Stage NAME -NonInteractive -Json`.
 //!   5. On success → `complete`. On any stage failure → `failed`. On cancel → `failed`.
 
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::sync::Arc;
 use std::time::Instant;
 
@@ -656,6 +656,46 @@ async fn run_bootstrap(
         ));
     }
 
+    // Write the bootstrap-complete marker so the Electron desktop app
+    // (resolveHermesBackend → isBootstrapComplete) recognises this install
+    // as valid and skips re-running bootstrap. The marker schema matches
+    // main.ts:writeBootstrapMarker — schemaVersion 1, pinned commit/branch,
+    // completedAt timestamp. Without this file the desktop always falls
+    // through to bootstrap-needed, triggering a handOffWindowsBootstrapRecovery
+    // loop.
+    //
+    // isBootstrapComplete() requires pinnedCommit to be a string >= 7 chars.
+    // When no build-time pin or runtime commit override was provided, resolve
+    // HEAD from the freshly-cloned install_root git repo.
+    let commit_for_marker = pin.commit.clone().or_else(|| {
+        resolve_head_commit(&install_root)
+    });
+    let marker_path = install_root.join(".hermes-bootstrap-complete");
+    let marker = serde_json::json!({
+        "schemaVersion": 1,
+        "pinnedCommit": commit_for_marker,
+        "pinnedBranch": pin.branch,
+        "completedAt": system_time_iso8601(),
+    });
+    if let Some(parent) = marker_path.parent() {
+        let _ = std::fs::create_dir_all(parent);
+    }
+    match std::fs::write(&marker_path, serde_json::to_string_pretty(&marker).unwrap_or_default()) {
+        Ok(()) => {
+            tracing::info!(?marker_path, "wrote bootstrap-complete marker");
+            emit_log(&format!(
+                "[bootstrap] wrote bootstrap-complete marker at {}",
+                marker_path.display()
+            ));
+        }
+        Err(err) => {
+            tracing::warn!(?marker_path, %err, "failed to write bootstrap-complete marker (non-fatal)");
+            emit_log(&format!(
+                "[bootstrap] warning: could not write bootstrap-complete marker: {err}"
+            ));
+        }
+    }
+
     emit_event(
         &app,
         BootstrapEvent::Complete {
@@ -818,10 +858,66 @@ fn truncate(s: &str, max: usize) -> String {
     }
 }
 
+/// Format the current wall-clock time as an ISO 8601 string (UTC).
+/// Used to populate the `completedAt` field of the bootstrap-complete marker
+/// so the Electron desktop's readBootstrapMarker() gets a valid timestamp.
+fn system_time_iso8601() -> String {
+    let now = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap_or_default()
+        .as_secs();
+    // Manual formatting avoids pulling in chrono for one call site.
+    // ISO 8601 with Z suffix: 2024-01-15T12:34:56Z
+    let days = now / 86400;
+    let time = now % 86400;
+    let h = time / 3600;
+    let m = (time % 3600) / 60;
+    let s = time % 60;
+
+    // Days since epoch → year/month/day (algorithm from Howard Hinnant).
+    let z = days + 719468;
+    let era = z.div_euclid(146097);
+    let doe = (z - era * 146097) as u64;
+    let yoe = (doe - doe / 1460 + doe / 36524 - doe / 146096) / 365;
+    let y = yoe as i64 + era as i64 * 400;
+    let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    let mp = (5 * doy + 2) / 153;
+    let d = doy - (153 * mp + 2) / 5 + 1;
+    let m_idx = if mp < 10 { mp + 3 } else { mp - 9 };
+    let y_final = if m_idx <= 2 { y + 1 } else { y };
+
+    format!(
+        "{:04}-{:02}-{:02}T{:02}:{:02}:{:02}Z",
+        y_final, m_idx, d, h, m, s
+    )
+}
+
+/// Resolve HEAD commit from a git repo at the given root.
+/// Returns the abbreviated (>= 7 char) SHA or None if git isn't available
+/// or the directory isn't a git repo. Used to populate the bootstrap-complete
+/// marker when no build-time pin was provided.
+fn resolve_head_commit(root: &Path) -> Option<String> {
+    let output = std::process::Command::new("git")
+        .args(["rev-parse", "--verify", "HEAD"])
+        .current_dir(root)
+        .output()
+        .ok()?;
+    if !output.status.success() {
+        return None;
+    }
+    let sha = String::from_utf8_lossy(&output.stdout).trim().to_string();
+    // isBootstrapComplete() requires >= 7 chars.
+    if sha.len() >= 7 {
+        Some(sha)
+    } else {
+        None
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::path::PathBuf;
+use std::path::{Path, PathBuf};
     use std::path::Path;
 
     fn unique_tmp_dir(tag: &str) -> PathBuf {

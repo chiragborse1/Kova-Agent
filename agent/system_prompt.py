@@ -45,6 +45,7 @@ from agent.prompt_builder import (
     drain_truncation_warnings,
 )
 from agent.runtime_cwd import resolve_context_cwd
+from hermes_constants import get_hermes_home
 from utils import is_truthy_value
 
 
